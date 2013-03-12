@@ -38,7 +38,7 @@ Modular and composable pieces possess the following vices
 
 In a scientific context modular design encourages growth and reuse at the cost of tight integration between domains.  Historically scientific computing was a practice of a few highly trained numerical analysts who pushed maximum performance out of specialized hardware.  In this context modular design inhibits high level information from influencing low-level design decisions, substantially limiting performance.  High performance remains a priority today but the problems and hardware have both grown in complexity and the distribution of skills of scientific programmers has broadened substantialy.  As the problem size exceeds the capacity of individual researchers the benefits of modular design begin to outweigh the performance drawbacks.
 
-*Trends towards multidisciplinary solutions and heterogeneous architecture motivate the increased use of modularity and composability in scientific software.  Substantial unclaimed efficiencies exist in both programmer and execution time across a wide range of problem scales.*
+*Increasing complexity in scientific computing motivates the increased use of modularity and composability in scientific software.  Substantial unclaimed efficiencies exist in both programmer and execution time across a wide range of problem scales.*
 
 The Existing Scientific Software Stack
 --------------------------------------
@@ -53,16 +53,27 @@ High performance libraries like BLAS/LAPACK and PETSc provide a set of performan
 
 Well established and dependable interfaces like BLAS/LAPACK are valuable.  Confidence in the interface promotes synergistic development on both sides.  The original implementation has been modified and even completely reimplemented by several groups using a variety of disparate techniques (hand-tuning, automated-tuning, distributed computation).  Users of the interface can pick and choose their implementation and be relatively secure that they will be well supported into the future.  As new hardware comes online (e.g. GPGPU) that hardware community rapidly develops a BLAS/LAPACK implementation (cuBLAS/CULA/MAGMA) so their hardware is immediately relevant to existing scientific problems.
 
-Libraries like BLAS/LAPACK form an excellent high-level interface to low-level computational hardware.  However libraries generally only target the lowest level of the stack of computational abstractions.  Some domains in scientific computing are purely high-level.  Compiled libraries are not appropriate for these situations.
+Libraries like BLAS/LAPACK form an excellent high-level interface to low-level computational hardware.  
 
-### Domain Specific Languages 
+Libraries have two important limitations.  First, they are statically compiled and all intelligence must be applied at runtime.  Second, libraries generally only target the lowest level of the stack of computational abstractions.  Some domains in scientific computing are purely high-level.  Compiled libraries are not appropriate for these situations.
+
+### Languages and Compilers
+
+Programming languages enable the precise definition of a computational problem.  The structure of the language determine the scope of easily describable problems.  Compilers transform examples of one language into another.  Along the way they may inspect the code and apply known simplifications.  For example `C` is a common language for low-level computation and explicit memory management.  `gcc` transforms `C` into machine code for a particular machine.  Along the way it performs optimizations like constant folding, common subexpression manipulation, etc....
+
+This notion of languages and compilers extends beyond common compilers like `gcc`.  For example `f2c` transforms Fortran programs into C programs, and ADOL-C transforms C programs into other C programs which now additionally compute derivatives.
+
+This thesis approaches the modular scientific computing problem through sets of languages and compilers.  
+
+
+### Traditional Domain Specific Languages
 
 *Example: FEniCS*
 
-Domain Specific Languages traditionally form very high level interfaces appropriate for scientific users.  They are often associated to compilers that encode knowledge from the domain and transform the high-level input to some lower-level language.  For example projects like FEniCS transform a very high level description of partial differential equations (PDEs) into performant low-level C++ code suitable for execution on distributed hardware. This approach has the following benefits
+Domain Specific Languages traditionally form very high level interfaces appropriate for scientific users.  They are often associated to compilers that encode knowledge from the domain and transform the high-level input to a low-level language.  For example projects like FEniCS transform a very high level description of partial differential equations (PDEs) into performant low-level C++ code suitable for execution on distributed hardware. This approach has the following benefits
 
 *   Domain specific simplification may be encoded into the compiler
-*   Domain specific languages may be specialized to the target audience, increasing accessibility to communities unfamiliar with performant general purpose languages.
+*   The input language may be specialized to the target audience, increasing accessibility to communities unfamiliar with performant general purpose languages.
 *   DSLs are traditionally more complete end-to-end packages
 
 In the context of this thesis traditional DSLs exhibit the following design flaws.  
@@ -78,7 +89,7 @@ This combination limits the long term utility of traditional DSLs.  Explicit dep
 
 *Example: Matrix Algebra*
 
-While libraries traditionally target low-level architecture and DSLs traditionally source from high-level descriptions there is little development of isolated packages that strictly operate as intermediaries.  Yet many broadly applicable domains of expertise lie below domain science and above hardware.  
+While libraries traditionally target low-level architecture and DSLs traditionally source from high-level descriptions there is little development of isolated packages that strictly operate as intermediaries.  Yet many broadly applicable domains of expertise lie below domain science and above computational hardware.  
 
 For example symbolic matrix algebra is a mathematical domain used by *several* high-level scientific domains and is influential in many different computational methods.  Matrix algebra has a clean theory amenable to a automation yet is reimplmeneted by a substantial fraction of scientific packages.
 
@@ -89,9 +100,10 @@ Include scicomp.stackexchange example?
 
 *Example: Automatic Differentiation*
 
-The top-down view of a sequence of transformations from high to low level is incomplete.  Domains like statistical uncertainty, differentiation, and distributed computing all provide transformations that start and end within the intermediate representation. 
+The top-down view of a sequence of transformations from high to low level is incomplete.  Domains like statistical uncertainty, differentiation, and distributed computing all provide transformations that start and end within the same intermediate representation. 
 
-Automatic differentiation (AD) has found tremendous use in the computational community specifically due to its composability.  Source to source AD compilers operate on mature codes that were not written with AD in mind.  It allows research scientists to reuse previously developed work to develop novel solutions to important problems today.
+Automatic differentiation (AD) has found tremendous use in the computational community specifically due to its composability.  Source to source AD compilers operate on mature codes that were not written with AD in mind.  It allows research scientists to reuse previously developed code to develop novel solutions to important problems today.
+
 
 ### Short and Wide Domain Specific Languages
 
