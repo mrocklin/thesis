@@ -12,7 +12,14 @@ The rise of multidisciplinary science and heterogeneous hardware compounds this 
 Modularity
 ----------
 
-Software design principles advocate modular and composable design.
+When we consider the entire scientific software ecosystem as a single endeavor from the perspective of software design we make the following observations
+
+*   It contains incredible solutions to hard subproblems
+*   It contains numerous medicore solutions to those same subproblems
+*   Both good and bad solutions to different subproblems are woven into common codebases
+*   A few common patterns recur very often
+
+Software design principles advocate that such a project be refactored so that it is modular and composable.  Ideally this allows high quality solutions to migrate more freely and interoperate in a broader range of applications.
 
 Modularity encourages the separation of code into multiple distinct pieces.  Ideally these pieces are *atomic*, meaning that they are split as finely as meaningfully possible, each encoding exactly one area of expertise.  Composability encourages the development of standard interfaces to enable the independent connection of these pieces to form larger programs.
 
