@@ -1,6 +1,4 @@
 
-# TODO: Purely positive tone
-
 Scientific Software 
 -------------------
 
@@ -100,65 +98,3 @@ Long and narrow projects are *brittle*.  They are unlikely to adapt to external 
 
 *   Simple v. Complex - 
 *   Common v. Custom - 
-
-Demographics
-------------
-
-*Example: Meteorologists*
-
-Researchers that are both experts in a scientific domain and capable of building domain specific languages and compilers are rare.
-
-Case Study
-----------
-
-Science uses computation (third column)
-Scientists custom build software
-Lack of incentive/training -> low reuse and generality
-This is true across skill levels (gordon bell to data analysis scripts)
-Multidisciplinary+heterogeneity -> scientists spend less time doing science, more time learning foreign skills.  Monolithic code design does not scale well to multiple domains.
-Society loses valuable hours from highly trained citizens
-
-Software design encourages modularity and composability
-Expertise sharing
-    For performance/clarity in single piece
-    For broad reuse
-    For collaboration on single problem
-    For new growth (going farther, experimentation->evolution)
-Libraries, DSLs
-
-Demographics are important
-Highly skilled in their domain, but rarely trained as programmers.  Need to provide algorithmic help/infrastructure.
-Need a system that produces correct behavior under present incentive structure.
-Declarative programming - what vs how
-Support popular and high performance languages
-
-
-
-
-The scientific software ecosystem is ripe for refactoring.
-
-*   Repeated code
-*   Refactoring leads to new growth
-*   Demographics are important
-    *   Highly specialized and important expertise
-
-
-Research scientists increasingly spend their time writing and running scientific software.  This may range from small data analysis scripts to large distributed multiphysics simulations.  
-
-Research scientists increasingly rely on computation to gain insight in their domain.  The novelty of their work often requires that they encode their problem in custom built software.  This may be a time consuming task, particularly among domains without a strong tradition of software engineering.  Frequently this work is not easily transferable to other researchers in related domains.  This may be occur either from poor software design, a lack of systems administration, or a lack of incentive to generalize or publish.
-
-Recent trends compound this problem further.  Increased pressure towards multidisciplinary work and the growth of parallel and many-core architectures demand an increasingly broad set of skills from the scientific programmer.  As a result domain scientists spend significant time learning foreign fields and technologies rather than exercising their unique expertise.  This is inefficient both from the perspective of the researcher spending time on frustrating tasks and from the perspective of soceity whose highly trained experts work on their area of expertise only a fraction of the possible time.
-
-At the same time research scientists often produce very performant code.
-
-Case Study - Numerical Weather Prediction
------------------------------------------
-
-Wait, this isn't about reuse, it's about modification.
-
-Case Study - MapReduce
-----------------------
-
-Specialized non-domain specific interface.  Less powerful than MPI but much more widely used.  Composable within Java ecosystem.  
-
-However several reimplementions exist with different backends.  Each copies part of the project (task manager) with different backends.  Different backend implementations are likely unavoidable, different task management solutions are not.
