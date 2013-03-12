@@ -21,20 +21,19 @@ When we consider the entire scientific software ecosystem as a single endeavor f
 
 Software design principles advocate that such a project be refactored so that it is modular and composable.  Ideally this allows high quality solutions to migrate more freely and interoperate in a broader range of applications.
 
-Modularity encourages the separation of code into multiple distinct pieces.  Ideally these pieces are *atomic*, meaning that they are split as finely as meaningfully possible, each encoding exactly one area of expertise.  Composability encourages the development of standard interfaces to enable the independent connection of these pieces to form larger programs.
+Modularity encourages the separation of code into multiple distinct pieces.  Ideally these pieces are split as finely as meaningfully possible so that each encodes exactly one area of expertise.  Composability encourages the development of standard interfaces to enable the independent connection of these pieces to form larger programs.
 
 Modular and composable software possess the following virtues
 
-*   Code is simpler to inspect and verify
-*   Expert solutions can be more easily written in isolation 
-*   A limited context encourages code reuse and ensures longer-term applicability
-*   Collaborative efforts require less communication
-*   Pluggability of alternative algorithms encourages experimentation and evolution
+*   Individual pieces are simpler to write, inspect, and verify in isolation
+*   Alternative pieces may be more readily compared
+*   Small pieces are more reusable and ensure longer-term applicability
+*   Collaborative efforts require less inter-piece communication
 
-Modular and composable software possesses the following vices
+Modular and composable pieces possess the following vices
     
-*   It requires ahead-of-time coordination on interfaces
-*   Information between pieces must propagate through a restrictive interface
+*   They require ahead-of-time coordination on interfaces
+*   Inter-piece communication must propagate through a restrictive interface
 *   A critical mass of components must be developped before end-to-end solutions are feasible
 
 In a scientific context modular design encourages growth and reuse at the cost of tight integration between domains.  Historically scientific computing was a practice of a few highly trained numerical analysts who pushed maximum performance out of specialized hardware.  In this context modular design inhibits high level information from influencing low-level design decisions, substantially limiting performance.  High performance remains a priority today but the problems and hardware have both grown in complexity and the distribution of skills of scientific programmers has broadened substantialy.  As the problem size exceeds the capacity of individual researchers the benefits of modular design begin to outweigh the performance drawbacks.
