@@ -3,8 +3,8 @@ full.md: title.md introduction.md
 	cat title.md introduction.md > full.md
 	python scripts/dollar.py full.md full.md
 
-full.tex: full.md
-	pandoc full.md -o full.tex --standalone
+full.tex: full.md full.md tex/preamble-extra.tex tex/biblio.tex
+	pandoc full.md -o full.tex --standalone -H tex/preamble-extra.tex -A tex/biblio.tex
 
 pdf: full.tex
 	pdflatex full.tex
