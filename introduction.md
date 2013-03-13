@@ -12,7 +12,7 @@ The rise of multidisciplinary science and heterogeneous hardware compounds this 
 Modularity
 ----------
 
-When we consider the entire scientific software ecosystem as a single endeavor from the perspective of software design we make the following observations
+We consider the entire scientific software ecosystem as a single endeavor from the software design perspective and make the following observations
 
 *   It contains incredible solutions to hard subproblems
 *   It contains numerous medicore solutions to those same subproblems
@@ -85,7 +85,7 @@ In the context of this thesis traditional DSLs exhibit the following design flaw
 
 This combination limits the long term utility of traditional DSLs.  Explicit dependence on multiple stages of computation exposes them to changes in computational methods/architecture.  The specialization to a small community reduces the developer base available to adapt the code.  
 
-### Middle Languages
+### Intermediate Languages
 
 *Example: Matrix Algebra*
 
@@ -105,14 +105,34 @@ The top-down view of a sequence of transformations from high to low level is inc
 Automatic differentiation (AD) has found tremendous use in the computational community specifically due to its composability.  Source to source AD compilers operate on mature codes that were not written with AD in mind.  It allows research scientists to reuse previously developed code to develop novel solutions to important problems today.
 
 
+Proposed Design
+---------------
+
 ### Short and Wide Domain Specific Languages
 
-This thesis focuses around DSLs that are *short* and *wide* with *simple* and *common* interfaces.  These adjectives are explained below.
+This thesis focuses around DSLs that are *short* and *wide* .  These adjectives are explained below.
 
 *   Short v. Long - These are measures of the conceptual distance between source and target languages.  The larger the distance the more sensitive a language is to external change.
-*   Wide v. Narrow - These are measures of the applicability of the language across domains.  Wide projects interest a diverse population of users.  Narrow projects are more specialized to a specific community.
+*   Wide v. Narrow - These are measures of the applicability of the language across domains.  Wide projects interest a large and diverse population of users.  Narrow projects are more specialized to a small and specific community.
 
 Long and narrow projects are *brittle*.  They are unlikely to adapt to external pressures (like GPGPU.) 
 
-*   Simple v. Complex - 
-*   Common v. Custom - 
+### Simple, Expressive, and Accessible Interfaces 
+
+The composition of independent projects requires common interfaces.  The scientific ecosystem includes a wide variety of domains which exert a wide variety of pressures on the interface.  It is difficult to find a small set of interfaces which maximually satisfy all relevant projects.  We pose the following virtues
+
+*   Simple - Simple interfaces have a small cardinality of types
+*   Expressive - Expressive interfaces allow common problems to be described with relatively few terms
+*   Accessible - Accessible interfaces use data structures that are familiar to the target community
+
+Example: the UNIX set of tools uses a single "stream of text" interface.  This single interface allows all tools to interoperate.  This interface is 
+
+*   Simple because it has only one data type, string
+*   Not expressive in many structured contexts when a substantial amount of parsing/printing must be done to encode complex expressions in different languages
+*   Accessible because strings are widely supported and understood by UNIX programmers
+
+Example: JSON is a more structured interface that includes strings, lists, and dicts/maps.  This interface is 
+
+*   Moderately simple because it has a few basic data types
+*   More expressive
+*   Fairly accessible because these types are widely supported in a variety of languages and converters are ubiquitous.
