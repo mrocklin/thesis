@@ -1,4 +1,7 @@
 
+Introduction
+============
+
 Scientific Software 
 -------------------
 
@@ -7,6 +10,7 @@ Modern science relies on computation.  The insight gained from scientific simula
 The average scientific researcher is not trained as a software engineer.  As a result the cost of building performant scientific codes is high, requiring many hours of labor from highly specialized workers.  Because scientists are rarely incentivized to produce generally applicable code that spans domains their work is rarely reusable, greatly diminishing its social value.  High performance standards, a tradition of monolithic non-reusable solutions, and sparse training creates a situation where highly trained research scientists spend much of their time overcoming difficult tasks for which they are ill-suited.  Society loses productive hours from some of its most highly trained members.
 
 The rise of multidisciplinary science and heterogeneous hardware compounds this problem.  A single scientific project may require expertise from several scientific, mathematical, and computational domains.  Performance requirements may constrain solutions to high quality approaches within each domain, requiring monolithic software developers to develop substantial expertise far outside of their original field of training.  Scientists spend less time doing science and more time learning and practicing foreign skills.  Monolithic scientific software ecosystems do not scale well and present substantial opportunities for efficiency gains.
+
 
 
 Modularity
@@ -39,6 +43,7 @@ Modular and composable pieces possess the following vices
 In a scientific context modular design encourages growth and reuse at the cost of tight integration between domains.  Historically scientific computing was a practice of a few highly trained numerical analysts who pushed maximum performance out of specialized hardware.  In this context modular design inhibits high level information from influencing low-level design decisions, substantially limiting performance.  High performance remains a priority today but the problems and hardware have both grown in complexity and the distribution of skills of scientific programmers has broadened substantialy.  As the problem size exceeds the capacity of individual researchers the benefits of modular design begin to outweigh the performance drawbacks.
 
 *Increasing complexity in scientific computing motivates the increased use of modularity and composability in scientific software.  Substantial unclaimed efficiencies exist in both programmer and execution time across a wide range of problem scales.*
+
 
 The Existing Scientific Software Stack
 --------------------------------------
