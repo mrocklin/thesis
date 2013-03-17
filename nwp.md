@@ -78,7 +78,7 @@ Four years later in \cite{Mielikainen2012} Mielikainen et al report increased su
 
 ### Analysis
 
-WRF claims modular design.  This modularity separates modules that have different physical processes.  There is little modularity or code reuse within the implementation of a single physical process.  
+WRF software design is *embarassingly* modular.  This modularity separates routines representing physical processes from each other when they happen to be independent.  It makes little effort at *vertical* modularity that might separate high and low level code.
 
 In listing \ref{listing:wrf-snow} we see a high-level meteorological model implemented in a very low-level implementation alongside computational optimizations and array layouts.  This problem is intrinsically simple; it is an algebraic expression on a few indexed arrays.  And yet when external pressures (GPGPU) necessitated a code rewrite that work took months of work from a researcher who was already familiar with this codebase.  That work failed to implement several GPU specific optimizations that occured in the literature four years later.
 
