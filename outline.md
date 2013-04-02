@@ -13,14 +13,8 @@ Scientists increasingly use computation.
 
 We discuss how the computer science community can improve the situation.
 
-*   State the demographics of both the types of problems to be solved and the skillset of scientific workforce.  
-
-    [Expertise](expertise.md)
-
-*   State software engineering values of modularity, coupling and cohesion and explain why pathological cases limit software evolution.
-
-    [Software Principles](principles.md) -- not written
-
+*   State the demographics of both the types of problems to be solved and the skillset of scientific workforce.  [Expertise](expertise.md)
+*   State software engineering values of modularity, coupling and cohesion and explain why pathological cases limit software evolution.  [Software Principles](principles.md) -- not written
 *   Analyze existing scientific software under this lens
     -   Anecdotal case studies
         *   [Numerical Weather Prediction](nwp.md) - An example of monolithic Fortran.  In particular we focus on duplicated efforts and an inability to adapt to GPU hardware.
