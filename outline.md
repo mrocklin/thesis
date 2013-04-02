@@ -19,13 +19,13 @@ How can the computer science community improve the situation externally?
 
 *   We state software engineering values of modularity, coupling and cohesion and explain why pathological cases limit software evolution.
 
-    [Software Principles][principles.md]
+    [Software Principles](principles.md)
 
 *   We analyze existing scientific software under this lens
-    -   Anecdotal cases 
-        *   [Numerical Weather Prediction](nwp.md)
-        *   [Trilinos/PETSc/FEniCS](numerics.md)
-    -   Quantitatve study of dependencies in software package managers 
+    -   Anecdotal case studies
+        *   [Numerical Weather Prediction](nwp.md) - in particular duplicated code and an inability to adapt to GPU hardware.
+        *   [Trilinos/PETSc/FEniCS](numerics.md) - These projects exhibit a hierarchical or "Russian Doll" approach to modularity, coupling high-level expertise (e.g. PDEs) to lower-level implementations.
+    -   Quantitatve study of dependencies in software package managers.  We apply the tools of complex networks analysis to existing package dependencies.
         *   [PyPi, CRAN, clojars](package-managers.md)
 
     These analyses show that while low-level software is well modularized and loosely coupled, high and intermediate-level modules are often tightly coupled to specific lower-level implementations, limiting efficient selection and distribution at this level.
@@ -35,7 +35,7 @@ How can the computer science community improve the situation externally?
     *The computational science community should construct
      loosely coupled, cohesive, intermediate-level packages*
 
-*   Finally we note that mathematical experts are often incapable of producing such packages. 
+*   Finally we note that mathematical experts often lack training to produce such packages. 
 
 Static Scheduling of Numerical Linear Algebra
 =============================================
