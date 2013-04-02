@@ -11,7 +11,7 @@ Scientists increasingly use computation.
         distribute the best solutions.  It doesn't adapt well to today's 
         changing hardware
 
-We discuss how the computer science community can improve the situation.
+Describe scientific software from the perspective of software engineering.
 
 *   State the demographics of both the types of problems to be solved and the skillset of scientific workforce.  [Expertise](expertise.md)
 *   State software engineering values of modularity, coupling and cohesion and explain why pathological cases limit software evolution.  [Software Principles](principles.md) -- not written
@@ -45,7 +45,7 @@ This should be a sizable chapter on the performance of our solution to staticall
 | Implementation | Matrix algebra, inference, BLAS/LAPACK DAG generation, inplace processing, static scheduling, code generation    |
 | Results        | Several intermediate representations, highlight particular optimizations, compare on a couple real world problems|
 
-This chapter is intended to contain little conversation about modularity, declarative programming, etc.... Rather it is a more traditional section establishing the validity of a particular solution to a common problem.  It is meant to give a measure of authority to future discussion.
+This chapter is intended to contain little conversation about modularity, declarative programming, etc.... Rather it is a more traditional section establishing the validity of a particular solution to a common problem.  It is meant to give both a context and a measure of authority to future discussion.
 
 
 
@@ -103,8 +103,8 @@ Declarative Programming
 
 Mathematical experts may not be able to build efficient modular software.  Discuss how the projects above made use of declarative techniques to separate mathematical expertise from algorithmic term rewriting.  
 
-|             |                                                                                                                  |
-|:------------|:-----------------------------------------------------------------------------------------------------------------|
-| Background  | Stratego/XT, Maude, miniKanren (a simple embedding in Scheme).  Considerations about term rewrite systems.       |
-| Approach    | [LogPy](http://github.com/logpy/logpy) , an implementation of miniKanren in Python. Accessible logic programming | 
-| Results     | We show how optimizations have been made to both SymPy and Theano with this technology                           |
+|             |                                                                                                                                                   |
+|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------|
+| Background  | Stratego/XT, Maude, miniKanren (a simple embedding in Scheme).  Considerations about term rewrite systems.                                        |
+| Approach    | [Strategies](http://github.com/logpy/strategies) and [LogPy](http://github.com/logpy/logpy), implementations of miniKanren and Stratego in Python | 
+| Results     | Look at use of these systems in above work and in other work in Theano                                                                            |
