@@ -37,12 +37,19 @@ How can the computer science community improve the situation externally?
 
 *   Finally we note that mathematical experts often lack training to produce such packages. 
 
+
+
+
 Static Scheduling of Numerical Linear Algebra
 =============================================
 
 A sizable chapter on the performance of our solution to statically scheduled, mathematically informed, blocked linear algebra.
 
+
 This chapter contain little conversation about modularity, declarative programming, etc.... Rather it is a more traditional section establishing the validity of a particular solution to a common problem.
+
+
+
 
 Modular Design - The Benefits of Interaction
 ============================================
@@ -94,4 +101,9 @@ Unwritten work
 Declarative Programming
 =======================
 
-Mathematical experts may not be able to build efficient modular software.  
+Mathematical experts may not be able to build efficient modular software.  We discuss how the projects above made use of declarative techniques to separate mathematical expertise from algorithmic term rewriting.  
+
+
+| Background  | A discussion of Stratego/XT, Maude, miniKanren (a simple embedding in Scheme) as well as some considerations about term rewrite systems. |
+| Software    | LogPy, an implementation of miniKanren in Python                                                                                         |
+| Results     | We show how optimizations have been made to both SymPy and Theano with this technology                                                   |
