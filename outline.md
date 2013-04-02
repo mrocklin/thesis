@@ -42,28 +42,28 @@ Static Scheduling of Numerical Linear Algebra
 
 A sizable chapter on the performance of our solution to statically scheduled, mathematically informed, blocked linear algebra.
 
+This chapter contain little conversation about modularity, declarative programming, etc.... Rather it is a more traditional section establishing the validity of a particular solution to a common problem.
+
 Modular Design - The Benefits of Interaction
 ============================================
 
 Previous Numerical Linear Algebra Project
 -----------------------------------------
 
-The different pieces of the above program can be developed independently.  Each piece assumes knowledge of only one area of expertise.
+This section then analyzes the previous chapter from the lens of software design.  We note the benefits of various design choices. 
 
-New parts can be tested and compared. 
-
-*   Swap out schedulers
-*   Swap out code generators (use Theano instead, see how it compares)
-
-The different pieces can be broadly applied.  They're generally applicable beyond this problem.
-
+*   The different pieces of the above program can be developed independently.  Each piece assumes knowledge of only one area of expertise.
+*   New parts can be tested and compared. 
+    *   Swap out schedulers
+    *   Swap out code generators (use Theano instead, see how it compares)
+*   The different pieces can be broadly applied.  They're generally applicable beyond this problem.
 
 Applying this elsewhere
 -----------------------
 
 ### SymPy/Theano Interaction
 
-I have a couple of examples about two libraries for high-level computation.  Each extends a bit into the others domain.  By replacing these extensions with interfaces between the two projects we improve performance.
+I have a couple of examples about two libraries for high-level computation.  Each extends a bit into the others' domain.  By replacing these half-hearted in-house attempts with interfaces between the two projects we improve substantial performance gains.
 
 *   SymPy:  a library for mathematics which does a bit of code generation
 *   Theano: a library for code generation which does a little mathematics
@@ -81,9 +81,9 @@ We present the sympy.stats project and see how it fits into and benefits from th
 Existing written work
 
 *   [Original conference paper](http://people.cs.uchicago.edu/~mrocklin/tempspace/scipy2012-sympystats-paper.pdf)
-*   [Generating characteristic functions](http://matthewrocklin.com/blog/work/2012/12/03/Characteristic-Functions/)
-*   [Maximum a posteriori estimation](http://matthewrocklin.com/blog/work/2013/02/25/MaximumAposteriori/)
-*   [Rewrite rules](http://matthewrocklin.com/blog/work/2012/12/11/Statistical-Simplification/)
+*   [BlogPost: Generating characteristic functions](http://matthewrocklin.com/blog/work/2012/12/03/Characteristic-Functions/)
+*   [BlogPost: Maximum a posteriori estimation](http://matthewrocklin.com/blog/work/2013/02/25/MaximumAposteriori/)
+*   [BlogPost: Rewrite rules](http://matthewrocklin.com/blog/work/2012/12/11/Statistical-Simplification/)
 
 Unwritten work
 
