@@ -11,7 +11,7 @@ Scientists increasingly use computation.
         distribute the best solutions.  It doesn't adapt well to today's 
         changing hardware
 
-How can the computer science community improve the situation externally?
+We discuss how the computer science community can improve the situation?
 
 *   State the demographics of both the types of problems to be solved and the skillset of scientific workforce.  
 
@@ -19,16 +19,16 @@ How can the computer science community improve the situation externally?
 
 *   We state software engineering values of modularity, coupling and cohesion and explain why pathological cases limit software evolution.
 
-    [Software Principles](principles.md)
+    [Software Principles](principles.md) -- not written
 
 *   We analyze existing scientific software under this lens
     -   Anecdotal case studies
-        *   [Numerical Weather Prediction](nwp.md) - in particular duplicated code and an inability to adapt to GPU hardware.
-        *   [Trilinos/PETSc/FEniCS](numerics.md) - These projects exhibit a hierarchical or "Russian Doll" approach to modularity, coupling high-level expertise (e.g. PDEs) to lower-level implementations.
+        *   [Numerical Weather Prediction](nwp.md) - An example of monolithic Fortran.  In particular we focus on duplicated efforts and an inability to adapt to GPU hardware.
+        *   [Trilinos/PETSc/FEniCS](numerics.md) - These projects exhibit a hierarchical or "Russian Doll" approach to modularity, coupling high-level expertise (e.g. PDEs) to lower-level implementations.  They have proven far more effective than monolithic designs but, we argue, are not yet optimlal.
     -   Quantitatve study of dependencies in software package managers.  We apply the tools of complex networks analysis to existing package dependencies.
-        *   [PyPi, CRAN, clojars](package-managers.md)
+        *   [PyPi, CRAN, clojars](package-managers.md) -- not yet written
 
-    These analyses show that while low-level software is well modularized and loosely coupled, high and intermediate-level modules are often tightly coupled to specific lower-level implementations, limiting efficient selection and distribution at this level.
+    These analyses show that while low-level software is well modularized and loosely coupled, high and intermediate-level modules are often tightly coupled to specific lower-level implementations, limiting efficient selection and distribution at this level.  This causes fragmentation and slower software evolution.
 
 *   This provides our major argument
 
@@ -39,14 +39,15 @@ How can the computer science community improve the situation externally?
 
 
 
-
 Static Scheduling of Numerical Linear Algebra
 =============================================
 
-A sizable chapter on the performance of our solution to statically scheduled, mathematically informed, blocked linear algebra.
+This should be a sizable chapter on the performance of our solution to statically scheduled, mathematically informed, blocked linear algebra.
 
+Prerequisite Background - BLAS/LAPACK, Matrix Algebra, Heterogeneous Static Scheduling
+Simulteneous Work - FLAME, Magma, PLAPACK
 
-This chapter contain little conversation about modularity, declarative programming, etc.... Rather it is a more traditional section establishing the validity of a particular solution to a common problem.
+This chapter is intended to contain little conversation about modularity, declarative programming, etc.... Rather it is a more traditional section establishing the validity of a particular solution to a common problem.  It is meant to give a measure of authority to future discussion.
 
 
 
@@ -79,6 +80,7 @@ By providing a translation from one to the other we can use the best parts of bo
 
 *   [Code Generation](http://mrocklin.github.com/blog/work/2013/03/19/SymPy-Theano-part-1)
 *   [Scalar Simplification](http://mrocklin.github.com/blog/work/2013/03/28/SymPy-Theano-part-2)
+
 
 SymPy Stats
 -----------
