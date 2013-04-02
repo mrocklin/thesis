@@ -38,11 +38,12 @@ Static Scheduling of Numerical Linear Algebra
 
 This should be a sizable chapter on the performance of our solution to statically scheduled, mathematically informed, blocked linear algebra.
 
-|             |                                                                                                                  |
-|:------------|:-----------------------------------------------------------------------------------------------------------------|
-| Background  | BLAS/LAPACK, Matrix Algebra/inference, Heterogeneous static scheduling                                           |
-| Related work| FLAME, Magma, PLAPACK, task scheduling, various array programming languages                                      |
-| Results     | Several intermediate representations, highlight particular optimizations, compare on a couple real world problems|
+|                |                                                                                                                  |
+|:---------------|:-----------------------------------------------------------------------------------------------------------------|
+| Background     | BLAS/LAPACK, Matrix Algebra/inference, Heterogeneous static scheduling                                           |
+| Related work   | FLAME, Magma, PLAPACK, task scheduling, various array programming languages                                      |
+| Implementation | Matrix algebra, inference, BLAS/LAPACK DAG generation, inplace processing, static scheduling, code generation    |
+| Results        | Several intermediate representations, highlight particular optimizations, compare on a couple real world problems|
 
 This chapter is intended to contain little conversation about modularity, declarative programming, etc.... Rather it is a more traditional section establishing the validity of a particular solution to a common problem.  It is meant to give a measure of authority to future discussion.
 
