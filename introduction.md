@@ -5,12 +5,30 @@ Introduction
 Scientific Software 
 -------------------
 
-Modern science relies on computation.  The insight gained from scientific simulations and data analysis have elevated along theory and experiment as the "third pillar of science."  An increasing number of research scientists approach their problems with computers.  Their solutions range from small data analysis scripts in wet-labs to large multidisciplinary high performance codes.  Due to the novelty of scientific research these programs are often custom built and encode a great deal of specialized scientific expertise.
+Modern science relies on computation.  The insight gained from scientific simulations and data analysis have elevated it along theory and experiment as the "third pillar of science."  An increasing number of research scientists approach their problems with computers.  Their solutions range from small data analysis scripts in wet-labs to large multidisciplinary high performance codes.  Due to the novelty of scientific research these programs are often custom built and encode a great deal of specialized scientific expertise.
 
 The average scientific researcher is not trained as a software engineer.  As a result the cost of building performant scientific codes is high, requiring many hours of labor from highly specialized workers.  Because scientists are rarely incentivized to produce generally applicable code that spans domains their work is rarely reusable, greatly diminishing its social value.  High performance standards, a tradition of monolithic non-reusable solutions, and sparse training creates a situation where highly trained research scientists spend much of their time overcoming difficult tasks for which they are ill-suited.  Society loses productive hours from some of its most highly trained members.
 
 The rise of multidisciplinary science and heterogeneous hardware compounds this problem.  A single scientific project may require expertise from several scientific, mathematical, and computational domains.  Performance requirements may constrain solutions to high quality approaches within each domain, requiring monolithic software developers to develop substantial expertise far outside of their original field of training.  Scientists spend less time doing science and more time learning and practicing foreign skills.  Monolithic scientific software ecosystems do not scale well and present substantial opportunities for efficiency gains.
 
+Expertise
+---------
+
+In this section we discuss expertise in a single field.  We use integration by numeric quadrature as a running example.
+
+*The distribution of expertise with a particular domain is highly skewed*.  Many practitioners understand naive solutions while very few understand the most mature solutions.  In scientific and numerical domains mature solutions may require years of dedicated study.  For example the rectangle and trapezoid rules are taught in introductory college calculus classes to a large group of students.  Advanced techniques such as sparse grids and finite elements are substantially less well known.
+
+*High expertise solutions can greatly improve performance*.  The cost of naive and mature solutions can vary by several orders of magnitude.  It is common for a previously intractible problem to be made trivial by engaging the correct method.  In quadrature for example adaptivity, higher order methods, and sparsity can each supply performance improvements of several orders of magnitude.
+
+*Scientific computing problems touch many domains*.  A computational approach to a single research question may easily involve several scientific, mathematical, and computaitonal domains of expertise.  For example numerical weather prediction touches on meteorology, oceanography, statistics, partial differential equations, distributed linear algebra, and high performance array computation.
+
+*The number of scientific problems that engage a particular domain generally exceeds the number of experts*.  E.g. far more questions use integration than there are experts in numerical integration.
+
+Therefore we need to efficiently share, distribute, and interconnect expertise.
+
+*A single domain may be used by a wide set of projects; this set is rarely known by the domain expert*.  E.g. numerical integration is used in several fields which are unfamilar to numerical analysts.
+
+An ideal software ecosystem selects and distributes the best implementation of a particular domain to all relevant problems.  Multiple implementations of a domain in stable co-existence is a symptom of a poorly functioning ecosystem.  It is a sign of poor reuse and fragments future development.
 
 
 Modularity
@@ -25,7 +43,7 @@ We consider the entire scientific software ecosystem as a single endeavor from t
 
 Software design principles advocate that such a project be refactored so that it is modular and composable.  Ideally this allows high quality solutions to migrate more freely and interoperate in a broader range of applications.
 
-Modularity encourages the separation of code into multiple distinct pieces.  Ideally these pieces are split as finely as meaningfully possible so that each encodes exactly one area of expertise.  Composability encourages the development of standard interfaces to enable the independent connection of these pieces to form larger programs.
+Modularity encourages the separation of code into multiple distinct pieces.  Ideally these pieces are split as finely as meaningfully possible so that each encodes exactly one area of expertise and each area of expertise is expressed in exactly one piece.  Composability encourages the development of standard interfaces to enable the independent connection of these pieces to form larger programs.
 
 Modular and composable software possess the following virtues
 
@@ -40,7 +58,7 @@ Modular and composable pieces possess the following vices
 *   Inter-piece communication must propagate through a restrictive interface
 *   A critical mass of components must be developped before end-to-end solutions are feasible
 
-In a scientific context modular design encourages growth and reuse at the cost of tight integration between domains.  Historically scientific computing was a practice of a few highly trained numerical analysts who pushed maximum performance out of specialized hardware.  In this context modular design inhibits high level information from influencing low-level design decisions, substantially limiting performance.  High performance remains a priority today but the problems and hardware have both grown in complexity and the distribution of skills of scientific programmers has broadened substantialy.  As the problem size exceeds the capacity of individual researchers the benefits of modular design begin to outweigh the performance drawbacks.
+In a scientific context modular design encourages growth and reuse at the cost of tight integration between domains.  Historically scientific computing was a practice of a few highly trained numerical analysts who pushed maximum performance out of specialized hardware.  In this context modular design inhibits high level information from influencing low-level design decisions, substantially limiting performance.  High performance remains a priority today but the problems and hardware have both grown in complexity and the distribution of skills of scientific programmers has broadened substantialy.  As the problem complexity exceeds the capacity of individual researchers expertise the benefits of modular design begin to outweigh the performance drawbacks.
 
 *Increasing complexity in scientific computing motivates the increased use of modularity and composability in scientific software.  Substantial unclaimed efficiencies exist in both programmer and execution time across a wide range of problem scales.*
 
@@ -48,7 +66,7 @@ In a scientific context modular design encourages growth and reuse at the cost o
 The Existing Scientific Software Stack
 --------------------------------------
 
-Traditional solutions to modularity include libraries, domain specific languages, and compilers.  These allow the work of a few expert developers to affect a broad base of domain scientists.  However as variety among hardware increases these solutions sometimes fail to adapt.  As projects become more interdisciplinary these solutions sometimes fail to interoperate.  The rising importance of interdisciplinary work and a rapidly changing hardware landscape pressure us to refactor our current ecosystem.
+Traditional solutions to modularity include libraries, domain specific languages, and compilers.  These allow the work of a few expert developers to affect a broad base of domain scientists.  However as variety among hardware increases these solutions sometimes fail to adapt.  As projects become more interdisciplinary these solutions sometimes fail to interoperate.  The rising importance of interdisciplinary work and a changing hardware landscape pressure us to refactor our current ecosystem.
 
 ### Libraries
 
@@ -96,7 +114,7 @@ This combination limits the long term utility of traditional DSLs.  Explicit dep
 
 While libraries traditionally target low-level architecture and DSLs traditionally source from high-level descriptions there is little development of isolated packages that strictly operate as intermediaries.  Yet many broadly applicable domains of expertise lie below domain science and above computational hardware.  
 
-For example symbolic matrix algebra is a mathematical domain used by *several* high-level scientific domains and is influential in many different computational methods.  Matrix algebra has a clean theory amenable to a automation yet is reimplmeneted by a substantial fraction of scientific packages.
+For example symbolic matrix algebra is a mathematical domain used by several high-level scientific domains and is influential in many low-level computational methods.  Matrix algebra has a clean theory amenable to a automation yet is reimplmeneted by a substantial fraction of scientific packages.
 
 Include scicomp.stackexchange example?
 
@@ -107,7 +125,7 @@ Include scicomp.stackexchange example?
 
 The top-down view of a sequence of transformations from high to low level is incomplete.  Domains like statistical uncertainty, differentiation, and distributed computing all provide transformations that start and end within the same intermediate representation. 
 
-Automatic differentiation (AD) has found tremendous use in the computational community specifically due to its composability.  Source to source AD compilers operate on mature codes that were not written with AD in mind.  It allows research scientists to reuse previously developed code to develop novel solutions to important problems today.
+Automatic differentiation (AD) transforms a source code into a target that computes the derivative of the source.  Both the source and target codes are in the same language.  Automatic differentiation has found tremendous use in the computational community specifically due to its composability.  Source to source AD compilers operate on mature codes that were not written with AD in mind.  It allows research scientists to reuse previously developed code to develop novel solutions to important problems today.
 
 
 Proposed Design
