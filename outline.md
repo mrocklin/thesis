@@ -11,21 +11,21 @@ Scientists increasingly use computation.
         distribute the best solutions.  It doesn't adapt well to today's 
         changing hardware
 
-We discuss how the computer science community can improve the situation?
+We discuss how the computer science community can improve the situation.
 
 *   State the demographics of both the types of problems to be solved and the skillset of scientific workforce.  
 
     [Expertise](expertise.md)
 
-*   We state software engineering values of modularity, coupling and cohesion and explain why pathological cases limit software evolution.
+*   State software engineering values of modularity, coupling and cohesion and explain why pathological cases limit software evolution.
 
     [Software Principles](principles.md) -- not written
 
-*   We analyze existing scientific software under this lens
+*   Analyze existing scientific software under this lens
     -   Anecdotal case studies
         *   [Numerical Weather Prediction](nwp.md) - An example of monolithic Fortran.  In particular we focus on duplicated efforts and an inability to adapt to GPU hardware.
         *   [Trilinos/PETSc/FEniCS](numerics.md) - These projects exhibit a hierarchical or "Russian Doll" approach to modularity, coupling high-level expertise (e.g. PDEs) to lower-level implementations.  They have proven far more effective than monolithic designs but, we argue, are not yet optimlal.
-    -   Quantitatve study of dependencies in software package managers.  We apply the tools of complex networks analysis to existing package dependencies.
+    -   Quantitatve study of dependencies in software package managers.  Apply the tools of complex networks analysis to existing package dependencies.
         *   [PyPi, CRAN, clojars](package-managers.md) -- not yet written
 
     These analyses show that while low-level software is well modularized and loosely coupled, high and intermediate-level modules are often tightly coupled to specific lower-level implementations, limiting efficient selection and distribution at this level.  This causes fragmentation and slower software evolution.
@@ -35,7 +35,7 @@ We discuss how the computer science community can improve the situation?
     *The computational science community should construct
      loosely coupled, cohesive, intermediate-level packages*
 
-*   Finally we note that mathematical experts often lack training to produce such packages. 
+*   Finally note that mathematical experts often lack training to produce such packages. 
 
 
 
@@ -58,7 +58,7 @@ Modular Design - The Benefits of Interaction
 Previous Numerical Linear Algebra Project
 -----------------------------------------
 
-This section then analyzes the previous chapter from the lens of software design.  We note the benefits of various design choices. 
+Analyzes the previous chapter from the lens of software design.  Note the benefits of various design choices. 
 
 *   The different pieces of the above program can be developed independently.  Each piece assumes knowledge of only one area of expertise.
 *   New parts can be tested and compared. 
@@ -71,12 +71,12 @@ Applying this elsewhere
 
 ### SymPy/Theano Interaction
 
-I have a couple of examples about two libraries for high-level computation.  Each extends a bit into the others' domain.  By replacing these half-hearted in-house attempts with interfaces between the two projects we improve substantial performance gains.
+I have a couple of examples about two libraries for high-level computation.  Each extends a bit into the others' domain.  By replacing these in-house attempts to expand the boundary of one project with interfaces between the two projects we reap substantial performance gains.
 
 *   SymPy:  a library for mathematics which does a bit of code generation
 *   Theano: a library for code generation which does a little mathematics
 
-By providing a translation from one to the other we can use the best parts of both, producing substantially more performant programs.  This is currently written up as a couple of blog posts
+By providing a translation from one to the other we use the best implementions of each idea, producing substantially more performant programs.  This is currently written up as a couple of blog posts
 
 *   [Code Generation](http://mrocklin.github.com/blog/work/2013/03/19/SymPy-Theano-part-1)
 *   [Scalar Simplification](http://mrocklin.github.com/blog/work/2013/03/28/SymPy-Theano-part-2)
@@ -85,7 +85,7 @@ By providing a translation from one to the other we can use the best parts of bo
 SymPy Stats
 -----------
 
-We present the sympy.stats project and see how it fits into and benefits from these ideals.
+Present the sympy.stats project and see how it fits into and benefits from these ideals.
 
 Existing written work
 
@@ -103,9 +103,11 @@ Unwritten work
 Declarative Programming
 =======================
 
-Mathematical experts may not be able to build efficient modular software.  We discuss how the projects above made use of declarative techniques to separate mathematical expertise from algorithmic term rewriting.  
+Mathematical experts may not be able to build efficient modular software.  Discuss how the projects above made use of declarative techniques to separate mathematical expertise from algorithmic term rewriting.  
 
 
-| Background  | A discussion of Stratego/XT, Maude, miniKanren (a simple embedding in Scheme) as well as some considerations about term rewrite systems. |
-| Software    | LogPy, an implementation of miniKanren in Python                                                                                         |
-| Results     | We show how optimizations have been made to both SymPy and Theano with this technology                                                   |
+|             |                                                                                                            |
+|:------------|:-----------------------------------------------------------------------------------------------------------|
+| Background  | Stratego/XT, Maude, miniKanren (a simple embedding in Scheme).  Considerations about term rewrite systems. |
+| Software    | LogPy, an implementation of miniKanren in Python                                                           |
+| Results     | We show how optimizations have been made to both SymPy and Theano with this technology                     |
