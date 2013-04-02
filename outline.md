@@ -19,12 +19,12 @@ How can the computer science community improve the situation externally?
 
 *   We state software engineering values of modularity, coupling and cohesion and explain why pathological cases limit software evolution.
 
-    [SoftwarePrinciples.md][]
+    [Software Principles][principles.md]
 
 *   We analyze existing scientific software under this lens
     -   Anecdotal cases 
-        -   [Numerical Weather Prediction](nwp.md)
-        -   [Trilinos/PETSc](trilinos-petsc.md)
+        *   [Numerical Weather Prediction](nwp.md)
+        *   [Trilinos/PETSc/FEniCS](numerics.md)
     -   Quantitatve study of dependencies in software package managers 
         *   [PyPi, CRAN, clojars](package-managers.md)
 
