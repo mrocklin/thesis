@@ -105,9 +105,8 @@ Declarative Programming
 
 Mathematical experts may not be able to build efficient modular software.  Discuss how the projects above made use of declarative techniques to separate mathematical expertise from algorithmic term rewriting.  
 
-
-|             |                                                                                                            |
-|:------------|:-----------------------------------------------------------------------------------------------------------|
-| Background  | Stratego/XT, Maude, miniKanren (a simple embedding in Scheme).  Considerations about term rewrite systems. |
-| Software    | LogPy, an implementation of miniKanren in Python                                                           |
-| Results     | We show how optimizations have been made to both SymPy and Theano with this technology                     |
+|             |                                                                                                                  |
+|:------------|:-----------------------------------------------------------------------------------------------------------------|
+| Background  | Stratego/XT, Maude, miniKanren (a simple embedding in Scheme).  Considerations about term rewrite systems.       |
+| Approach    | [LogPy](http://github.com/logpy/logpy) , an implementation of miniKanren in Python. Accessible logic programming | 
+| Results     | We show how optimizations have been made to both SymPy and Theano with this technology                           |
