@@ -102,3 +102,5 @@ Mathematical experts may not be able to build efficient modular software.  Discu
 | Background  | Stratego/XT, Maude, miniKanren (a simple embedding in Scheme).  Considerations about term rewrite systems.                                        |
 | Approach    | [Strategies](http://github.com/logpy/strategies) and [LogPy](http://github.com/logpy/logpy), implementations of miniKanren and Stratego in Python | 
 | Results     | Look at use of these systems in above work and in other work in Theano                                                                            |
+
+In intend to refactor Theano, a library/compiler for array computation used primarily by machine learning groups, to depend on LogPy, my Prolog-ish clone, and Strategies, my Stratego clone.  Perhaps something worth writing about will come out of this.  They have a rudimentary system to write down compiler optimizations.  It's clear that this system is not sufficiently simple to be used by any but their most senior developers.
