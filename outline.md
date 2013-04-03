@@ -11,7 +11,7 @@ Scientists increasingly use computation.
         distribute the best solutions.  It doesn't adapt well to today's 
         changing hardware
 
-Describe scientific software from the perspective of software engineering.
+Describe existing scientific software from the perspective of software engineering.
 
 *   State the demographics of both the types of problems to be solved and the skillset of scientific workforce.  [Expertise](expertise.md)
 *   State software engineering values of modularity, coupling and cohesion and explain why pathological cases limit software evolution.  [Software Principles](principles.md) -- not written
@@ -33,8 +33,8 @@ Describe scientific software from the perspective of software engineering.
 
 
 
-Static Scheduling of Numerical Linear Algebra
-=============================================
+Static Scheduling of Numerical Linear Algebra - Performance
+===========================================================
 
 This should be a sizable chapter on the performance of our solution to statically scheduled, mathematically informed, blocked linear algebra.
 
@@ -48,13 +48,8 @@ This should be a sizable chapter on the performance of our solution to staticall
 This chapter is intended to contain little conversation about modularity, declarative programming, etc.... Rather it is a more traditional section establishing the validity of a particular solution to a common problem.  It is meant to give both a context and a measure of authority to future discussion.
 
 
-
-
-Modular Design - The Benefits of Interaction
-============================================
-
-Previous Numerical Linear Algebra Project
------------------------------------------
+Static Scheduling of Numerical Linear Algebra - Design
+======================================================
 
 Analyzes the previous chapter from the lens of software design.  Note the benefits of various design choices. 
 
@@ -64,10 +59,9 @@ Analyzes the previous chapter from the lens of software design.  Note the benefi
     *   Swap out code generators (use Theano instead, see how it compares)
 *   The different pieces can be broadly applied.  They're generally applicable beyond this problem.
 
-Applying this elsewhere
------------------------
 
-### SymPy/Theano Interaction
+SymPy/Theano Interaction
+========================
 
 I have a couple of examples about two libraries for high-level computation.  Each extends a bit into the others' domain.  By replacing these in-house attempts to expand the boundary of one project with interfaces between the two projects we reap substantial performance gains.
 
@@ -81,7 +75,7 @@ By providing a translation from one to the other we use the best implementions o
 
 
 SymPy Stats
------------
+===========
 
 Present the sympy.stats project and see how it fits into and benefits from these ideals.
 
