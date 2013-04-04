@@ -40,7 +40,8 @@ This should be a sizable chapter on the performance of our solution to staticall
 
 |                |                                                                                                                  |
 |:---------------|:-----------------------------------------------------------------------------------------------------------------|
-| Background     | BLAS/LAPACK, Matrix Algebra/inference, Heterogeneous static scheduling                                           |
+| Background     | BLAS/LAPACK, Matrix Algebra/inference, Heterogeneous static scheduling.  Performance modeling.                   |
+|                | Why do we need array compilers?  How is NLA more conducive to static scheduling?                                 |
 | Related work   | FLAME, Magma, PLAPACK, task scheduling, various array programming languages                                      |
 | Implementation | Matrix algebra, inference, BLAS/LAPACK DAG generation, inplace processing, static scheduling, code generation    |
 | Results        | Several intermediate representations, highlight particular optimizations, compare on a couple real world problems|
@@ -51,7 +52,7 @@ This chapter is intended to contain little conversation about modularity, declar
 Static Scheduling of Numerical Linear Algebra - Design
 ======================================================
 
-Analyzes the previous chapter from the lens of software design.  Note the benefits of various design choices. 
+Analyze the previous chapter from the lens of software design.  Note the benefits of various design choices. 
 
 *   The different pieces of the above program can be developed independently.  Each piece assumes knowledge of only one area of expertise.
 *   New parts can be tested and compared. 
@@ -72,7 +73,7 @@ By providing a translation from one to the other we use the best implementions o
 
 *   [Code Generation](http://mrocklin.github.com/blog/work/2013/03/19/SymPy-Theano-part-1)
 *   [Scalar Simplification](http://mrocklin.github.com/blog/work/2013/03/28/SymPy-Theano-part-2)
-
+*   [Matrix Expressions](http://matthewrocklin.com/blog/work/2013/04/05/SymPy-Theano-part-3/)
 
 SymPy Stats
 ===========
