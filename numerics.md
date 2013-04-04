@@ -1,4 +1,3 @@
-
 Numeric Libraries
 =================
 
@@ -30,3 +29,6 @@ BLAS/LAPACK have an incredibly simple-yet-verbose interface.  They are accessed 
 The Trilinos project takes a different approach.  Trilinos provides a common data structure (distributed array) and a set of C++ interfaces for generic solver types (e.g. Eigensolve).  Over time a loose federation of over fifty independently developed packages have coevolved around these interfaces into a robust and powerful ecosystem.
 
 Trilinos does not dominate its domain like BLAS/LAPACK, but it does demonstrate the value of prespecified complex interfaces in a higher level setting.  A number of differently abled groups are able to co-develop in the same space with relatively little communication.
+
+
+Not Fully Written.
