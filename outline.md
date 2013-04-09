@@ -53,6 +53,8 @@ This chapter is intended to contain little conversation about modularity, declar
 Mathematically Informed Numerical Linear Algebra - Design
 =========================================================
 
+[Mathematically Informed Numerical Linear Algebra - Design](math-num-linalg-design.md)
+
 Analyze the previous chapter from the lens of software design.  Note the benefits of various design choices. 
 
 *   The different pieces of the above program can be developed independently.  Each piece assumes knowledge of only one area of expertise.
