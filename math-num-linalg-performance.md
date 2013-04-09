@@ -60,5 +60,4 @@ In SymPy matrix expressions we approach this problem by first expressing linear 
 
 ### Conclusion
 
-The above examples demonstrate substantial improvements on ubiquitous problems that are frequent computational bottlenecks in practice.  The improve performance through intelligent selection and organization of existing algorithms rather than detailed implementations of new ones.  The work done was driven by a mathematical library not intended for this task.
-
+The above examples demonstrate substantial improvements on frequent computational bottlenecks.  They improve performance through automated selection and organization of existing algorithms rather than detailed creation of new ones.  The work done was driven by a mathematical library not intended for this task.  Using `f2py` and integration into widely distribued open source packages the work is immediately and broadly accessible.
