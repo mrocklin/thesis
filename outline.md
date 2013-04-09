@@ -36,7 +36,9 @@ Describe existing scientific software from the perspective of software engineeri
 Mathematically Informed Numerical Linear Algebra - Performance
 ==============================================================
 
-This should be a sizable chapter on the performance of our solution mathematically informed, blocked linear algebra.
+[Mathematically Informed Numerical Linear Algebra - Performance](math-num-linalg-performance.md)
+
+This should eventually be a sizable chapter on the performance of our solution mathematically informed, blocked linear algebra.
 
 |                |                                                                                                                  |
 |:---------------|:-----------------------------------------------------------------------------------------------------------------|
