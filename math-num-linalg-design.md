@@ -26,6 +26,12 @@ Block-matrix algorithms for matrix inversion and determinants are commonly publi
 
 In appendix [LogPy](logpy.md) we describe an implementation of miniKanren, a relational programming library.  This library can be used widely for various problem ranging from parsing to a database query language.
 
+### Modules are replacable
+
+We can switch out our BLAS/LAPACK backend with Theano, a popular package for array programming.
+
+[Blogpost: SymPy and Theano -- Matrix Expressions](http://matthewrocklin.com/blog/work/2013/04/05/SymPy-Theano-part-3/)
+
 Intermediate Representations
 ----------------------------
 
