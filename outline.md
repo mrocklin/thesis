@@ -33,24 +33,23 @@ Describe existing scientific software from the perspective of software engineeri
 
 
 
-Static Scheduling of Numerical Linear Algebra - Performance
-===========================================================
+Mathematically Informed Numerical Linear Algebra - Performance
+==============================================================
 
-This should be a sizable chapter on the performance of our solution to statically scheduled, mathematically informed, blocked linear algebra.
+This should be a sizable chapter on the performance of our solution mathematically informed, blocked linear algebra.
 
 |                |                                                                                                                  |
 |:---------------|:-----------------------------------------------------------------------------------------------------------------|
-| Background     | BLAS/LAPACK, Matrix Algebra/inference, Heterogeneous static scheduling.  Performance modeling.                   |
-|                | Why do we need array compilers?  How is NLA more conducive to static scheduling?                                 |
-| Related work   | FLAME, Magma, PLAPACK, task scheduling, various array programming languages                                      |
-| Implementation | Matrix algebra, inference, BLAS/LAPACK DAG generation, inplace processing, static scheduling, code generation    |
+| Background     | BLAS/LAPACK, Matrix Algebra/inference, Why do we need array compilers?                                           |
+| Related work   | FLAME, Magma, PLAPACK, various array programming languages                                                       |
+| Implementation | Matrix algebra, inference, BLAS/LAPACK DAG generation, inplace processing, code generation                       |
 | Results        | Several intermediate representations, highlight particular optimizations, compare on a couple real world problems|
 
 This chapter is intended to contain little conversation about modularity, declarative programming, etc.... Rather it is a more traditional section establishing the validity of a particular solution to a common problem.  It is meant to give both a context and a measure of authority to future discussion.
 
 
-Static Scheduling of Numerical Linear Algebra - Design
-======================================================
+Mathematically Informed Numerical Linear Algebra - Design
+=========================================================
 
 Analyze the previous chapter from the lens of software design.  Note the benefits of various design choices. 
 
@@ -59,6 +58,12 @@ Analyze the previous chapter from the lens of software design.  Note the benefit
     *   Swap out schedulers
     *   Swap out code generators (use Theano instead, see how it compares)
 *   The different pieces can be broadly applied.  They're generally applicable beyond this problem.
+
+
+Static Scheduling
+=================
+
+TODO
 
 
 SymPy/Theano Interaction
