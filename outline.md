@@ -19,6 +19,7 @@ Describe existing scientific software from the perspective of software engineeri
     -   Anecdotal case studies
         *   [Numerical Weather Prediction](nwp.md) - An example of monolithic Fortran.  In particular we focus on duplicated efforts and an inability to adapt to GPU hardware.
         *   [Trilinos/PETSc/FEniCS](numerics.md) - These projects exhibit a hierarchical or "Russian Doll" approach to modularity, coupling high-level expertise (e.g. PDEs) to lower-level implementations.  They have proven far more effective than monolithic designs but, we argue, are not yet optimlal.
+        *   [Uncertainty Propagation](uq-methods.md) - The lack of high-level hardware agnostic tools slows development, particularly when new hardware changes the algorithm landscape.
     -   Quantitatve study of dependencies in software package managers.  Apply the tools of complex networks analysis to existing package dependencies.
         *   [PyPi, CRAN, clojars](package-managers.md) -- not yet written
 

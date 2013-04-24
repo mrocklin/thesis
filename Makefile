@@ -1,6 +1,6 @@
 
-full.md: title.md introduction.md nwp.md numerics.md unix.md
-	cat title.md introduction.md nwp.md numerics.md unix.md > full.md
+full.md: title.md introduction.md nwp.md uq-methods.md numerics.md unix.md
+	cat title.md introduction.md nwp.md uq-methods.md numerics.md unix.md > full.md
 	python scripts/dollar.py full.md full.md
 
 full.tex: full.md full.md tex/preamble-extra.tex tex/biblio.tex
