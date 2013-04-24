@@ -51,12 +51,12 @@ Recent advances in GPGPU or more generally manycore computing have radically red
 
 Sampling methods apply the non-linear function $f$ to unrelated inputs.  The computations that result may share nothing in common.  Alternatively, derivative methods apply the same linear derivative code $f'$ to a set of vectors collected within a single matrix.  The computation performed on the different vectors is identical and may benefit both from SIMD parallelism and, in certain computations, from memory locality often gained in matrix-matrix computations.  This motivates the following thesis
 
-*Disruptions of SIMD parallelism and automatic differentiation might sufficiently reduce the cost of linear derivative methods for uncertainty propagation so that they are again competitive with non-linear high order accuracy sampling methods.*
+*Disruptions of SIMD parallelism and automatic differentiation might sufficiently reduce the development and runtime cost of linear derivative methods for uncertainty propagation so that they are again competitive with non-linear high-order-accuracy sampling methods.*
 
 
 ### Evaluation
 
-This relatively simple thesis depends on a few concepts. 
+Evaluation of this thesis depends on a few concepts. 
 
 1.  Numerical methods for evolving Dynamical Systems, i.e. knowledge of $f$
 2.  Uncertainty / Statistics
@@ -64,7 +64,7 @@ This relatively simple thesis depends on a few concepts.
 4.  Matrix computations
 5.  CPU and GPU implementation expertise
 
-The thesis itself is well contained within the context of methods for uncertainty propagation.  Testing the validity of the thesis however relies both on theoretical methods for uncertainty propagation and on the ability to write well performing low-level CPU and GPU code.  While we have both many statisticians interested in uncertainty propagation and many experienced CUDA developpers there are few researchers who are familiar with both disciplines.  As a result this question has largely gone unanswered, despite its simplicity at a high level.
+Insight for the thesis is well contained within the context of methods for uncertainty propagation.  Testing the validity of the thesis however relies on the ability to write high quality CPU and GPU codes.  Demographically we have many statisticians interested in uncertainty propagation and many experienced CUDA developers.  However there are relatively few researchers who are familiar with both disciplines.  As a result this question has largely gone unanswered, despite its simplicity at a high level within each individual domain.
 
 \begin{figure}[htbp]
 \centering
