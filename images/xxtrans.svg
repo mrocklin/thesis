@@ -10,11 +10,11 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
-   width="836.20184"
-   height="739.61218"
+   width="885.18622"
+   height="739.62244"
    id="svg2"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="XXX.svg">
+   sodipodi:docname="xxtrans.svg">
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -47,7 +47,7 @@
        enabled="true"
        snapvisiblegridlinesonly="true"
        originx="-160.48px"
-       originy="-68.750007px" />
+       originy="-68.75001px" />
   </sodipodi:namedview>
   <defs
      id="defs4" />
@@ -64,7 +64,7 @@
     </rdf:RDF>
   </metadata>
   <g
-     transform="translate(-136.39335,106)"
+     transform="translate(-136.39335,106.01025)"
      id="layer1">
     <rect
        width="15.714286"
@@ -72,7 +72,7 @@
        x="340"
        y="292.36218"
        id="rect3012"
-       style="fill:#ffffff;stroke:#000000;stroke-width:2.45901369999999986;stroke-miterlimit:4;stroke-dasharray:none" />
+       style="fill:#ffffff;stroke:#000000;stroke-width:2.4590137;stroke-miterlimit:4;stroke-dasharray:none" />
     <rect
        width="15.714286"
        height="339.99997"
@@ -80,14 +80,14 @@
        y="380"
        transform="matrix(0,-1,1,0,0,0)"
        id="rect3012-6"
-       style="fill:#ffffff;stroke:#000000;stroke-width:2.45901369999999986;stroke-miterlimit:4;stroke-dasharray:none" />
+       style="fill:#ffffff;stroke:#000000;stroke-width:2.4590137;stroke-miterlimit:4;stroke-dasharray:none" />
     <rect
        width="15.714286"
        height="340"
        x="748.05621"
        y="-104.78075"
        id="rect3012-9"
-       style="fill:#ffffff;stroke:#000000;stroke-width:2.45901345999999998;stroke-miterlimit:4;stroke-dasharray:none" />
+       style="fill:#ffffff;stroke:#000000;stroke-width:2.45901346;stroke-miterlimit:4;stroke-dasharray:none" />
     <text
        x="535.91333"
        y="82.36219"
@@ -119,15 +119,15 @@
          y="212.36218"
          id="tspan3041-0-3">x', 1 by n</tspan></text>
     <text
-       x="480"
+       x="446.8172"
        y="472.36218"
        id="text3039-3-7-8"
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:LMRoman10;-inkscape-font-specification:LMRoman10"
        sodipodi:linespacing="125%"><tspan
-         x="480"
+         x="446.8172"
          y="472.36218"
-         id="tspan3041-0-3-8">(x*x'), nxn</tspan></text>
+         id="tspan3041-0-3-8">(x*x'), n by n</tspan></text>
     <text
        x="785.91333"
        y="272.36218"
@@ -137,7 +137,7 @@
        sodipodi:linespacing="125%"><tspan
          x="785.91333"
          y="272.36218"
-         id="tspan3041-0-3-8-1">(x'*x), 1x1</tspan></text>
+         id="tspan3041-0-3-8-1">(x'*x), 1 by 1</tspan></text>
     <rect
        width="340"
        height="340"
@@ -145,21 +145,21 @@
        y="150"
        transform="translate(-6.9642639,142.36218)"
        id="rect3222"
-       style="fill:none;stroke:#0000ff;stroke-width:2.50000000000000000;stroke-miterlimit:4;stroke-dasharray:none" />
+       style="fill:none;stroke:#0000ff;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none" />
     <rect
        width="20"
        height="20"
        x="745.91333"
        y="252.36218"
        id="rect3224"
-       style="fill:none;stroke:#0000ff;stroke-width:2.50000000000000000;stroke-miterlimit:4;stroke-dasharray:none" />
+       style="fill:none;stroke:#0000ff;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none" />
     <rect
        width="15.714286"
        height="340"
        x="748.19904"
        y="292.36218"
        id="rect3012-9-8"
-       style="fill:#ffffff;stroke:#000000;stroke-width:2.45901345999999998;stroke-miterlimit:4;stroke-dasharray:none" />
+       style="fill:#ffffff;stroke:#000000;stroke-width:2.45901346;stroke-miterlimit:4;stroke-dasharray:none" />
     <text
        x="815.91333"
        y="462.36218"
