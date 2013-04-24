@@ -50,13 +50,19 @@ In SymPy matrix expressions we approach this problem by first expressing linear 
 
 ### Computations - BLAS/LAPACK
 
-#### Application - Selection of Algorithms SYMM v. GEMM
+#### Application - Linear Regression
+
+[Linear regresion - Inference and algorithm selection](linear-regression.md)
+
+[Linear regresion - Extensibility - SYRK v. GEMM](syrk.md)
 
 #### Application - BLAS/LAPACK in Python via `F2Py`
 
+[Kalman filter - The value of inference and specialized routines](kalman-specialized.md)
+
 ### Blocking
 
-#### Application - Blocked Linear Regression
+#### Application - Blocked Kalman Filter
 
 ### Conclusion
 
