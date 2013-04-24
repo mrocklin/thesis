@@ -6,7 +6,10 @@ full.md: title.md introduction.md nwp.md numerics.md unix.md
 full.tex: full.md full.md tex/preamble-extra.tex tex/biblio.tex
 	pandoc full.md -o full.tex --standalone -H tex/preamble-extra.tex -A tex/biblio.tex
 
-pdf: full.tex
+images/pdfs: images/*.svg
+	python svg2pdf.py
+
+pdf: full.tex images/*.svg
 	pdflatex full.tex
 
 publish: pdf
