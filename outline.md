@@ -33,11 +33,16 @@ Describe existing scientific software from the perspective of software engineeri
 *   Finally note that mathematical experts often lack training to produce such packages. 
 
 
+[Expertise](expertise.md)
+[Software Principles](principles.md) -- not written
+[Numerical Weather Prediction](nwp.md)
+[Trilinos/PETSc/FEniCS](numerics.md)
+[Uncertainty Propagation](uq-methods.md)
+[PyPi, CRAN, clojars](package-managers.md) -- not yet written
+
 
 Mathematically Informed Numerical Linear Algebra - Performance
 ==============================================================
-
-[Mathematically Informed Numerical Linear Algebra - Performance](math-num-linalg-performance.md)
 
 This should eventually be a sizable chapter on the performance of our solution mathematically informed, blocked linear algebra.
 
@@ -50,11 +55,11 @@ This should eventually be a sizable chapter on the performance of our solution m
 
 This chapter is intended to contain little conversation about modularity, declarative programming, etc.... Rather it is a more traditional section establishing the validity of a particular solution to a common problem.  It is meant to give both a context and a measure of authority to future discussion.
 
+[Mathematically Informed Numerical Linear Algebra - Performance](math-num-linalg-performance.md)
+
 
 Mathematically Informed Numerical Linear Algebra - Design
 =========================================================
-
-[Mathematically Informed Numerical Linear Algebra - Design](math-num-linalg-design.md)
 
 Analyze the previous chapter from the lens of software design.  Note the benefits of various design choices. 
 
@@ -63,6 +68,8 @@ Analyze the previous chapter from the lens of software design.  Note the benefit
     *   Swap out schedulers
     *   Swap out code generators (use Theano instead, see how it compares)
 *   The different pieces can be broadly applied.  They're generally applicable beyond this problem.
+
+[Mathematically Informed Numerical Linear Algebra - Design](math-num-linalg-design.md)
 
 
 Static Scheduling
@@ -79,7 +86,7 @@ I have a couple of examples about two libraries for high-level computation.  Eac
 *   SymPy:  a library for mathematics which does a bit of code generation
 *   Theano: a library for code generation which does a little mathematics
 
-By providing a translation from one to the other we use the best implementions of each idea, producing substantially more performant programs.  This is currently written up as a couple of blog posts
+By providing a translation from one to the other we use the best implementions of each idea, producing substantially more performant programs.  This is currently written up as a few blog posts
 
 *   [Code Generation](http://mrocklin.github.com/blog/work/2013/03/19/SymPy-Theano-part-1)
 *   [Scalar Simplification](http://mrocklin.github.com/blog/work/2013/03/28/SymPy-Theano-part-2)

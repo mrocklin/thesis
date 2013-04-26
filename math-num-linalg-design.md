@@ -41,6 +41,8 @@ Numerical linear algebra is used at a variety of levels by a population of progr
 
 We emit human readable and mathematically commented Fortran code.  The output of our process does not depend on the continued use of our software system.  The output code can be wrapped immediately into a higher-level language like Python or Matlab, integrated into other high performance codes, or opened and edited by an expert developer.  The lack of dependencies increases the bredth of applicability.
 
+Background - For example, the popular FFTW library is written in OCaml but does not depend on OCaml.  More scientific programmers probably know the artifact than know of the language.
+
 ### Directed Acyclic Graphs
 
 #### Other Output Languages 
@@ -53,3 +55,4 @@ Other languages can be added relatively simply, providing support for developers
 
 Other developers who use this project may want to apply their own computational logic.  By providing them with clean intermediate representations we enable them to apply their own research ideas without needing to interact deeply with our codebase.  In section [scheduling](scheduling.md) we will see the application of static scheduling algorithms to dense linear algebra.  The code written for those solutions will be completely separate the linear algebraic code presented here.  Clean intermediate representations foster broad interaction with other developers, enabling software evolution.
 
+In [math-num-linalg-performance.md](math-num-linalg-performance.md) we obtained a substantial speedup through full-algorithm blocking.  This speedup was because smaller matrix blocks were able to stay in memory longer.  This performance gain depends on the choice of sequential ordering of computations.  Our current approach to ordering independent computations is somewhat random.  It could be that a transformation at this stage would substantially improve the gain we have observed.
