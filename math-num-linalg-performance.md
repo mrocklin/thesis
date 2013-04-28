@@ -75,9 +75,7 @@ include [Linear regresion - Extensibility - SYRK v. GEMM](syrk.md)
 
 include [Kalman filter - The value of inference and specialized routines](kalman-specialized.md)
 
-### Blocking
-
-include [Blogpost : Blocked Kalman filter in Theano](http://matthewrocklin.com/blog/work/2013/04/05/SymPy-Theano-part-3/)
+include [Blocked Kalman filter in Theano](blocking.md)
 
 ### Conclusion
 
