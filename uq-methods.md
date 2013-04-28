@@ -1,11 +1,12 @@
-Motivating Problem - Numerical Methods for Uncertainty Propagation
-==================================================================
+
+## Motivating Problem - Numerical Methods for Uncertainty Propagation
+
+\label{sec:uq-methods}
 
 We present the problem of numerical uncertainty propagation and how recent advances in algorithms and hardware motivate a second look at an older class of algorithms.  We find that the evaluation of a simple thesis on these algorithms presents unfortunate challenges.  We use this failure as motivation for high level languages.
 
 
-Uncertainty Propagation
------------------------
+### Uncertainty Propagation
 
 Consider a differentiable function $f$ that transforms elements in $\mathbb{R}^n \rightarrow \mathbb{R}^n$.  Given the action of $f$ on a single point we want to understand the action of $f$ on a distribution.  This is pictured in \ref{fig:uq-13} where one might imagine $f$ as the time evolution of a simple 2-D fluid flow problem with advection moving towards the upper right.  If $f$ is non-linear then a simple distribution at the starting time may deform at the final time. 
 
@@ -30,23 +31,21 @@ Previous to these methods a simpler theory motivated the use of evolving the ini
 
 Linear derivative methods were both inconvenient and less accurate. 
 
-Recent Advances Challenge Assumptions
--------------------------------------
+### Recent Advances Challenge Assumptions
 
 Recent years have seen two important advances, each of which has disrupted the landscape of algorithm development
 
-### Automatic Differentiation
+#### Automatic Differentiation
 
 Given a program that computes $f(x)$ it is now easy to produce a second program that computes $f(x)'(\delta x)$.  In many important cases this invalidates the first of the two original reasons to select sampling over derivative methods.  Derivatives are now convenient. 
 
-### SIMD Hardware
+#### SIMD Hardware
 
 Recent advances in GPGPU or more generally manycore computing have radically reduced the costs of certain repetitive operations.  This change may apply to the problem of uncertainty propagation.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.8\textwidth]{images/uq-4}
-\label{fig:uq-4}
 \end{figure}
 
 Sampling methods apply the non-linear function $f$ to unrelated inputs.  The computations that result may share nothing in common.  Alternatively, derivative methods apply the same linear derivative code $f'$ to a set of vectors collected within a single matrix.  The computation performed on the different vectors is identical and may benefit both from SIMD parallelism and, in certain computations, from memory locality often gained in matrix-matrix computations.  This motivates the following thesis
@@ -71,5 +70,3 @@ Insight for the thesis is well contained within the context of methods for uncer
 \includegraphics[width=.6\textwidth]{images/venn-uq-cuda}
 \label{fig:venn-uq-cuda}
 \end{figure}
-
-

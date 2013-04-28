@@ -1,4 +1,30 @@
 
+Mathematical Numerical Linear Algebra Performance
+=================================================
+
+\label{sec:math-num-linalg-performance}
+
+This should eventually be a sizable chapter on the performance of our solution mathematically informed, blocked linear algebra.
+
+--------------------------------------------------------------------------
+ Section          Contents                                                                                                          
+---------------- ---------------------------------------------------------
+ Background       BLAS/LAPACK, Matrix Algebra/inference, 
+                  Why do we need array compilers?                                            
+
+ Related work     FLAME, Magma, PLAPACK, 
+                  various array programming languages                                                        
+
+ Implementation   Matrix algebra, inference, BLAS/LAPACK DAG generation, 
+                  inplace processing, code generation                        
+
+ Results          Several intermediate representations, 
+                  highlight particular optimizations, 
+                  compare on a couple real world problems 
+--------------------------------------------------------------------------
+
+This chapter is intended to contain little conversation about modularity, declarative programming, etc.... Rather it is a more traditional section establishing the validity of a particular solution to a common problem.  It is meant to give both a context and a measure of authority to future discussion.
+
 Introduction
 ------------
 
@@ -12,19 +38,10 @@ Each of these languages provide a set of high performance array operations.  A s
 
 None of these popular array programming languages are compiled (TODO: are there counter-examples?).  Because the array operations call down to precompiled library code this may seem unnecessary.
 
+include [Operation Ordering in Matlab](operation-ordering-matlab.md)
 
-### Operation Ordering in MatLab
-
-[Operation Ordering in Matlab](operation-ordering-matlab.md)
-
-### Analysis
-
-At the high array programming level this optimization is straightforward.  It is a common homework assignment in introductory algorithms courses involving dynamic programming.  A small amount of pre-execution logic can provide orders of magnitude in savings.
-
-This is a single example of a family of optimizations that can be made at the array programming level.  These optimizations are well known to numerical analysts but are still uncommonly implemented in practice.  We present a project that attempts to encode this expert knowledge within an automated compiler system.
-
-Background
-----------
+Related Work
+------------
 
 Both the broad applicability of this domain and the performance improvments from expert treatment have made it the target of substantial academic study and engineering efforts.
 
@@ -50,21 +67,17 @@ In SymPy matrix expressions we approach this problem by first expressing linear 
 
 ### Computations - BLAS/LAPACK
 
-#### Application - Linear Regression
+include [Linear regresion - Inference and algorithm selection](linear-regression.md)
 
-[Linear regresion - Inference and algorithm selection](linear-regression.md)
-
-[Linear regresion - Extensibility - SYRK v. GEMM](syrk.md)
+include [Linear regresion - Extensibility - SYRK v. GEMM](syrk.md)
 
 #### Application - BLAS/LAPACK in Python via `F2Py`
 
-[Kalman filter - The value of inference and specialized routines](kalman-specialized.md)
+include [Kalman filter - The value of inference and specialized routines](kalman-specialized.md)
 
 ### Blocking
 
-#### Application - Blocked Kalman Filter
-
-[Blogpost : Blocked Kalman filter in Theano](http://matthewrocklin.com/blog/work/2013/04/05/SymPy-Theano-part-3/)
+include [Blogpost : Blocked Kalman filter in Theano](http://matthewrocklin.com/blog/work/2013/04/05/SymPy-Theano-part-3/)
 
 ### Conclusion
 

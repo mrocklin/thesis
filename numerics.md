@@ -1,5 +1,8 @@
+
 Numeric Libraries
-=================
+-----------------
+
+\label{sec:numerics}
 
 The numeric methods community has a good record of developing performant libraries in isolation from any particular application.  These methods are developed by dedicated groups with mature software engineering practices.  They are used in a broad set of applications.
 
@@ -13,10 +16,6 @@ In particular lets examine a stack of numeric libraries for the solution of diff
 BLAS is a library for simple dense matrix operations (e.g. matrix multiply).  LAPACK is a similar library for more complex matrix operations (e.g. Cholesky Solve); it calls on BLAS for most manipulations.  PETSc and Trilinos are projects for numeric solvers for distributed and sparse problems, they use MPI, BLAS, and LAPACK calls within their codebase.  FEniCS is a high level domain specific language that transforms a description of PDEs into performant C++ code that calls PETSc routines.  Each of these libraries builds off of the beneath them, making use of preexisting high-quality implementations when available.
 
 In a sense this style of *hierarchical* modularity is like a Russian Doll.  Each new higher-level project can omit a substantial computational core by depending on generally applicable previous solutions.  New projects create a shell rather than a complete solid.
-
-
-Interfaces
-----------
 
 The interfaces of the lower levels of this stack are worth mention.  
 

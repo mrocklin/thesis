@@ -1,4 +1,17 @@
 
+Mathematical Numerical Linear Algebra Design
+============================================
+
+\label{sec:math-num-linalg-design}
+
+Analyze the previous chapter from the lens of software design.  Note the benefits of various design choices. 
+
+*   The different pieces of the above program can be developed independently.  Each piece assumes knowledge of only one area of expertise.
+*   New parts can be tested and compared. 
+    *   Swap out schedulers
+    *   Swap out code generators (use Theano instead, see how it compares)
+*   The different pieces can be broadly applied.  They're generally applicable beyond this problem.
+
 Introduction
 ------------
 
