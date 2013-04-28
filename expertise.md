@@ -6,7 +6,7 @@ Expertise
 
 In this section we discuss the distribution, importance, and demands of expertise.  We use integration by numeric quadrature as a running example.
 
-*The distribution of expertise with a particular domain is highly skewed*.  Many practitioners understand naive solutions while very few understand the most mature solutions.  In scientific and numerical domains mature solutions may require years of dedicated study.  For example the rectangle and trapezoid rules are taught in introductory college calculus classes to a large group of students.  Advanced techniques such as sparse grids and finite elements are substantially less well known.
+*The distribution of expertise with a particular domain is highly skewed*.  Many practitioners understand naive solutions while very few understand the most mature solutions.  In scientific and numerical domains mature solutions may require years of dedicated study.  For example the rectangle and trapezoid rules are taught in introductory college calculus classes to the general engineering audience.  Advanced techniques such as sparse grids and finite elements are substantially less well known.
 
 *High expertise solutions can greatly improve performance*.  The cost of naive and mature solutions can vary by several orders of magnitude.  It is common for a previously intractible problem to be made trivial by engaging the correct method.  In quadrature for example adaptivity, higher order methods, and sparsity can each supply performance improvements of several orders of magnitude.
 

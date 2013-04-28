@@ -2,36 +2,33 @@
 Introduction
 ============
 
-Scientists increasingly use computation.
+include [Scientific Software is important.](value.md)
 
-*   This has proven valuable.  It's growing rapidly.
-*   However scientists are not trained in software engineering
-    -   So this activity is an inefficient use of their time
-    -   The resulting software ecosystem is inefficient.  It doesn't select and 
-        distribute the best solutions.  It doesn't adapt well to today's 
-        changing hardware
+include [Demographics of developers and users is highly skewed](expertise.md)
 
-Describe existing scientific software from the perspective of software engineering.
 
-*   State the demographics of both the types of problems to be solved and the skillset of scientific workforce.  [Expertise](expertise.md)
-*   State software engineering values of modularity, coupling and cohesion and explain why pathological cases limit software evolution.  [Software Principles](principles.md) -- not written
-*   Analyze existing scientific software under this lens
-    -   Anecdotal case studies
-        *   [Numerical Weather Prediction](nwp.md) - An example of monolithic Fortran.  In particular we focus on duplicated efforts and an inability to adapt to GPU hardware.
-        *   [Trilinos/PETSc/FEniCS](numerics.md) - These projects exhibit a hierarchical or "Russian Doll" approach to modularity, coupling high-level expertise (e.g. PDEs) to lower-level implementations.  They have proven far more effective than monolithic designs but, we argue, are not yet optimlal.
-        *   [Uncertainty Propagation](uq-methods.md) - The lack of high-level hardware agnostic tools slows development, particularly when new hardware changes the algorithm landscape.
-    -   Quantitatve study of dependencies in software package managers.  Apply the tools of complex networks analysis to existing package dependencies.
-        *   [PyPi, CRAN, clojars](package-managers.md) -- not yet written
+### Structure
 
-    These analyses show that while low-level software is well modularized and loosely coupled, high and intermediate-level modules are often tightly coupled to specific lower-level implementations, limiting efficient selection and distribution at this level.  This causes fragmentation and slower software evolution.
+Our thesis is the following:
+
+*Loosely coupled and cohesive solutions to common subproblems can significantly accelerate the development of scientific software.*
+
+With the following strong opinion
+
+*The computational science community would substantially increase its effectiveness by focusing efforts on interfaces and common-subproblems*
+
+We support these claims in the following ways:
+
+*   In section \ref{sec:motivation} we provide positive and pathological cases of historical approaches to scientific software development.  In particular we look at how projects adapt to external changes from hardware development.
+*   In section \ref{sec:sympy-theano} we look at two high-level packages for mathematical software generation with overlapping functionality, SymPy and Theano.  We show how developing an interface between the two projects is substantially more effective than extending either one.
+*   In section \ref{sec:math-num-linalg-performance} we present a system to generate mathematically informed numerical linear algebra codes.  We demonstrate the value of high-level mathematics in algorithm selection and the applicability of composable solutions to sub-problems instead of monolithic solutions.
+*   In section \ref{sec:static-scheduling} we extend this argument by adding another separate component, static scheduling.  We use this piece to attack problems in heterogeneous statically scheduled linear algebra.
+*   In section \ref{sec:sympy-stats} we present a computer algebra system for uncertainty modeling that uses many of the same principles.  In particular we demonstrate the value of small cohesive projects and dependence on clean interfaces. 
+*   In section \ref{sec:declarative} we discuss declarative techniques for the expression of expertise and generation of domain specific compilers.  We outline a toolchain used in the above projects. 
+
 
 *   This provides our major argument
 
-    *The computational science community should construct
-     loosely coupled, cohesive, intermediate-level packages*
-
-*   Finally note that mathematical experts often lack training to produce such packages. 
 
 
-include [Expertise](expertise.md)
 include [Software Principles](principles.md) -- not written

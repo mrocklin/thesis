@@ -30,4 +30,8 @@ The Trilinos project takes a different approach.  Trilinos provides a common dat
 Trilinos does not dominate its domain like BLAS/LAPACK, but it does demonstrate the value of prespecified complex interfaces in a higher level setting.  A number of differently abled groups are able to co-develop in the same space with relatively little communication.
 
 
+### Analysis
+
+These analyses show that while low-level software is well modularized and loosely coupled, high and intermediate-level modules are often tightly coupled to specific lower-level implementations, limiting efficient selection and distribution at this level.  This causes fragmentation and slower software evolution.
+
 Not Fully Written.
