@@ -4,7 +4,7 @@ Declarative Programming
 
 \label{sec:declarative}
 
-Mathematical experts may not be able to build efficient modular software.  Discuss how the projects above made use of declarative techniques to separate mathematical expertise from algorithmic term rewriting.  
+Mathematical experts often lack training to produce efficient modular software.  Discuss how the projects above made use of declarative techniques to separate mathematical expertise from algorithmic term rewriting.  
 
 ------------- ---------------------------------------------------------------
  Background   Stratego/XT, Maude, miniKanren (a simple embedding in Scheme).
