@@ -22,8 +22,8 @@ outline: images/pdfs outline.md math-num
 	pdflatex outline.tex
 
 
-publish: pdf
-	scp full.pdf ankaa.cs.uchicago.edu:html/tempspace/thesis.pdf
+publish: outline 
+	scp outline.pdf ankaa.cs.uchicago.edu:html/storage/outline.pdf
 
 clean:
 	rm -f *.aux
