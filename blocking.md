@@ -26,8 +26,7 @@ print latex(newSigma)
 $$ \Sigma H^T \left(H \Sigma H^T + R\right)^{-1} \left(-data + H \mu\right) + \mu $$
 $$ - \Sigma H^T \left(H \Sigma H^T + R\right)^{-1} H \Sigma + \Sigma $$
 
-Theano Execution
-----------------
+### Theano Execution
 
 The objects above are for symbolic mathematics, not for numeric computation.  If we want to compute this expression we pass our expressions to Theano.
 
@@ -48,8 +47,7 @@ ninputs = [numpy.random.rand(*i.shape).astype('float64') for i in inputs]
 nmu, nSigma = f(*ninputs)
 ~~~~~~~~~~~~~~~Python
 
-Blocked Execution
------------------
+### Blocked Execution
 
 These arrays are too large to fit comfortably in the fastest parts of the memory hierarchy.  As a result each sequential `C`, `scipy`, or `DGEMM` call needs to move big chunks of memory around while it computes.  After one operation completes the next operation moves around the same memory while it performs its task.  This repeated memory shuffling hurts performance.
 
@@ -134,6 +132,7 @@ That's a 20% performance increase from just a few lines of high-level code.
 
 Blocked matrix multiply and blocked solve routines have long been established as *a good idea*.  High level mathematical and array programming libraries like SymPy and Theano allow us to extend this good idea to *arbitrary* array computations.
 
+Disclaimer: the numbers above are sensitive to the problem size and memory architecture.  Tuning may be required to obtain benefits of this magnitude.
 
 ### Analysis
 

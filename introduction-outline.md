@@ -9,7 +9,8 @@ include [Demographics of developers and users is highly skewed](expertise.md)
 include [Software Principles](principles.md) -- not written
 
 
-### Structure
+Structure
+---------
 
 Our thesis is the following:
 
@@ -17,7 +18,8 @@ Our thesis is the following:
 
 With the following strong opinion
 
-*The computational science community would substantially increase its effectiveness by focusing efforts on interfaces and common-subproblems*
+*Development of interfaces and common-subproblems is a more efficient use of
+the computational science community's efforts*
 
 We support these claims in the following ways:
 

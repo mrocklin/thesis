@@ -1,5 +1,6 @@
 
-### Linear Regression
+Linear Regression
+-----------------
 
 \label{sec:linear-regression}
 
@@ -16,7 +17,7 @@ Conveniently this problem can be expressed as a matrix expression.  The $\beta_i
 
 $$ \beta = (X^TX)^{-1}X^Ty $$
 
-#### Naive Implementation
+### Naive Implementation
 
 Writing code to compute this expression given variables `X` and `y` can be challenging in a low-level language.  Algorithms for multiplication and solution of matrices are not commonly known, even by practicing statisticians.  Fortunately high-level languages like Matlab and Python/NumPy provide idiomatic solutions to these problems.
 
@@ -31,7 +32,7 @@ $$ \beta = (X^TX)^{-1}X^Ty $$
 
 The code matches mathematical syntax almost exactly, greatly enabling mathematical programmers.
 
-#### Refined Implementations
+### Refined Implementations
 
 Unfortunately the code above incredibly inefficient.  The average numerical analyst will note that this code first computes explicit inverses and then performs a matrix multiply rather than performing matrix solves, an operation for which substantially cheaper and numerically robust methods exist.  A slight change yields the following, vastly improved implementations
 
