@@ -14,3 +14,5 @@ Each project extends a bit into the others' domain.  We will find that these ext
 include [Code Generation](sympy-theano-1.md)
 
 include [Scalar Simplification](sympy-theano-2.md)
+
+include [Engineering Example](sympy-theano-3.md)
