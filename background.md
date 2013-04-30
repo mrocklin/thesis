@@ -2,6 +2,8 @@
 Background
 ==========
 
+\label{sec:background}
+
 The value and practice of encoding and distributing scientific and
 computational expertise through software is well established. 
 
