@@ -1,4 +1,8 @@
 
+\begin{abstract}
+include [Abstract](abstract2.md)
+\end{abstract}
+
 include [Introduction](introduction-outline.md)
 
 include [Motivation](motivation.md)
