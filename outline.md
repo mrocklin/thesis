@@ -5,6 +5,8 @@ include [Abstract](abstract2.md)
 
 include [Introduction](introduction-outline.md)
 
+include [Background](background.md)
+
 include [Motivation](motivation.md)
 
 include [SymPy and Theano - Interfaces vs Feature creep](sympy-theano.md)
