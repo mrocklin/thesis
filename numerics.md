@@ -23,12 +23,21 @@ The interfaces of the lower levels of this stack are worth mention.
 
 BLAS/LAPACK have an incredibly simple-yet-verbose interface.  They are accessed by Fortran function calls with several inputs (5-20) of very basic types (string, int, float, array of floats).  Attempts to refactor the BLAS/LAPACK interface into object oriented frameworks has had some success but the original interface remains dominant.  This may be because every numeric project is capable of providing these basic types but may not have simple access to the custom objected oriented framework.  The original Fortran interface (or it's c counterpart) remain the defacto standard.  This supports the use of common simple interfaces over rich interfaces.
 
+### PETSc
+
+The Petascale Extensible Toolkit for Scientific computing (PETSc) is a library for distributed linear algebra and (non)-linear solvers.  It encodes a set of curated numerical methods common in scientific computing problems.  It relies on BLAS/LAPACK for local sequential computations and MPI for distributed memory communication.  It is curated by a small dedicated team of developers that focus on a small core of relevant sub-problems.
+
+
 ### Trilinos
 
 The Trilinos project takes a different approach.  Trilinos provides a common data structure (distributed array) and a set of C++ interfaces for generic solver types (e.g. Eigensolve).  Over time a loose federation of over fifty independently developed packages have coevolved around these interfaces into a robust and powerful ecosystem.
 
 Trilinos does not dominate its domain like BLAS/LAPACK, but it does demonstrate the value of prespecified complex interfaces in a higher level setting.  A number of differently abled groups are able to co-develop in the same space with relatively little communication.
 
+
+### FEniCS 
+
+FEniCS is a domain specific language and code generation tool for the description and solution of problems in numerical PDEs.  FEniCS depends on PETSc and custom generated C++ code to construct and solve linear systems that correspond to systems of differential equations.
 
 ### Analysis
 
