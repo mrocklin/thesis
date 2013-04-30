@@ -53,3 +53,74 @@ And so a further refined solution might look like the following
 -------------- -----------------------------
 
 Unfortunately the `spd_solve` routine does not exist.
+
+### BLAS/LAPACK
+
+Fortunately such routines do exist within the BLAS/LAPACK libraries for dense linear algebra.  In particular the routine `POSV` for symmetric positive definite matrix solve is the ideal routine in this case.  As previously noted searching for and using the correct routine is non-trivial for scientific developers. 
+
+    SUBROUTINE DPOSV( UPLO, N, NRHS, A, LDA, B, LDB, INFO )
+
+### Connecting Math and Computation
+
+Given the following expression and predicates
+
+    (X.T*X).I*X.T*y
+    full_rank(X)
+
+We wish to produce the following computation
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.7\textwidth]{images/hat-comp}
+\end{figure}
+
+This can be accomplished through the following progression
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.24\textwidth]{images/hat0}
+\includegraphics[width=.24\textwidth]{images/hat1}
+\includegraphics[width=.24\textwidth]{images/hat2}
+\includegraphics[width=.24\textwidth]{images/hat3}
+\end{figure}
+
+### User Experience
+
+This search process and the final code emission is handled automatically.  A scientific user has the following experience
+
+
+~~~~~~~~Python
+X = MatrixSymbol('X', n, m)
+y = MatrixSymbol('y', n, 1)
+
+inputs  = [X, y]
+outputs = [(X.T*X).I*X.T*y]
+facts   = fullrank(X)
+
+f = fortran_function(inputs, outputs, facts)
+~~~~~~~~~
+
+
+This generates the following Fortran code.
+
+~~~~~~~~Fortran
+subroutine f(X, y, var_7, m, n)
+implicit none
+
+integer, intent(in) :: m
+integer, intent(in) :: n
+real*8, intent(in) :: y(n)          !  y
+real*8, intent(in) :: X(n, m)       !  X
+real*8, intent(out) :: var_7(m)     !  0 -> X'*y -> (X'*X)^-1*X'*y
+real*8 :: var_8(m, m)               !  0 -> X'*X
+integer :: INFO                     !  INFO
+
+call dgemm('N', 'N', m, 1, n, 1.0, X, n, y, n, 0.0, var_7, m)
+call dgemm('N', 'N', m, m, n, 1.0, X, n, X, n, 0.0, var_8, m)
+call dposv('U', m, 1, var_8, m, var_7, m, INFO)
+
+RETURN
+END
+~~~~~~~~~
+
+This code can be run in a separate context without the Python runtime environment.  Alternatively it can be linked in with Python's foreign function interface to a callable python function object that consumes the popular numpy array data structure. 
