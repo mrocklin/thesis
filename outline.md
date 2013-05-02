@@ -17,6 +17,4 @@ include [Mathematically Informed Numerical Linear Algebra - Validation](math-num
 
 include [Static Scheduling](static-scheduling.md)
 
-include [SymPy.stats](sympy-stats.md)
-
 include [Declarative Programming](declarative.md)
