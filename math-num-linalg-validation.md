@@ -2,6 +2,8 @@
 Mathematical Numerical Linear Algebra - Validation
 ==================================================
 
+\label{sec:validation}
+
 include [Linear regresion - Inference and algorithm selection](linear-regression.md)
 
 include [Linear regresion - Extensibility - SYRK v. GEMM](syrk.md)
