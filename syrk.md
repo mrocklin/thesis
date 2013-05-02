@@ -4,7 +4,7 @@ Adding Computations
 
 \label{sec:syrk}
 
-The computation for linear regression can be improved.  In particular the computation `X -> GEMM -> X'*X`, while correct, actually fits a special pattern; it is a symmetric rank-k update and can be replaced by `X -> SYRK -> X'*X`.  
+The computation for linear regression can be further improved.  In particular the computation `X -> GEMM -> X'*X`, while correct, actually fits a special pattern; it is a symmetric rank-k update and can be replaced by `X -> SYRK -> X'*X`.  
 
 This was discovered by a scientific programmer with extensive familiarity with BLAS/LAPACK.  He was able to correct this inefficiency by adding an additional computation
 
@@ -40,4 +40,10 @@ This resulted in a 50% speedup in the `X -> X'*X` computation and a 9% speedup o
 
     Elapsed time with SYRK = 0.39500001 
 
-There are two results in the above experiment.  First, there is a numeric speedup of a common algorithm.  Second, this speedup was found and implemented only because we were able to engage a domain expert and because that domain expert was able to contribute to the codebase.  The intermediate representations were clear in his domain and his code contribution was isolated to a section that did not require expertise outside of his experience.
+### Numeric Result
+
+We achieved a 9% speedup in an important algorithm.  This speedup will be delivered to all naive developers.
+
+### Development Result
+
+Second, this speedup was both found and implemented by a domain expert.  He was able to identify the flaw in the current implementation because the intermediate representations (DAG, Fortran code) were clear and natural to someone in his domain.  The code invited inspection.  After identification he was able to implement the correct computation (`class SYRK`).  The `computations` project for BLAS/LAPACK routines was simple enough for him to quickly engage and develop his contribution.  Finally he was able to formulate a pattern `(A*A.T,  SYRK(1.0, A, 0.0, 0), True)` into the compilation system so that his work could be automatically applied.  The declarative inputs of the compiler are sufficiently approachable to be used by developers without a background in automated program development.
