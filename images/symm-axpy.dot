@@ -1,0 +1,23 @@
+
+digraph{
+
+rankdir=LR
+orientation=TD
+
+"5" [shape=ellipse]
+"X*Y" [shape=ellipse]
+"Y" [shape=ellipse]
+"5*X*Y + Y" [shape=ellipse]
+"X" [shape=ellipse]
+
+"[1, X, Y, 0, Y] -> SYMM -> [X*Y]" [shape=box, label="SYMM"]
+"[5, X*Y, Y] -> AXPY -> [5*X*Y + Y]" [shape=box, label="AXPY"]
+
+"X" -> "[1, X, Y, 0, Y] -> SYMM -> [X*Y]"
+"Y" -> "[1, X, Y, 0, Y] -> SYMM -> [X*Y]"
+"[1, X, Y, 0, Y] -> SYMM -> [X*Y]" -> "X*Y"
+"5" -> "[5, X*Y, Y] -> AXPY -> [5*X*Y + Y]"
+"X*Y" -> "[5, X*Y, Y] -> AXPY -> [5*X*Y + Y]"
+"Y" -> "[5, X*Y, Y] -> AXPY -> [5*X*Y + Y]"
+"[5, X*Y, Y] -> AXPY -> [5*X*Y + Y]" -> "5*X*Y + Y"
+}

@@ -1,0 +1,35 @@
+
+digraph{
+
+rankdir=LR
+orientation=TD
+
+"Y @ Y" [shape=ellipse]
+"Y @ Y_3" [shape=ellipse]
+"Y @ Y_2" [shape=ellipse]
+"1 @ var" [shape=ellipse]
+"X @ X" [shape=ellipse]
+"0 @ var_2" [shape=ellipse]
+"X*Y @ Y_2" [shape=ellipse]
+"5 @ var_4" [shape=ellipse]
+"5*X*Y + Y @ Y_3" [shape=ellipse]
+
+"[Y @ Y] -> Copy -> [Y @ Y_3]" [shape=box, label="Copy"]
+"[Y @ Y] -> Copy -> [Y @ Y_2]" [shape=box, label="Copy"]
+"[1 @ var, X @ X, Y @ Y_2, 0 @ var_2, Y @ Y_2] -> SYMM -> [X*Y @ Y_2]" [shape=box, label="SYMM"]
+"[5 @ var_4, X*Y @ Y_2, Y @ Y_3] -> AXPY -> [5*X*Y + Y @ Y_3]" [shape=box, label="AXPY"]
+
+"Y @ Y" -> "[Y @ Y] -> Copy -> [Y @ Y_3]"
+"[Y @ Y] -> Copy -> [Y @ Y_3]" -> "Y @ Y_3"
+"Y @ Y" -> "[Y @ Y] -> Copy -> [Y @ Y_2]"
+"[Y @ Y] -> Copy -> [Y @ Y_2]" -> "Y @ Y_2"
+"1 @ var" -> "[1 @ var, X @ X, Y @ Y_2, 0 @ var_2, Y @ Y_2] -> SYMM -> [X*Y @ Y_2]"
+"X @ X" -> "[1 @ var, X @ X, Y @ Y_2, 0 @ var_2, Y @ Y_2] -> SYMM -> [X*Y @ Y_2]"
+"Y @ Y_2" -> "[1 @ var, X @ X, Y @ Y_2, 0 @ var_2, Y @ Y_2] -> SYMM -> [X*Y @ Y_2]"
+"0 @ var_2" -> "[1 @ var, X @ X, Y @ Y_2, 0 @ var_2, Y @ Y_2] -> SYMM -> [X*Y @ Y_2]"
+"[1 @ var, X @ X, Y @ Y_2, 0 @ var_2, Y @ Y_2] -> SYMM -> [X*Y @ Y_2]" -> "X*Y @ Y_2"
+"5 @ var_4" -> "[5 @ var_4, X*Y @ Y_2, Y @ Y_3] -> AXPY -> [5*X*Y + Y @ Y_3]"
+"X*Y @ Y_2" -> "[5 @ var_4, X*Y @ Y_2, Y @ Y_3] -> AXPY -> [5*X*Y + Y @ Y_3]"
+"Y @ Y_3" -> "[5 @ var_4, X*Y @ Y_2, Y @ Y_3] -> AXPY -> [5*X*Y + Y @ Y_3]"
+"[5 @ var_4, X*Y @ Y_2, Y @ Y_3] -> AXPY -> [5*X*Y + Y @ Y_3]" -> "5*X*Y + Y @ Y_3"
+}
