@@ -11,9 +11,9 @@ include [Motivation](motivation.md)
 
 include [SymPy and Theano - Interfaces vs Feature creep](sympy-theano.md)
 
-include [Mathematically Informed Numerical Linear Algebra - Performance](math-num-linalg-performance.md)
+include [Mathematically Informed Numerical Linear Algebra](math-num-linalg.md)
 
-include [Mathematically Informed Numerical Linear Algebra - Design](math-num-linalg-design.md)
+include [Mathematically Informed Numerical Linear Algebra - Validation](math-num-linalg-validation.md)
 
 include [Static Scheduling](static-scheduling.md)
 
