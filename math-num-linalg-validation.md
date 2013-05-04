@@ -2,7 +2,7 @@
 Mathematical Numerical Linear Algebra - Validation
 ==================================================
 
-\label{sec:validation}
+\label{sec:math-num-linalg-validation}
 
 In this section we validate our numerical linear algebra system with a sequence of examples.  In each example we will see the following
 

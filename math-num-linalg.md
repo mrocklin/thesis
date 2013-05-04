@@ -2,47 +2,36 @@
 Mathematical Numerical Linear Algebra
 =====================================
 
-\label{sec:math-num-linalg-performance}
+\label{sec:math-num-linalg}
 
-This should eventually be a sizable chapter on the performance of our solution mathematically informed, blocked linear algebra.
+Linear algebra powers scientific computation from a very high mathematical domain level down to a very low numerical level.  Many domains ranging from machine learning to differential equations use linear algebra as a shared language between mathematical researchers and compute hardware.  Numerically most FLOPs occur within a dense linear algebra routine.  Because of this depth and range of importance the software development community invests significant resources to the production of dense linear algebra software solutions.  Changing hardware and novel problems force frequent redevelopments within this space.  
 
---------------------------------------------------------------------------
- Section          Contents                                                                                                          
----------------- ---------------------------------------------------------
- Background       BLAS/LAPACK, Matrix Algebra/inference, 
-                  Why do we need array compilers?                                            
+We believe that in the context of changing hardware and skewed expertise demographics, this development process can be improved through automation.  In \ref{sec:need-for-compilers} we motivate the use of high-level array and mathematics compilers.  In \ref{sec:math-num-linalg-background} we discuss previous work in this area.  We then then present our approach to this problem, a system for mathematically informed automated linear algebra composed of multiple independent pieces.  In \ref{sec:matrix-language} we present a matrix language embedded in SymPy, in \ref{sec:matrix-inference} an inference engine on logical statements, and in \ref{sec:computations} a project to describe BLAS/LAPACK at a high level and then generate low level code.  In section \ref{sec:matrix-compile} we briefly discuss the related algorithm search problem involved in connecting these pieces to form a complete product.  Finally in section \ref{sec:matrix-analysis} we motivate the separable and declarative design decisions in this federation of projects.  Later in \ref{sec:math-num-linalg-validation} we will validate this work through a sequence of numerical experiments.
 
- Related work     FLAME, Magma, PLAPACK, 
-                  various array programming languages                                                        
-
- Implementation   Matrix algebra, inference, BLAS/LAPACK DAG generation, 
-                  inplace processing, code generation                        
-
- Results          Several intermediate representations, 
-                  highlight particular optimizations, 
-                  compare on a couple real world problems 
---------------------------------------------------------------------------
-
-High Productivity Languages
----------------------------
-
-"High productivity" languages haved gained popularity in recent years.  These languages target application domain programmers by reducing barriers to entry and providing syntax for high-level constructs.  Scripting languages like MatLAB, R, and Python remove explicit typing, separate compilation steps, and support high level primitives for matrix and common statistical operations.  These languages allow non-expert programmers the abillity to solve a certain class of common problems with little training in traditional programming.
 
 Need for Compilers in Numerial Linear Algebra
 ---------------------------------------------
 
+\label{sec:need-for-compilers}
+
+"High productivity" languages haved gained popularity in recent years.  These languages target application domain programmers by reducing barriers to entry and providing syntax for high-level constructs.  Scripting languages like MatLAB, R, and Python remove explicit typing, replace compilation with interpreters, and support high level primitives for matrix and common statistical operations.  These languages allow non-expert programmers the abillity to solve a certain class of common problems with little training in traditional programming.
+
 Each of these languages provide a set of high performance array operations.  A small set of array operations like matrix multiplication, solve, slicing, and elementwise scalar operations can be combined to solve a wide range of problems in statistical and scientific domains.  Because this set is small these routines can be implemented by language designers in a lower-level language and then conveniently linked to the high-productivity syntax, providing a good separation of expertise. These efforts have proven popular and useful among applied communities.
 
-None of these popular array programming languages are compiled (TODO: are there counter-examples?).  Because the array operations call down to precompiled library code this may seem unnecessary.
+None of these popular array programming languages are compiled (TODO: are there counter-examples?).  Because the array operations call down to precompiled library code this may at first seem unnecessary.
 
 include [Operation Ordering in Matlab](operation-ordering-matlab.md)
 
 Related Work
 ------------
 
+\label{sec:math-num-linalg-background}
+
 Both the broad applicability of this domain and the performance improvments from expert treatment have made it the target of substantial academic study and engineering efforts.
 
 ### Statically compiled libraries - BLAS/LAPACK
+
+### Autotuning - ATLAS
 
 ### Heterogeneous computing - Magma
 
@@ -54,11 +43,11 @@ BLAS/LAPACK, Magma, and FLAME all build custom treatments of linear algebra in o
 Language
 --------
 
-\label{sec:language}
+\label{sec:matrix-language}
 
-In SymPy Matrix Expressions we express linear algebra theory in isolation, separately from any specific attmept of automated algorithm search.  `sympy.matrices.expressions` is a module within the open source computer algebra system SymPy, based in the Python language. 
+In SymPy Matrix Expressions we express linear algebra theory in isolation, from any specific attmept of automated algorithm search.  `sympy.matrices.expressions` is a module within the open source computer algebra system SymPy, based in the Python language. 
 
-Operations/sorts in SymPy are implemented as Python classes.  A term is an instantiation of such a class with a set of children.  Matrix Expressions implements the following core types
+Operations/sorts in SymPy are implemented as Python classes.  A term is an instantiation of such a class with a set of children stored as instance variables.  Matrix Expressions implements the following core types
 
     MatrixSymbol
     MatAdd
@@ -66,14 +55,14 @@ Operations/sorts in SymPy are implemented as Python classes.  A term is an insta
     Transpose
     Inverse
 
-The Python language allows hooks into arithmetic operator syntax allowing mathematically idiomatic construction of terms as might be found in specialized matrix languages such as MatLab.  
+The Python language allows hooks into arithmetic operator syntax allowing mathematically idiomatic construction of terms such as might be found in specialized matrix languages such as MatLab.  
     
     n = Symbol('n')
     X = MatrixSymbol('X', n, n)
     Y = MatrixSymbol('Y', n, n)
     Z = X*Y + X.T
 
-The execution of these commands does not perform any specific numeric computation.  Rather it builds an expression tree that can be analyzed and manipulated.
+The execution of these commands does not perform any specific numeric computation.  Rather it builds an expression tree that can be analyzed and manipulated in the future.
 
 ### Basic Logic and Canonicalization
 
@@ -93,14 +82,17 @@ A number of additional types have been added to this system including
 
 Because the scope of this project is quite small the barrier to add new types is low and has been accomplished by novice contributors.
 
+*Question:  How deeply should I describe the capabilities of this system?*
 
 Inference on predicates
 -----------------------
 
+\label{sec:matrix-inference}
+
 SymPy provides a system for logical inference on mathematical expressions.  It includes 
 
 1.  A syntax to state predicates  --  `Q.positive(x) & Q.positive(y)`
-2.  A collection of handlers for type-predicate pairs, e.g. the sum of positive numbers is positive
+2.  A collection of handlers for type-predicate pairs, e.g. the addition of positive numbers is positive
 3.  A collection of relations --  `Implies(Q.prime, Q.integer)`
 4.  A SAT solver to compute the truth of queries given a set of known facts and relations
 
@@ -110,7 +102,7 @@ We have extended this system to handle common matrix predicates including the fo
     orthogonal, unitary, normal, upper/lower triangular, diagonal, square,
     complex_elements, real_elements, integer_elements
 
-This allows inference of complex matrix expressions. 
+This supports the solution of complex queries on complex matrix expressions. 
 
 ### Example
 
@@ -129,7 +121,7 @@ For all matrices $\mathbf{A, B}$ such that $\mathbf A$ is symmetric positive-def
 True
 ~~~~~~~~
 
-This particular question arises frequently when developing scientific code.  Significantly more efficient algorithms are applicable in the symmetric positive definite case.  Expressions like $BAB^T$ are very common mathematically.  Unfortunately relatively few scientific users are able to recognize and infer this situation.
+This particular question is computationally relevant.  It arises frequently in scientific problems and significantly more efficient algorithms are applicable when it is true.  Unfortunately relatively few scientific users are able to recognize this situation.  Even this situation is correctly identified many developers are unable to take advantage of the appropriate routines.
 
 This is the first system that can answer questions like this for abstract matrices.
 
@@ -150,14 +142,25 @@ Our original approach to this problem was through a meta-programming and term re
 
 The meta-programming approach allowed the specification of mathematical relations in a math-like syntax, drastically lowering the barrier of entry for potential mathematical developers.  The term-rewrite infrastructure allowed these relations to be automatically applied by generic, mature, and computationally efficient strategies.
 
-Unfortunately the Maude system is an exotic dependency in scientific community and interoperability with low-level computational codes was not a priority in it's development. 
+Unfortunately the Maude system is an exotic dependency in the scientific community and interoperability with low-level computational codes was not a priority in it's development.
 
-Our final implementation depends on LogPy, discussed later in section \ref{sec:declarative} to implement a term rewrite system without the convenient syntax.  A set of transformations are encoded in `(source, target, condition)` tuples.  A set of these tuples are then fed into a term rewrite system and used to simplify matrix expressions based on complex relations.
+Our current implementation depends on LogPy, discussed later in section \ref{sec:declarative} to implement a term rewrite system.  Though we lack the convenient syntax support provided by Maude we can still encode a set of transformations in `(source, target, condition)` tuples.  A set of these tuples are then fed into a term rewrite system and used to simplify matrix expressions.
 
     Wanted      X.I   ->   X.T    if      Q.orthogonal(X)
     Delivered  (X.I    ,   X.T     ,      Q.orthogonal(X))
 
 These allow mathematical users to encode mathematical expertise and have that expertise be automatically applied to all problems described in this system.  Extending the set of simplification relations is straightforward and approachable to a very broad community.  Additionally, this declarative nature allows us to swap out the term rewrite system backend should future development produce more mature solutions.
+
+We present mathematical information about determinants taken from the Matrix Cookbook \cite{matrix-cookbook} and encoded in the manner described above. 
+
+~~~~~~~~~~~~~~Python
+# Determinants
+(det(A),       0,   Q.singular(A)),
+(det(A),       1,   Q.orthogonal(A)),
+(Abs(det(A)),  1,   Q.unitary(A)),
+(det(BlockMatrix([[A,B],[C,D]])),   det(A)*det(D - C*A.I*B),  Q.invertible(A)),
+...
+~~~~~~~~~~~~~~
 
 Computations - BLAS/LAPACK
 --------------------------
@@ -166,17 +169,17 @@ Computations - BLAS/LAPACK
 
 The above systems live in SymPy, a library for *symbolic* computer algebra.  SymPy is not appropriate for numeric computation.  In this chapter we describe a system to generate numeric codes to compute the mathematical expressions described in SymPy.  Our primary target will be Modern Fortran code that calls down to the curated BLAS/LAPACK libraries for dense linear algebra.  These libraries have old and unstructured interfaces which are difficult to target with automated systems.  To resolve this issue we build a high-level description of these computations as an intermediary.  We use SymPy matrix expressions to assist with this high level description.  This system will be extensible to support other low-level libraries.  We believe that its separation makes it broadly applicable to applications beyond our own.
 
-Specifically we present a small library to encode low-level computational routines that is amenable to manipulation by automated high-level tools.  This library is extensible and broadly applicable.
+Specifically we present a small library to encode low-level computational routines that is amenable to manipulation by automated high-level tools.  This library is extensible and broadly applicable.  This library also supports low level code generation.
 
 ### BLAS and LAPACK
 
-Describe BLAS and LAPACK
+TODO: Describe BLAS and LAPACK
 
 ### Atomic Computations
 
-Every BLAS/LAPACK routine can be logically identified by a set of inputs, outputs, conditions on the inputs, and inplace behavior.  Additionally each routine can be imbued with code for generation of the inline call in a variety of languages.  In our implementation we focus on Fortran but C, scipy, or even CUDA could be added without substantial difficulty.
+Every BLAS/LAPACK routine can be logically identified by a set of inputs, outputs, conditions on the inputs, and inplace memory behavior.  Additionally each routine can be imbued with code for generation of the inline call in a variety of languages.  In our implementation we focus on Fortran but C, scipy, or even CUDA could be added without substantial difficulty.
 
-Each routine is represented by Python class
+Each routine is represented by a Python class
 
 ~~~~~~~~~~~~~Python
 class SYMM(BLAS):
@@ -221,7 +224,7 @@ Basic logic exists for the conglomeration of multiple computations.  Atomic comp
 
 ### Inplace Transformations
 
-The computations above are mathematical in nature.  They consider only mathematical transformations that are performed by the computations and not the computational concerns; in particular they are ignorant of memory use.  We provide transformations to a second representation where each variable contains both mathematical information and a unique token identifier.
+The computations above are mathematical in nature.  They consider only mathematical transformations that are performed by the computations and not the computational concerns; in particular they are ignorant of memory use.  We provide transformations to a second representation where each variable contains both mathematical information and a unique identifier.
 
 This representation handles the inplace nature of BLAS/LAPACK calls by injecting `COPY` operations and removing them when possible.
 
@@ -236,33 +239,33 @@ From such a directed acyclic graph we can generate readable low-level code.  We 
 
 We traverse the graph to find all variables.  We use their position in the graph and optional user input to determine intent (input, output).  We use the associated mathematical variable to determine type and shape.  We use the identification token to determine the variable name.  
 
-We topologically sort the graph of atomic computations to obtain a linear ordering.  Each computation object (e.g. `symm` or `axpy`) is then given the variable names of it's variables and then emits the Fortran code necessary to call its associated BLAS/LAPACK routine.
+We topologically sort the graph of atomic computations to obtain a linear ordering.  Each computation object (e.g. `symm` or `axpy`) is then given the names of its variables and then emits the Fortran code necessary to call its associated BLAS/LAPACK routine.
 
 ### Extensibility
 
-This model is not specific to BLAS/LAPACK.  In particular other developers have extended this to include other high performance numerical libraries like FFTW and ARPACK.
+This model is not specific to BLAS/LAPACK.  In particular other developers have extended this to include other high performance numerical libraries like FFTW and ARPACK (arpack is in progress).
 
 
 Compilation of Matrix Expressions to Computations
 -------------------------------------------------
 
-\label{sec:linalg-compilation}
+\label{sec:matrix-compile}
 
-SymPy matrix expressions \ref{sec:language} and Computations \ref{sec:computations} are logically distinct.  They are developed separately in different repositories by different communities.  Expert numerical programmers apply specific computations to compute particular patterns of matrix expresssions.  They base this decision on a number of factors depending on both the mathematical problem and target hardware.  Selecting the best computation to cover the expressions is non-trivial.
+The projects SymPy matrix expressions (section \ref{sec:matrix-language}) and Computations (section \ref{sec:computations}) are logically distinct.  They are developed separately in different repositories by different communities.  We now consider the problem of selecting the right set of computations to compute a given set of mathematical expressions.  Selecting the a valid set of computations to cover the expressions is non-trivial.  Additionally there may be multiple valid sets of computations able to cover the given expressions.  In practice expert numerical programmers base this decision on a number of factors depending on both the mathematical problem and the target hardware.
 
-As in section \ref{sec:matrix-refine} we are in a situation where a large quantity of expertise must be formally described by a community without a strong tradition in automated methods.  We seek to enable this transcription by building a system to allow numerical algorithms experts encode information as declaratively as possible.  We encode this expertise in two separate sets of data
+We are now in a situation where a large quantity of expertise must be formally described by a community without a strong tradition in automated methods.  As in section \ref{sec:matrix-refine} we seek to enable this transcription through declarative programming.  We encode this expertise in two separate sets of data
 
 
 ### Compute Patterns 
 
 We ask computational experts to encode what expressions can be broken down by which expressions.  For example we know that expressions like $\alpha A B + \beta C$ can be broken into their components $\alpha, A, B, \beta, C$ via computations like `GEMM` or `SYMM`.  In cases like `SYMM` additional constraints must be met on the inputs.  We might want to encode this pattern as follows
 
-    [alpha*A*B+beta*C] -> [alpha, A, B, beta, C] via SYMM if A or B is symmetric
+    [alpha*A*B + beta*C] -> [alpha, A, B, beta, C] via SYMM if A or B is symmetric
 
 In practice we encode the above patterns as `(source expression,  computation,  condition)` Python tuples.
 
-    (alpha*A*B*beta*C ,  GEMM(alpha, A, B, beta, C) ,  True)
-    (alpha*A*B*beta*C ,  SYMM(alpha, A, B, beta, C) ,  Q.symmetric(A) | Q.symmetric(B))
+    (alpha*A*B + beta*C ,  GEMM(alpha, A, B, beta, C) ,  True)
+    (alpha*A*B + beta*C ,  SYMM(alpha, A, B, beta, C) ,  Q.symmetric(A) | Q.symmetric(B))
 
 
 ### Objective Function
@@ -286,6 +289,8 @@ Operationally we default to a greedy strategy.
 
 Analysis
 --------
+
+\label{sec:matrix-analysis}
 
 We can use these pieces together to transform mathematical expressions into well-selected computations and generate performant, human readable Fortran code.  In section \ref{sec:validation} we will demonstrate the utility of the system described above.  Here we will first motivate its design decisions.
 

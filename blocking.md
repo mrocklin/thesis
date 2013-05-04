@@ -146,7 +146,7 @@ First we note that we're not introducing a new library for dense linear algebra.
 
 #### Multiple Backends
 
-Our BLAS/LAPACK computations backend did not have the computational elements to express these computations.  However because the components were developed independently and because we have invested in interfaces this did not restrict our ability to perform this experiment.  A loose federation of components is far less brittle than a monolithic system.  Components with access to multiple clients encourage experimentation and aid software evolution
+Our BLAS/LAPACK computations backend did not have the computational elements to perform this experiment.  However because the linear algebra component is separate from the computational backend we are not restricted by this failing.  Because we invested in interfaces we were able to trivially plug in a different backend that did have the necessary features.   A loose federation of components is less brittle than a monolithic system.  Components with access to multiple clients encourage comparison and  experimentation and overall accelerate software evolution.
 
 #### Debugging Challenges
 

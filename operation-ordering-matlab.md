@@ -3,8 +3,6 @@
 
 \label{sec:operation-ordering-matlab}
 
-Taken from [http://matthewrocklin.com/blog/work/2013/02/26/MatLabOrdering/](http://matthewrocklin.com/blog/work/2013/02/26/MatLabOrdering/)
-
 Consider the following MatLab code
 
     >> x = ones(10000, 1);
