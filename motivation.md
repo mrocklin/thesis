@@ -12,3 +12,8 @@ include [Numerical Weather Prediction](nwp.md)
 include [Trilinos/PETSc/FEniCS](numerics.md)
 include [Uncertainty Propagation](uq-methods.md)
 include [PyPi, CRAN, clojars](package-managers.md) -- not yet written
+
+Analysis
+--------
+
+TODO

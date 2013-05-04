@@ -70,3 +70,8 @@ Insight for the thesis is well contained within the context of methods for uncer
 \includegraphics[width=.6\textwidth]{images/venn-uq-cuda}
 \label{fig:venn-uq-cuda}
 \end{figure}
+
+
+### Existing Software Doesn't Help
+
+We have existing tools like ADOLc and ADIFOR for automatic differentiation.  We have computational libraries that are consistent across CPUs and GPUs.  Unfortunately these solutions are not easily composable.  Solutions for CPU/GPU agnostic computing are either high level or involve language extensions.  Solutions for automatic differentiation involve particular low-level languages.  Abstract high-level ideas like differentiation are unfortunately interwoven with low-level implementation choices.
