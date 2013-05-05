@@ -6,11 +6,11 @@ Heterogeneous Static Scheduling
 
 ### The Problem
 
-We want to develop high performance numerical algorithms on increasingly heterogeneous systems.  This is a case of high importance and high development time.
+We want to develop high performance numerical algorithms on increasingly heterogeneous systems.  This is a case of high importance and high development time.  Can automation do a decent enough job?
 
 ### Challenges
 
-Static scheduling is hard
+Static scheduling is hard.
 
 ### Array Computations are Easier
 
@@ -37,6 +37,8 @@ This is just another piece to add to the system.  We can develop it in complete 
 
 ### Experiment
 
-Lets compute the Kalman filter over two nodes.  Lets see that we obtain strong scaling.  Lets see to what degree our computation time is predictable.
+Lets compute the Kalman filter over a few nodes.  Lets see that we obtain strong scaling.  Lets see to what degree our computation time is predictable.
+
+If I have time I'll implement a heterogeneous CUDA solution.  If I don't have time I'd like to cut this.
 
 ### Analysis
