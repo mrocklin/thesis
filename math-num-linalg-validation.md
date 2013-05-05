@@ -16,9 +16,10 @@ We stress that for each problem there are two measures of progress.  A pure nume
 
 Contributions in numerical methods are as follows
 
-1.  A system that finds expert numerical algorithms from naive inputs
-2.  A quantification of the importance of mathmatically informed routines
-3.  A system for blocking large numerical algorithms
+1.  A quantification of performance among scripting languages in the context of mathematically structured problems
+2.  A quantification of the importance of mathmatically informed routines in compiled code
+3.  A system that finds expert numerical algorithms from naive inputs
+4.  A system for blocking large numerical algorithms
 
 Contributions in scientific software development are as follows
 
