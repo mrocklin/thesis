@@ -12,6 +12,20 @@ In this section we validate our numerical linear algebra system with a sequence 
 
 We stress that for each problem there are two measures of progress.  A pure numericist will appreciate decreased runtimes on relevant problems.  Someone concerned with the challenges of scientific software development will appreciate various lessons and efficiencies in development.
 
+### Contributions
+
+Contributions in numerical methods are as follows
+
+1.  A system that finds expert numerical algorithms from naive inputs
+2.  A quantification of the importance of mathmatically informed routines
+3.  A system for blocking large numerical algorithms
+
+Contributions in scientific software development are as follows
+
+1.  A demonstration that clear intermediate representations and small-scope subprojects enable contributions from single-domain experts.
+2.  An argument for the use and combination of general packages for common sub-problems
+
+
 include [Linear regresion - Inference and algorithm selection](linear-regression.md)
 
 include [Linear regresion - Extensibility - SYRK v. GEMM](syrk.md)
