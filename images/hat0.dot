@@ -2,6 +2,6 @@ digraph{
 	rankdir=TD
 	"[(X'*X)^-1*X'*y] -> Identity -> [(X'*X)^-1*X'*y]" [shape=box, label=Identity]
 
-	"(X'*X)^-1*X'*y" -> "[(X'*X)^-1*X'*y] -> Identity -> [(X'*X)^-1*X'*y]"
+	"(X'*X)^-1*X'*y " -> "[(X'*X)^-1*X'*y] -> Identity -> [(X'*X)^-1*X'*y]"
 	"[(X'*X)^-1*X'*y] -> Identity -> [(X'*X)^-1*X'*y]" -> "(X'*X)^-1*X'*y"
 }
