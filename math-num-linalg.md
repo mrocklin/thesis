@@ -18,37 +18,13 @@ The software contributions are as follows
 
 Philosophical contributions are as follows
 
-1.  A design that favors reuse, development by single-domain experts, and future experimentation
+1.  Discussion of the importance of generally solving common sub-problems
+2.  Discussion of designing software around developer demographics
+3.  Discussion of enabling experimentation and unforseen applications
 
-Need for Compilers in Numerial Linear Algebra
----------------------------------------------
+include [Need for Compilers](need-for-compilers.md)
 
-\label{sec:need-for-compilers}
-
-"High productivity" languages haved gained popularity in recent years.  These languages target application domain programmers by reducing barriers to entry and providing syntax for high-level constructs.  Scripting languages like MatLab, R, and Python remove explicit typing, replace compilation with interpreters, and support high level primitives for matrix and common statistical operations.  These languages allow non-expert programmers the abillity to solve a certain class of common problems with little training in traditional programming.
-
-Each of these languages provide a set of high performance array operations.  A small set of array operations like matrix multiplication, solve, slicing, and elementwise scalar operations can be combined to solve a wide range of problems in statistical and scientific domains.  Because this set is small these routines can be implemented by language designers in a lower-level language and then conveniently linked to the high-productivity system, providing a good separation of expertise. These efforts have proven popular and useful among applied communities.
-
-None of these popular array programming languages are compiled (TODO: are there counter-examples?).  Because the array operations call down to precompiled library code this may at first seem unnecessary.
-
-include [Operation Ordering in Matlab](operation-ordering-matlab.md)
-
-Related Work
-------------
-
-\label{sec:math-num-linalg-background}
-
-Both the broad applicability of this domain and the performance improvments from expert treatment have made it the target of substantial academic study and engineering efforts.
-
-### Statically compiled libraries - BLAS/LAPACK
-
-### Autotuning - ATLAS
-
-### Heterogeneous computing - Magma
-
-### Automated methods - FLAME
-
-BLAS/LAPACK, Magma, and FLAME all build custom treatments of linear algebra in order to create high performance libraries.  Unfortunately there is duplication and an inability to share the intermediate logic with other projects.  
+include [Related Work](math-num-linalg-related-work.md)
 
 include [Language](language.md)
 
