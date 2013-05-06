@@ -19,6 +19,10 @@ We have extended this system to handle common matrix predicates including the fo
 
 This supports the solution of complex queries on complex matrix expressions. 
 
+Development in this system is simple, declarative, and accessible to mathematical users.  The SAT solver and algorithmic code is well separated from the declarative expression of mathematical relations.
+
+*Disclaimer: while I develop the underlying system I am not its originator - this is not a contribution of mine*
+
 ### Example
 
 For all matrices $\mathbf{A, B}$ such that $\mathbf A$ is symmetric positive-definite and $\mathbf B$ is fullrank 
@@ -38,7 +42,7 @@ True
 
 This particular question is computationally relevant.  It arises frequently in scientific problems and significantly more efficient algorithms are applicable when it is true.  Unfortunately relatively few scientific users are able to recognize this situation.  Even this situation is correctly identified many developers are unable to take advantage of the appropriate routines.
 
-This is the first system that can answer questions like this for abstract matrices.
+This is the first system that can answer questions like this for abstract matrices.  In section \ref{sec:computations} we will describe a system to describe the desired routine.  In section \ref{sec:compilation} we will describe a system to select the desired routine given the power of infernece described here.
 
 
 ### Refined Simplification
@@ -49,9 +53,9 @@ This advanced inference enables a substantially larger set of optimizations that
 
     X.I   ->   X.T    if      Q.orthogonal(X)
 
-Linear algebra is a mature field with many such relations \cite{matrix-cookbook}.  It is challenging to write them down.  We hope to leverage the linear algebra community to develop this further.  In order to accomplish this we endeavor to reduce the extent of the code-base with which a mathematician must familiarize themselves to encode these relations.  
+Linear algebra is a mature field with many such relations \cite{matrix-cookbook}.  It is challenging to write them down.  We hope to leverage the linear algebra community to develop this further.  In order to accomplish this we endeavor to reduce the extent of the code-base with which a mathematician must familiarize themselves to encode these relations.  Enter declarative programming.
 
-Our original approach to this problem was through a meta-programming and term rewrite system \cite{matrix-algebra}.  Our original implementation of automated matrix algebra was written in Maude and contained expressions like the following
+Our original approach to this problem was through a meta-programming and term rewrite system \cite{matrix-algebra}.  Our original implementation of automated matrix algebra was written in Maude and contained code like the following
 
     inverse(X) = transpose(X) if X is orthogonal
 
@@ -59,7 +63,7 @@ The meta-programming approach allowed the specification of mathematical relation
 
 Unfortunately the Maude system is an exotic dependency in the scientific community and interoperability with low-level computational codes was not a priority in it's development.
 
-Our current implementation depends on LogPy, discussed later in section \ref{sec:declarative} to implement a term rewrite system.  Though we lack the convenient syntax support provided by Maude we can still encode a set of transformations in `(source, target, condition)` tuples.  A set of these tuples are then fed into a term rewrite system and used to simplify matrix expressions.
+Our current implementation depends on LogPy, discussed later in section \ref{sec:declarative} to implement a term rewrite system.  Because LogPy is embedded in Python we can not acheive the same convenient syntax support provided by Maude, but we can still encode a set of transformations in `(source, target, condition)` tuples.  A set of these tuples are then fed into a term rewrite system and used to simplify matrix expressions.
 
     Wanted      X.I   ->   X.T    if      Q.orthogonal(X)
     Delivered  (X.I    ,   X.T     ,      Q.orthogonal(X))
