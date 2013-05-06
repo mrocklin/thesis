@@ -24,35 +24,41 @@ class SYMM(BLAS):
     _outputs  = [alpha*A*B + beta*C]
     condition = symmetric(A) or symmetric(B)
     inplace   = {0: 4}
-~~~~~~~~~~~~~Python
+~~~~~~~~~~~~~
 
 Specific instances of each computation can be constructed by providing corresponding inputs, traditionally SymPy Expressions. 
 
-    >>> X = MatrixSymbol('X', n, n)
-    >>> Y = MatrixSymbol('Y', n, n)
-    >>> symm = SYMM(1, X, Y, 0, Y)
-    >>> symm.inputs
-    [X, Y]
-    >>> symm.outputs
-    [X*Y]
+~~~~~~~~~~~~~Python
+>>> X = MatrixSymbol('X', n, n)
+>>> Y = MatrixSymbol('Y', n, n)
+>>> symm = SYMM(1, X, Y, 0, Y)
+>>> symm.inputs
+[X, Y]
+>>> symm.outputs
+[X*Y]
+~~~~~~~~~~~~~
 
 Computations can take compound expressions as inputs
 
-    >>> axpy = AXPY(5, X*Y, Y)
-    >>> axpy.inputs
-    [X*Y, Y]
-    >>> axpy.outputs
-    [5*X*Y + Y]
+~~~~~~~~~~~~~Python
+>>> axpy = AXPY(5, X*Y, Y)
+>>> axpy.inputs
+[X*Y, Y]
+>>> axpy.outputs
+[5*X*Y + Y]
+~~~~~~~~~~~~~
 
 ### Composite Computations
 
 Basic logic exists for the conglomeration of multiple computations.  Atomic computations are stored in a set.  Properties about the composite computation such as inputs, outputs, and topological sort can be computed
 
-    >>> composite = axpy + symm
-    >>> composite.inputs
-    [X, Y]
-    >>> composite.outputs
-    [5*X*Y + Y]
+~~~~~~~~~~~~~Python
+>>> composite = axpy + symm
+>>> composite.inputs
+[X, Y]
+>>> composite.outputs
+[5*X*Y + Y]
+~~~~~~~~~~~~~
 
 \begin{figure}[htbp]
 \centering
