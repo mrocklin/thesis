@@ -21,7 +21,7 @@ This supports the solution of complex queries on complex matrix expressions.
 
 Development in this system is simple, declarative, and accessible to mathematical users.  The SAT solver and algorithmic code is well separated from the declarative expression of mathematical relations.
 
-*Disclaimer: while I develop the underlying system I am not its originator - this is not a contribution of mine*
+*Disclaimer: while I develop the underlying inference engine I am not its originator - this is not a contribution of mine*
 
 ### Example
 
@@ -42,7 +42,7 @@ True
 
 This particular question is computationally relevant.  It arises frequently in scientific problems and significantly more efficient algorithms are applicable when it is true.  Unfortunately relatively few scientific users are able to recognize this situation.  Even this situation is correctly identified many developers are unable to take advantage of the appropriate routines.
 
-This is the first system that can answer questions like this for abstract matrices.  In section \ref{sec:computations} we will describe a system to describe the desired routine.  In section \ref{sec:compilation} we will describe a system to select the desired routine given the power of infernece described here.
+This is the first system that can answer questions like this for abstract matrices.  In section \ref{sec:computations} we will describe a system to describe the desired routine.  In section \ref{sec:matrix-compile} we will describe a system to select the desired routine given the power of inference described here.
 
 
 ### Refined Simplification
@@ -63,7 +63,7 @@ The meta-programming approach allowed the specification of mathematical relation
 
 Unfortunately the Maude system is an exotic dependency in the scientific community and interoperability with low-level computational codes was not a priority in it's development.
 
-Our current implementation depends on LogPy, discussed later in section \ref{sec:declarative} to implement a term rewrite system.  Because LogPy is embedded in Python we can not acheive the same convenient syntax support provided by Maude, but we can still encode a set of transformations in `(source, target, condition)` tuples.  A set of these tuples are then fed into a term rewrite system and used to simplify matrix expressions.
+Our current implementation depends on LogPy, discussed later in section \ref{sec:declarative}, to implement a term rewrite system.  Because LogPy is embedded in Python we can not acheive the same convenient syntax support provided by Maude, but we can still encode a set of transformations in `(source, target, condition)` tuples.  A set of these tuples are then fed into a term rewrite system and used to simplify matrix expressions.
 
     Wanted      X.I   ->   X.T    if      Q.orthogonal(X)
     Delivered  (X.I    ,   X.T     ,      Q.orthogonal(X))
@@ -74,9 +74,10 @@ We present mathematical information about determinants taken from the Matrix Coo
 
 ~~~~~~~~~~~~~~Python
 # Determinants
-(det(A),       0,   Q.singular(A)),
-(det(A),       1,   Q.orthogonal(A)),
-(Abs(det(A)),  1,   Q.unitary(A)),
+(det(A),        0,              Q.singular(A)),
+(det(A),        1,              Q.orthogonal(A)),
+(Abs(det(A)),   1,              Q.unitary(A)),
+(det(A*B),      det(A)*det(B),  Q.square(A)),
 (det(BlockMatrix([[A,B],[C,D]])),   det(A)*det(D - C*A.I*B),  Q.invertible(A)),
 ...
 ~~~~~~~~~~~~~~

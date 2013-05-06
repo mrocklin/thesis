@@ -94,7 +94,7 @@ print latex(block_collapse(X.I))
 
 ### General Code to Block the Kalman Filter
 
-SymPy can define and reduce the blocked Kalman filter using relations like what are shown above.  In the listing below we show all the code necessary to block the Kalman filter into blocks of size `n/2`.  The code is dense and not particularly insightful; the goal is to demonstrate that this is a short task using pre-existing general purpose tools.
+SymPy can define and reduce the blocked Kalman filter using relations like what are shown above.  In the listing below we show all the code necessary to block the Kalman filter into blocks of size `n/2`.  The code is dense and not particularly insightful; the goal is to demonstrate that blocking, a general mathematical utility in a mathematical code, can be used in a specific computational context with a small amount of general purpose connection code.
 
 ~~~~~~~~~~~~~~~Python
 from sympy import blockcut, block_collapse
