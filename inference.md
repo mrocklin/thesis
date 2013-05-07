@@ -4,30 +4,73 @@ Inference on predicates
 
 \label{sec:matrix-inference}
 
-SymPy provides a system for logical inference on mathematical expressions.  It includes 
+In section \ref{sec:sympy-inference} we saw that SymPy supports the expression and solution of logical queries on mathematical expressions.  In this section we extend this system to matrix algebra.
 
-1.  A syntax to state predicates  --  `Q.positive(x) & Q.positive(y)`
-2.  A collection of handlers for type-predicate pairs, e.g. the addition of positive numbers is positive
-3.  A collection of relations --  `Implies(Q.prime, Q.integer)`
-4.  A SAT solver to compute the truth of queries given a set of known facts and relations
+### Inference Problems
 
-We have extended this system to handle common matrix predicates including the following
+Matrices can satisfy a rich set of predicates.  A matrix can have structural attributes like symmetry, upper or lower triangularity, or bandedness.  Matrices can also exhibit mathematical structure like invertibility, orthogonality, or positive definiteness.  Matrices also have basic field types like real, complex, or integer valued elements.  Rich interactions exist between these predicates and between predicate/operator pairs.  for example positive definiteness implies invertibility (a predicate-predicate relation) and the product of invertible matrices is always inveritible (a predicate-operator relation).
+
+#### Example
+
+In section \ref{sec:sympy-inference} we posed the following example
+
+*Given that $x$ is a natural number and that $y$ is real, is $x + y^2$ positive?*
+
+An analagous example in matrix algebra would be the following:
+
+*Given that $\mathbf A$ is symmetric positive-definite and $\mathbf B$ is fullrank, is $\mathbf B \cdot\mathbf A \cdot\mathbf B^\top$ symmetric and positive-definite?*
+
+To teach SymPy to answer this question we need to supply the same information as in the scalar case
+
+1.  A set of predicates
+2.  A set of predicate-predicate relations
+3.  A set of predicate-operator relations
+
+Fortunately the syntax and SAT solver may be reused.  The only elements that need to be generated for this case are relatively declarative in nature.
+
+#### Predicates
+
+We provide the following predicates
 
     positive_definite, invertible, singular, fullrank, symmetric, 
     orthogonal, unitary, normal, upper/lower triangular, diagonal, square,
     complex_elements, real_elements, integer_elements
 
-This supports the solution of complex queries on complex matrix expressions. 
+#### Predicate-Predicate Relations
 
-Development in this system is simple, declarative, and accessible to mathematical users.  The SAT solver and algorithmic code is well separated from the declarative expression of mathematical relations.
+Many of these predicates have straightforward relationships.  For example
 
-*Disclaimer: while I develop the underlying inference engine I am not its originator - this is not a contribution of mine*
+    Implies(Q.orthogonal, Q.positive_definite)
+    Implies(Q.positive_definite, Q.invertible)
+    Implies(Q.invertible, Q.fullrank)
+    Equiavlent(Q.fullrank & Q.square, Q.invertible)  # & operator connotes "and"
+    Equivalent(Q.invertible, ~Q.singular) # ~ operator connotes "not"
+    ...
 
-### Example
+From these a wider set of implications can be inferred at code generation time.  Such a set would include trivial extensions such as 
 
-For all matrices $\mathbf{A, B}$ such that $\mathbf A$ is symmetric positive-definite and $\mathbf B$ is fullrank 
+    Implies(Q.orthogonal, Q.fullrank)
 
-*is $\mathbf B \cdot\mathbf A \cdot\mathbf B^\top$ symmetric and positive-definite?*
+#### Predicate-Operator Relations
+
+As in \ref{sec:sympy-inference-predicate-operator} the relationship between predicates and operators may be described by low-level Python functions.  These are organized into classes of staticmethods where classes are indexed by predicate and methods are indexed by operator.
+
+~~~~~~~~~~Python
+class AskInvertibleHandler(...):
+    @staticmethod
+    def MatMul(expr, assumptions):
+        """ An MatMul is invertible if all of its arguments are invertible """
+        if all(ask(Q.invertible(arg, assumptions) for arg in expr.args)):
+            return True
+~~~~~~~~~~
+
+#### Example revisited
+
+We posed the following question above 
+
+*Given that $\mathbf A$ is symmetric positive-definite and $\mathbf B$ is fullrank, is $\mathbf B \cdot\mathbf A \cdot\mathbf B^\top$ symmetric and positive-definite?*
+
+We are now able to answer this question using SymPy
 
 ~~~~~~~~Python
 >>> A = MatrixSymbol('A', n, n)

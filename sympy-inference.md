@@ -2,9 +2,11 @@
 SymPy Inference
 ---------------
 
+\label{sec:sympy-inference}
+
 We often want to test whether algebraic statements are true or not in a general case.  For example, 
 
-*Given that $x$ is a natural number and that $y$ is real, is $x + y^2 positive$?*
+*Given that $x$ is a natural number and that $y$ is real, is $x + y^2$  positive?*
 
 To create a system to pose and answer these questions we need the following pieces
 
@@ -20,6 +22,8 @@ To create a system to pose and answer these questions we need the following piec
 4.  A solver for satisfyability given the above relations
 
 ### Implementation in SymPy
+
+*Disclaimer: while I develop the underlying inference engine I am not its originator - this is not a contribution of mine*
 
 #### A set of predicates
 
@@ -45,6 +49,8 @@ The user interface for query is the `ask` function
 
 #### Predicate-Predicate Relations
 
+\label{sec:sympy-inference-predicate-predicate}
+
 A set of predicate relations is stated declaratively in the following manner
 
     Implies(Q.natural, Q.integer)
@@ -57,7 +63,9 @@ For efficiency forward chaining from these axioms is done at code-distribution t
 
 #### Predicate-Operator Relations
 
-The relationship between predicates and operators is described by low-level Python functions.  These are organized into classes of staticmethods.  Classes are indexed by predicate and methods are indexed by operator.  For example
+\label{sec:sympy-inference-predicate-operator}
+
+The relationship between predicates and operators is described by low-level Python functions.  These are organized into classes of staticmethods.  Classes are indexed by predicate and methods are indexed by operator.  Logical relations are encoded in straight Python.  For example
 
 ~~~~~~~~~~Python
 class AskPositiveHandler(...):
@@ -67,6 +75,7 @@ class AskPositiveHandler(...):
         if all(ask(Q.positive(arg, assumptions) for arg in expr.args)):
             return True
 ~~~~~~~~~~
+
 
 #### Testing for Satisfyability
 
