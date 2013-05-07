@@ -13,7 +13,7 @@ images/pdfs: images/*.svg images/*.dot
 pdf: full.tex images/*.svg
 	pdflatex full.tex
 
-math-num: math-num-linalg.md math-num-linalg-validation.md linear-regression.md operation-ordering-matlab.md syrk.md tikz.md
+math-num: math-num-linalg.md math-num-linalg-validation.md linear-regression.md operation-ordering-matlab.md syrk.md sympy.md tikz.md
 
 outline: images/pdfs outline.md math-num
 	python scripts/include.py outline.md outline2.md
