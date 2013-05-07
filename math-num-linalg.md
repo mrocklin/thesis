@@ -30,6 +30,8 @@ include [Related Work](math-num-linalg-related-work.md)
 
 include [Background on SymPy](sympy.md)
 
+include [SymPy Inference](sympy-inference.md)
+
 include [Language](language.md)
 
 include [Inference](inference.md)
