@@ -36,6 +36,8 @@ Separation of mathematical logic and algorithmic control aligns well with the di
 
 ### LogPy
 
+\label{sec:logpy}
+
 LogPy is an implementation of [miniKanren](http://kanren.sourceforge.net/)\cite{byrd} in Python.
 
 Our implementation adds the additional foci

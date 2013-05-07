@@ -92,30 +92,36 @@ This is the first system that can answer questions like this for abstract matric
 
 \label{sec:matrix-refine}
 
-This advanced inference enables a substantially larger set of optimizations that depend on logical information.   For example, the inverse of a matrix can be simplified to its transpose if that matrix is orthogonal
+This advanced inference enables a substantially larger set of optimizations that depend on logical information.   For example, the inverse of a matrix can be simplified to its transpose if that matrix is orthogonal.
 
-    X.I   ->   X.T    if      Q.orthogonal(X)
-
-Linear algebra is a mature field with many such relations \cite{matrix-cookbook}.  It is challenging to write them down.  We hope to leverage the linear algebra community to develop this further.  In order to accomplish this we endeavor to reduce the extent of the code-base with which a mathematician must familiarize themselves to encode these relations.  Enter declarative programming.
+Linear algebra is a mature field with many such relations \cite{matrix-cookbook}.  Formally describing all of these relations is challenging due to their quantity.  To address this issue we create a mechanism to describe them declaratively.  This reduces the extent of th code-base with which a mathematician must familiarize themselves to encode these relations.  This reduction in scope drastically increases the domain of qualified developers.
 
 Our original approach to this problem was through a meta-programming and term rewrite system \cite{matrix-algebra}.  Our original implementation of automated matrix algebra was written in Maude and contained code like the following
 
     inverse(X) = transpose(X) if X is orthogonal
 
+Statements of this form are clear to mathematical experts.  More importantly the set of relations is sufficiently simple so that it can be extended by these same experts without teaching them the underlying system for their application to expression trees.
+
 The meta-programming approach allowed the specification of mathematical relations in a math-like syntax, drastically lowering the barrier of entry for potential mathematical developers.  The term-rewrite infrastructure allowed these relations to be automatically applied by generic, mature, and computationally efficient strategies.
 
-Unfortunately the Maude system is an exotic dependency in the scientific community and interoperability with low-level computational codes was not a priority in it's development.
+Unfortunately the Maude system is an exotic dependency in the scientific community and interoperability with low-level computational codes was not a priority in its development.
 
-Our current implementation depends on LogPy, discussed later in section \ref{sec:declarative}, to implement a term rewrite system.  Because LogPy is embedded in Python we can not acheive the same convenient syntax support provided by Maude, but we can still encode a set of transformations in `(source, target, condition)` tuples.  A set of these tuples are then fed into a term rewrite system and used to simplify matrix expressions.
+Our current implementation depends on LogPy, discussed in section \ref{sec:logpy}, to implement a term rewrite system.  Because LogPy is embedded in Python we can not acheive the same convenient syntax support provided by Maude, but we can still encode a set of transformations in `(source, target, condition)` tuples.  A set of these tuples are then fed into a term rewrite system and used to simplify matrix expressions.
 
-    Wanted      X.I   ->   X.T    if      Q.orthogonal(X)
-    Delivered  (X.I    ,   X.T     ,      Q.orthogonal(X))
+We suffer the following degredation in readability in order to extract an exotic dependency
 
-These allow mathematical users to encode mathematical expertise and have that expertise be automatically applied to all problems described in this system.  Extending the set of simplification relations is straightforward and approachable to a very broad community.  Additionally, this declarative nature allows us to swap out the term rewrite system backend should future development produce more mature solutions.
+    Wanted      inverse(X) = transpose(X) if X is orthogonal
+    Delivered  (inverse(X) , transpose(X) ,  Q.orthogonal(X))
+
+As with the system in Maude we believe that extending the set of simplification relations is straightforward and approachable to a very broad community.  Additionally, this declarative nature allows us to swap out the term rewrite system backend should future development produce more mature solutions.
+
+#### Example -- Determinants:
 
 We present mathematical information about determinants taken from the Matrix Cookbook \cite{matrix-cookbook} and encoded in the manner described above. 
 
 ~~~~~~~~~~~~~~Python
+# Original,     Result,         Contition
+
 # Determinants
 (det(A),        0,              Q.singular(A)),
 (det(A),        1,              Q.orthogonal(A)),
@@ -124,4 +130,3 @@ We present mathematical information about determinants taken from the Matrix Coo
 (det(BlockMatrix([[A,B],[C,D]])),   det(A)*det(D - C*A.I*B),  Q.invertible(A)),
 ...
 ~~~~~~~~~~~~~~
-
