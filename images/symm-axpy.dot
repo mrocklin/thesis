@@ -2,7 +2,6 @@
 digraph{
 
 rankdir=LR
-orientation=TD
 
 "5" [shape=ellipse]
 "X*Y" [shape=ellipse]

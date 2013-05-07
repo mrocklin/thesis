@@ -1,0 +1,13 @@
+
+digraph{
+
+rankdir=LR
+
+"X @ X" [shape=ellipse]
+"X @ X_2" [shape=ellipse]
+
+"[X @ X] -> COPY -> [X @ X_2]" [shape=box, label="COPY"]
+
+"X @ X" -> "[X @ X] -> COPY -> [X @ X_2]"
+"[X @ X] -> COPY -> [X @ X_2]" -> "X @ X_2"
+}

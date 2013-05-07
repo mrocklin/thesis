@@ -1,0 +1,12 @@
+
+digraph{
+
+rankdir=LR
+
+"X" [shape=ellipse]
+
+"[X] -> COPY -> [X]" [shape=box, label="COPY"]
+
+"X" -> "[X] -> COPY -> [X]"
+"[X] -> COPY -> [X]" -> "X"
+}
