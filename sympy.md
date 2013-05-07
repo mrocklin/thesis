@@ -5,7 +5,7 @@ SymPy enables the expression and manipulation of mathematical terms.  In real an
 
 *   A literal like `5`
 *   A variable like `x`
-*   A compound term like `5 + x` composed of an operator like `+` and a list of child terms `(5, x)`
+*   A compound term like `5 + x` composed of an operator like `Add` and a list of child terms `(5, x)`
 
 We store expressions in a tree data structure in which each node is either an operator or a leaf term.  For example the expresion $\log(3 e^{x + 2})$ can be stored as follows
 
@@ -17,7 +17,7 @@ We store expressions in a tree data structure in which each node is either an op
 
 ### Manipulation
 
-A computer algebra system collects and applies functions to manipulate these data structures.  A common class of these functions is used to perform mathematical simplifications.  In the example with $\log(3 e^{x + 2})$ we can expand the log and cancel the log/exp to form $x+2+\log(3)$.  
+A computer algebra system collects and applies functions to manipulate these tree data structures.  A common class of these functions is used to perform mathematical simplifications returning mathematically equivalent but combinatorially simpler expression trees.  In the example with $\log(3 e^{x + 2})$ we can expand the log and cancel the log/exp to form $x+2+\log(3)$.  
 
 \begin{figure}[htbp]
 \centering
@@ -78,7 +78,7 @@ Add
 (x, 1)
 ~~~~~~~~~~
 
-At the lowest level SymPy manipulations are then just Python functions which inspect these terms, manipulate them with Python functions, and return the new versions.
+At the lowest level SymPy manipulations are then just Python functions which inspect these terms, manipulate them with Python statements, and return the new versions.
 
 
 ### Syntax and Printing
@@ -88,6 +88,7 @@ Reading and writing terms like `z = Mul(3, Add(x, 5), Log(y))` can quickly becom
 For user convenience the classes for operators and literals overload hooks for Python syntax like `__add__` and `__mul__` and for string representation and interactive printing like `__str__`.  Together these provide an intuitive interactive experience for mathematical users
 
 ~~~~~~~~~~Python
+>>> from sympy import Symbol, log, exp, simplify
 >>> x = Symbol('x')
 >>> y = log(3*exp(x + 2))
 >>> print y
