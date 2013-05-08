@@ -3,6 +3,8 @@ SymPy
 
 \label{sec:sympy}
 
+include [Tikz](tikz_math.md)
+
 SymPy enables the expression and manipulation of mathematical terms.  In real analysis a mathematical term may be either
 
 *   A literal like `5`

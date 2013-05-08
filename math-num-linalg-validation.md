@@ -4,6 +4,8 @@ Mathematical Numerical Linear Algebra - Validation
 
 \label{sec:math-num-linalg-validation}
 
+include [Tikz](tikz_megatron.md)
+
 In this section we validate our numerical linear algebra system with a sequence of examples.  In each example we will see the following
 
 1.  The automated solution of a common computational bottleneck problem

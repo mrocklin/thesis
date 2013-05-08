@@ -4,6 +4,8 @@ Matrix Algebra
 
 \label{sec:matrix-language}
 
+include [Tikz](tikz_math.md)
+
 *I probably need help to understand both the ideal style and extent that a section like this should have*
 
 We extend the SymPy computer algebra system to Matrix Algebra.  Leaf variables in a matrix algebra are defined by an identifier (e.g. `'X'`) and a shape, two integers of rows or columns.  These shape integers may themselves be symbolic. Common matrix algebra operators include Matrix Multiplication, Matrix Addition, Transposition, and Inversion.  Each of these operators has its own logic about the shape of the term given the shapes of its inputs, validity, and possible simplifications.

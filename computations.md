@@ -4,6 +4,8 @@ Computations - BLAS/LAPACK
 
 \label{sec:computations}
 
+include [Tikz](tikz_computation.md)
+
 In section \ref{sec:language} we described a computer algebra system to express and manipulate matrix expressions at a high, symbolic level.  This work is not appropriate for numeric computation.  In this section we describe a separate system to describe numeric codes to compute the mathematical expressions described in \ref{sec:language}.  Our primary target will be Modern Fortran code that calls down to the curated BLAS/LAPACK libraries for dense linear algebra.  These libraries have old and unstructured interfaces which are difficult to target high-level automated systems.  In this section we build a high-level description of these computations as an intermediary.  We use SymPy matrix expressions to assist with this high level description.  This system will be extensible to support other low-level libraries.  We believe that its separation makes it broadly applicable to applications beyond our own. 
 
 Specifically we present a small library to encode low-level computational routines that is amenable to manipulation by automated high-level tools.  This library is extensible and broadly applicable.  This library also supports low level code generation.
@@ -71,7 +73,7 @@ This model is not specific to BLAS/LAPACK.  In particular other developers have 
 
 ### Example use of `computations`
 
-We use `computations` to construct a simple program.  The following example uses `SYMM` and `AXPY`, a routine for vector addition, to create a complex composite computation.  It then introduces copy operations and generates Fortran code.
+We use `computations` to construct a simple program.  The following example uses `SYMM` and `AXPY`, a routine for vector addition, to create a complex composite computation.  It then introduces copy operations and generates human readable Fortran code.
 
 Specific instances of each computation can be constructed by providing corresponding inputs, traditionally SymPy Expressions.   We generate an instance of `SYMM`, here called `symm` that computes `X*Y` and stores the result in `Y`.
 
