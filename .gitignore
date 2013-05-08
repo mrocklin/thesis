@@ -7,3 +7,5 @@
 *.toc
 *.vrb
 *.pdf
+*.pyc
+tikz_*
