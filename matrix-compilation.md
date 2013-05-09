@@ -2,7 +2,7 @@
 Compilation of Matrix Expressions to Computations
 -------------------------------------------------
 
-\label{sec:matrix-compile}
+\label{sec:matrix-compilation}
 
 include [Tikz](tikz_megatron.md)
 

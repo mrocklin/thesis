@@ -17,7 +17,7 @@ $$\beta = (X^T X)^{-1} X^T y $$
 
 #### Simplification
 
-Just as we simplify $\log(e^x) \rightarrow x$ in real analysis we have trivial simplifications in matrix algebra as well such as $(X^T)^T \rightarrow X$ or $Trace(X + Y) \rightarrow Trace(X) + Trace(Y)$. 
+Just as we simplify $\log(e^x) \rightarrow x$ in real analysis we have trivial simplifications in matrix algebra as well such as $(X^T)^T \rightarrow X$ or $\operatorname{Trace}(X + Y) \rightarrow \operatorname{Trace}(X) + \operatorname{Trace}(Y)$. 
 
 
 #### Extension 

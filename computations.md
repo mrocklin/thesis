@@ -6,13 +6,13 @@ Computations - BLAS/LAPACK
 
 include [Tikz](tikz_computation.md)
 
-In section \ref{sec:language} we described a computer algebra system to express and manipulate matrix expressions at a high, symbolic level.  This symbolic work is not appropriate for numeric computation.  In this section we describe a system to define numeric codes at a high-level.  Later in section \ref{sec:matrix-compile} we will use compiler tools to connect these two to build a more cohesive whole.
+In section \ref{sec:language} we described a computer algebra system to express and manipulate matrix expressions at a high, symbolic level.  This symbolic work is not appropriate for numeric computation.  In this section we describe a system to define numeric codes at a high-level.  Later in section \ref{sec:matrix-compilation} we will use compiler tools to connect these two to build a more cohesive whole.
 
 Our primary target will be Modern Fortran code that calls down to the curated BLAS/LAPACK libraries described in section \ref{sec:blas-lapack}.  These libraries have old and unstructured interfaces which are difficult to target with high-level automated systems.  In this section we build a high-level description of these computations as an intermediary.  We use SymPy matrix expressions to assist with this high level description.  This system will be extensible to support other low-level libraries.  We believe that its separation makes it broadly applicable to applications beyond our own.
 
 Specifically we present a small library to encode low-level computational routines that is amenable to manipulation by automated high-level tools.  This library is extensible and broadly applicable.  This library also supports low level code generation.
 
-Later in section \ref{sec:matrix-compile} we connect the work in this section and in \ref{sec:language} to form a cohesive generator of high-level computations from high-level math expressions.
+Later in section \ref{sec:matrix-compilation} we connect the work in this section and in \ref{sec:language} to form a cohesive generator of high-level computations from high-level math expressions.
 
 ### Atomic Computations
 

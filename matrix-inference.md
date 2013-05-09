@@ -87,7 +87,7 @@ True
 
 This particular question is computationally relevant.  It arises frequently in scientific problems and significantly more efficient algorithms are applicable when it is true.  Unfortunately relatively few scientific users are able to recognize this situation.  Even this situation is correctly identified many developers are unable to take advantage of the appropriate routines.
 
-This is the first system that can answer questions like this for abstract matrices.  In section \ref{sec:computations} we will describe a system to describe the desired routine.  In section \ref{sec:matrix-compile} we will describe a system to select the desired routine given the power of inference described here.
+This is the first system that can answer questions like this for abstract matrices.  In section \ref{sec:computations} we will describe a system to describe the desired routine.  In section \ref{sec:matrix-compilation} we will describe a system to select the desired routine given the power of inference described here.
 
 
 ### Refined Simplification
@@ -96,7 +96,9 @@ This is the first system that can answer questions like this for abstract matric
 
 This advanced inference enables a substantially larger set of optimizations that depend on logical information.   For example, the inverse of a matrix can be simplified to its transpose if that matrix is orthogonal.
 
-Linear algebra is a mature field with many such relations \cite{matrix-cookbook}.  Formally describing all of these relations is challenging due to their quantity.  To address this issue we create a mechanism to describe them declaratively.  This reduces the extent of the code-base with which a mathematician must familiarize themselves to encode these relations.  This reduction in scope drastically increases the domain of qualified developers.
+Linear algebra is a mature field with many such relations \cite{matrix-cookbook}.  Formally describing all of these relations is challenging due both to their quantity and the limited population of practitioners.  To address this issue we create a mechanism to describe them declaratively.  This reduces the extent of the code-base with which a mathematician must familiarize themselves to encode these relations and increases portability.  This reduction in scope drastically increases the domain of qualified developers.
+
+#### Matrix Algebra Relations in Maude
 
 Our original approach to this problem was through a meta-programming and term rewrite system \cite{matrix-algebra}.  Our original implementation of automated matrix algebra was written in Maude and contained code like the following
 
@@ -108,16 +110,16 @@ The meta-programming approach allowed the specification of mathematical relation
 
 Unfortunately the Maude system is an exotic dependency in the scientific community and interoperability with low-level computational codes was not a priority in its development.
 
-If we wish to describe these transformations while restricting ourselves to the Python language 
+#### Matrix Algebra Relations in SymPy
 
-Because our solution is embedded in Python we can not acheive the same convenient syntax support provided by Maude.  Instead we encode a set of transformations in `(source, target, condition)` tuples.  
+We describe these transformations while restricting ourselves to the Python language.  Because our solution is embedded in Python we can not acheive the same convenient syntax support provided by Maude.  Instead we encode a set of transformations in `(source, target, condition)` tuples.  
 
-We suffer the following degredation in readability in order to extract an exotic dependency.  We describe the content of the transformation without specialized syntax
+We suffer the following degredation in readability in order to extract Maude, an exotic dependency.  We describe the content of the transformation without specialized syntax
 
     Wanted:      inverse(X) = transpose(X) if X is orthogonal
     Delivered:  (inverse(X) , transpose(X) ,  Q.orthogonal(X))
 
-We can then separately connect an external term rewrite system to transform these tuples into rewrite rules and use them to simplify matrix expressions.  In \ref{sec:logpy} we describe our solution to this problem, LogPy, a logic programming package designed for simple interoperability.  As with the system in Maude we believe that extending the set of simplification relations is straightforward and approachable to a very broad community.  Additionally, this declarative nature allows us to swap out the term rewrite system backend should future development produce more mature solutions.
+We can then separately connect an external term rewrite system to transform these tuples into rewrite rules and use them to simplify matrix expressions.  In \ref{sec:logpy} we describe a solution to this problem written in LogPy, a logic programming Python package designed for interoperability.  As with the system in Maude we believe that extending the set of simplification relations is straightforward and approachable to a very broad community.  Additionally, this declarative nature allows us to swap out the term rewrite system backend should future development produce more mature solutions.
 
 
 #### Example -- Determinants:
@@ -125,7 +127,7 @@ We can then separately connect an external term rewrite system to transform thes
 We present mathematical information about determinants taken from the Matrix Cookbook \cite{matrix-cookbook} and encoded in the manner described above. 
 
 ~~~~~~~~~~~~~~Python
-# Original,     Result,         Contition
+# Original,     Result,         Condition
 
 # Determinants
 (det(A),        0,              Q.singular(A)),
