@@ -1,6 +1,8 @@
 Algorithm Search
 ----------------
 
+include [TikZ](tikz_search.md)
+
 ### Confluence
 
 ### A Tree of Incomplete Algorithms

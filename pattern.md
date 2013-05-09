@@ -1,11 +1,13 @@
 Pattern Matching
 ----------------
 
+include [TikZ](tikz_pattern.md)
+
 ### Motivation
 
-This projects within this thesis rely on access to large quantities of formally described expert mathematical and computational knowledge to generate efficient programs.  Many experts in these fields are not capable of formally writing down their expertise in general purpose code within a code generation system.  Additionally, any work done for a particular system may is unlikely to be transferrable to future work.
+Projects within this thesis leverage mathematics and computational knowledge to generate efficient programs.  The mathematics involved is often voluminous and often known only to a small community of experts.  These experts may not be capable of formally writing down their expertise in general purpose code within a code generation system.  Additionally, any work integrated into a particular system may is unlikely to be transferrable to future work.
 
-To expand the pool of potential developers and to increase the reusability of their work we focus on declarative methods that enable the formal definition of expertise in a way that is familiar to mathematical users and not connected to any particular implementation.  In particular we focus on pattern matching and term rewrite systems, which mimic the same style of expression of explicit formulae that is common within mathematics.
+To expand the pool of potential developers and to increase the reusability of their work we focus on declarative methods that enable the formal definition of expertise in a way that is familiar to mathematical users and not connected to any particular implementation.  In particular we focus on pattern matching and term rewrite systems.  These mimic the style of expression common within mathematics and separate the formal definition of patterns from the particular implementation of their application.
 
 ### Term Matching
 
@@ -13,12 +15,12 @@ To expand the pool of potential developers and to increase the reusability of th
 
 ### Associative Commutative Matching
 
-Associative and commutative operators substantially increase the complexity of the matching problem.  Consider the following pattern and expression
+Mathematical operations are often associative and commutative.  Within pattern matching associative and commutative operators substantially increase the complexity of the matching problem.  Consider the following pattern and expression
 
     pattern:        a*b
     expression:     x*y*z
 
-If `*` is an associative operator then these two terms unify with the following set of matchings
+If `*` is an associative operator then these two terms unify with either of the following set of matchings
 
     {a: x,   b: y*z}
     {a: x*y, b: z}

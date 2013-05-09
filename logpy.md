@@ -2,9 +2,11 @@
 LogPy
 -----
 
+include [TikZ](tikz_pattern.md)
+
 \label{sec:logpy}
 
-LogPy is an implementation of [miniKanren](http://kanren.sourceforge.net/)\cite{byrd}, a general purpose logic programming language, in Python.  [Comprehensive documentation](http://github.com/logpy/logpy/tree/master/docs)\cite{logpy} is available online.
+LogPy is an implementation of [miniKanren](http://kanren.sourceforge.net/)\cite{byrd}, a general purpose logic programming language, in Python.  [Comprehensive documentation](http://github.com/logpy/logpy/tree/master/docs)\cite{logpy} is available online.  We use LogPy to implement a rudimentary term rewrite system within the scientific Python ecosystem.  Our solution is minimally intrusive and supports interoperation with legacy codes.
 
 Our implementation adds the additional foci
 
@@ -25,17 +27,17 @@ TODO?
 
 ### Composability
 
-LogPy was designed for interoperability with legacy codes.  While LogPy traditionally uses trees of tuples to define terms it is also able to interoperate with user-defined types.  LogPy was designed to simultaneously support two computer algebra systems, SymPy and Theano, both of which are sufficiently entrenched to bar the possibility of changing the underlying data structures.
+LogPy was designed for interoperation with legacy codes.  While LogPy traditionally uses trees of tuples to define terms it is also able to interoperate with user-defined types.  LogPy was designed to simultaneously support two computer algebra systems, SymPy and Theano, both of which are sufficiently entrenched to bar the possibility of changing the underlying data structures.
 
-Fundamental functions like `unify`, `reify` and their associative-commutative versions must understand how to interact with these new types.  In fullest generality each function-type pair requires specific treatment yet neither core codebase would permit special introduction of these interactions.  It is not possible to include every potential interaction in LogPy; this solution requires that every client developer has access to the LogPy codebase.  Alternatively standard object oriented solutions on the client side (e.g. implementing a `unify` method for each client type) may not be feasible.
+Fundamental functions like `unify`, `reify` and their associative-commutative versions must understand how to interact with these new types.  In fullest generality each function-type pair requires specific treatment yet neither core codebase would permit special introduction of these interactions.  It is not possible to include every potential interaction in LogPy; this solution requires that every client developer has access to the LogPy codebase.  Alternatively standard object oriented solutions on the client side (e.g. implementing a `unify` method for each client class) may not be feasible.
 
 *presumably this is a general problem that has a name*
 
 #### Interactions by Type -- Methods
 
-We can store the function-type interactions as methods on the type.  In particular LogPy functions look for and use `_as_tuple` and `_from_tuple` methods if they exist.  This is the traditional object oriented solution.  We believe that these two methods are the minimum necessary interaction between the type and LogPy.
+We can store the function-type interactions as methods on the class.  In particular LogPy functions look for and use `_as_tuple` and `_from_tuple` methods if they exist.  This is the traditional object oriented solution.  We believe that these two methods are the minimum necessary interaction between the class and LogPy.
 
-Additionally, in the case of raw Python objects we provide generic methods.  A Python object can, in the common case, be fully described by its type, which contains all methods/functions, and its `__dict__` attribute, which contains all fields.  Both of these datatypes can be handled natiely by LogPy.
+Additionally, in the case of raw Python objects we provide generic methods.  A Python object can, in the common case, be fully described by its class, which contains all methods/functions, and its `__dict__` attribute, which contains all fields.  Both of these datatypes can be handled natiely by LogPy.
 
 ~~~~~~~~~~Python
 def _as_tuple(self):
@@ -77,7 +79,7 @@ CompositeComputation.from_tuple = staticmethod(lambda tup: tup[0](*tup[1:]))
 
 #### Interactions by function - Protocols
 
-In rare cases affecting the client types may be alltogether disallowed.  This occurs for built-in types like `dict` and `slice` and when client code depends on introspection of their classes.  For these cases we explicitly create registries of functions, indexed by type, within the LogPy codebase.
+In rare cases affecting the client types may be alltogether disallowed.  This occurs for built-in types like `dict` and `slice` and when client code depends on introspection of their classes.  For these cases we explicitly create registries for methods to `unify` and `reify` various types.  In this sense we index function-type pairs first by the function (e.g. `unify`) then by type (e.g. `dict`).  
 
 *Is this worth discussing?*
 
@@ -97,7 +99,7 @@ fact(associative, CompositeComputation)
 
 ### Term Rewriting
 
-We construct a Python function to perform a single term rewrite step with LogPy
+We use LogPy to construct a Python function to perform a single term rewrite step in SymPy
 
 ~~~~~~~~~~Python
 from logpy.goals import goalify
@@ -111,24 +113,31 @@ def rewrite_step(expr, rewrites):
                              (asko, condition, True))
 ~~~~~~~~~~
 
-We match the input expression into the source term of a relation (collection) of `(source, target, condition)` tuples.  We then use the goal constructor `asko` to verify that the necessary condition is true on that source expression.  We return a lazy iterator of all possible matches to `target`.
+The `run` function asks for a lazily evaluated iterator (`None`) that returns reified values of the variable `target` that satisfy the following two conditions:
+    
+    (rewrites, expr, target, condition)
 
-`rewrites`, a LogPy `Relation`, stores facts.  Our facts are that one term can rewrite to another under a condition.  This is stored internally as a `(source, target, condition)`.  By placing the input, `expr`, in the source position we mandate that `expr` must unify to `source`.  The `target` and `condition` patterns are then reified with that matching.  The final condition, `(asko, condition, True)` ensures that SymPy's `ask` routine evaluates to `True` when called on `condition`.
+`rewrites`, a LogPy `Relation`, stores facts.  Our facts are that one term can rewrite to another under a condition.  This is stored internally as a `(source, target, condition)` tuple like `(Abs(x), x, Q.positive(x))`.  By placing the input, `expr`, in the source position we mandate that `expr` must unify to the `source` of the pattern (e.g. `Abs(x)`).  The `target` and `condition` patterns are then reified with the matching tha results from the `expr -- source` unification.  
 
+    (asko, condition, True))
+
+The `asko` goal constrains results to those for which the `condition` of the pattern  (e.g. `Q.positive(x)`) evaluates to `True` under SymPy's `ask` routine.
+
+We return a lazy iterator of all target patterns such that the source pattern matches the input expression and that the condition of the pattern is satisfied.
 
 ### Analysis
 
 While the demands for logic programming and term matching in our problem are significant, interactions between pieces are always limited to just a few lines of code.  
 
-Teaching LogPy to interact with SymPy and `computations` is a simple exercise, restricted to only a few lines of code as in section \ref{sec:logpy-computations-interaction}.  The need for simultaneous expertise is brief.  Using LogPy to construct a term rewrite system is similarly brief, only a few lines in the function `rewrite_step`
+Teaching LogPy to interact with SymPy and `computations` is a simple exercise, restricted to only a few lines of code to define `_as_tuple` and `_from_tuple` methods as in section \ref{sec:logpy-computations-interaction}.  The need for simultaneous expertise in both projects is brief.  Using LogPy to construct a term rewrite system is similarly brief, only a few lines in the function `rewrite_step`
 
 The implementation of the `rewrites` Relation determines matching performance.  Algorithmic code is a completely separate concern and not visible to the mathematical users.
 
 The mathematical patterns can be stored separately as a list of straight Python tuples 
 
 ~~~~~~~~~~~~Python
-patterns = [(a*x + b*x, (a+b)*x, True),
-            (x + 0,     x,       True), 
+patterns = [(Abs(x),    x,      Q.positive(x)),
+            (x + 0,     x,      True), 
             ... ]
 ~~~~~~~~~~~~
 
