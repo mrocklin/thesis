@@ -1,7 +1,14 @@
 
-### BLAS and LAPACK
+BLAS and LAPACK
+---------------
 
-#### Basic Linear Algebra Subroutines (BLAS)
+\label{sec:blas-lapack}
+
+include [Tikz](tikz_computation.md)
+
+Sections \ref{sec:sympy}-\ref{sec:matrix-inference} described SymPy and then a Matrix extension to SymPy.  These projects are purely for the symbolic description of mathematics.  They are not appropriate for numeric computations.  In section \ref{sec:computations} we will describe a high-level description of the popular BLAS/LAPACK libraries for *numeric* matrix computations.  In this section we first provide background on these libraries.  Finally in section \ref{sec:compilation} we will tie the symbolic and numeric pieces together.
+
+### Basic Linear Algebra Subroutines (BLAS)
 
 The Basic Linear Algebra Subroutines are a library of routines to perform common operations on dense matrices.  They were originally implemented in FORTRAN-77 in 1979.  They are in wide use today.  They have the following virtues:
 
@@ -14,7 +21,7 @@ The Basic Linear Algebra Subroutines are a library of routines to perform common
 Potential additional details: FLOP/memory usage, levels 1,2,3, common operations.
 
 
-#### Linear Algebra Package (LAPACK)
+### Linear Algebra Package (LAPACK)
 
 The Linear Algebra Package (LAPACK) is a library that builds on BLAS to solve more complex problems in dense numerical linear algebra.  LAPACK includes routines for the solution of systems of linear equations, matrix factorizations, eigenvalue problems, etc....
 
@@ -23,7 +30,7 @@ These problems can often be solved by multiple algorithms.  These redundant algo
 Algorithms for the solution of these problems often require standard operations on dense matrices.  Where possible LAPACK depends on BLAS for these operations.  This isolates the majority of hardware specific optimizations to the BLAS library, allowing LAPACK to remain relatively high-level.  Optimizations to BLAS improve LAPACK without additional development.
 
 
-#### Interface
+### Interface
 
 Parameters to BLAS/LAPACK routines include scalars (real, complex, integer) of varying precision, arrays of those types, and strings.  
 
@@ -44,7 +51,7 @@ Examples of the interfaces for `GEMM` and `SYMM` are included below
     *   `SUBROUTINE DSYMM(SIDE,UPLO,M,N,ALPHA,A,LDA,B,LDB,BETA,C,LDC)`
 
 
-#### Analysis
+### Analysis
 
 BLAS and LAPACK are sufficiently entrenched and widely supported to be a stable and de facto programming interface in numeric computing.  This stability causes two notable attributes 
 

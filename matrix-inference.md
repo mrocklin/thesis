@@ -1,8 +1,10 @@
 
-Inference on predicates
------------------------
+Matrix Inference
+----------------
 
 \label{sec:matrix-inference}
+
+include [Tikz](tikz_math.md)
 
 In section \ref{sec:sympy-inference} we saw that SymPy supports the expression and solution of logical queries on mathematical expressions.  In this section we extend this system to matrix algebra.
 

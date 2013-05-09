@@ -34,7 +34,9 @@ include [SymPy Inference](sympy-inference.md)
 
 include [Language](language.md)
 
-include [Inference](inference.md)
+include [Inference](matrix-inference.md)
+
+include [BLAS/LAPACK](blas-lapack.md)
 
 include [Computations](computations.md)
 

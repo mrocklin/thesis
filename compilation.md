@@ -4,6 +4,8 @@ Compilation of Matrix Expressions to Computations
 
 \label{sec:matrix-compile}
 
+include [Tikz](tikz_megatron.md)
+
 The projects SymPy matrix expressions (section \ref{sec:matrix-language}) and Computations (section \ref{sec:computations}) are logically distinct.  They are developed separately in different repositories by different communities.  We now consider the problem of selecting the right set of computations to compute a given set of mathematical expressions.  Selecting the a valid set of computations to cover the expressions is non-trivial.  Additionally there may be multiple valid sets of computations able to cover the given expressions.  In practice expert numerical programmers base this decision on a number of factors depending on both the mathematical problem and the target hardware.
 
 We are now in a situation where a large quantity of expertise must be formally described by a community without a strong tradition in automated methods.  As in section \ref{sec:matrix-refine} we seek to enable this transcription through declarative programming.  We encode this expertise in two separate sets of data

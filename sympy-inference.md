@@ -4,6 +4,8 @@ SymPy Inference
 
 \label{sec:sympy-inference}
 
+include [Tikz](tikz_math.md)
+
 We often want to test whether algebraic statements are true or not in a general case.  For example, 
 
 *Given that $x$ is a natural number and that $y$ is real, is $x + y^2$  positive?*
