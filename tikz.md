@@ -5,7 +5,7 @@ distance=2.4cm, semithick]
 
     \tikzstyle{every node}=[ellipse,thick,draw=blue!75,fill=blue!5,minimum size=6mm]
 
-    \node  (megatron) [fill=red!%(megatron)d] at (5, 5) {Megatron};
+    \node  (megatron) [fill=red!%(megatron)d] at (5, 5) {Conglomerate};
     \node  (Mathematics) [fill=blue!%(math)d,above left of=megatron] {Mathematics};
     \node  (Computations) [fill=blue!%(computation)d,above right of=megatron] {Computations};
     \node  (PatternMatching) [fill=blue!%(pattern)d,below left of=megatron] {Pattern\\Matching};
