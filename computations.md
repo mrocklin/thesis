@@ -6,19 +6,19 @@ Computations - BLAS/LAPACK
 
 include [Tikz](tikz_computation.md)
 
-In section \ref{sec:language} we described a computer algebra system to express and manipulate matrix expressions at a high, symbolic level.  This symbolic work is not appropriate for numeric computation.  In this section we describe a system to define numeric codes at a high-level.  Later in section \ref{sec:matrix-compilation} we will use compiler tools to connect these two to build a more cohesive whole.
+In section \ref{sec:matrix-language} we described a computer algebra system to express and manipulate matrix expressions at a high, symbolic level.  This symbolic work is not appropriate for numeric computation.  In this section we describe a system to define numeric codes at a high-level.  Later in section \ref{sec:matrix-compilation} we will use compiler tools to connect these two to build a more cohesive whole.
 
 Our primary target will be Modern Fortran code that calls down to the curated BLAS/LAPACK libraries described in section \ref{sec:blas-lapack}.  These libraries have old and unstructured interfaces which are difficult to target with high-level automated systems.  In this section we build a high-level description of these computations as an intermediary.  We use SymPy matrix expressions to assist with this high level description.  This system will be extensible to support other low-level libraries.  We believe that its separation makes it broadly applicable to applications beyond our own.
 
 Specifically we present a small library to encode low-level computational routines that is amenable to manipulation by automated high-level tools.  This library is extensible and broadly applicable.  This library also supports low level code generation.
 
-Later in section \ref{sec:matrix-compilation} we connect the work in this section and in \ref{sec:language} to form a cohesive generator of high-level computations from high-level math expressions.
+Later in section \ref{sec:matrix-compilation} we connect the work in this section and in \ref{sec:matrix-language} to form a cohesive generator of computations from high-level math expressions.
 
 ### Atomic Computations
 
 Every BLAS/LAPACK routine can be logically identified by a set of inputs, outputs, conditions on the inputs, and inplace memory behavior.  Additionally each routine can be imbued with code for generation of the inline call in a variety of languages.  In our implementation we focus on Fortran but C, scipy, or even CUDA could be added without substantial difficulty.
 
-Each routine is represented by a Python class.  In this paragraph we describe `SYMM`, a routine for **SY**mmetric **M*atrix **M**ultiply, in prose; just below we describe this same routine in code.  `SYMM` fuses a matrix multiply `A*B` with a scalar multiplication `alpha*A*B` and an extra matrix addition `alpha*A*B + beta*C`.  This is done for computational efficiency.  `SYMM` is a specialized version which is only valid when one of the first two matrices `A, B` are symmetric.  It exploits this special structure and performs only half of the normally required FLOPs.  Like many BLAS/LAPACK routines `SYMM` operates *inplace*, storing the output in one of its inputs.  In this particular case it stores the result of the zeroth output, `alpha*A*B + beta*C` in its fourth input, `C`. 
+Each routine is represented by a Python class.  In this paragraph we describe `SYMM`, a routine for **SY**mmetric **M**atrix **M**ultiply, in prose; just below we describe this same routine in code.  `SYMM` fuses a matrix multiply `A*B` with a scalar multiplication `alpha*A*B` and an extra matrix addition `alpha*A*B + beta*C`.  This is done for computational efficiency.  `SYMM` is a specialized version which is only valid when one of the first two matrices `A, B` are symmetric.  It exploits this special structure and performs only half of the normally required FLOPs.  Like many BLAS/LAPACK routines `SYMM` operates *inplace*, storing the output in one of its inputs.  In this particular case it stores the result of the zeroth output, `alpha*A*B + beta*C` in its fourth input, `C`. 
 
 ~~~~~~~~~~~~~Python
 class SYMM(BLAS):
@@ -31,7 +31,7 @@ class SYMM(BLAS):
 
 ### Composite Computations
 
-Composite computations may be built up from many constituents.  These edges between these constituents exist if the output of one computation is the input of the other.  Treating computations as nodes and data dependencies as edges defines a directed acyclic graph (DAG) over the set of computations.
+Composite computations may be built up from many constituents.  Edges between these constituents exist if the output of one computation is the input of the other.  Treating computations as nodes and data dependencies as edges defines a directed acyclic graph (DAG) over the set of computations.
 
 
 ### Tokenized Computations
@@ -53,11 +53,15 @@ Mathematically this definition is correct.  It consumes a variable, `X`, and pro
 \begin{figure}[htbp]
 \centering
 \includegraphics[height=.2\textheight]{images/copy}
-\includegraphics[height=.2\textheight]{images/copy-inplace}
 \end{figure}
 
 To encode this information about memory location we expand our model so that each variable is both a mathematical sympy term and a unique identifier, usually a string.  This supports a new class of transformations to manage inplace computations.  These considerations are only relevant in the latter stages of compilation and so we delay their introduction until later in the pipeline.
 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[height=.2\textheight]{images/copy-inplace}
+\end{figure}
 
 ### Fortran Code Generation
 
@@ -86,7 +90,7 @@ Specific instances of each computation can be constructed by providing correspon
 [X*Y]
 ~~~~~~~~~~~~~
 
-We now want to take the result `X*Y` and add it again to `Y`.  This can be done with a vector addition, accomplished by the routine `AXPY`.  Notice that computations can take compound expressions as inputs
+We now want to take the result `X*Y` and add it again to `Y`.  This can be done with a vector addition, accomplished by the routine `AXPY`.  Notice that computations can take compound expressions like `X*Y` as inputs
 
 ~~~~~~~~~~~~~Python
 >>> axpy = AXPY(5, X*Y, Y)
@@ -122,7 +126,7 @@ The computation above is purely mathematical in nature.  We now consider inplace
 \includegraphics[width=.7\textwidth]{images/symm-axpy-inplace}
 \end{figure}
 
-Finally we declare the types of the matrices and print Fortran code
+Finally we declare the types of the matrices, specify orders for inputs and outputs,  and print Fortran code
 
 ~~~~~~~~~~~~~Python
 >>> with assuming(Q.symmetric(X), Q.real_elements(X), Q.real_elements(Y)):
@@ -159,7 +163,7 @@ subroutine f(X, Y, Y_2)
     deallocate(Y_3)
     return
 end subroutine f
-~~~~~~~~~~~~~Fortran
+~~~~~~~~~~~~~
 
 
 
