@@ -28,14 +28,8 @@ Separation of mathematical logic and algorithmic control aligns well with the di
 
 ### Background
 
-#### Logic Programming
-
-#### Term Rewrite Systems
-
-#### Control Flow
+include [Pattern Matching](pattern.md)
 
 include [LogPy](logpy.md)
 
-### Strategies
-
-Strategies is a mimicry of [Stratego](http://strategoxt.org/)\cite{stratego} in Python.
+include [Algorithm Search](search.md)
