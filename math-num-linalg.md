@@ -32,7 +32,7 @@ include [Background on SymPy](sympy.md)
 
 include [SymPy Inference](sympy-inference.md)
 
-include [Language](language.md)
+include [Language](matrix-language.md)
 
 include [Inference](matrix-inference.md)
 
