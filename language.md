@@ -75,3 +75,7 @@ As in section \ref{sec:sympy-syntax} we overload Python operator methods `__add_
 ~~~~~~~~~~~Python
 >>> beta = (X.T*X).I * X.T * y
 ~~~~~~~~~~~
+
+### Shape checking and Trivial Simplification
+
+Shape checking and trivial simplifications (e.g. removing pairs of transposes) are done at object instantiation time.  This is accomplished by calling raw Python code within the class `__init__` constructors.
