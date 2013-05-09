@@ -93,7 +93,7 @@ At the lowest level SymPy manipulations are then just Python functions which ins
 
 Reading and writing terms like `z = Mul(3, Add(x, 5), Log(y))` can quickly become cumbersome, particularly for mathematical users when they generate large complex equations.  
 
-Because SymPy is embedded in a pre-existing language it can not define its own grammar but must instead restrict itself to the expressiveness of the host language.  For term writing convenience classes for operators and literals overload hooks for Python operator syntax like `__add__` and `__mul__`.  For convenience of reading these classes overload hooks for interactive printing like `__str__`.  SymPy also implements printers for LaTeX and unicode which can be called on by the ubiquitous ipython console and notebook tools.  Together these provide an intuitive interactive experience for mathematical users
+Because SymPy is embedded in a pre-existing language it can not define its own grammar but must instead restrict itself to the expressiveness of the host language.  For term writing convenience classes for operators and literals overload hooks for Python operator syntax like `__add__` and `__mul__`.  For reading convenience these classes overload hooks for interactive printing like `__str__`.  SymPy also implements printers for LaTeX and unicode which can be called on by the ubiquitous ipython console and notebook tools.  Together these provide an intuitive interactive experience for mathematical users
 
 ~~~~~~~~~~Python
 >>> from sympy import Symbol, log, exp, simplify
