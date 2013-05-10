@@ -18,7 +18,7 @@ pdf: full.tex images/*.svg
 
 math-num: math-num-linalg.md math-num-linalg-validation.md linear-regression.md operation-ordering-matlab.md syrk.md sympy.md sympy-inference.md tikz-images
 
-outline: images/pdfs outline.md math-num 
+outline: images/pdfs outline.md math-num front.md
 	python scripts/include.py outline.md outline2.md
 	python scripts/dollar.py outline2.md outline2.md
 	pandoc outline2.md -o outline.tex --standalone -H tex/preamble-extra.tex -A tex/biblio.tex
