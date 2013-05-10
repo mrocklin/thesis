@@ -117,9 +117,9 @@ The `run` function asks for a lazily evaluated iterator (`None`) that returns re
     
     (rewrites, expr, target, condition)
 
-`rewrites`, a LogPy `Relation`, stores facts.  Our facts are that one term can rewrite to another under a condition.  This is stored internally as a `(source, target, condition)` tuple like `(Abs(x), x, Q.positive(x))`.  By placing the input, `expr`, in the source position we mandate that `expr` must unify to the `source` of the pattern (e.g. `Abs(x)`).  The `target` and `condition` patterns are then reified with the matching tha results from the `expr -- source` unification.  
+`rewrites`, a LogPy `Relation`, stores facts.  Our facts are that one term can rewrite to another under a condition.  This is stored internally as a `(source, target, condition)` tuple like `(Abs(x), x, Q.positive(x))`.  By placing the input, `expr`, in the source position we mandate that `expr` must unify to the `source` of the pattern (e.g. `Abs(x)`).  The `target` and `condition` patterns are then reified with the matching that results from the `expr--source` unification.  
 
-    (asko, condition, True))
+    (asko, condition, True)
 
 The `asko` goal constrains results to those for which the `condition` of the pattern  (e.g. `Q.positive(x)`) evaluates to `True` under SymPy's `ask` routine.
 
@@ -153,4 +153,4 @@ options = rewrite_step(expr, rewrites)
 ...
 ~~~~~~~~~~~~
 
-And so we have not tied the mathematics to the choice of using LogPy.  In the future more mature algorithmic solutions can replace it without necessitating changes in mathematical code.  Removing such connections enables components to survive obsolesence of neighboring components.  Unnecessary connections cause "weakest link in the chain" survivability.
+And so we have not tied the mathematics to the choice of using LogPy.  In the future more mature algorithmic solutions can replace it without necessitating changes in mathematical code.  Removing such connections enables components to survive obsolesence of neighboring components.  We avoid "weakest link in the chain" survivability by removing unnecessary connections between modules.
