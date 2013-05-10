@@ -1,7 +1,7 @@
 import re
 import os
 
-regex = "include .*\(([\w-]*\.md)\)"
+regex = "include .*\(([\w-]*\.\w*)\)"
 
 def include(s):
     match = re.search(regex, s)
