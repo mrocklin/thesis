@@ -25,7 +25,7 @@ data    = MatrixSymbol('data', k, 1)    # Observed measurement data
 
 newmu   = mu + Sigma*H.T * (R + H*Sigma*H.T).I * (H*mu - data)      # Updated mean
 newSigma= Sigma - Sigma*H.T * (R + H*Sigma*H.T).I * H * Sigma       # Updated covariance
-~~~~~~~~~~~~~~~Python
+~~~~~~~~~~~~~~~
 
 ### Theano Execution
 
@@ -38,7 +38,7 @@ dtypes  = {i: 'float64' for i in inputs}
 
 from sympy.printing.theanocode import theano_function
 f = theano_function(inputs, outputs, dtypes=dtypes)
-~~~~~~~~~~~~~~~Python
+~~~~~~~~~~~~~~~
 
 Theano builds a Python function that calls down to a combination of low-level `C` code, `scipy` functions, and calls to the highly optimized `DGEMM` routine for matrix multiplication.  As input this function takes five numpy arrays corresponding to our five symbolic `inputs` and produces two numpy arrays corresponding to our two symbolic `outputs`.  [Recent work](https://github.com/sympy/sympy/pull/1965) allows *any* SymPy matrix expression to be translated to and run by Theano.
 
@@ -46,7 +46,7 @@ Theano builds a Python function that calls down to a combination of low-level `C
 import numpy
 ninputs = [numpy.random.rand(*i.shape).astype('float64') for i in inputs]
 nmu, nSigma = f(*ninputs)
-~~~~~~~~~~~~~~~Python
+~~~~~~~~~~~~~~~
 
 ### Blocked Execution
 
@@ -89,7 +89,7 @@ Y = BlockMatrix([[E, F],
 print latex(X*Y)
 print latex(block_collapse(X*Y))
 print latex(block_collapse(X.I))
-~~~~~~~~~~~~~~~Python
+~~~~~~~~~~~~~~~
 
 
 ### General Code to Block the Kalman Filter
@@ -110,7 +110,7 @@ blockoutputs = [o.subs(dict(zip(inputs, blockinputs))) for o in outputs]
 collapsed_outputs = map(block_collapse, blockoutputs)
 
 fblocked = theano_function(inputs, collapsed_outputs, dtypes=dtypes)
-~~~~~~~~~~~~~~~Python
+~~~~~~~~~~~~~~~
 
 Theano is then able to coordinate this computation and compile it to low-level code.  At this stage the expresssions/computations are fairly complex and difficult to present.  Here is an image of the computation as a directed acyclic graph.
 
@@ -130,7 +130,7 @@ Lets time each function on the same inputs and see which is faster
 
 >>> timeit fblocked(*ninputs)
 1 loops, best of 3: 2.12 s per loop
-~~~~~~~~~~~~~~~Python
+~~~~~~~~~~~~~~~
 
 That's a 20% performance increase from just a few lines of high-level code.
 
