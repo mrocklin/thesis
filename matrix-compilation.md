@@ -1,43 +1,115 @@
 
-Compilation of Matrix Expressions to Computations
+Covering Matrix Expressions with Computations
 -------------------------------------------------
 
 \label{sec:matrix-compilation}
 
 include [Tikz](tikz_megatron.md)
 
-The projects SymPy matrix expressions (section \ref{sec:matrix-language}) and Computations (section \ref{sec:computations}) are logically distinct.  They are developed separately in different repositories by different communities.  We now consider the problem of selecting the right set of computations to compute a given set of mathematical expressions.  Selecting the a valid set of computations to cover the expressions is non-trivial.  Additionally there may be multiple valid sets of computations able to cover the given expressions.  In practice expert numerical programmers base this decision on a number of factors depending on both the mathematical problem and the target hardware.
+In this section we put the pieces together.  We search for high quality computations to compute a set of matrix expressions.  This will require functionality from the following sections
 
-We are now in a situation where a large quantity of expertise must be formally described by a community without a strong tradition in automated methods.  As in section \ref{sec:matrix-refine} we seek to enable this transcription through declarative programming.  We encode this expertise in two separate sets of data
+*   Matrix Language \ref{sec:matrix-language}: extends SymPy to handle symbolic linear algebra
+*   Computations \ref{sec:computations}: describes BLAS/LAPACK at a high level and provides Fortran90 code generation
+*   Pattern Matching \ref{sec:pattern} and LogPy \ref{sec:logpy}: provides functionality to match a current state to a set of valid next states
+*   Graph Search \ref{sec:search}: traverses a potentially large tree of decisions to arrive at a "good" final state.
+
+These projects are disjoint.  In this section we describe the information necessary to compose them to solve our problem in automated generation of mathematically informed linear algebra routines. 
+
+
+### A Graph of Computations
+
+Given a set of expressions-to-be-computed we consider a tree where 
+
+*   each node is a computation whose outputs include those expressions
+*   An edge exists from A to B if we know how to get from A to B through the addition or subtraction of an atomic computation. 
+
+At the top of this tree is the trivial identity computation which computes the desired outputs given them as inputs.  At the bottom of this tree are computations whose inputs are not decomposable by one of our patterns.  In particular, some of these leaves have inputs that are all atoms; we call these leaves valid.
+
+In principle this tree can be very large, negating the possibility of exhaustive search in the general case.  Additionally some branches of this tree may contain dead-ends (we may not be able to find a valid all-inputs-are-atoms leaf within a subtree.)   We desire an algorithm which quickly finds a valid and high-quality leaf of this tree.  
+
+We pose this as a search problem where we start at the root of the tree (the trivial identity computation) and search down the tree, reducing inputs at each step.  In the following sections we describe the elements of this search in more detail.
 
 
 ### Compute Patterns 
 
-We ask computational experts to encode what expressions can be broken down by which expressions.  For example we know that expressions like $\alpha A B + \beta C$ can be broken into their components $\alpha, A, B, \beta, C$ via computations like `GEMM` or `SYMM`.  In cases like `SYMM` additional constraints must be met on the inputs.  We might want to encode this pattern as follows
+We use computations to break expressions into smaller pieces.  For example $\alpha A B + \beta C$ can be broken into the components $\alpha, A, B, \beta, C$ using the various Matrix Multiply routines (`GEMM`, `SYMM`, `TRMM`).  To determine this automatically we create a set of patterns that match expressions to computations valid in that case.   We encode this information in `(source expression,  computation,  condition)` patterns.
 
-    [alpha*A*B + beta*C] -> [alpha, A, B, beta, C] via SYMM if A or B is symmetric
+~~~~~~~~~~~~~~Python
+patterns = [
+    (alpha*A*B + beta*C ,  GEMM(alpha, A, B, beta, C) ,  True),
+    (alpha*A*B + beta*C ,  SYMM(alpha, A, B, beta, C) ,  Q.symmetric(A) | Q.symmetric(B)),
+    ...]
+~~~~~~~~~~~~~~
 
-In practice we encode the above patterns as `(source expression,  computation,  condition)` Python tuples.
+These patterns can be encoded by computational experts and can be used by pattern matching systems such as LogPy.
 
-    (alpha*A*B + beta*C ,  GEMM(alpha, A, B, beta, C) ,  True)
-    (alpha*A*B + beta*C ,  SYMM(alpha, A, B, beta, C) ,  Q.symmetric(A) | Q.symmetric(B))
+
+### Extending a Computation
+
+Given a computation we compute a set of possible extensions with simpler inputs.  We search the list of patterns for all computations which can break down one of the non-trivial inputs.  We can then add any of the resulting new computations into the current one.
+
+Our solution with LogPy and `computations` looks like the following
+
+~~~~~~~~~~~~~~Python
+computations_for = partial(rewrite_step, rewrites=patterns)
+
+def children(comp):
+    """ Compute next options in tree of possible algorithms """
+    atomics = sum(map(computations_for, comp.inputs), ())
+    return map(comp.__add__, atomics)
+~~~~~~~~~~~~~~
+
+
+### Non-Confluence
+
+In general there are several valid computations to solve any particular set of expressions.  Depending on the pattern/new computation we choose to add we will search 
+
+In the general case multiple patterns will match our input.  
+
+The above patterns specify the possible transformations.  There are often several valid sets of BLAS/LAPACK routines to compute any given expression.  In the above example if `A` or `B` is symmetric than either `GEMM` or `SYMM` may be used with equal validity.  While our set of transformations does terminate it is not confluent; there are several possible outcomes.
 
 
 ### Objective Function
 
-The above patterns specify the possible transformations.  There are often several valid sets of BLAS/LAPACK routines to compute any given expression.  In the above example if `A` or `B` is symmetric than either `GEMM` or `SYMM` may be used with equal validity.  How do we choose which to use?
+To guide our search we need an objective function to rank the overall quality of a computation.  In general this function might include runtime, energy cost, or an easily accessible proxy like FLOPs.
 
-We ask the user to provide an objective function that ranks the overall quality of a computation.  This might include runtimes, power cost, or an easily accessible proxy like FLOPs.  
+Operationally we order atomic computations so that specialized operations like `SYMM` are above mathematically equivalent but general operations like `GEMM`. 
 
-Operationally we default to an ordering on computations that places specialized operations like `SYMM` above equivalent but general operations like `GEMM`. 
+~~~~~~~~~~~~~~Python
+order = [FFTW, POSV, GESV, LASWP, SYRK, SYMM, GEMM, AXPY]
+
+def objective(C):
+    if isinstance(C, CompositeComputation):
+        return sum(map(objective, C.computations))
+    else:
+        return order.index(type(c))
+~~~~~~~~~~~~~~
+
 
 ### Strategy
 
-Given a set of patterns/decisions and an objective function we search a graph of all possible transformations for the optimal computation.
+Pattern matching and the function `children` above define the set of steps we can take from any state.  An objective function gives us some understanding about the local quality of intermediate states.  This is now an abstract graph search problem.  Common solutions include exhaustive, greedy, and dynamic programming solutions. 
 
-At each stage of the compilation we must decide between a set of compute patterns valid at that stage.  The objective function can assist us in this selection.  However greedily following the objective function may lead us into a local minimum.  Computing all possibilities may lead to combinatorial blowup.
+We implement a greedy depth first search 
 
-We resolve this problem by separating it.  We implement a subset of the Stratego language for control flow programming as a set of higher order functions in Python.  This allows the separate construction of traveral strategies of our graph of possible computations.  We then implement strategies like greedy or brute force and can assess their performance.
+~~~~~~~~~~~~~~Python
+def greedy(children, objective, isleaf, node):
+    """ Greedy guided depth first search
 
-Operationally we default to a greedy strategy.
+    Returns:  a lazy iterator of nodes
 
+    children    :: a -> [a]     --  Children of node
+    objective   :: a -> score   --  Quality of node
+    isleaf      :: a -> bool    --  Successful leaf of tree
+    """
+    if isleaf(node):
+        return iter([node])
+
+    f = partial(greedy, children, objective, isleaf)
+    options = sorted(children(node), key=objective)
+    streams = map(f, options)
+
+    return it.chain(*streams)
+~~~~~~~~~~~~~~
+
+Note that this solution is ignorant of our application.  The graph search problem is separable from our application.

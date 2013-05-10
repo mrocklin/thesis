@@ -1,6 +1,8 @@
 Pattern Matching
 ----------------
 
+\label{sec:pattern}
+
 include [TikZ](tikz_pattern.md)
 
 ### Motivation

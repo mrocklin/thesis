@@ -1,9 +1,13 @@
 Algorithm Search
 ----------------
 
+\label{sec:search}
+
 include [TikZ](tikz_search.md)
 
 ### Confluence
+
+\label{sec:search-confluence}
 
 ### A Tree of Incomplete Algorithms
 
