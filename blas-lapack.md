@@ -6,6 +6,8 @@ BLAS and LAPACK
 
 include [Tikz](tikz_computation.md)
 
+*Possible reorganization: These are important.  These are hard.*
+
 Sections \ref{sec:sympy}-\ref{sec:matrix-inference} described SymPy and then a Matrix extension to SymPy.  These projects are purely for the symbolic description of mathematics.  They are not appropriate for numeric computations.  In section \ref{sec:computations} we will describe a high-level description of the popular BLAS/LAPACK libraries for *numeric* matrix computations.  In this section we first provide background on these libraries.  Finally in section \ref{sec:matrix-compilation} we will tie the symbolic and numeric pieces together.
 
 ### Basic Linear Algebra Subroutines (BLAS)
@@ -25,9 +27,9 @@ Potential additional details: FLOP/memory usage, levels 1,2,3, common operations
 
 The Linear Algebra Package (LAPACK) is a library that builds on BLAS to solve more complex problems in dense numerical linear algebra.  LAPACK includes routines for the solution of systems of linear equations, matrix factorizations, eigenvalue problems, etc....
 
-These problems can often be solved by multiple algorithms.  These redundant algorithms are simultaneously included in LAPACK yielding a large library with thousands of individual routines.
+These operations can often be solved by multiple algorithms.  These redundant algorithms are simultaneously included in LAPACK yielding a large library with thousands of individual routines.
 
-Algorithms for the solution of these problems often require standard operations on dense matrices.  Where possible LAPACK depends on BLAS for these operations.  This isolates the majority of hardware specific optimizations to the BLAS library, allowing LAPACK to remain relatively high-level.  Optimizations to BLAS improve LAPACK without additional development.
+Algorithms for the solution of these operations often require standard operations on dense matrices.  Where possible LAPACK depends on BLAS for these operations.  This isolates the majority of hardware specific optimizations to the BLAS library, allowing LAPACK to remain relatively high-level.  Optimizations to BLAS improve LAPACK without additional development.
 
 
 ### Interface
@@ -39,8 +41,6 @@ These types are widely implemented in general purpose programming languages.  As
 However, simplicity of parameter types significantly increases their cardinality.  In higher level languages array objects often contain fields for a data pointer, shape, and stride/access information.  In BLAS/LAPACK these must be passed explicitly.
 
 Many different algorithms exist for matrix problems with slightly different structure.  BLAS and LAPACK implement these different algorithms in independent subroutines.  For example the routine GEMM performs a Matrix-Matrix multiply in the general case, `SYMM` performs a Matrix-Matrix multiplication when one of the matrices is symmetric, and `TRMM` performs a Matrix-Matrix Multiplication when one of the matrices is triangular.  A combination of the quantity of different algorithms, multiple scalar types, and lack of polymorphism causes BLAS and LAPACK to contain over two thousand routines.
-
-Names in Fortran are limited to seven characters.  As a result BLAS/LAPACK routines are given names assigned from a compact and structured naming scheme. (*include this?*)
 
 Examples of the interfaces for `GEMM` and `SYMM` are included below
 

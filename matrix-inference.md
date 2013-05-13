@@ -55,7 +55,7 @@ From these a wider set of implications can be inferred at code generation time. 
 
 #### Predicate-Operator Relations
 
-As in \ref{sec:sympy-inference-predicate-operator} the relationship between predicates and operators may be described by low-level Python functions.  These are organized into classes of staticmethods where classes are indexed by predicate and methods are indexed by operator.
+As in \ref{sec:sympy-inference-predicate-operator} the relationship between predicates and operators may be described by low-level Python functions.  These are organized into classes of static methods where classes are indexed by predicate and methods are indexed by operator.
 
 ~~~~~~~~~~Python
 class AskInvertibleHandler(...):
@@ -85,7 +85,7 @@ We are now able to answer this question using SymPy
 True
 ~~~~~~~~
 
-This particular question is computationally relevant.  It arises frequently in scientific problems and significantly more efficient algorithms are applicable when it is true.  Unfortunately relatively few scientific users are able to recognize this situation.  Even this situation is correctly identified many developers are unable to take advantage of the appropriate routines.
+This particular question is computationally relevant.  It arises frequently in scientific problems and significantly more efficient algorithms are applicable when it is true.  Unfortunately relatively few scientific users are able to recognize this situation.  Even this situation is correctly identified many developers are unable to take advantage of the appropriate lower-level routines.
 
 This is the first system that can answer questions like this for abstract matrices.  In section \ref{sec:computations} we will describe a system to describe the desired routine.  In section \ref{sec:matrix-compilation} we will describe a system to select the desired routine given the power of inference described here.
 

@@ -10,18 +10,27 @@ We often want to test whether algebraic statements are true or not in a general 
 
 *Given that $x$ is a natural number and that $y$ is real, is $x + y^2$  positive?*
 
-To create a system to pose and answer these questions we need the following pieces
+To create a system to pose and answer these questions we need the following pieces (examples included)
 
 1.  A set of predicates 
-    Example: *positive* and *real*
+
+    *positive* and *real*
+
 2.  A syntax to pose facts and queries
-    Example: Given that $x$ is positive, is $x+1$ positive?
+
+    Given that $x$ is positive, is $x+1$ positive?
+
 2.  A set of relations between pairs of predicates.  
-    Example: $x$ is a natural number implies that $x$ is positive.
+
+    $x$ is a natural number implies that $x$ is positive.
+
 3.  A set of relations between predicates and operators
-    Example: The addition of positive numbers is positive or
-             The square of a real number is positive
-4.  A solver for satisfyability given the above relations
+
+    The addition of positive numbers is positive or
+
+    The square of a real number is positive
+
+4.  A solver for satisfiability given the above relations
 
 ### Implementation in SymPy
 
@@ -67,7 +76,7 @@ For efficiency forward chaining from these axioms is done at code-distribution t
 
 \label{sec:sympy-inference-predicate-operator}
 
-The relationship between predicates and operators is described by low-level Python functions.  These are organized into classes of staticmethods.  Classes are indexed by predicate and methods are indexed by operator name.  Logical relations are encoded in straight Python.  For example
+The relationship between predicates and operators is described by low-level Python functions.  These are organized into classes of static methods.  Classes are indexed by predicate and methods are indexed by operator name.  Logical relations are encoded in straight Python.  For example
 
 ~~~~~~~~~~Python
 class AskPositiveHandler(...):

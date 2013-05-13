@@ -26,8 +26,17 @@ In section \ref{sec:matrix-compilation} we will provide implementations of these
 
 ### A Tree of Incomplete Algorithms
 
+TODO: draw a picture, both graphical and intellectual
+
 ### Strategies for Graph Search
 
+TODO: Discuss various strategies
+
+Greedy search
+
+~~~~~~~~~Python
+include [Greedy](greedy.py)
+~~~~~~~~~
 
 
 Strategies is a mimicry of [Stratego](http://strategoxt.org/)\cite{stratego} in Python.

@@ -8,7 +8,7 @@ include [Tikz](tikz_computation.md)
 
 In section \ref{sec:matrix-language} we described a computer algebra system to express and manipulate matrix expressions at a high, symbolic level.  This symbolic work is not appropriate for numeric computation.  In this section we describe a system to define numeric codes at a high-level.  Later in section \ref{sec:matrix-compilation} we will use compiler tools to connect these two to build a more cohesive whole.
 
-Our primary target will be Modern Fortran code that calls down to the curated BLAS/LAPACK libraries described in section \ref{sec:blas-lapack}.  These libraries have old and unstructured interfaces which are difficult to target with high-level automated systems.  In this section we build a high-level description of these computations as an intermediary.  We use SymPy matrix expressions to assist with this high level description.  This system will be extensible to support other low-level libraries.  We believe that its separation makes it broadly applicable to applications beyond our own.
+Our primary target will be Modern Fortran code that calls down to the curated BLAS/LAPACK libraries described in section \ref{sec:blas-lapack}.  These libraries have old and unstructured interfaces which are difficult to target with high-level automated systems.  In this section we build a high-level description of these computations as an intermediary.  We use SymPy matrix expressions to assist with this high level description.  This system is extensible to support other low-level libraries.  We believe that its separation makes it broadly applicable to applications beyond our own.
 
 Specifically we present a small library to encode low-level computational routines that is amenable to manipulation by automated high-level tools.  This library is extensible and broadly applicable.  This library also supports low level code generation.
 
@@ -55,13 +55,13 @@ Mathematically this definition is correct.  It consumes a variable, `X`, and pro
 \includegraphics[height=.2\textheight]{images/copy}
 \end{figure}
 
-To encode this information about memory location we expand our model so that each variable is both a mathematical sympy term and a unique identifier, usually a string.  This supports a new class of transformations to manage inplace computations.  These considerations are only relevant in the latter stages of compilation and so we delay their introduction until later in the pipeline.
-
-
 \begin{figure}[htbp]
 \centering
 \includegraphics[height=.2\textheight]{images/copy-inplace}
 \end{figure}
+
+To encode this information about memory location we expand our model so that each variable is both a mathematical SymPy term and a unique identifier, usually a string.  This supports a new class of transformations to manage inplace computations.  These considerations are only relevant in the latter stages of compilation and so we delay their introduction until later in the pipeline.
+
 
 ### Fortran Code Generation
 
@@ -90,7 +90,7 @@ Specific instances of each computation can be constructed by providing correspon
 [X*Y]
 ~~~~~~~~~~~~~
 
-We now want to take the result `X*Y` and add it again to `Y`.  This can be done with a vector addition, accomplished by the routine `AXPY`.  Notice that computations can take compound expressions like `X*Y` as inputs
+We now want to take the result `X*Y`, multiply it by `5` and add it again to `Y`.  This can be done with a vector addition, accomplished by the routine `AXPY`.  Notice that computations can take compound expressions like `X*Y` as inputs
 
 ~~~~~~~~~~~~~Python
 >>> axpy = AXPY(5, X*Y, Y)
@@ -130,7 +130,7 @@ Finally we declare the types of the matrices, specify orders for inputs and outp
 
 ~~~~~~~~~~~~~Python
 >>> with assuming(Q.symmetric(X), Q.real_elements(X), Q.real_elements(Y)):
-...     print generate(inplace, [X, y], [5*X*Y + Y])
+...     print generate(inplace, [X, Y], [5*X*Y + Y])
 ~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~Fortran

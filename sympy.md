@@ -39,7 +39,7 @@ Systems exist for the automatic expression of several branches of mathematics.  
 
 A computer algebra system is composed of a data structure to represent mathematical expressions in a computer, a syntax for the idiomatic construction of trees by mathematical users, and a collection of functions for common mathematical routines.
 
-SymPy is a computer algebra system embedded in the Python language.  It implements these pieces as follows
+SymPy \cite{sympy} is a computer algebra system embedded in the Python language.  It implements these pieces as follows
 
 #### Operators
 
