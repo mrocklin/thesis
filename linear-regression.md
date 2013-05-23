@@ -4,7 +4,7 @@ Linear Regression
 
 \label{sec:linear-regression}
 
-Linear regression is a common computational problem in data driven science.  It is used to find parameters $\beta$ such that several equations of the form $\\beta_n x_{i,n} + \beta_{i,n-1} x_{i,n-1} + \beta_{i,1} x_{i,1} + \beta_{i,0} = y_i$ are as correct as possible for many $i$.  In practice there are many more equations than unknowns and so these equations can not be satisfied exactly.  Instead the $\beta$s are chosen to minimize the squared error. Graphically this computation looks like the following.
+Linear regression is a common computational problem in data driven science.  It is used to find parameters $\beta$ such that several equations of the form $\\beta_n x_{i,n} + \beta_{i,n-1} x_{i,n-1} + \beta_{i,1} x_{i,1} + \beta_{i,0} = y_i$ are as correct as possible for many $i$.  In practice there are many more equations than unknowns and so these equations can not be satisfied exactly.  Instead the $\beta$s are chosen to minimize the squared error.
 
 $$ X \beta \cong y $$
 
@@ -13,9 +13,10 @@ $$ X \beta \cong y $$
 \includegraphics[width=.4\textwidth]{images/linregress-xy}
 \end{figure}
 
-Conveniently this problem can be expressed as a matrix expression.  The $\beta_i$ which minimize the squared error of the above equation can be computed by the following
+Conveniently this problem can be posed as a matrix expression.  The $\beta_i$ which minimize the squared error of the above equation can be computed by the following
 
 $$ \beta = (X^TX)^{-1}X^Ty $$
+
 
 ### Naive Implementation
 
@@ -48,17 +49,17 @@ The Matlab backslash operator will perform dynamic checks for this property, the
 And so a further refined solution might look like the following
 
 -------------- -----------------------------
- Python/NumPy  `beta = spd_solve(X.T*X, X.T*y)`
+ Python/NumPy  `beta = solve(X.T*X, X.T*y, sym_pos=True)`
  MatLab        `beta = (X'*X) \ (X'*y)`
 -------------- -----------------------------
 
-Unfortunately the `spd_solve` routine does not exist.
 
 ### BLAS/LAPACK
 
-Fortunately such routines do exist within the BLAS/LAPACK libraries for dense linear algebra.  In particular the routine `POSV` for symmetric positive definite matrix solve is the ideal routine in this case.  As previously noted searching for and using the correct routine is non-trivial for scientific developers. 
+Fortunately such routines exist within the BLAS/LAPACK libraries for dense linear algebra.  In particular the routine `POSV` for symmetric positive definite matrix solve is the ideal routine in this case.  As previously noted searching for and using the correct routine is non-trivial for scientific developers. 
 
     SUBROUTINE DPOSV( UPLO, N, NRHS, A, LDA, B, LDB, INFO )
+
 
 ### Connecting Math and Computation
 
