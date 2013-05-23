@@ -9,7 +9,13 @@ include [TikZ](tikz_pattern.md)
 
 Projects within this thesis leverage mathematics and computational knowledge to generate efficient programs.  The mathematics involved is often voluminous and known only to a small community of experts.  These experts may not be capable of formally describing their expertise in general purpose code within a code generation system.  Additionally, any work integrated into a particular system is unlikely to be transferrable to future work.
 
-To expand the pool of potential developers and to increase the reusability of their work we focus on declarative methods that enable the formal definition of expertise in a way that is both familiar to mathematical users and also not connected to any particular implementation.  In particular we use pattern matching and term rewrite systems to declare a set of rewrite rules.  These mimic the style of expression common within mathematics and separate the formal definition of patterns from the particular implementation of their application.
+To expand the pool of potential developers and to increase the reusability of their work we focus on declarative methods that enable the formal definition of expertise in a way that is both familiar to mathematical users and also not connected to any particular implementation.  In particular implement expertise as a collection of mathematical patterns and use pattern matching and term rewrite systems to declare a set of transformations.  The patterns mimic the style of expression common within mathematics and separate the formal definition of expertise from the particular implementation of application.
+
+### Background
+
+*Include this?*
+
+Basic Pattern matching in programming languages, unification, etc.... To a certain extent all of this section is just background.
 
 ### Term Matching
 
