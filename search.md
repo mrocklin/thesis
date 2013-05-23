@@ -29,7 +29,7 @@ In this section we consider the abstract problem of exploring a tree to minimize
 In section \ref{sec:matrix-compilation} we will provide implementations of these functions for the particular problem of algorithm search without our system.
 
 
-### A Tree of Incomplete Algorithms
+### Example Tree
 
 We reinforce the problem description above with an image of an example tree.
 

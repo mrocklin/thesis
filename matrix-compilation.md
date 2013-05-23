@@ -35,9 +35,9 @@ This problem matches the abstract version in section \ref{sec:search.md} on algo
     objective ::  node -> score
     isvalid   ::  node -> bool
 
-In sections \ref{sec:matrix-patterns} we will describe transformations declaratively using LogPy.  In section \ref{sec:matrix-children} we will use these transformations to define the `children` function`.  In section \ref{sec:matrix-objective} we discuss objective functions on computations and define a simple and effective one.  In section \ref{sec:matrix-isvalid} we quickly define a validity function.  In section \ref{sec:matrix-search} we reproduce a simple depth first greedy search first encountered in section \ref{sec:search}.  Finally in section \ref{sec:matrix-compilation-compile} we produce our final code.
+In sections \ref{sec:matrix-patterns} we will describe transformations declaratively in `SymPy` and `computations`.  In section \ref{sec:matrix-children} we will use these transformations and `LogPy` to define the `children` function.  In section \ref{sec:matrix-objective} we discuss a simple and effective objective functions on intermediate computations.  In section \ref{sec:matrix-isvalid} we quickly define a validity function.  In section \ref{sec:matrix-search} we reproduce a simple greedy search  with backtracking first encountered in section \ref{sec:search}.  Finally in section \ref{sec:matrix-compilation-compile} we produce our final code.
 
-We reinforce that this is the entirety of our solution for the particular problem of automated search of dense linear algebra algorithms.  All other intelligence is distributed to the appropriate general purpose package.
+We reinforce that this is the entirety of the solution for the particular problem of automated search of dense linear algebra algorithms.  All other intelligence is distributed to the appropriate general purpose package.
 
 
 ### Compute Patterns 
@@ -47,17 +47,14 @@ We reinforce that this is the entirety of our solution for the particular proble
 We use computations to break expressions into smaller pieces.  For example $\alpha A B + \beta C$ can be broken into the components $\alpha, A, B, \beta, C$ using the various Matrix Multiply routines (`GEMM`, `SYMM`, `TRMM`).  To determine this automatically we create a set of patterns that match expressions to computations valid in that case.   We encode this information in `(source expression,  computation,  condition)` patterns.
 
 ~~~~~~~~~~~~~~Python
-patterns = [
-    (alpha*A*B + beta*C ,  GEMM(alpha, A, B, beta, C) ,  True),
-    (alpha*A*B + beta*C ,  SYMM(alpha, A, B, beta, C) ,  Q.symmetric(A) | Q.symmetric(B)),
-    ...]
-
-from logpy import facts, Relation
-computes = Relation('computes')
-facts(computes, *patterns)
+include [Patterns](patterns.py)
 ~~~~~~~~~~~~~~
 
 These patterns can be encoded by computational experts and can be used by pattern matching systems such as LogPy.
+
+~~~~~~~~~~~~~~Python
+include [Computes](computes.py)
+~~~~~~~~~~~~~~
 
 
 ### Children of a Computation
@@ -69,13 +66,9 @@ Given a computation we compute a set of possible extensions with simpler inputs.
 Our solution with LogPy and `computations` looks like the following
 
 ~~~~~~~~~~~~~~Python
-computations_for = partial(rewrite_step, rewrites=computes)
-
-def children(comp):
-    """ Compute next options in tree of possible algorithms """
-    atomics = sum(map(computations_for, comp.inputs), ())
-    return map(comp.__add__, atomics)
+include [Children](children.py)
 ~~~~~~~~~~~~~~
+
 
 ### Validity
 
@@ -92,7 +85,7 @@ We desire computations whose inputs are restricted to those requested.
 
 ~~~~~~~~~~~~~~Python
 def isvalid(comp):
-    return set(comp.inputs.issubset(set(inputs))
+    return set(comp.inputs).issubset(inputs)
 ~~~~~~~~~~~~~~
 
 
@@ -102,36 +95,32 @@ def isvalid(comp):
 
 To guide our search we need an objective function to rank the overall quality of a computation.  In general this function might include runtime, energy cost, or an easily accessible proxy like FLOPs.
 
-Operationally we order atomic computations so that specialized operations like `SYMM` are above mathematically equivalent but general operations like `GEMM`. 
+Operationally we order atomic computations so that specialized operations like `SYMM` are above mathematically equivalent but computationally general operations like `GEMM`.  Less efficient operations like `AXPY` are deemphasized by placing them at the end.
 
 ~~~~~~~~~~~~~~Python
-order = [FFTW, POSV, GESV, LASWP, SYRK, SYMM, GEMM, AXPY]
-
-def objective(comp):
-    """ Cost of a computation `comp` - lower is better """
-    if isinstance(comp, CompositeComputation):
-        return sum(map(objective, comp.computations))
-    else:
-        return order.index(type(comp))
+include [Objective](objective.py)
 ~~~~~~~~~~~~~~
 
-This simple function is intuitive to extend and works surprisingly well in practice.
+The list `order` is trivially accessible by numeric experts.  This solution intuitive to extend and works surprisingly well in practice.
+
 
 ### Search
 
 \label{sec:matrix-search}
 
-We discuss the search problem in section \ref{sec:search}.  Fortunately this problem is easily separable.  For cohesion we restate our greedy solution below
+We re-present the tree search problem first defined in section \ref{sec:search}.  Fortunately this problem is easily separable.  For cohesion we restate our greedy solution below
 
 ~~~~~~~~~~~~~~Python
 include [Greedy Search](greedy.py)
 ~~~~~~~~~~~~~~
 
-Note that this solution is ignorant of our application.  The graph search problem is separable from our application.
+Note that this solution is ignorant of the application of matrix computations.
 
 ### Compile 
 
 \label{sec:matrix-compilation-compile} 
+
+We coordinate these functions in the following master function
 
 ~~~~~~~~~~~~~~Python
 include [Compile master function](compile.py)
@@ -139,4 +128,20 @@ include [Compile master function](compile.py)
 
 ### Analysis
 
-This section explicitly presents code to demonstrate that once the general purpose pieces are constructed the particular problem of automated matrix algebra algorithm search can be reduced to 10-100 lines of general purpose code.  The Conglomerate project is very small.
+We chose to explicitly provide code in this section both for completeness and to demonstrate the simplicity of this problem once the appropriate machinery is in place.
+We showed that once the generally applicable components exist the particular problem of automated matrix algorithm search can be reduced to around 40 lines of general purpose code (including comments and whitespace).  The `conglomerate` project contains very little logic outside of what is present in the application agnostic and reusable packages (like LogPy).  The information that is present is largely expert knowledge for this application (like the objective function or patterns.)
+
+\newpage
+
+### Finished Result
+
+~~~~~~~~~~~~~~Python
+include [Patterns](patterns.py)
+include [Computes](computes.py)
+
+include [Children](children.py)
+
+include [Objective](objective.py)
+
+include [Compile master function](compile.py)
+~~~~~~~~~~~~~~

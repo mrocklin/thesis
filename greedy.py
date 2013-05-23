@@ -1,5 +1,4 @@
 from itertools import imap
-
 def chain(seqs):
     """ Chain a sequence of sequences
 
