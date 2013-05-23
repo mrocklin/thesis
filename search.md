@@ -55,11 +55,11 @@ We expose considerations of traversal with a sequence of decreasingly trivial al
 A simple traversal may find sub-optimal solutions.  For example consider the strategy that takes the left-most node at each step.  This arrives at a node cost 21.  In this particular case that node is scored relatively poorly.  The search process was cheap but the result was poor. 
 
 ~~~~~~~~~Python
-def leftmost(tree):
-    if isvalid(tree):
-        return tree
+def leftmost(children, objective, isvalid, node):
+    if isvalid(node):
+        return node 
 
-    kids = children(tree):
+    kids = children(node):
     if kids:
         return leftmost(kids[0])
     else:
@@ -77,11 +77,11 @@ def leftmost(tree):
 If we can assume that the cost of intermediate nodes is indicative of the cost of their children then we can implement a greedy solution that always considers the subtree of the minimum cost child.
 
 ~~~~~~~~~Python
-def greedy(tree):
-    if isvalid(tree):
-        return tree
+def greedy(children, objective, isvalid, node):
+    if isvalid(node):
+        return node
 
-    kids = children(tree):
+    kids = children(node):
     if kids:
         best_subtree = min(kids, key=objective)
         return greedy(best_subtree)
