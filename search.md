@@ -33,9 +33,12 @@ In section \ref{sec:matrix-compilation} we will provide implementations of these
 
 We reinforce the problem description above with an image of an example tree.
 
-TODO: draw a picture, both graphical and intellectual
+\begin{wrapfigure}[10]{r}{.5\textwidth}
+\centering
+\includegraphics[width=.5\textwidth]{images/search}
+\end{wrapfigure}
 
-This tree has a single root at the top.  Each of its children represent incremental improvements on that computation.  Each child also owns a subtree of its own.  The leaves of this tree are marked as either valid (green) or invalid (red).  Each node is assigned a score.  Our goal is to find a valid leaf with a low score/cost efficiently.  In general this tree may be sufficiently large to prohibit exhaustive search.  How can we efficiently search this tree for a valid leaf with low cost?
+This tree has a single root at the top.  Each of its children represent incremental improvements on that computation.  Each child also owns a subtree of its own.  The leaves of this tree are marked as either valid (blue) or invalid (red).  Each node is assigned a cost.  Our goal is to find a valid leaf with a low cost efficiently.  In general this tree may be sufficiently large to prohibit exhaustive search.  How can we efficiently search this tree for a valid leaf with low cost?
 
 
 ### Strategies
@@ -44,7 +47,12 @@ We expose considerations of traversal with a sequence of algorithms
 
 #### Trivial traversal
 
-A simple traversal may find sub-optimal solutions.  For example consider the strategy that takes the left-most node at each step.  This arrives at leaf NAME, with score SCORE.  In this particular case that node is scored very poorly.  The search process was cheap but the result was poor. 
+\begin{wrapfigure}[10]{r}{.5\textwidth}
+\centering
+\includegraphics[width=.5\textwidth]{images/search-left}
+\end{wrapfigure}
+
+A simple traversal may find sub-optimal solutions.  For example consider the strategy that takes the left-most node at each step.  This arrives at a node cost 21.  In this particular case that node is scored relatively poorly.  The search process was cheap but the result was poor. 
 
 ~~~~~~~~~Python
 def leftmost(tree):
@@ -59,7 +67,12 @@ def leftmost(tree):
 ~~~~~~~~~
 
 
-#### Intermediate Scores 
+#### Greedy Search
+
+\begin{wrapfigure}[10]{r}{.5\textwidth}
+\centering
+\includegraphics[width=.5\textwidth]{images/search-dumb}
+\end{wrapfigure}
 
 If we can assume that the cost of intermediate nodes is indicative of the cost of their children then we can implement a greedy solution that always considers the subtree of the minimum cost child.
 
@@ -79,19 +92,32 @@ def greedy(tree):
         
 #### Greedy Search with Backtracking
 
-Greedy solutions like the one above can become trapped in a dead-end.  In our example they arrive at leaf NAME, an invalid node with low score.  There is no further option to pursue in this case.  The correct path to take at this stage is to regress backwards up the tree and consider other options.  
+\begin{wrapfigure}[10]{r}{.5\textwidth}
+\centering
+\includegraphics[width=.5\textwidth]{images/search-greedy}
+\end{wrapfigure}
 
-This requires the storage and management of history of the traversal.  By propagating streams of ordered solutions rather than a single optimum we implement a simple backtracking scheme.  Management of history old state and garbage collection is performed by the Python runtime and is localized to the generator mechanism in `chain`.
+Greedy solutions like the one above can become trapped in a dead-end.  In our example they arrive at an invalid leaf with cost `8`.  There is no further option to pursue in this case.  The correct path to take at this stage is to regress backwards up the tree and consider other previously discarded options.
+
+This requires the storage and management of history of the traversal.  By propagating streams of ordered solutions rather than a single optimum we implement a simple backtracking scheme.
 
 ~~~~~~~~~Python
 include [Greedy](greedy.py)
 ~~~~~~~~~
 
-This has the added benefit that a stream of all leaves is returned.  If the first is not adequate then one can ask the system to find subsequent solutions. 
+The functions `chain` and `imap` operate lazily, computing results as they are requested.  Management of history, old state, and garbage collection is performed by the Python runtime and is localized to the generator mechanism in `chain` and `imap`.
+ 
 
-#### Exhaustive Search
+#### Extending the Search
+ 
+\begin{wrapfigure}[10]{r}{.5\textwidth}
+\centering
+\includegraphics[width=.5\textwidth]{images/search-continue}
+\end{wrapfigure}
 
-By exhaustively computing the iterator above we traverse the entire tree and can minimize over all valid leaves.  This may be prohibitively expensive in some cases.
+This has the added benefit that a lazily evaluated stream of all leaves is returned.  If the first result is not adequate then one can ask the system to find subsequent solutions.  These subsequent computations pick up where the previous search process ended, limiting redundant search.
+
+By exhaustively computing the iterator above we may also traverse the entire tree and can minimize over all valid leaves.  This may be prohibitively expensive in some cases but remains possible.
 
 
 #### Repeated Nodes - Dynamic Programming
