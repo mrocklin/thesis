@@ -38,14 +38,14 @@ We reinforce the problem description above with an image of an example tree.
 \includegraphics[width=.5\textwidth]{images/search}
 \end{wrapfigure}
 
-This tree has a single root at the top.  Each of its children represent incremental improvements on that computation.  Each child also owns a subtree of its own.  The leaves of this tree are marked as either valid (blue) or invalid (red).  Each node is assigned a cost.  Our goal is to find a valid leaf with a low cost efficiently.  In general this tree may be sufficiently large to prohibit exhaustive search.  How can we efficiently search this tree for a valid leaf with low cost?
+This tree has a root at the top.  Each of its children represent incremental improvements on that computation.  Each node is labeled with a cost.  The leaves of the tree are marked as either valid (blue) or invalid (red).  Our goal is to quickly find a valid (blue) leaf with low cost.  
 
 
 ### Strategies
 
-We expose considerations of traversal with a sequence of algorithms
+We expose considerations of traversal with a sequence of decreasingly trivial algorithms
 
-#### Trivial traversal
+#### Leftmost Traversal
 
 \begin{wrapfigure}[10]{r}{.5\textwidth}
 \centering
@@ -117,15 +117,15 @@ The functions `chain` and `imap` operate lazily, computing results as they are r
 
 This has the added benefit that a lazily evaluated stream of all leaves is returned.  If the first result is not adequate then one can ask the system to find subsequent solutions.  These subsequent computations pick up where the previous search process ended, limiting redundant search.
 
-By exhaustively computing the iterator above we may also traverse the entire tree and can minimize over all valid leaves.  This may be prohibitively expensive in some cases but remains possible.
+By exhaustively computing the iterator above we may also traverse the entire tree and can minimize over all valid leaves.  This may be prohibitively expensive in some cases but remains possible when the size of the tree is small.
 
 
 #### Repeated Nodes - Dynamic Programming
 
-If equivalent nodes are repeatedly found in several subtrees within the graph then we can increase search efficiency by implementing a DAG search rather than tree search solution.  This is equivalent to dynamic programming and can be achieved by memoizing the intermediate shared results.  This optimization can be implemented separately from the greedy solution above.
+If equivalent nodes are found in multiple subtrees then our graph we can increase search efficiency by considering a DAG rather than tree search problem.  This is equivalent to dynamic programming and can be achieved by memoizing the intermediate shared results.  The tree search functions presented above can be transformed into their DAG equivalents with a `memoize` function decorator.
 
-~~~~~~~~~Python
-include [Memoize](memoize.py)
+#### Extensions
 
-greedy = memoize(greedy)
-~~~~~~~~~
+*   K-deep greedy. 
+*   Minimize over frontier rather than children
+*   `interleave` rather than `chain`
