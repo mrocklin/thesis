@@ -6,7 +6,7 @@ In this example we investigate the value of blocking matrices across large algor
 
 ### Kalman Filter
 
-The [Kalman filter](http://en.wikipedia.org/wiki/Kalman_filter) is an algorithm to compute the Bayesian update of a normal random variable given a linear observation with normal noise.  It is commonly used when an uncertain quantity is updated with the results of noisy observations.  For example it is used in weather forecasting after weather stations report in with new measurements, in aircraft/car control to automatically adjust for external conditions real-time, or even on your smartphone's GPS navigation as you update your position based on fuzzy GPS signals.   It's everywhere, it's important, and it needs to be computed quickly and continuously.  It suits our needs today because it can be completely defined with a pair of matrix expressions.
+The [Kalman filter](http://en.wikipedia.org/wiki/Kalman_filter) is an algorithm to compute the Bayesian update of a normal random variable given a linear observation with normal noise.  It is commonly used when an uncertain quantity is updated with the results of noisy observations, both of which are normally distributed.  For example it is used in weather forecasting after weather stations report in with new measurements, in aircraft/car control to automatically adjust for external conditions real-time, or in GPS navigation as the device updates position based on a variety of noisy GPS/cell tower signals.   It's everywhere, it's important, and it needs to be computed quickly and continuously.  It can also be completely defined with a pair of matrix expressions.
 
 $$ \Sigma H^T \left(H \Sigma H^T + R\right)^{-1} \left(-data + H \mu\right) + \mu $$
 $$ - \Sigma H^T \left(H \Sigma H^T + R\right)^{-1} H \Sigma + \Sigma $$
@@ -14,22 +14,12 @@ $$ - \Sigma H^T \left(H \Sigma H^T + R\right)^{-1} H \Sigma + \Sigma $$
 We define these expressions in SymPy
 
 ~~~~~~~~~~~~~~~Python
-from sympy import MatrixSymbol, latex
-n       = 1000                          # Number of variables in our system/current state
-k       = 500                           # Number of variables in the observation
-mu      = MatrixSymbol('mu', n, 1)      # Mean of current state
-Sigma   = MatrixSymbol('Sigma', n, n)   # Covariance of current state
-H       = MatrixSymbol('H', k, n)       # A measurement operator on current state
-R       = MatrixSymbol('R', k, k)       # Covariance of measurement noise
-data    = MatrixSymbol('data', k, 1)    # Observed measurement data
-
-newmu   = mu + Sigma*H.T * (R + H*Sigma*H.T).I * (H*mu - data)      # Updated mean
-newSigma= Sigma - Sigma*H.T * (R + H*Sigma*H.T).I * H * Sigma       # Updated covariance
+include [Kalman](kalman.py)
 ~~~~~~~~~~~~~~~
 
 ### Theano Execution
 
-The objects above are for symbolic mathematics, not for numeric computation.  If we want to compute this expression we pass our expressions to Theano.
+The objects above are for symbolic mathematics, not for numeric computation.  To compute this expression we pass the expressions to Theano.
 
 ~~~~~~~~~~~~~~~Python
 inputs  = [mu, Sigma, H, R, data]
@@ -40,7 +30,7 @@ from sympy.printing.theanocode import theano_function
 f = theano_function(inputs, outputs, dtypes=dtypes)
 ~~~~~~~~~~~~~~~
 
-Theano builds a Python function that calls down to a combination of low-level `C` code, `scipy` functions, and calls to the highly optimized `DGEMM` routine for matrix multiplication.  As input this function takes five numpy arrays corresponding to our five symbolic `inputs` and produces two numpy arrays corresponding to our two symbolic `outputs`.  [Recent work](https://github.com/sympy/sympy/pull/1965) allows *any* SymPy matrix expression to be translated to and run by Theano.
+Theano builds a Python function that calls down to a combination of low-level `C` code, `scipy` functions, and calls to static libraries.  As input this function takes five numpy arrays corresponding to the five symbolic `inputs` and produces two numpy arrays corresponding to the two symbolic `outputs`.  Any SymPy matrix expression can be translated to and run by Theano.
 
 ~~~~~~~~~~~~~~~Python
 import numpy
