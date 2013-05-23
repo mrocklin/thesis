@@ -3,7 +3,7 @@ from itertools import imap
 def chain(seqs):
     """ Chain a sequence of sequences
 
-    >>> list(chain([1, 2], [3, 4]))
+    >>> list(chain([[1, 2], [3, 4]]))
     [1, 2, 3, 4]
     """
     for seq in seqs:
