@@ -15,7 +15,7 @@ def greedy(children, objective, isvalid, node):
         return iter([node])
 
     f = partial(greedy, children, objective, isvalid)
-    options = sorted(children(node), key=objective)
-    streams = imap(f, options)
+    kids = sorted(children(node), key=objective)
+    streams = imap(f, kids)
 
     return chain(streams)
