@@ -79,7 +79,7 @@ Four years later in \cite{Mielikainen2012} Mielikainen et al report increased su
 
 WRF software design is *embarassingly* modular.  This modularity separates routines representing physical processes from each other when they happen to be independent.  It makes little effort at *vertical* modularity that might separate high and low level code.
 
-In listing \ref{listing:wrf-snow} we see a high-level meteorological model implemented in a very low-level implementation alongside computational optimizations and array layouts.  This problem is intrinsically simple; it is an algebraic expression on a few indexed arrays.  And yet when external pressures (GPGPU) necessitated a code rewrite that work took months of work from a researcher who was already familiar with this codebase.  That work failed to implement several GPU specific optimizations that occured in the literature four years later.
+In the listing above we see a high-level meteorological model implemented in a very low-level implementation alongside computational optimizations and array layouts.  This problem is intrinsically simple; it is an algebraic expression on a few indexed arrays.  And yet when external pressures (GPGPU) necessitated a code rewrite that work took months of work from a researcher who was already familiar with this codebase.  That work failed to implement several GPU specific optimizations that occured in the literature four years later.
 
 While this file encodes relatively high-level concepts it is difficult to perform sweeping high-level manipulations.  As physics, numerical methods, and computational architecture changes this flexibility is likely to become more important.
 

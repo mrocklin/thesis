@@ -5,7 +5,7 @@ Algorithm Search
 
 include [TikZ](tikz_search.md)
 
-In section \ref{sec:matrix-compile} we will compile a set of matrix expressions into a BLAS/LAPACK computation by repeatedly applying an incremental set of rewrite rules.  At each stage in this incremental process we may have to select between several differnt options.  This decision-making forms a graph search problem which we discuss abstractly here.
+In section \ref{sec:matrix-compilation} we will compile a set of matrix expressions into a BLAS/LAPACK computation by repeatedly applying an incremental set of rewrite rules.  At each stage in this process we select between several different options.  These repeated decisions form a decision tree which may be costly to explore.  We discuss the tree search problem abstractly here.
 
 ### Problem Description
 
@@ -37,7 +37,7 @@ In this section we consider the abstract problem of exploring a tree to minimize
     objective ::  node -> score
     isvalid   ::  node -> bool
 
-In section \ref{sec:matrix-compilation} we will provide implementations of these functions for the particular problem of matrix algorithm search.
+In section \ref{sec:matrix-compilation} we provide implementations of these functions for the particular problem of matrix algorithm search.  In this section we will describe abstract search algorithms using this interface.
 
 
 ### Example Tree

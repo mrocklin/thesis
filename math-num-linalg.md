@@ -47,7 +47,7 @@ Analysis
 
 \label{sec:matrix-analysis}
 
-We can use these pieces together to transform mathematical expressions into well-selected computations and generate performant, human readable Fortran code.  In section \ref{sec:validation} we will demonstrate the utility of the system described above.  Here we will first motivate its design decisions.
+We can use these pieces together to transform mathematical expressions into well-selected computations and generate performant, human readable Fortran code.  In section \ref{sec:math-num-linalg-validation} we demonstrate the utility of the system described above.  Here we will first motivate its design decisions.
 
 
 ### Small Components Enable Reuse

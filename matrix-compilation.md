@@ -29,7 +29,7 @@ At the top of this tree is the trivial identity computation which computes the d
 
 In principle this tree can be very large which negates the possibility of exhaustive search in the general case.  Additionally some branches of this tree may contain dead-ends (we may not be able to find a valid all-inputs-are-atoms leaf within a subtree.)   We desire an algorithm to efficiently find a valid and high-quality leaf of this tree.
 
-This problem matches the abstract version in section \ref{sec:search.md} on algorithmic search.  In that section we discussed algorithms to search a tree given the following interface functions: 
+This problem matches the abstract version in section \ref{sec:search} on algorithmic search.  In that section we discussed algorithms to search a tree given the following interface functions: 
 
     children  ::  node -> [node]
     objective ::  node -> score
@@ -72,7 +72,7 @@ include [Children](children.py)
 
 ### Validity
 
-\label{sec:matrix-valid}
+\label{sec:matrix-isvalid}
 
 When we build a computation we ask for the desired inputs of that computation. 
 
