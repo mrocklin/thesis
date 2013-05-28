@@ -1,13 +1,4 @@
-from itertools import imap
-def chain(seqs):
-    """ Chain a sequence of sequences
-
-    >>> list(chain([[1, 2], [3, 4]]))
-    [1, 2, 3, 4]
-    """
-    for seq in seqs:
-        for item in seq:
-            yield item
+from itertools import imap, chain
 
 def greedy(children, objective, isvalid, node):
     """ Greedy guided depth first search.  Returns iterator """

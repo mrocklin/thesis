@@ -13,31 +13,33 @@ To expand the pool of potential developers and to increase the reusability of th
 
 #### Mathematical Transformations
 
-Mathematical theories often contain transformations on expressions.  For example in section \ref{sec:sympy} we discussed the example of exponentials nested within logarithms cancelling, e.g. 
+Mathematical theories often contain transformations on expressions.  For example in section \ref{sec:sympy} we discussed the cancellation of exponentials nested within logarithms, e.g. 
 
-$$log(exp(x)) \rightarrow x$$
+$$log(exp(x)) \rightarrow x \;\; \textrm{ if } x \textrm{ is real}$$
 
 We may encode this tranformation into a computer algebra system by manipulating the tree directly
 
 ~~~~~~~~~~Python
-if isinstance(term, log) and if isinstance(term.args[0], exp):
+if isinstance(term, log) and isinstance(term.args[0], exp):
     term = term.args[0].args[0]  # unpack both `log` and `exp`
 ~~~~~~~~~~
 
-This method of solution engages/requires both mathematical understanding and understanding of the particular data structures used in the computer algebra system.  From our perspective this has two flaws.
+This method of solution simultaneously requires understanding of both the underlying mathematics and the particular data structures used in this computer algebra system.  From our perspective this approach has two flaws.
 
 1.  It restricts the development pool to simultaneous experts in these two domains
 2.  The solution is only valuable within this particular computer algebra system.  It will need to be endlessly rewritten for future software solutions.
 
 These flaws can be avoided by separating the mathematics from the details of term manipulation.  We achieve this through the description and matching of patterns.
 
-### Background
+### Background - Theory 
+
+*I.e. what is term matching*
 
 *Include this?*
 
-Basic Pattern matching in programming languages, unification, etc.... To a certain extent all of this section is just background.
+### Background - Previous work 
 
-### Term Matching
+*I.e. what other projects exist to do this*
 
 *Include this?*
 

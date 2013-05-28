@@ -1,6 +1,6 @@
 
 Covering Matrix Expressions with Computations
--------------------------------------------------
+---------------------------------------------
 
 \label{sec:matrix-compilation}
 
@@ -18,8 +18,6 @@ These projects are disjoint.  In this section we describe the information necess
 
 ### A Graph of Computations
 
-*Some of this should go into [search.md](search.md)*
-
 Given a set of expressions-to-be-computed we consider a tree where 
 
 *   Each node is a computation whose outputs include those expressions
@@ -27,17 +25,19 @@ Given a set of expressions-to-be-computed we consider a tree where
 
 At the top of this tree is the trivial identity computation which computes the desired outputs given those same outputs as inputs.  At the bottom of this tree are computations whose inputs are not decomposable by any of our patterns.  In particular, some of these leaf computation have inputs that are all atoms; we call these leaves valid.
 
-In principle this tree can be very large which negates the possibility of exhaustive search in the general case.  Additionally some branches of this tree may contain dead-ends (we may not be able to find a valid all-inputs-are-atoms leaf within a subtree.)   We desire an algorithm to efficiently find a valid and high-quality leaf of this tree.
+In principle this tree can be very large negating the possibility of exhaustive search in the general case.  Additionally some branches of this tree may contain dead-ends requiring back-tracking (we may not be able to find a valid all-inputs-are-atoms leaf within a subtree.)   We desire an algorithm to efficiently find a valid and high-quality leaf of this tree.
 
-This problem matches the abstract version in section \ref{sec:search} on algorithmic search.  In that section we discussed algorithms to search a tree given the following interface functions: 
+This problem matches the abstract version in section \ref{sec:search} on algorithmic search.  In that section we discussed the declarative definition and applicaiton of rewrite rules and algorithms to search a decision tree given the following interface: 
 
-    children  ::  node -> [node]
+    children  ::  node -> list of nodes
     objective ::  node -> score
     isvalid   ::  node -> bool
 
-In sections \ref{sec:matrix-patterns} we will describe transformations declaratively in `SymPy` and `computations`.  In section \ref{sec:matrix-children} we will use these transformations and `LogPy` to define the `children` function.  In section \ref{sec:matrix-objective} we discuss a simple and effective objective functions on intermediate computations.  In section \ref{sec:matrix-isvalid} we quickly define a validity function.  In section \ref{sec:matrix-search} we reproduce a simple greedy search  with backtracking first encountered in section \ref{sec:search}.  Finally in section \ref{sec:matrix-compilation-compile} we produce our final code.
+In this section we implement a concrete version.  We provide a set of transformation patterns and implementations of the search interface functions.
 
-We reinforce that this is the entirety of the solution for the particular problem of automated search of dense linear algebra algorithms.  All other intelligence is distributed to the appropriate general purpose package.
+In section \ref{sec:matrix-patterns} we describe transformations declaratively in `SymPy` and `computations`.  In section \ref{sec:matrix-children} we use these transformations and `LogPy` to define the `children` function.  In section \ref{sec:matrix-objective} we discuss a simple and effective objective functions on intermediate computations.  In section \ref{sec:matrix-isvalid} we quickly define a validity function.  In section \ref{sec:matrix-search} we reproduce a function for simple greedy search with backtracking first encountered in section \ref{sec:search}.  Finally in section \ref{sec:matrix-compilation-compile} we produce our final code.
+
+We reinforce that this is the entirety of the solution for the particular problem of automated search of dense linear algebra algorithms.  All other intelligence is distributed to the appropriate application agnostic package.
 
 
 ### Compute Patterns 
@@ -63,7 +63,7 @@ include [Computes](computes.py)
 
 Given a computation we compute a set of possible extensions with simpler inputs.  We search the list of patterns for all computations which can break down one of the non-trivial inputs.  We can then add any of the resulting new computations into the current one.
 
-Our solution with LogPy and `computations` looks like the following
+Our solution with LogPy and `computations` depends on `rewrite_step` from \ref{sec:term-rewriting} and looks like the following
 
 ~~~~~~~~~~~~~~Python
 include [Children](children.py)
@@ -74,7 +74,7 @@ include [Children](children.py)
 
 \label{sec:matrix-isvalid}
 
-When we build a computation we ask for the desired inputs of that computation. 
+When we build a computation we ask for the desired inputs of that computation.  Our frontend interface will look like the following:
 
 ~~~~~~~~~~~~~~Python
 #      compile(inputs,       outputs       ,   assumptions )
@@ -95,7 +95,7 @@ def isvalid(comp):
 
 To guide our search we need an objective function to rank the overall quality of a computation.  In general this function might include runtime, energy cost, or an easily accessible proxy like FLOPs.
 
-Operationally we order atomic computations so that specialized operations like `SYMM` are above mathematically equivalent but computationally general operations like `GEMM`.  Less efficient operations like `AXPY` are deemphasized by placing them at the end.
+Operationally we compute a much simpler objective function.  We order atomic computations so that specialized operations like `SYMM` are above mathematically equivalent but computationally general operations like `GEMM`.  Less efficient operations like `AXPY` are deemphasized by placing them at the end.  This function often produces results that match decisions made by individual experts when writing code by hand. 
 
 ~~~~~~~~~~~~~~Python
 include [Objective](objective.py)
