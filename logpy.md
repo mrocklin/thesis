@@ -53,7 +53,7 @@ patterns = [
           ]
 ~~~~~~~~~~~~
 
-These can later be injected into a LogPy relation; the standard LogPy abstract data structure to store information.
+These can later be injected into a LogPy relation.
 
 ~~~~~~~~~~~~Python
 from logpy import TermIndexedRelation as Relation
