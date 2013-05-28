@@ -4,22 +4,17 @@ Blocked Kalman Filter
 
 In this example we investigate the value of blocking matrices across large algorithms.  At the time of this writing the BLAS/LAPACK computations backend does not support blocking/slicing and concatenation/joining operations.  For this subsection we use the Theano backend presented in section \ref{sec:sympy-theano} instead.
 
-### Kalman Filter
+We continue to use the Kalman filter as an example computation.
 
-The [Kalman filter](http://en.wikipedia.org/wiki/Kalman_filter) is an algorithm to compute the Bayesian update of a normal random variable given a linear observation with normal noise.  It is commonly used when an uncertain quantity is updated with the results of noisy observations, both of which are normally distributed.  For example it is used in weather forecasting after weather stations report in with new measurements, in aircraft/car control to automatically adjust for external conditions real-time, or in GPS navigation as the device updates position based on a variety of noisy GPS/cell tower signals.   It's everywhere, it's important, and it needs to be computed quickly and continuously.  It can also be completely defined with a pair of matrix expressions.
 
-$$ \Sigma H^T \left(H \Sigma H^T + R\right)^{-1} \left(-data + H \mu\right) + \mu $$
-$$ - \Sigma H^T \left(H \Sigma H^T + R\right)^{-1} H \Sigma + \Sigma $$
+### Background
 
-We define these expressions in SymPy
+Apparently the new Plasma asynchronous branch does this dynamically.  This is a recent development. (TODO: find relevant paper if it exists)
 
-~~~~~~~~~~~~~~~Python
-include [Kalman](kalman.py)
-~~~~~~~~~~~~~~~
 
 ### Theano Execution
 
-The objects above are for symbolic mathematics, not for numeric computation.  To compute this expression we pass the expressions to Theano.
+We form a Theano function from the Kalman expressions
 
 ~~~~~~~~~~~~~~~Python
 inputs  = [mu, Sigma, H, R, data]
@@ -30,17 +25,12 @@ from sympy.printing.theanocode import theano_function
 f = theano_function(inputs, outputs, dtypes=dtypes)
 ~~~~~~~~~~~~~~~
 
-Theano builds a Python function that calls down to a combination of low-level `C` code, `scipy` functions, and calls to static libraries.  As input this function takes five numpy arrays corresponding to the five symbolic `inputs` and produces two numpy arrays corresponding to the two symbolic `outputs`.  Any SymPy matrix expression can be translated to and run by Theano.
+Theano builds a Python function that calls down to a combination of low-level `C` code, `scipy` functions, and calls to static libraries.  This function takes and produces numpy corresponding to the symbolic `inputs` and `outputs`.  Any SymPy matrix expression can be translated to and run by Theano in this manner.
 
-~~~~~~~~~~~~~~~Python
-import numpy
-ninputs = [numpy.random.rand(*i.shape).astype('float64') for i in inputs]
-nmu, nSigma = f(*ninputs)
-~~~~~~~~~~~~~~~
 
 ### Blocked Execution
 
-These arrays are too large to fit comfortably in the fastest parts of the memory hierarchy.  As a result each sequential `C`, `scipy`, or `DGEMM` call needs to move big chunks of memory around while it computes.  After one operation completes the next operation moves around the same memory while it performs its task.  This repeated memory shuffling hurts performance.
+If these arrays are too large to fit comfortably in the fastest parts of the memory hierarchy then each sequential `C`, `scipy`, or `DGEMM` call needs to move blocks chunks of memory during computation.  After one operation completes the next operation moves around the same memory while it performs its task.  This repeated memory shuffling hurts performance.
 
 A common approach to reduce memory shuffling is to cut the computation into smaller blocks.  We then perform as many computations as possible on a single block before moving on.  This is a standard technique in matrix multiplication.
 
@@ -58,28 +48,14 @@ We are now able to focus on substantially smaller chunks of the array which fit 
 
 This idea extends beyond matrix multiplication.  Matrix inverse expressions can also be expanded. 
 
-
 $$ \begin{bmatrix} 
 \left(- B D^{-1} C + A\right)^{-1} & - A^{-1} B \left(- C A^{-1} B + D\right)^{-1} \\\\ 
 - \left(- C A^{-1} B + D\right)^{-1} C A^{-1} & \left(- C A^{-1} B + D\right)^{-1}
 \end{bmatrix} $$
 
-High performance dense linear algebra libraries hard-code all of these tricks into each individual routine.  The call to the general matrix multiply routine `DGEMM` performs blocked matrix multiply within the call.  The call to the general matrix solve routine `DGESV` can perform blocked matrix solve.  Unfortunately these routines are unable to coordinate blocked computation *between* calls.
+High performance dense linear algebra libraries hard-code these tricks into individual routines.  The call to the general matrix multiply routine `GEMM` performs blocked matrix multiply within the call.  The call to the general matrix solve routine `GESV` can perform blocked matrix solve.  Unfortunately these routines are unable to coordinate blocked computation *between* calls.
 
-Fortunately, SymPy can generate these high-level blocked matrix mathematical expressions and Theano can execute them.  The LaTeX above was generated with the following SymPy Code
-
-~~~~~~~~~~~~~~~Python
-from sympy import Symbol, MatrixSymbol, BlockMatrix, block_collapse, latex
-n = Symbol('n')
-A, B, C, D, E, F, G, K = [MatrixSymbol(a, n, n) for a in 'ABCDEFGK']
-X = BlockMatrix([[A, B],
-                 [C, D]])
-Y = BlockMatrix([[E, F],
-                 [G, K]])
-print latex(X*Y)
-print latex(block_collapse(X*Y))
-print latex(block_collapse(X.I))
-~~~~~~~~~~~~~~~
+Fortunately, SymPy can generate these high-level blocked matrix mathematical expressions at compile time and Theano can generate code for them.
 
 
 ### General Code to Block the Kalman Filter
@@ -98,11 +74,13 @@ blocksizes = {
 blockinputs = [blockcut(i, *blocksizes[i]) for i in inputs]
 blockoutputs = [o.subs(dict(zip(inputs, blockinputs))) for o in outputs]
 collapsed_outputs = map(block_collapse, blockoutputs)
-
-fblocked = theano_function(inputs, collapsed_outputs, dtypes=dtypes)
 ~~~~~~~~~~~~~~~
 
 Theano is then able to coordinate this computation and compile it to low-level code.  At this stage the expresssions/computations are fairly complex and difficult to present.  Here is an image of the computation as a directed acyclic graph.
+
+~~~~~~~~~~~~~~~Python
+fblocked = theano_function(inputs, collapsed_outputs, dtypes=dtypes)
+~~~~~~~~~~~~~~~
 
 \begin{figure}[htbp]
 \centering
@@ -110,9 +88,10 @@ Theano is then able to coordinate this computation and compile it to low-level c
 \label{fig:fblocked}
 \end{figure}
 
+
 ### Numeric Results
 
-Lets time each function on the same inputs and see which is faster
+We measure performance by timing the standard and blocked variants of the Kalman filter
 
 ~~~~~~~~~~~~~~~Python
 >>> timeit f(*ninputs)

@@ -10,3 +10,6 @@ data    = MatrixSymbol('data', k, 1)    # Observed measurement data
 
 newmu   = mu + Sigma*H.T * (R + H*Sigma*H.T).I * (H*mu - data)      # Updated mean
 newSigma= Sigma - Sigma*H.T * (R + H*Sigma*H.T).I * H * Sigma       # Updated covariance
+
+assumptions = (Q.positive_definite(Sigma), Q.symmetric(Sigma),
+               Q.positive_definite(R), Q.symmetric(R), Q.fullrank(H))

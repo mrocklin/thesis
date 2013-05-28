@@ -12,7 +12,7 @@ In this section we validate our numerical linear algebra system with a sequence 
 2.  Quantitative results demonstrating improvement in that particular problem
 3.  Qualitative results demonstrating a virtue of software development
 
-We stress that for each problem there are two measures of progress.  A pure numericist will appreciate decreased runtimes on relevant problems.  A software engineer will appreciate various efficiencies in development.
+We stress that for each problem there are two measures of progress.  A pure numericist will appreciate decreased runtimes on relevant problems.  A software engineer will appreciate efficiencies in development.
 
 ### Contributions
 
@@ -33,7 +33,7 @@ include [Linear regresion - Inference and algorithm selection](linear-regression
 
 include [Linear regresion - Extensibility - SYRK v. GEMM](syrk.md)
 
-include [Kalman filter - The value of inference and specialized routines](kalman-specialized.md)
+include [Kalman filter - The value of inference and specialized routines](kalman.md)
 
 include [Blocked Kalman filter in Theano](blocking.md)
 
