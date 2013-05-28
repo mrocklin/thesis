@@ -4,7 +4,7 @@ Linear Regression
 
 \label{sec:linear-regression}
 
-Linear regression is a common computational problem in data driven science.  It is used to find parameters $\beta$ such that several equations of the form $\\beta_n x_{i,n} + \beta_{i,n-1} x_{i,n-1} + \beta_{i,1} x_{i,1} + \beta_{i,0} = y_i$ are as correct as possible for many $i$.  In practice there are many more equations than unknowns and so these equations can not be satisfied exactly.  Instead the $\beta$s are chosen to minimize the squared error.
+Linear regression is a common computational problem in data driven science.  It is used to find parameters $\beta$ such that several equations of the form $\beta_n x_{i,n} + \beta_{i,n-1} x_{i,n-1} + \beta_{i,1} x_{i,1} + \beta_{i,0} = y_i$ are correct possible for many $i$.  In practice there are many more equations than unknowns and so these equations can not be satisfied exactly.  Instead the $\beta$s are chosen to minimize the squared error.
 
 $$ X \beta \cong y $$
 
@@ -13,7 +13,7 @@ $$ X \beta \cong y $$
 \includegraphics[width=.4\textwidth]{images/linregress-xy}
 \end{figure}
 
-Conveniently this problem can be posed as a matrix expression.  The $\beta_i$ which minimize the squared error of the above equation can be computed by the following
+The solution to this problem can be posed as a matrix expression.  The $\beta_i$ which minimize the squared error of the above equation can be computed by the following
 
 $$ \beta = (X^TX)^{-1}X^Ty $$
 
@@ -35,7 +35,7 @@ The code matches mathematical syntax almost exactly, greatly enabling mathematic
 
 ### Refined Implementations
 
-Unfortunately the code above incredibly inefficient.  The average numerical analyst will note that this code first computes explicit inverses and then performs a matrix multiply rather than performing matrix solves, an operation for which substantially cheaper and numerically robust methods exist.  A slight change yields the following, vastly improved implementations
+Unfortunately the code above is very inefficient.  The average numerical analyst will note that this code first computes explicit inverses and then performs a matrix multiply rather than performing matrix solves, an operation for which substantially cheaper and numerically robust methods exist.  A slight change yields the following, vastly improved implementations
 
 -------------- -----------------------------
  Python/NumPy  `beta = solve(X.T*X, X.T*y)`
@@ -56,26 +56,30 @@ And so a further refined solution might look like the following
 
 ### BLAS/LAPACK
 
-Fortunately such routines exist within the BLAS/LAPACK libraries for dense linear algebra.  In particular the routine `POSV` for symmetric positive definite matrix solve is the ideal routine in this case.  As previously noted searching for and using the correct routine is non-trivial for scientific developers. 
+The high-level syntax in Python and MatLab calls down to routines found within the BLAS/LAPACK libraries for dense linear algebra.  In particular the routine `POSV` for symmetric positive definite matrix solve is the ideal routine in the case presented above.  Searching for and using the correct routine is non-trivial for scientific developers.
 
     SUBROUTINE DPOSV( UPLO, N, NRHS, A, LDA, B, LDB, INFO )
 
 
 ### Connecting Math and Computation
 
-Given the following expression and predicates
+    TODO: Need better connectivity here
 
-    (X.T*X).I*X.T*y
+Languages like Matlab, Python, and R have demonstrated the utility of linking a "high productivity" syntax to low-level "high performance" routines like those within BLAS/LAPACK.  While the process of designing efficient programs is notably simpler it remains imperfect.  Naive users are often incapable even of the simple optimizations at the high level language (e.g. using solve rather than computing explicit inverses); these optimizations require significant computational experience.  Additionally, even moderately expert users are incapable of leveraging the full power of BLAS/LAPACK.  This may be because they are unfamiliar with the low-level interface or because their high-level language does not provide clean hooks to the full lower-level library.
+
+Ideally we want to be given a naive input like the following expression and predicates
+
+    (X.T*X).I * X.T*y
     full_rank(X)
 
-We wish to produce the following computation
+We produce the following sophisticated computation
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.7\textwidth]{images/hat-comp}
 \end{figure}
 
-This can be accomplished through the following progression
+We perform this through a progression of small mathematically informed transformations.
 
 \begin{figure}[htbp]
 \centering
@@ -84,6 +88,7 @@ This can be accomplished through the following progression
 \includegraphics[width=.24\textwidth]{images/hat2}
 \includegraphics[width=.24\textwidth]{images/hat3}
 \end{figure}
+
 
 ### User Experience
 
@@ -123,7 +128,7 @@ RETURN
 END
 ~~~~~~~~~
 
-This code can be run in a separate context without the Python runtime environment.  Alternatively it can be linked in with Python's foreign function interface to a callable python function object that consumes the popular numpy array data structure. 
+This code can be run in a separate context without the Python runtime environment.  Alternatively for interactive convenience it can be linked in with Python's foreign function interface to a callable python function object that consumes the popular numpy array data structure.  This wrapping functionality is provided by the pre-existing and widely supported package `f2py`.
 
 
 ### Numerical Result
