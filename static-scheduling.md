@@ -4,49 +4,31 @@ Heterogeneous Static Scheduling
 
 \label{sec:static-scheduling}
 
-### The Problem
+Introduction
+------------
 
-We want to develop high performance numerical algorithms on increasingly heterogeneous systems.  This is a case of high importance and high development time.  Can automation do a decent enough job?
+Recent developments in computations for dense linear algebra engage parallelism at the shared memory, distributed memory, and heterogeneous levels.  This has required several significant software rewrites among many research teams.  In this section we adapt our existing system to engage parallel computation by adding another composable component, a static scheduler.  We show that this can be done separately, without affecting existing code.  This demonstrates both extensibility of the existing system and durability of the individual components.
 
-### Challenges
+Specifically we implement application-agnostic static scheduling algorithms in isolation.  We compose these with our existing components to automatically generate MPI programs to compute dense linear algebra on specific architectures. 
 
-Static scheduling is hard.
+### Motivating Problem 
 
-1.  Depends on known compute and communication times.  This is difficult in general due to uncertainty from inputs and uncertainty from hardware/software context.
-2.  It's NP-Hard
+We want to develop high performance numerical algorithms on increasingly heterogeneous systems.  This is a case of high importance and high development time.  We focus on systems with a few computational units (less than 10) such as might occur on a single node within a large high performance computer.
 
-Heterogeneous scheduling is hard.
+Traditionally these kernels are written by hand.  They are tuned and written by hand.
+Can automation do a decent enough job?
 
-3.  It depends on a set of hardware agnostic primitives
+include [Static and Dynamic Task Scheduling](dynamic-static.md)
 
+include [Predicting Array Computation Times](array-times.md)
 
-### Array Computations are Easier
+include [Scheduling Related Work](scheduling-related.md)
 
-This problem is easier in our context for the following reasons
+include [Scheduling Algorithms](scheduling-algorithms.md)
 
-1.  Very regular memory access and HPC context yield predictable runtimes
-2.  Low expression complexity - programs have few terms
-3.  A set of instructions common to multiple types of hardware (BLAS/LAPACK)
+include [Interoperation with existing pieces](scheduling-interoperation.md)
 
-### Background
-
-Scheduling in general (big topic, how much should I cover?)
-
-In the context of linear algebra.  Extensions to FLAME, Magma.
-
-
-### Static Scheduling Algorithms
-
-1.  Mixed Integer Linear Programming
-2.  Dynamic List Scheduling Heuristic
-
-
-### Interoperation with Existing work
-
-This is just another piece to add to the system.  We can develop it in complete isolation from this application.  Because we have clean interfaces we can inject it easily.
-
-
-### Experiment
+## Experiment
 
 Lets compute the Kalman filter over a few nodes.  Lets see that we obtain strong scaling.  Lets see to what degree our computation time is predictable.
 
