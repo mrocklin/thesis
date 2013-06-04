@@ -17,15 +17,15 @@ Dynamic scheduling algorithms assume little knowledge about the runtime performa
 #### Cons
 
 *   Requires a runtime system to perform scheduling (consumes resources)
-*   May not optimally schedule tasks (not very performant)
+*   May not optimally schedule tasks (not performant in unbalanced situations)
 
 ### Static Scheduling
 
-Static scheduling algorithms analyze the performance characteristics of both the computation and the hardware to create a schedule at compile time.  Because the analysis happens once it is common to use more sophisticated and time-consuming algorithms to determine an optimal schedule.
+Static scheduling algorithms analyze given performance characteristics of both the computation and the hardware to create a schedule at compile time.  Because the analysis happens once it is common to use more sophisticated and time-consuming algorithms to determine an optimal schedule.  However, the correct execution of the parallel program now depends on the accuracy of the performance information.
 
 #### Pros
 
-*   Generally higher performance under optimal conditions
+*   Better best-case performance
 *   No runtime scheduler required (cheap at runtime)
 
 #### Cons
