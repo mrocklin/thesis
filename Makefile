@@ -18,6 +18,11 @@ pdf: full.tex images/*.svg
 
 math-num: math-num-linalg.md math-num-linalg-validation.md linear-regression.md operation-ordering-matlab.md syrk.md sympy.md sympy-inference.md tikz-images
 
+times-fortran:
+	 ~/Software/openmpi-1.6.4/bin/mpif90 image-scripts/profile_gemm.f90 -lblas -o image-scripts/profile_gemm.out
+	 ~/Software/openmpi-1.6.4/bin/mpirun image-scripts/profile_gemm.out > image-scripts/profile_gemm_fortran.dat
+
+
 outline: images/pdfs outline.md math-num front.md
 	python scripts/include.py outline.md outline2.md
 	python scripts/dollar.py outline2.md outline2.md
