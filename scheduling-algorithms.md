@@ -4,6 +4,9 @@ Static Scheduling Algorithms
 
 ### Interface
 
+Optimal scheduling is NP-Hard; limiting the scale of schedulable programs.  Array programs can often be written with relatively few tasks, making the NP-Hard scheduling problem feasible.
+
+
 We propose the following interface for the heterogeneous static scheduling problem
 
 Inputs:
