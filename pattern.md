@@ -11,7 +11,7 @@ Pattern matching enables the construction of transformations declaratively, requ
 
 Mathematical theories often contain transformations on expressions.  For example in section \ref{sec:sympy} we discuss the cancellation of exponentials nested within logarithms, e.g. 
 
-$$log(exp(x)) \rightarrow x \;\; \textrm{ if } x \textrm{ is real}$$
+$$\log(\exp(x)) \rightarrow x \;\;\; \forall x \mid x \textrm{ is real}$$
 
 We may encode this tranformation into a computer algebra system like SymPy by manipulating the tree directly
 
@@ -32,14 +32,14 @@ These flaws can be avoided by separating the mathematics from the details of ter
 
 We define a rewrite rule as a source term, a target term, a condition and a set of variables, each of which is a term in the mathematical language.  For example the following transformation can be decomposed into the following pieces
 
-$$ log(exp(x)) \rightarrow x \;\; \textrm{ if } x \textrm{ is real} $$
+$$\log(\exp(x)) \rightarrow x \;\;\; \forall x \mid x \textrm{ is real}$$
 
-*   Source:  $log(exp(x))$
+*   Source:  $\log(\exp(x))$
 *   Target:  $x$
 *   Condition:  $x$ is real
-*   Variables: $x$
+*   Variables: $\forall x$
 
-Each of these elements may be encoded in the computer algebra system (SymPy) without additional language support from the general purpose language (Python).  We encode them below in a `(source, target, condition)` tuple.  `x` is managed separately.
+Each of these elements may be encoded in the computer algebra system (SymPy) without additional language support from the general purpose language (Python).  We encode them below in a `(source, target, condition)` tuple. 
 
     ( log(exp(x)),       x,      Q.real(x) )
 

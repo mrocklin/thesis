@@ -14,7 +14,7 @@ In this section we validate our numerical linear algebra system with a sequence 
 
 We stress that for each problem there are two measures of progress.  A pure numericist will appreciate decreased runtimes on relevant problems.  A software engineer will appreciate efficiencies in development.
 
-### Contributions
+#### Contributions
 
 Contributions in numerical methods are as follows
 
