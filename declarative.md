@@ -49,6 +49,4 @@ In section \ref{sec:math-num-linalg} we demonstrate the utility of these tools b
 
 include [Pattern Matching](pattern.md)
 
-include [LogPy](logpy.md)
-
 include [Algorithm Search](search.md)

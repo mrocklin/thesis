@@ -16,7 +16,7 @@ images/pdfs: images/*.svg images/*.dot
 pdf: full.tex images/*.svg
 	pdflatex full.tex
 
-math-num: math-num-linalg.md math-num-linalg-validation.md linear-regression.md operation-ordering-matlab.md syrk.md sympy.md sympy-inference.md tikz-images
+math-num: math-num-linalg.md math-num-linalg-validation.md linear-regression.md operation-ordering-matlab.md syrk.md cas.md sympy-inference.md tikz-images
 
 times-fortran:
 	 ~/Software/openmpi-1.6.4/bin/mpif90 image-scripts/profile_gemm.f90 -lblas -o image-scripts/profile_gemm.out
@@ -30,7 +30,6 @@ outline: images/pdfs outline.md math-num front.md lib.bib
 	python scripts/dollar.py outline2.md outline2.md
 	pandoc outline2.md -o outline.tex --standalone -H tex/preamble-extra.tex -A tex/biblio.tex
 	python scripts/inject-header.py outline.tex tex/header.tex 1 outline.tex
-	bibtex outline.aux
 	pdflatex outline.tex
 
 

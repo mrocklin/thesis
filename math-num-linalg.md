@@ -28,10 +28,6 @@ include [Need for Compilers](need-for-compilers.md)
 
 include [Related Work](math-num-linalg-related-work.md)
 
-include [Background on SymPy](sympy.md)
-
-include [SymPy Inference](sympy-inference.md)
-
 include [Language](matrix-language.md)
 
 include [Inference](matrix-inference.md)

@@ -1,39 +1,6 @@
+
 SymPy
 -----
-
-\label{sec:sympy}
-
-include [Tikz](tikz_math.md)
-
-SymPy enables the expression and manipulation of mathematical terms.  In real analysis a mathematical term may be either
-
-*   A literal like `5`
-*   A variable like `x`
-*   A compound term like `5 + x` composed of an operator like `Add` and a list of child terms `(5, x)`
-
-We store expressions in a tree data structure in which each node is either an operator or a leaf term.  For example the expresion $\log(3 e^{x + 2})$ can be stored as follows
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=.4\textwidth]{images/expr}
-\label{fig:expr}
-\end{figure}
-
-### Manipulation
-
-A computer algebra system collects and applies functions to manipulate these tree data structures.  A common class of these functions is used to perform mathematical simplifications returning mathematically equivalent but combinatorially simpler expression trees.  In the example with $\log(3 e^{x + 2})$ we can expand the log and cancel the log/exp to form $x+2+\log(3)$.  
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=.4\textwidth]{images/sexpr}
-\label{fig:expr}
-\end{figure}
-
-### Extensions
-
-Systems exist for the automatic expression of several branches of mathematics.  Extensive work has been done on traditional real and complex analysis including derivatives, integrals, simplification, equation solving, etc.... Other algebras like sets, groups, fields, polynomials, abstract and differential geometry, combinatorics and number theory all have similar treatments.  The literals, variables, and manipulations change but the basic idea of automatic manipulation of expression trees remains constant.
-
-### Software
 
 \label{sec:sympy-software}
 
@@ -41,7 +8,7 @@ A computer algebra system is composed of a data structure to represent mathemati
 
 SymPy \cite{sympy} is a computer algebra system embedded in the Python language.  It implements these pieces as follows
 
-#### Operators
+### Operators
 
 Both SymPy operators and SymPy literal types are implemented as Python classes.
 

@@ -6,16 +6,11 @@ include [TikZ](tikz_pattern.md)
 
 \label{sec:logpy}
 
-We implement a rudimentary term rewrite system in LogPy, a general purpose logic programming library for Python.  We chose this approach instead of one of the mature systems mentioned in Section \ref{sec:pattern-previous-work} in order to limit the number of dependencies that are uncommon within the scientific computing ecosystem.
-
-
 LogPy is a general purpose logic programming library for Python.  It implements a varient of [miniKanren](http://kanren.sourceforge.net/)\cite{byrd2010}, a language originally implemented in a subset of Scheme.  [Comprehensive documentation](http://github.com/logpy/logpy/tree/master/docs)\cite{logpy} for LogPy is available online.  LogPy adds the additional foci to miniKanren.
 
 1.  Associative Commutative matching
 2.  Efficient indexing of relations of expression patterns
 3.  Simple composition with pre-existing Python projects
-
-We use LogPy to implement a simple term rewrite system within the scientific Python ecosystem.  Our solution is minimally intrusive and supports interoperation with legacy codes.
 
 The third focus above about ease of composition bears mention.  The majority of logic programming attempts in Python have not acheived penetration due to, I suspect, unrealistic demands on potential interoperation.  They require that any client project use their types/classes within their codebase.  LogPy was developped simultaneously with multiple client projects with large and inflexible pre-existing codebases.  As a result it makes minimal demands for interoperation, significantly increasing its relevance.  *Relevant?*
 
@@ -68,48 +63,6 @@ facts(rewrites, *patterns)
 This relation stores the patterns for use in logic programs.  It will be discussed in the next section.
 
 For now note that the definition of the mathematical patterns used only SymPy and pure Python; the interaction with LogPy is well isolated.  In the future more mature algorithmic solutions can replace the LogPy interaction easily without necessitating changes in the mathematical code.  Removing such connections enables components to survive obsolesence of neighboring components.  We avoid "weakest link in the chain" survivability by removing unnecessary connections between modules.
-
-### Term Rewriting
-
-\label{sec:term-rewriting}
-
-We use LogPy to construct a Python function to perform a single term rewrite step in SymPy
-
-~~~~~~~~~~Python
-from logpy import goalify, run
-from sympy import ask
-asko = goalify(ask)
-
-def rewrite_step(expr, rewrites):
-    """ Possible rewrites of expr given relation of patterns """
-    target, condition = var(), var()
-    return run(None, target, rewrites(expr, target, condition),
-                             asko(condition, True))
-~~~~~~~~~~
-
-The `run` function asks for a lazily evaluated iterator (`None`) that returns reified values of the variable `target` that satisfy the following goals:
-    
-#### `rewrites(expr, target, condition)`
-
-The LogPy Relation `rewrites` stores facts, in this case our rewrite patterns.  The facts are of the form `(source, target, condition)` and claim that a expression matching `source` can be rewritten as `target` if the boolean expression `condition` holds true.  For example rewrites might contain the facts
-    
-    (Abs(x),        x,      Q.positive(x))
-    (exp(log(x)),   x,      Q.positive(x)),
-    (log(exp(x)),   x,      Q.real(x)),
-
-    
-By placing the input, `expr`, in the source position we mandate that `expr` must match the `source` of the pattern.  The `rewrites` relation selects the set of potentially matching patterns and produces a stream of matchings.  The `target` and `condition` terms will be reified with these matchings during future computations.
-
-For example if `expr` is the term `Abs(y**2)` then only the first pattern matches.  The logic variables `target` and `condition` reify to `y**2` and `Q.positive(y**2)` respectively.  The second and third patterns do not match because we can unify `Abs` to neither `exp` nor 'log'.  In this case only one pattern in our collection yields a valid transformation.
-
-#### `asko(condition, True)`
-
-The `asko` goal further constrains results to those for which the `condition` of the pattern  evaluates to `True` under SymPy's `ask` routine.  This engages SymPy's logic system and the underlying SAT solver.  Through interoperation we gain access to and interact with a large body of pre-existing logic code.
-
-If as above `expr` is `Abs(y**2)` then we ask SymPy if the boolean expression `Q.positive(y**2)` is true.  This might hold if, for example, we knew that the SymPy variable `y` was real and non-zero.  If this is so then we yield the value of `target`, in this case `y**2`.
-
-
-We return a lazy iterator of all target patterns such that the source pattern matches the input expression and that the condition of the pattern is satisfied.
 
 
 ### Analysis

@@ -91,3 +91,5 @@ This cost can be managed by indexing the patterns into a hierarchical data struc
 \label{sec:pattern-previous-work}
 
 These ideas are well developed within the programming languages community.  Mature products include Maude \cite{maude}, Elan \cite{elan}, and the Stratego/XT toolset \cite{strategoxt}.  These projects benefit from the following work
+
+include [Pattern-LogPy](pattern-logpy.md)

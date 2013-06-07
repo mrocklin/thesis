@@ -1,8 +1,10 @@
 
-SymPy Inference
----------------
+Inference
+---------
 
 \label{sec:sympy-inference}
+
+### Problem description
 
 include [Tikz](tikz_math.md)
 
@@ -31,6 +33,7 @@ To create a system to pose and answer these questions we need the following piec
     The square of a real number is positive
 
 4.  A solver for satisfiability given the above relations
+
 
 ### Implementation in SymPy
 
