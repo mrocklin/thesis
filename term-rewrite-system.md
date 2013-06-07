@@ -43,7 +43,7 @@ Explicitly Term Rewrite Systems confer the following benefits in the context of 
 *   Multiple sets of transformations can interact with the same coordination systems
 
 
-In section \ref{sec:pattern} we discuss the pattern matching problem in the context of computer algebra and then in \ref{sec:logpy} our particular software solution to this problem.  In section \ref{sec:search} we pose the problem of coordinating these rules as a graph search problem.  These respectively address parts 1 and 2 listed above.
+In section \ref{sec:pattern} we discuss the pattern matching problem in the context of computer algebra.  In section \ref{sec:search} we pose the problem of coordinating these rules as a graph search problem.  These respectively address parts 2 and 3 listed above.
 
 In section \ref{sec:math-num-linalg} we demonstrate the utility of these tools by implementing a mathematically informed linear algebra compiler with minimal math/compilers expertise overlap.
 
