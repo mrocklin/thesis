@@ -22,12 +22,15 @@ times-fortran:
 	 ~/Software/openmpi-1.6.4/bin/mpif90 image-scripts/profile_gemm.f90 -lblas -o image-scripts/profile_gemm.out
 	 ~/Software/openmpi-1.6.4/bin/mpirun image-scripts/profile_gemm.out > image-scripts/profile_gemm_fortran.dat
 
+lib.bib: library.bib library2.bib
+	cat library.bib library2.bib > lib.bib
 
-outline: images/pdfs outline.md math-num front.md
+outline: images/pdfs outline.md math-num front.md lib.bib
 	python scripts/include.py outline.md outline2.md
 	python scripts/dollar.py outline2.md outline2.md
 	pandoc outline2.md -o outline.tex --standalone -H tex/preamble-extra.tex -A tex/biblio.tex
 	python scripts/inject-header.py outline.tex tex/header.tex 1 outline.tex
+	bibtex outline.aux
 	pdflatex outline.tex
 
 
