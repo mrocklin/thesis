@@ -30,9 +30,9 @@ We use Term Rewrite Systems to enable the separation of mathematics from softwar
 2.  A collection of isolated transformations on those terms
 3.  A system to coordinate the application of those transformations
 
-In our case our terms are mathematical expressions, our transformations are known mathematical relations, and the system of coordination will be a greedy depth first search. 
+In our case our terms are mathematical expressions, our transformations are known mathematical relations, and the system of coordination is abstracted as a graph search problem.
 
-This approach separates mathematics from software.  The language and transformations are mathematical while the system for coordination is algorithmic in nature.  The isolated nature of the transformations limits the extent to which mathematical programmers need to understand the broader software context.  The system for coordination need not depend on the transformations themselves, eliminating the need for mathematical understanding from an algorithmically centered task.
+This approach separates mathematics from software.  The language and transformations are mathematical while the system for coordination is algorithmic.  The isolated nature of the transformations limits the extent to which mathematical programmers need to understand the broader software context.  The system for coordination need not depend on the transformations themselves, eliminating the need for mathematical understanding from an algorithmically centered task.
 
 Explicitly Term Rewrite Systems confer the following benefits in the context of mathematical computing
 
