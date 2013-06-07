@@ -4,16 +4,44 @@ Program Generation
 
 \label{sec:declarative}
 
-To automatically transform a set of mathematical expressions to an efficient and sophisticated computation we require substantial expertise both in the relevant mathematical domain and in the automated compilation of programs.  Unfortunately few mathematical experts also hold compilers expertise.
+Motivation
+----------
 
-To resolve this demographic issue we separate the problem into two parts:
+*The mathematical software ecosystem can best be served by separating the mathematics from the software.*
 
-1.  A collection of small mathematical transformations 
-2.  A system to coordinate their application
-    
-The small transformations encompass the mathematical expertise and are sufficiently isolated to not require substantial expertise in compilers.  This piece is appropriate for mathematicians.  Conversely the system to coordinate their application is isolated from the mathematical domain and encompasses all of the necessary expertise in automated generation of computations.  This piece is appropriate for computer scientists.  This separation enables contributions from a substantially broader single-domain-of-expertise demographic.
+The following arguments support this principle
 
-For further convenience to the mathematical expert the majority of the transformations are encoded as declarative rewrite rules specified in a computer algebra system.  This practice aligns well with the written tradition of mathematics.
+#### Math changes slowly
+
+Software is often rewritten.  This may be because of evolution in programming languages, changes in hardware, or simply due to adoption of an old technique by a new community.  Conversely much of the Mathematics used in computation is well established or a worst changes relativelys slowly.  By separating the mathematics from the software we reduce the task of software rewriting.
+
+
+#### Demographics
+
+Expertise in the domains of mathematics and software enginnering is rarely shared in the same individual.  By separating the mathematics from the software we reduce the demands of writing *and verifying* a solution.  A larger body of mathematicians can work on the mathematics and a larger body of software engineers can work on the pure software components.
+
+
+Term Rewrite Systems
+--------------------
+
+We use Term Rewrite Systems to enable the separation of mathematics from software.  A term rewrite system is composed of
+
+1.  A language of terms
+2.  A collection of isolated transformations on those terms
+3.  A system to coordinate the application of those transformations
+
+In our case our terms are mathematical expressions, our transformations are known mathematical relations, and the system of coordination will be a greedy depth first search. 
+
+This approach separates mathematics from software.  The language and transformations are mathematical while the system for coordination is algorithmic in nature.  The isolated nature of the transformations limits the extent to which mathematical programmers need to understand the broader software context.  The system for coordination need not depend on the transformations themselves, eliminating the need for mathematical understanding from an algorithmically centered task.
+
+Explicitly Term Rewrite Systems confer the following benefits in the context of mathematical computing
+
+*   Mathematical programmers can focus on much smaller units of software
+*   Algorithmic programmers are isolated from the mathematics
+*   Smaller transformations can be more effectively verified
+*   Multiple independent coordination systems can interact with the same set of transformations
+*   Multiple sets of transformations can interact with the same coordination systems
+
 
 In section \ref{sec:pattern} we discuss the pattern matching problem in the context of computer algebra and then in \ref{sec:logpy} our particular software solution to this problem.  In section \ref{sec:search} we pose the problem of coordinating these rules as a graph search problem.  These respectively address parts 1 and 2 listed above.
 

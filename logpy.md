@@ -6,7 +6,10 @@ include [TikZ](tikz_pattern.md)
 
 \label{sec:logpy}
 
-LogPy is a general purpose logic programming library for Python.  It implements a varient of [miniKanren](http://kanren.sourceforge.net/)\cite{byrd}, a language originally implemented in a subset of Scheme.  [Comprehensive documentation](http://github.com/logpy/logpy/tree/master/docs)\cite{logpy} is available online.  LogPy adds the additional foci to miniKanren.
+We implement a rudimentary term rewrite system in LogPy, a general purpose logic programming library for Python.  We chose this approach instead of one of the mature systems mentioned in Section \ref{sec:pattern-previous-work} in order to limit the number of dependencies that are uncommon within the scientific computing ecosystem.
+
+
+LogPy is a general purpose logic programming library for Python.  It implements a varient of [miniKanren](http://kanren.sourceforge.net/)\cite{byrd2010}, a language originally implemented in a subset of Scheme.  [Comprehensive documentation](http://github.com/logpy/logpy/tree/master/docs)\cite{logpy} for LogPy is available online.  LogPy adds the additional foci to miniKanren.
 
 1.  Associative Commutative matching
 2.  Efficient indexing of relations of expression patterns
