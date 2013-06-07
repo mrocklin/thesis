@@ -9,3 +9,5 @@
 *.pdf
 *.pyc
 tikz_*
+outline.tex
+*feedback*
