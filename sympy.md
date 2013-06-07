@@ -72,3 +72,5 @@ log(3*exp(x + 2))
 >>> print simplify(y)
 x + log(3) + 2
 ~~~~~~~~~~
+
+include [SymPy Inference](sympy-inference.md)

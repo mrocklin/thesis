@@ -50,8 +50,6 @@ TODO
 
 include [SymPy](sympy.md)
 
-include [SymPy Inference](sympy-inference.md)
-
 include [Theano](theano.md)
 
 include [LogPy](logpy.md)
