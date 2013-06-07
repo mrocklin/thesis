@@ -96,7 +96,7 @@ This is the first system that can answer questions like this for abstract matric
 
 This advanced inference enables a substantially larger set of optimizations that depend on logical information.   For example, the inverse of a matrix can be simplified to its transpose if that matrix is orthogonal.
 
-Linear algebra is a mature field with many such relations \cite{matrix-cookbook}.  Formally describing all of these relations is challenging due both to their quantity and the limited population of practitioners.  To address this issue we create a mechanism to describe them declaratively.  This reduces the extent of the code-base with which a mathematician must familiarize themselves to encode these relations and increases portability.  This reduction in scope drastically increases the domain of qualified developers.
+Linear algebra is a mature field with many such relations \cite{Petersen2008}.  Formally describing all of these relations is challenging due both to their quantity and the limited population of practitioners.  To address this issue we create a mechanism to describe them declaratively.  This reduces the extent of the code-base with which a mathematician must familiarize themselves to encode these relations and increases portability.  This reduction in scope drastically increases the domain of qualified developers.
 
 #### Matrix Algebra Relations in Maude
 
@@ -124,7 +124,7 @@ We can then separately connect an external term rewrite system to transform thes
 
 #### Example -- Determinants:
 
-We present mathematical information about determinants taken from the Matrix Cookbook \cite{matrix-cookbook} and encoded in the manner described above. 
+We present mathematical information about determinants taken from the Matrix Cookbook \cite{Petersen2008} and encoded in the manner described above. 
 
 ~~~~~~~~~~~~~~Python
 # Original,     Result,         Condition
