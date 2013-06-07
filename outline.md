@@ -15,7 +15,7 @@ include [SymPy and Theano - Interfaces vs Feature creep](sympy-theano.md)
 
 include [Computer Algebra](cas.md)
 
-include [Declarative Programming](declarative.md)
+include [Term Rewrite System](term-rewrite-system.md)
 
 include [Mathematically Informed Numerical Linear Algebra](math-num-linalg.md)
 

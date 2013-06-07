@@ -1,8 +1,8 @@
 
-Program Generation
-==================
+Term Rewrite System
+===================
 
-\label{sec:declarative}
+\label{sec:term-rewrite-system}
 
 Motivation
 ----------
@@ -21,8 +21,8 @@ Software is often rewritten.  This may be because of evolution in programming la
 Expertise in the domains of mathematics and software enginnering is rarely shared in the same individual.  By separating the mathematics from the software we reduce the demands of writing *and verifying* a solution.  A larger body of mathematicians can work on the mathematics and a larger body of software engineers can work on the pure software components.
 
 
-Term Rewrite Systems
---------------------
+Definition
+----------
 
 We use Term Rewrite Systems to enable the separation of mathematics from software.  A term rewrite system is composed of
 
