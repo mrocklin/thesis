@@ -32,8 +32,6 @@ include [Language](matrix-language.md)
 
 include [Inference](matrix-inference.md)
 
-include [BLAS/LAPACK](blas-lapack.md)
-
 include [Computations](computations.md)
 
 include [Compilation](matrix-compilation.md)

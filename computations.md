@@ -1,6 +1,6 @@
 
-Computations - BLAS/LAPACK
---------------------------
+Computations
+------------
 
 \label{sec:computations}
 
@@ -13,6 +13,8 @@ Our primary target will be Modern Fortran code that calls down to the curated BL
 Specifically we present a small library to encode low-level computational routines that is amenable to manipulation by automated high-level tools.  This library is extensible and broadly applicable.  This library also supports low level code generation.
 
 Later in section \ref{sec:matrix-compilation} we connect the work in this section and in \ref{sec:matrix-language} to form a cohesive generator of computations from high-level math expressions.
+
+include [BLAS/LAPACK](blas-lapack.md)
 
 ### Atomic Computations
 
