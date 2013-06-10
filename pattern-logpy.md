@@ -1,5 +1,5 @@
 
-### Implementing a Term Rewrite System in LogPy
+## A Term Rewrite System in LogPy
 
 We implement a rudimentary term rewrite system in LogPy, a general purpose logic programming library for Python.  We chose this approach instead of one of the mature systems mentioned in Section \ref{sec:pattern-previous-work} in order to limit the number of dependencies that are uncommon within the scientific computing ecosystem.
 

@@ -5,53 +5,60 @@ Pattern Matching
 
 include [TikZ](tikz_pattern.md)
 
+Rewriting via term matching enables the definition of transformations using only the mathematical language of terms.  The underlying algorithmic language (e.g. Python) is completely separated from the definition of transformations.  This separation compounds many of the previously mentioned benefits of term rewrite systems.
+
 Pattern matching enables the construction of transformations declaratively, requiring only the syntax of the term language.  This provides further convenience to the mathematical programmer as the practice aligns well with the written tradition of mathematics.  Additionally, transformations written as rewrite patterns are more durable and reusable, depending only on the syntax of mathematical terms.  The syntax of mathematical terms has demonstrated significant longevity.
 
 #### Mathematical Transformations
 
-Mathematical theories often contain transformations on expressions.  For example in section \ref{sec:sympy} we discuss the cancellation of exponentials nested within logarithms, e.g. 
+We reconsider the unpacking logarithms of exponents example 
 
-$$\log(\exp(x)) \rightarrow x \;\;\; \forall x \mid x \textrm{ is real}$$
+$$\log(\exp(x)) \rightarrow x \;\;\; \forall x \in \mathbb{R} $$
 
-We may encode this tranformation into a computer algebra system like SymPy by manipulating the tree directly
+We noted that this tranformation can be encoded as a manipulation of a tree within a computer algebra system, SymPy.  We appreciated that this algorithmic code was isolated to just a few lines and does not affect the code for coordination.  We do not simultaneously require any developer to understand both the mathematics and the coordination of transformations.
 
 ~~~~~~~~~~Python
-if isinstance(term, log) and isinstance(term.args[0], exp):
-    term = term.args[0].args[0]  # unpack both `log` and `exp`
+if isinstance(term, log) and isinstance(term.args[0], exp) and ask(Q.real(x)):
+    return term.args[0].args[0]  # unpack both `log` and `exp`
 ~~~~~~~~~~
 
-This method of solution simultaneously requires understanding of both the underlying mathematics and the particular data structures used in the computer algebra system.  This approach has two flaws.
+However, this method of solution does simultaneously require the understanding of both the underlying mathematics and the particular data structures within the computer algebra system.  This approach has two flaws.
 
 1.  It restricts the development pool to simultaneous experts in mathematics and the particular computer algebra system.
 2.  The solution is only valuable within this particular computer algebra system.  It will need to be rewritten for future software solutions.
 
-These flaws can be avoided by separating the mathematics from the details of term manipulation.  We achieve this through the description and matching of patterns.
+These flaws can be avoided by separating the mathematics from the details of term manipulation.  We achieve this through the description and matching of patterns.  We use the mathematical term language to describe the transformations directly, without referring to the particular data structures used in the computer algebra system.
 
 
-### Rewrite Rule 
+### Rewrite Patterns
 
-We define a rewrite rule as a source term, a target term, a condition and a set of variables, each of which is a term in the mathematical language.  For example the following transformation can be decomposed into the following pieces
+We define a rewrite pattern/rule as a source term, a target term, a condition and a set of variables, each of which is a term in the mathematical language.  For example the following transformation can be decomposed into the following pieces
 
-$$\log(\exp(x)) \rightarrow x \;\;\; \forall x \mid x \textrm{ is real}$$
+$$\log(\exp(x)) \rightarrow x \;\;\; \forall x \in \mathbb{R}$$
 
 *   Source:  $\log(\exp(x))$
 *   Target:  $x$
-*   Condition:  $x$ is real
+*   Condition:  $x \in \mathbb{R}$
 *   Variables: $\forall x$
 
-Each of these elements may be encoded in the computer algebra system (SymPy) without additional language support from the general purpose language (Python).  We encode them below in a `(source, target, condition)` tuple. 
+Each of these elements may be encoded in the computer algebra system (SymPy) without additional support from the general purpose language (Python).  We encode them below in a `(source, target, condition, variables)` tuple. 
+
+    ( log(exp(x)),       x,      Q.real(x) ,    {x} )
+
+In practice we will have a fixed set of variables, reducing the tuple to three elements
 
     ( log(exp(x)),       x,      Q.real(x) )
-
 
 ### Background - Algorithms
 
 Pattern matching of terms is a well established technology in programming languages.
 
+TODO: Cut this (unless someone says otherwise)
+
 
 ### Computational Concerns
 
-Repeatedly matching mathematical terms against source patterns can be costly.  This cost is compounded by the following conerns
+Repeatedly matching mathematical terms against source patterns can be costly.  In the context of computer algebra this cost is compounded by the following conerns
 
 #### Associative Commutative Matching
 
@@ -81,15 +88,7 @@ Complex problems matching many patterns may work only with a particular one of t
 
 #### Many Patterns
 
-A single step of a term rewrite system must often compare the input term against a database of applicable rules.  A naive matching of the input term to each pattern scales linearly with the number of patterns.  Operationally the collection of source patterns can grow into the thousands, even when care is taken to limit the quantity \cite{Rich2009}.  As a result the matching process may quickly become costly.
+A single step of a term rewrite system compares the input term against a database of applicable rules.  A naive one-to-one matching of the input term to each rewrite pattern scales linearly with the number of patterns.  Operationally the collection of source patterns can grow into the thousands.  For example RUBI\cite{Rich2009}, a system to resolve symbolic integrals requires thousands of rewrite patterns even after taking great care to eliminate redundancy.
 
-This cost can be managed by indexing the patterns into a hierarchical data structure that allows efficient simultaneous matching.
+This cost can be managed by indexing the patterns into a hierarchical data structure that allows efficient simultaneous matching of one input term to many rewrite patterns.
 
-
-### Background - Previous Work
-
-\label{sec:pattern-previous-work}
-
-These ideas are well developed within the programming languages community.  Mature products include Maude \cite{maude}, Elan \cite{elan}, and the Stratego/XT toolset \cite{strategoxt}.  These projects benefit from the following work
-
-include [Pattern-LogPy](pattern-logpy.md)

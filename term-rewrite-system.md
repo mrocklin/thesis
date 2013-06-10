@@ -13,12 +13,12 @@ The following arguments support this principle
 
 #### Math changes slowly
 
-Software is often rewritten.  This may be because of evolution in programming languages, changes in hardware, or simply due to adoption of an old technique by a new community.  Conversely much of the Mathematics used in computation is well established or a worst changes relativelys slowly.  By separating the mathematics from the software we reduce the task of software rewriting.
+while software is often rewritten.  This may be because of evolution in programming languages, changes in hardware, or simply due to adoption of an old technique by a new community.  Conversely much of the Mathematics used in computation is well established or a worst changes relatively slowly.  By separating the mathematics (a slowly changing component) from the software (a rapidly changing component) we reduce the extent of the expertise which must be rewritten due to computational evolution.
 
 
 #### Demographics
 
-Expertise in the domains of mathematics and software enginnering is rarely shared in the same individual.  By separating the mathematics from the software we reduce the demands of writing *and verifying* a solution.  A larger body of mathematicians can work on the mathematics and a larger body of software engineers can work on the pure software components.
+Expertise in the domains of mathematics and software enginnering is rarely shared in the same individual.  By separating the mathematics from the software we reduce the demands of writing and verifying solutions.  A larger body of mathematicians can work on the mathematics and a larger body of software engineers can work on the pure software components.
 
 
 Definition
@@ -39,6 +39,7 @@ Explicitly Term Rewrite Systems confer the following benefits in the context of 
 *   Mathematical programmers can focus on much smaller units of software
 *   Algorithmic programmers are isolated from the mathematics
 *   Smaller transformations can be more effectively verified
+*   Isolated coordination systems can be more effectively verified
 *   Multiple independent coordination systems can interact with the same set of transformations
 *   Multiple sets of transformations can interact with the same coordination systems
 
@@ -47,6 +48,26 @@ In section \ref{sec:pattern} we discuss the pattern matching problem in the cont
 
 In section \ref{sec:math-num-linalg} we demonstrate the utility of these tools by implementing a mathematically informed linear algebra compiler with minimal math/compilers expertise overlap.
 
+#### Example
+
+Mathematical theories contain many small transformations on expressions.  For example in section \ref{sec:sympy} we discuss the cancellation of exponentials nested within logarithms, e.g. 
+
+$$\log(\exp(x)) \rightarrow x \;\;\; \forall x \in \mathbb{R}$$
+
+We encode this tranformation into a computer algebra system like SymPy by manipulating the tree directly
+
+~~~~~~~~~~Python
+def unpack_log_exp_if_real(term):
+    if isinstance(term, log) and isinstance(term.args[0], exp) and ask(Q.real(x)):
+        return term.args[0].args[0]  # unpack both `log` and `exp`
+~~~~~~~~~~
+
+We appreciate that this transformation is isolated and compact.  The function `unpack_log_exp_if_real` may be one of a large set of transformations, each of which transform terms to other, possibly better terms by some metric.  This approach of many small `term -> term` functions isolates the mathematics from the coordination of the functions.  A mathematical programmer may easily encode several such functions without thinking about how they are applied while an algorithmic programmer may develop sophisticated systems to coordinate these many functions without thinking about what math they represent.
+
 include [Pattern Matching](pattern.md)
 
 include [Algorithm Search](search.md)
+
+include [Background](trs-background.md)
+
+include [Pattern-LogPy](pattern-logpy.md)
