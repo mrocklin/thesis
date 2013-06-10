@@ -9,4 +9,4 @@ def greedy(children, objective, isvalid, node):
     kids = sorted(children(node), key=objective)
     streams = imap(f, kids)
 
-    return chain(streams)
+    return chain.from_iterator(streams)
