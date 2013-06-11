@@ -9,7 +9,7 @@ We often want to test whether algebraic statements are true or not in a general 
 
 *Given that $x$ is a natural number and that $y$ is real, is $x + y^2$  positive?*
 
-To create a system to pose and answer these questions we need the following pieces (examples included)
+To create a system to pose and answer these questions we need the following pieces 
 
 1.  A set of predicates 
 
