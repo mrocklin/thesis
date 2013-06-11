@@ -5,7 +5,7 @@ Pattern Matching
 
 include [TikZ](tikz_pattern.md)
 
-Rewriting via term matching enables the definition of transformations using only the mathematical language of terms.  The underlying algorithmic language (e.g. Python) is completely separated from the definition of transformations.  This separation compounds many of the previously mentioned benefits of term rewrite systems.
+Rewriting via term matching enables the definition of transformations using only the mathematical language of terms (e.g. SymPy).  The underlying algorithmic language (e.g. Python) is separated from the definition of transformations.  This separation compounds many of the previously mentioned benefits of term rewrite systems.
 
 Pattern matching enables the construction of transformations declaratively, requiring only the syntax of the term language.  This provides further convenience to the mathematical programmer as the practice aligns well with the written tradition of mathematics.  Additionally, transformations written as rewrite patterns are more durable and reusable, depending only on the syntax of mathematical terms.  The syntax of mathematical terms has demonstrated significant longevity.
 
@@ -32,7 +32,7 @@ These flaws can be avoided by separating the mathematics from the details of ter
 
 ### Rewrite Patterns
 
-We define a rewrite pattern/rule as a source term, a target term, a condition and a set of variables, each of which is a term in the mathematical language.  For example the following transformation can be decomposed into the following pieces
+We define a rewrite pattern/rule as a source term, a target term, a condition and a set of variables, each of which is a term in the mathematical language.  For example the $\log(\exp(\cdot))$ transformation can be decomposed into the following pieces
 
 $$\log(\exp(x)) \rightarrow x \;\;\; \forall x \in \mathbb{R}$$
 
@@ -48,6 +48,8 @@ Each of these elements may be encoded in the computer algebra system (SymPy) wit
 In practice we will have a fixed set of variables, reducing the tuple to three elements
 
     ( log(exp(x)),       x,      Q.real(x) )
+
+Using these rewrite patterns we reduce the problem of transformation to matching incoming terms against the source pattern, obtaining appropriate values for `x`, checking the condition, and then reifying these values into the target pattern.  These operations can be dealt with outside the context of mathematics.  Mature solutions already exist, largely stemming from work in logic programming languages and theorem provers. 
 
 ### Background - Algorithms
 
