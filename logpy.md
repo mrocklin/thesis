@@ -6,71 +6,150 @@ include [TikZ](tikz_pattern.md)
 
 \label{sec:logpy}
 
-LogPy is a general purpose logic programming library for Python.  It implements a varient of [miniKanren](http://kanren.sourceforge.net/)\cite{byrd2010}, a language originally implemented in a subset of Scheme.  [Comprehensive documentation](http://github.com/logpy/logpy/tree/master/docs)\cite{logpy} for LogPy is available online.  LogPy adds the additional foci to miniKanren.
+LogPy is a general purpose logic programming library for Python.  It implements a varient of [miniKanren](http://kanren.sourceforge.net/)\cite{byrd2010}, a language originally implemented in a subset of Scheme.  [Comprehensive documentation](http://github.com/logpy/logpy/tree/master/docs)\cite{logpy} for LogPy is available online.  
+
+The construction of LogPy was motivated by duplicated efforts in SymPy and Theano, two computer algebra systems in Python.  Both SymPy and Theano built special purpose modules to define and apply optimiations to their built-in mathematical and computational data structures.  LogPy aims to replace these modules.
+
+This context motivates the following developments onto miniKanren.
 
 1.  Associative Commutative matching
-2.  Efficient indexing of relations of expression patterns
+2.  Support for matching against many patterns
 3.  Simple composition with pre-existing Python projects
 
-The third focus above about ease of composition bears mention.  The majority of logic programming attempts in Python have not acheived penetration due to, I suspect, unrealistic demands on potential interoperation.  They require that any client project use their types/classes within their codebase.  LogPy was developped simultaneously with multiple client projects with large and inflexible pre-existing codebases.  As a result it makes minimal demands for interoperation, significantly increasing its relevance.  *Relevant?*
 
+### Basic Design - Goals
 
-### Basic Design
+LogPy programs are built up of *goals*.  Goals produce and manage streams of substitutions.
 
-*How much should I write about this?  It isn't novel but may be necessary to understand the rest.*
+    goal :: substitution -> [substitution]
 
+#### Example
+    
+    >>> x = var('x')
+    >>> a_goal = eq(x, 1)
 
-### Associative Commutative Matching
+This goal uses `eq`, a goal constructor, to require that the logic variable `x` unifies to `1`.  As previously mentioned goals are functions from single substitutions to sequences of substitutions.  In the case of `eq` this stream has either one or zero elements
 
-This has been well studied in literature.  My solution is a bit more naive.  
+    >>> a_goal({})      # require no other constraints
+    ({~x: 1},)
+    >>> a_goal({x: 2})  # require that x maps to 2 and that eq(x, 1)
+    ()
 
-TODO?
+### Basic Design - Goal Combinators
+
+LogPy provides logical goal combinators to manage the union and intersection of streams.
+
+#### Example
+
+We specify that $x \in \{1, 2, 3\}$ and that $x \in \{2, 3, 4\}$ with the goals `g1` and `g2` respectively.
+
+    >>> g1 = membero(x, (1, 2, 3))
+    >>> g2 = membero(x, (2, 3, 4))
+
+    >>> for s in g1({}):
+    ...     print s
+    {~x: 1}
+    {~x: 2}
+    {~x: 3}
+
+To find all substitutions that satisfy *both* goals we can feed each element of one stream into the other.  
+
+    >>> for s in g1({}):
+    ...     for ss in g2(s):
+    ...         print ss
+    {~x: 2}
+    {~x: 3}
+
+Logic programs can have many goals in complex hierarchies.  Writing explicit for loops quickly becomes tedious.  Instead LogPy provides functions to combine goals logically.  
+
+    combinator :: [goals] -> goal
+
+Two important logical goal combinators are logical all `lall` and logical any `lany`.
+
+    >>> for s in lall(g1, g2)({}):
+    ...     print s
+    {~x: 2}
+    {~x: 3}
+    
+    >>> for s in lany(g1, g2)({}):
+    ...     print s
+    {~x: 1}
+    {~x: 2}
+    {~x: 3}
+    {~x: 4}
 
 
 ### Composition
 
-LogPy was designed for interoperation with legacy codes.  While LogPy traditionally uses trees of tuples to define terms it is also able to interoperate with user-defined types.  LogPy was designed to simultaneously support two computer algebra systems, SymPy and Theano, both of which are sufficiently entrenched to bar the possibility of changing the underlying data structures.
+LogPy is designed to interoperate with legacy Python codes.  While LogPy traditionally uses trees of tuples to define terms it is also able to interoperate with user-defined types.  LogPy was designed to simultaneously support two computer algebra systems, SymPy and Theano.  Both of these projects are sufficiently entrenched to bar the possibility of changing the underlying data structures.  
 
-Fundamental functions like `unify`, `reify` and their associative-commutative versions must understand how to interact with these new types.  In fullest generality each function-type pair requires specific treatment.  Unfortunately neither core codebase would permit special introduction of these interactions.  It is not possible to include every potential interaction in LogPy; this solution requires that every client developer has access to the LogPy codebase.  Alternatively standard object oriented solutions on the client side (e.g. implementing a `unify` method for each client class) may not be feasible.
+While several logic programming projects exist in the Python each requires client projects to adopt specific logic variable types.  LogPy makes no such requirement.  LogPy was developed simultaneously with multiple client projects with large and inflexible pre-existing codebases.  As a result it makes minimal demands for interoperation, significantly increasing its relevance. 
 
-*presumably this is a general problem that has a name*
+To achieve interoperation we need to know how to do the following:
 
-*is this at all interesting? it's mostly a programming consideration.  I have more written here but I'm not sure it's appropriate.*
+1.  `unify` and `reify` against client types
+2.  Identify logic variables
+
+#### `unify` and `reify`
+
+To be useful in a client codebase we must specify how to `unify` and `reify` objects of the client's types.  We provide the following two options:
+
+*   Rogue Methods - Using Python's permissive type system we attach `_as_logpy(self)`  and `_from_logpy(data)` methods onto client classes *after* import time.
+*   Protocols - we create, add to, and check a global registry of `unify` and `reify` functions.  Internally we provide double and single dispatch on type for `unify` and `reify` respectively.
+
+The first approach of rogue methods is simple and effective, if perhaps slightly caustic.  The method `_as_logpy` transforms the client object into types that LogPy can handle natively, notably `tuple`s and `dict`s.  Because most Python objects can be completely defined by their type and attribute dictionary the following methods are usually sufficient for any Python object that doesn't use advanced features.
+
+    def _as_logpy(self):
+        return (type(self), self.__dict__)
+
+    def _from_logpy((typ, data)):
+        obj = object.__new__(typ)
+        obj.__dict__.update(data)
+        return obj
+
+These methods can then be attached *after* client code has been imported
+
+    >>> from client_code import ClientClass
+    >>> ClientClass._as_logpy = _as_logpy
+    >>> ClientClass._from_logpy = staticmethod(_from_logpy)
+
+In this way any Python object may be regarded as a term and manipulated by LogPy
 
 
-### SymPy Interactions
+#### Variable identification
 
-Mathematical patterns are stored as tuples of SymPy terms 
+Logic variables denote subterms that can match any other term.  In traditional LogPy programs they are identified as objects of the class `logpy.Var`.  Interation with client codes requires that attributes of client objects also be considered as logic variables. If client codes type-check inputs they may reject the inclusion of LogPy `Var`s as attributes within their objects.
 
-~~~~~~~~~~~~Python
-patterns = [
-    (Abs(x),        x,      Q.positive(x)),
-    (exp(log(x)),   x,      Q.positive(x)),
-    (log(exp(x)),   x,      Q.real(x)),
-    ...    
-          ]
-~~~~~~~~~~~~
+To resolve this issue we rely on a carefully managed set of global variables.  To avoid the normal confusion caused by global collections we manage this set with Python context managers.
 
-These can later be injected into a LogPy relation.
+~~~~~~~~~~~~~~Python
+>>> from bank import Account
+>>> acct    = Account(name="Alice", id=123)   # A user defined object
+>>> pattern = Account(name="NAME",  id=-1)
 
-~~~~~~~~~~~~Python
-from logpy import TermIndexedRelation as Relation
-from logpy import facts
-rewrites = Relation('rewrites')
-facts(rewrites, *patterns)
-~~~~~~~~~~~~
+>>> with variables("NAME", -1):
+...     print run(1, "NAME", eq(pattern, acct))
+(Alice,)
+~~~~~~~~~~~~~~
 
-This relation stores the patterns for use in logic programs.  It will be discussed in the next section.
-
-For now note that the definition of the mathematical patterns used only SymPy and pure Python; the interaction with LogPy is well isolated.  In the future more mature algorithmic solutions can replace the LogPy interaction easily without necessitating changes in the mathematical code.  Removing such connections enables components to survive obsolesence of neighboring components.  We avoid "weakest link in the chain" survivability by removing unnecessary connections between modules.
+The `variables` context manager places `"NAME"` and `-1` into a global collection and then yields control to the code within the subsequent block.  Code within that block is executed and queries this collection.  Membership in the collection equivalent to being a logic variable.  After the completion of the `with variables` block the global collection is reset to its original value, commonly the empty set.
 
 
-### Analysis
+### Example - SymPy Interaction
 
-While the demands for logic programming and term matching in our problem are significant, interactions between pieces are always limited to just a few lines of code.  
+\label{sec:logpy-sympy-interaction}
 
-Teaching LogPy to interact with SymPy and `computations` is a simple exercise.  The need for simultaneous expertise in both projects is brief.  Using LogPy to construct a term rewrite system is similarly brief, only a few lines in the function `rewrite_step`.
+LogPy can be trained to interact with SymPy terms with the following code
 
-By supporting interoperation with preexisting data structures we were able to leverage the preexisting mathematical logic system in SymPy without significant hassle.
+~~~~~~~~~~~~~~Python
+def _as_logpy(self):
+    return (self.func, self.args)
 
-The implementation of the `rewrites` Relation determines matching performance.  Algorithmic code is a completely separate concern and not visible to the mathematical users.
+def _from_logpy((func, args)):
+    return func(*args)
+
+from sympy import Basic
+Basic._as_logpy = _as_logpy
+Basic._from_logpy = staticmethod(_from_logpy)
+~~~~~~~~~~~~~~
+
