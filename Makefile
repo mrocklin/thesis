@@ -31,6 +31,7 @@ outline: images/pdfs outline.md math-num front.md lib.bib
 	pandoc outline2.md -o outline.tex --standalone -H tex/preamble-extra.tex -A tex/biblio.tex
 	python scripts/inject-header.py outline.tex tex/header.tex 1 outline.tex
 	pdflatex outline.tex
+	bibtex outline.aux
 
 
 publish: outline 
