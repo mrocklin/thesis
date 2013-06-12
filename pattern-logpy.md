@@ -7,9 +7,17 @@ We implement a rudimentary pattern matcher using LogPy, a general purpose logic 
 
 ### Storing Mathematical Patterns
 
-In Section \ref{sec:logpy-sympy-interaction} we specified how LogPy can interact with SymPy terms.
+A rewrite rule can be specified by a source, target, and condition terms.  These are specified with SymPy terms.  
 
-Mathematical rewrite patterns are stored as `(source, target, condition)` tuples of SymPy terms 
+For examples the following transformation
+
+$$\log(\exp(x)) \rightarrow x \;\;\; \forall x \in \mathbb{R}$$
+
+can be specified with the following tuple
+
+    ( log(exp(x)),       x,      Q.real(x) )
+
+For a particular theory we may store a large collection of these
 
 ~~~~~~~~~~~~Python
 patterns = [
@@ -31,7 +39,7 @@ rewrites = Relation('rewrites')
 facts(rewrites, *patterns)
 ~~~~~~~~~~~~
 
-Note that the definition of the mathematical patterns is pure SymPy.  The injection into a LogPy relation is well isolated.  In the future more mature implementations can replace the LogPy interaction easily without necessitating changes in the mathematical code.  Removing such connections enables components to survive obsolesence of neighboring components.  The `patterns` collection does not depend on the continued use of `LogPy`.  By removing unnecessary connections between modules we avoid "weakest link in the chain" survivability.
+Note that the definition of the mathematical patterns depends only on SymPy.  The injection into a LogPy relation is well isolated.  In the future more mature implementations can replace the LogPy interaction easily without necessitating changes in the mathematical code.  Removing such connections enables components to survive obsolesence of neighboring components.  The `patterns` collection does not depend on the continued use of `LogPy`.  By removing unnecessary connections between modules we avoid "weakest link in the chain" survivability.
 
 
 ### LogPy Execution
