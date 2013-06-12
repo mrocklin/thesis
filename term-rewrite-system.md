@@ -72,3 +72,5 @@ include [Algorithm Search](search.md)
 include [Background](trs-background.md)
 
 include [Pattern-LogPy](pattern-logpy.md)
+
+include [Algorithm Search](search-direct.md)
