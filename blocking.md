@@ -2,7 +2,7 @@
 Blocked Kalman Filter
 ---------------------
 
-In this example we investigate the value of blocking matrices across large algorithms.  At the time of this writing the BLAS/LAPACK computations backend does not support blocking/slicing and concatenation/joining operations.  For this subsection we use the Theano backend presented in section \ref{sec:sympy-theano} instead.
+In this example we investigate the value of blocking matrices across large algorithms.  At the time of this writing the BLAS/LAPACK computations backend does not support blocking/slicing and concatenation/joining operations.  For this subsection we use the Theano backend presented in Section \ref{sec:sympy-theano} instead.
 
 We continue to use the Kalman filter as an example computation.
 

@@ -6,8 +6,6 @@ Matrix Algebra
 
 include [Tikz](tikz_math.md)
 
-*I probably need help to understand both the ideal style and extent that a section like this should have*
-
 We extend the SymPy computer algebra system to Matrix Algebra.  Leaf variables in a matrix algebra are defined by an identifier (e.g. `'X'`) and a shape, two integers of rows or columns.  These shape integers may themselves be symbolic. Common matrix algebra operators include Matrix Multiplication, Matrix Addition, Transposition, and Inversion.  Each of these operators has its own logic about the shape of the term given the shapes of its inputs, validity, and possible simplifications.
 
 In the end we desire the construction of expressions like the following expression for least squares linear regression where $X$ is an $n \times m$ matrix and $y$ an $n \times 1$ column vector.
@@ -26,7 +24,7 @@ Like real analysis, matrix algebra has a rich and extensive theory.  As a result
 
 ### Embedding in SymPy
 
-We implement this matrix algebra in the SymPy langauge.  As in section \ref{sec:sympy-software} we implement the literals and operators as Python classes.
+We implement this matrix algebra in the SymPy langauge.  As in Section \ref{sec:sympy-software} we implement the literals and operators as Python classes.
 
 ~~~~~~~~~~Python
 # Literals
@@ -70,7 +68,7 @@ The execution of these commands does not perform any specific numeric computatio
 
 ### Syntax
 
-As in section \ref{sec:sympy-syntax} we overload Python operator methods `__add__`, `__mul__` to point to `MatAdd` and `MatMul` respectively.  We use Python `property`s to encode `.T` as Tranpose and `.I` as inverse.  This follows the precedent of `NumPy` a popular library for numeric linear algebra.  These changes allow a more familiar syntax for mathematical users
+As in Section \ref{sec:sympy-syntax} we overload Python operator methods `__add__`, `__mul__` to point to `MatAdd` and `MatMul` respectively.  We use Python `property`s to encode `.T` as Tranpose and `.I` as inverse.  This follows the precedent of `NumPy` a popular library for numeric linear algebra.  These changes allow a more familiar syntax for mathematical users
 
 ~~~~~~~~~~~Python
 >>> beta = (X.T*X).I * X.T * y

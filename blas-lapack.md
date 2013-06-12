@@ -7,7 +7,7 @@ include [Tikz](tikz_computation.md)
 
 *Possible reorganization: These are important.  These are hard.*
 
-Sections \ref{sec:sympy}-\ref{sec:matrix-inference} described SymPy and then a Matrix extension to SymPy.  These projects are purely for the symbolic description of mathematics.  They are not appropriate for numeric computations.  In section \ref{sec:computations} we will describe a high-level description of the popular BLAS/LAPACK libraries for *numeric* matrix computations.  In this section we first provide background on these libraries.  Finally in section \ref{sec:matrix-compilation} we will tie the symbolic and numeric pieces together.
+Sections \ref{sec:sympy}-\ref{sec:matrix-inference} described SymPy and then a Matrix extension to SymPy.  These projects are purely for the symbolic description of mathematics.  They are not appropriate for numeric computations.  In Section \ref{sec:computations} we describe a high-level description of the popular BLAS/LAPACK libraries for *numeric* matrix computations.  In this section we first provide background on these libraries.  Finally in Section \ref{sec:matrix-compilation} we tie the symbolic and numeric pieces together.
 
 #### Basic Linear Algebra Subroutines (BLAS)
 

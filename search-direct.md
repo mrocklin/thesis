@@ -2,6 +2,8 @@
 Greedy Search with Backtracking
 -------------------------------
 
+\label{sec:search-direct}
+
 We consider a sequence of decreasingly trivial traversal algorithms.  These expose important considerations.  We build up to our operational algorithm, greedy depth first search with backtracking.
 
 #### Interface
@@ -12,7 +14,7 @@ In this section we consider the abstract problem of exploring a tree to minimize
     objective ::  node -> score
     isvalid   ::  node -> bool
 
-In section \ref{sec:matrix-compilation} we provide implementations of these functions for the particular problem of matrix algorithm search.  In this section we will describe abstract search algorithms using this interface.
+In Section \ref{sec:matrix-compilation} we provide implementations of these functions for the particular problem of matrix algorithm search.  In this section we describe abstract search algorithms using this interface.
 
 ### A Sequence of Algorithms
 

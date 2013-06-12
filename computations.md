@@ -6,13 +6,13 @@ Computations
 
 include [Tikz](tikz_computation.md)
 
-In section \ref{sec:matrix-language} we described a computer algebra system to express and manipulate matrix expressions at a high, symbolic level.  This symbolic work is not appropriate for numeric computation.  In this section we describe a system to define numeric codes at a high-level.  Later in section \ref{sec:matrix-compilation} we will use compiler tools to connect these two to build a more cohesive whole.
+In Section \ref{sec:matrix-language} we described a computer algebra system to express and manipulate matrix expressions at a high, symbolic level.  This symbolic work is not appropriate for numeric computation.  In this Section we describe a system to define numeric codes at a high-level.  Later in Section \ref{sec:matrix-compilation} we use compiler tools to connect these two to build a more cohesive whole.
 
-Our primary target will be Modern Fortran code that calls down to the curated BLAS/LAPACK libraries described in section \ref{sec:blas-lapack}.  These libraries have old and unstructured interfaces which are difficult to target with high-level automated systems.  In this section we build a high-level description of these computations as an intermediary.  We use SymPy matrix expressions to assist with this high level description.  This system is extensible to support other low-level libraries.  We believe that its separation makes it broadly applicable to applications beyond our own.
+We primarily target Modern Fortran code that calls down to the curated BLAS/LAPACK libraries described in Section \ref{sec:blas-lapack}.  These libraries have old and unstructured interfaces which are difficult to target with high-level automated systems.  In this section we build a high-level description of these computations as an intermediary.  We use SymPy matrix expressions to assist with this high level description.  This system is extensible to support other low-level libraries.  We believe that its separation makes it broadly applicable to applications beyond our own.
 
 Specifically we present a small library to encode low-level computational routines that is amenable to manipulation by automated high-level tools.  This library is extensible and broadly applicable.  This library also supports low level code generation.
 
-Later in section \ref{sec:matrix-compilation} we connect the work in this section and in \ref{sec:matrix-language} to form a cohesive generator of computations from high-level math expressions.
+Later in Section \ref{sec:matrix-compilation} we connect the work in this section and in \ref{sec:matrix-language} to form a cohesive generator of computations from high-level math expressions.
 
 include [BLAS/LAPACK](blas-lapack.md)
 
@@ -40,7 +40,7 @@ Composite computations may be built up from many constituents.  Edges between th
 
 \label{sec:tokenize}
 
-We desire to transform DAGs of computations into executable Fortran code.  Unfortunately the mathematical definition of our routines is not sufficient information to print consistent code.  Because the atomic computations overwrite memory we must consider and preserve state within our system.  This will require the introduction of `COPY` operations and a treatment of variable names.  Consider `COPY` defined below
+We desire to transform DAGs of computations into executable Fortran code.  Unfortunately the mathematical definition of our routines is not sufficient information to print consistent code.  Because the atomic computations overwrite memory we must consider and preserve state within our system.  This requires the introduction of `COPY` operations and a treatment of variable names.  Consider `COPY` defined below
 
 ~~~~~~~~~~~~~Python
 class COPY(BLAS):
@@ -117,7 +117,7 @@ Computations like `symm` and `axpy` can be combined to form composite computatio
 \includegraphics[width=.5\textwidth]{images/symm-axpy}
 \end{figure}
 
-The computation above is purely mathematical in nature.  We now consider inplace behavior and inject unique tokens as described in section \ref{sec:tokenize}.  We inject `COPY` operations where necessary.
+The computation above is purely mathematical in nature.  We now consider inplace behavior and inject unique tokens as described in Section \ref{sec:tokenize}.  We inject `COPY` operations where necessary.
 
 ~~~~~~~~~~~~~Python
 >>> inplace = inplace_compile(composite)

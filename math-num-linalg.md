@@ -6,7 +6,7 @@ Mathematical Numerical Linear Algebra
 
 Linear algebra powers scientific computation from a very high mathematical domain level down to a very low numerical level.  Many domains ranging from machine learning to differential equations use linear algebra as a shared language between mathematical researchers and compute hardware.  Numerically most FLOPs occur within dense linear algebra routines.  Because of this depth and range of importance the software development community invests significant resources to the production of dense linear algebra software solutions.  Changing hardware and novel problems force frequent redevelopments within this space.  
 
-We believe that in the context of changing hardware and skewed expertise demographics, this development process can be improved through automation.  In \ref{sec:need-for-compilers} we motivate the use of high-level array and mathematics compilers.  In \ref{sec:math-num-linalg-background} we discuss previous work in this area.  We then present our approach to this problem, a system for mathematically informed automated linear algebra composed of multiple independent pieces.  In \ref{sec:matrix-language} we present a matrix language embedded in SymPy, in \ref{sec:matrix-inference} an inference engine on logical statements, and in \ref{sec:computations} a project to describe BLAS/LAPACK at a high level and then generate low level code.  In section \ref{sec:matrix-compilation} we briefly discuss the related algorithm search problem involved in connecting these pieces to form a complete product.  Finally in section \ref{sec:matrix-analysis} we motivate the separable and declarative design decisions in this federation of projects.  Later in \ref{sec:math-num-linalg-validation} we will validate this work through a sequence of numerical experiments.
+We believe that in the context of changing hardware and skewed expertise demographics, this development process can be improved through automation.  In \ref{sec:need-for-compilers} we motivate the use of high-level array and mathematics compilers.  In \ref{sec:math-num-linalg-background} we discuss previous work in this area.  We then present our approach to this problem, a system for mathematically informed automated linear algebra composed of multiple independent pieces.  In \ref{sec:matrix-language} we present a matrix language embedded in SymPy, in \ref{sec:matrix-inference} an inference engine on logical statements, and in \ref{sec:computations} a project to describe BLAS/LAPACK at a high level and then generate low level code.  In Section \ref{sec:matrix-compilation} we briefly discuss the related algorithm search problem involved in connecting these pieces to form a complete product.  Finally in Section \ref{sec:matrix-analysis} we motivate the separable and declarative design decisions in this federation of projects.  Later in \ref{sec:math-num-linalg-validation} we validate this work through a sequence of numerical experiments.
 
 include [Tikz](tikz_all.md)
 
@@ -41,7 +41,7 @@ Analysis
 
 \label{sec:matrix-analysis}
 
-We can use these pieces together to transform mathematical expressions into well-selected computations and generate performant, human readable Fortran code.  In section \ref{sec:math-num-linalg-validation} we demonstrate the utility of the system described above.  Here we will first motivate its design decisions.
+We can use these pieces together to transform mathematical expressions into well-selected computations and generate performant, human readable Fortran code.  In Section \ref{sec:math-num-linalg-validation} we demonstrate the utility of the system described above.  Here we first motivate its design decisions.
 
 
 ### Small Components Enable Reuse
@@ -56,8 +56,8 @@ These components do not depend on each other for development.  This isolated nat
 
 ### Multiple Intermediate Representations Encourages Experimentation
 
-Broadly applicable software will never be able to anticipate all possible use cases.  In this situation it is important to provide clean intermediate representations at a variety of levels.  This project allows users to manipulate representations at the math/term, DAG, and Fortran levels.  Care has been taken so that each representation is human readable to specialists within the relevant domain.
+Broadly applicable software is unable to anticipate all possible use cases.  In this situation it is important to provide clean intermediate representations at a variety of levels.  This project allows users to manipulate representations at the math/term, DAG, and Fortran levels.  Care has been taken so that each representation is human readable to specialists within the relevant domain.
 
 This encourages future development within the project.  For example to support multiple output languages we only need to translate from the DAG level, a relatively short conceptual distance relative the the size of the entire project.  We currently support Fortran and DOT (for visualization) but adding other languages is a straightforward process.
 
-This encourages development outside the project.  In section \ref{sec:static-scheduling} we will manipulate the DAG with an external composable static scheduler and then re-inject the transformed result into our compiler chain.  Additionally scientific users can use the resulting Fortran90 code as a template for future by-hand development.
+This encourages development outside the project.  In Section \ref{sec:static-scheduling} we manipulate the DAG with an external composable static scheduler and then re-inject the transformed result into our compiler chain.  Additionally scientific users can use the resulting Fortran90 code as a template for future by-hand development.

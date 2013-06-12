@@ -2,7 +2,7 @@
 Predicting Communication Times
 ------------------------------
 
-In Section \ref{sec:computation-times} we analyzed the predictability of computations on conventional hardware.  We found that array computations on large data sets were generally predictable to an accuracy of one percent.  In this section we perform a similar analysis on communication within a network.  We will find a similar result that communication times of bulk data transfer are fairly predictable within a local network.
+In Section \ref{sec:computation-times} we analyzed the predictability of computations on conventional hardware.  We found that array computations on large data sets were generally predictable to an accuracy of one percent.  In this section we perform a similar analysis on communication within a network.  We find a similar result that communication times of bulk data transfer are fairly predictable within a local network.
 
 
 ### Experiment

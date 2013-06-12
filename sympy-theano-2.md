@@ -4,7 +4,7 @@ Scalar Simplification
 
 \label{sec:sympy-theano-2}
 
-In section \ref{sec:sympy-theano-2} we showed how SymPy can benefit from Theano.  In particular Theano provided a mature platform for code generation that outperformed SymPy's attempt at the same problem.  I argued that projects should stick to one specialty and depend on others for secondary concerns.  Interfaces are better than add-ons.
+In Section \ref{sec:sympy-theano-2} we showed how SymPy can benefit from Theano.  In particular Theano provided a mature platform for code generation that outperformed SymPy's attempt at the same problem.  I argued that projects should stick to one specialty and depend on others for secondary concerns.  Interfaces are better than add-ons.
 
 In this post I'll show how Theano can benefit from SymPy.  In particular I'll demonstrate the practicality of SymPy's impressive scalar simplification routines for generating efficient programs.  
 

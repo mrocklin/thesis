@@ -27,7 +27,7 @@ At the top of this tree is the trivial identity computation which computes the d
 
 In principle this tree can be very large negating the possibility of exhaustive search in the general case.  Additionally some branches of this tree may contain dead-ends requiring back-tracking (we may not be able to find a valid all-inputs-are-atoms leaf within a subtree.)   We desire an algorithm to efficiently find a valid and high-quality leaf of this tree.
 
-This problem matches the abstract version in section \ref{sec:search} on algorithmic search.  In that section we discussed the declarative definition and applicaiton of rewrite rules and algorithms to search a decision tree given the following interface: 
+This problem matches the abstract version in Section \ref{sec:search-direct} on algorithmic search.  In that section we discussed the declarative definition and applicaiton of rewrite rules and algorithms to search a decision tree given the following interface: 
 
     children  ::  node -> list of nodes
     objective ::  node -> score
@@ -35,7 +35,7 @@ This problem matches the abstract version in section \ref{sec:search} on algorit
 
 In this section we implement a concrete version.  We provide a set of transformation patterns and implementations of the search interface functions.
 
-In section \ref{sec:matrix-patterns} we describe transformations declaratively in `SymPy` and `computations`.  In section \ref{sec:matrix-children} we use these transformations and `LogPy` to define the `children` function.  In section \ref{sec:matrix-objective} we discuss a simple and effective objective functions on intermediate computations.  In section \ref{sec:matrix-isvalid} we quickly define a validity function.  In section \ref{sec:matrix-search} we reproduce a function for simple greedy search with backtracking first encountered in section \ref{sec:search}.  Finally in section \ref{sec:matrix-compilation-compile} we produce our final code.
+In Section \ref{sec:matrix-patterns} we describe transformations declaratively in `SymPy` and `computations`.  In Section \ref{sec:matrix-children} we use these transformations and `LogPy` to define the `children` function.  In Section \ref{sec:matrix-objective} we discuss a simple and effective objective functions on intermediate computations.  In Section \ref{sec:matrix-isvalid} we quickly define a validity function.  In Section \ref{sec:matrix-search} we reproduce a function for simple greedy search with backtracking first encountered in Section \ref{sec:search}.  Finally in Section \ref{sec:matrix-compilation-compile} we produce our final code.
 
 We reinforce that this is the entirety of the solution for the particular problem of automated search of dense linear algebra algorithms.  All other intelligence is distributed to the appropriate application agnostic package.
 
@@ -108,7 +108,7 @@ The list `order` is trivially accessible by numeric experts.  This solution intu
 
 \label{sec:matrix-search}
 
-We re-present the tree search problem first defined in section \ref{sec:search}.  Fortunately this problem is easily separable.  For cohesion we restate our greedy solution below
+We re-present the tree search problem first defined in Section \ref{sec:search}.  Fortunately this problem is easily separable.  For cohesion we restate our greedy solution below
 
 ~~~~~~~~~~~~~~Python
 include [Greedy Search](greedy.py)

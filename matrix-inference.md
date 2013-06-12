@@ -6,7 +6,7 @@ Matrix Inference
 
 include [Tikz](tikz_math.md)
 
-In section \ref{sec:sympy-inference} we saw that SymPy supports the expression and solution of logical queries on mathematical expressions.  In this section we extend this system to matrix algebra.
+In Section \ref{sec:sympy-inference} we saw that SymPy supports the expression and solution of logical queries on mathematical expressions.  In this section we extend this system to matrix algebra.
 
 ### Inference Problems
 
@@ -14,7 +14,7 @@ Matrices can satisfy a rich set of predicates.  A matrix can have structural att
 
 #### Example
 
-In section \ref{sec:sympy-inference} we posed the following example
+In Section \ref{sec:sympy-inference} we posed the following example
 
 *Given that $x$ is a natural number and that $y$ is real, is $x + y^2$ positive?*
 
@@ -87,7 +87,7 @@ True
 
 This particular question is computationally relevant.  It arises frequently in scientific problems and significantly more efficient algorithms are applicable when it is true.  Unfortunately relatively few scientific users are able to recognize this situation.  Even this situation is correctly identified many developers are unable to take advantage of the appropriate lower-level routines.
 
-This is the first system that can answer questions like this for abstract matrices.  In section \ref{sec:computations} we will describe a system to describe the desired routine.  In section \ref{sec:matrix-compilation} we will describe a system to select the desired routine given the power of inference described here.
+This is the first system that can answer questions like this for abstract matrices.  In Section \ref{sec:computations} we describe a system to describe the desired routine.  In Section \ref{sec:matrix-compilation} we describe a system to select the desired routine given the power of inference described here.
 
 
 ### Refined Simplification

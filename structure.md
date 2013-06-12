@@ -15,9 +15,9 @@ the computational science community's efforts*
 
 We support these claims in the following ways:
 
-*   In section \ref{sec:background} we review standard approaches to the distribution of expertise within the development community.
-*   In section \ref{sec:motivation} we provide positive and pathological cases of historical approaches to scientific software development.  In particular we look at how projects adapt to external changes from hardware development.
-*   In section \ref{sec:sympy-theano} we look at two high-level packages for mathematical software generation with overlapping functionality, SymPy and Theano.  We show how developing an interface between the two projects is substantially more effective than extending either one.
-*   In sections \ref{sec:math-num-linalg} and \ref{sec:math-num-linalg-validation} we present a system to generate mathematically informed numerical linear algebra codes.  We demonstrate the value of high-level mathematics in algorithm selection and the applicability of composable solutions to sub-problems instead of monolithic solutions.
-*   In section \ref{sec:static-scheduling} we extend this argument by adding another separate component, static scheduling.  We use this piece to attack problems in heterogeneous statically scheduled linear algebra.
-*   In section \ref{sec:term-rewrite-system} we discuss declarative techniques for the expression of expertise and generation of domain specific compilers.  We outline a toolchain used in the above projects. 
+*   In Section \ref{sec:background} we review standard approaches to the distribution of expertise within the development community.
+*   In Section \ref{sec:motivation} we provide positive and pathological cases of historical approaches to scientific software development.  In particular we look at how projects adapt to external changes from hardware development.
+*   In Section \ref{sec:sympy-theano} we look at two high-level packages for mathematical software generation with overlapping functionality, SymPy and Theano.  We show how developing an interface between the two projects is substantially more effective than extending either one.
+*   In Sections \ref{sec:math-num-linalg} and \ref{sec:math-num-linalg-validation} we present a system to generate mathematically informed numerical linear algebra codes.  We demonstrate the value of high-level mathematics in algorithm selection and the applicability of composable solutions to sub-problems instead of monolithic solutions.
+*   In Section \ref{sec:static-scheduling} we extend this argument by adding another separate component, static scheduling.  We use this piece to attack problems in heterogeneous statically scheduled linear algebra.
+*   In Section \ref{sec:term-rewrite-system} we discuss declarative techniques for the expression of expertise and generation of domain specific compilers.  We outline a toolchain used in the above projects. 
