@@ -18,6 +18,8 @@ patterns = [
     (log(exp(x)),   x,      Q.real(x)),
     ...    
           ]
+
+vars = {x}
 ~~~~~~~~~~~~
 
 These are later indexed in a LogPy relation.
@@ -45,20 +47,14 @@ asko = goalify(ask)
 We construct a function to perform a single term rewrite step.  It creates and executes a brief LogPy program, discussed immediately afterwards.
 
 ~~~~~~~~~~Python
-from logpy import run, lall
-
-def rewrite_step(expr, rewrites):
-    """ Possible rewrites of expr given relation of patterns """
-    target, condition = var(), var()
-    return run(None, target, lall(rewrites(expr, target, condition),
-                                      asko(condition, True)))
+include [rewrite_step.py](rewrite_step.py)
 ~~~~~~~~~~
 
 The `run` function asks for a lazily evaluated iterator (`None`) that returns reified values of the variable `target` that satisfy both of the following goals:
     
 #### `rewrites(expr, target, condition)`
 
-The LogPy Relation `rewrites` stores facts, in this case our rewrite patterns.  The facts are of the form `(source, target, condition)` and claim that a expression matching `source` can be rewritten as `target` if the boolean expression `condition` holds true.  For example rewrites might contain the facts
+The LogPy Relation `rewrites` stores facts, in this case our rewrite patterns.  The facts are of the form `(source, target, condition)` and claim that a expression matching `source` can be rewritten as `target` if the boolean expression `condition` holds true.  For example rewrites might contain the following facts
     
     (Abs(x),        x,      Q.positive(x))
     (exp(log(x)),   x,      Q.positive(x)),
@@ -79,9 +75,9 @@ We return a lazy iterator of all target patterns such that the source pattern ma
 
 #### Analysis
 
-While the demands for logic programming and term matching in our problem are significant, interactions between pieces are always limited to just a few lines of code.  
+Interactions between mathematical, logical, and algorithmic pieces of our solution are limited to a few lines of code.  Simultaneous expertise is only rarely necessary.
 
-Teaching LogPy to interact with SymPy and computations is a simple exercise.  The need for simultaneous expertise in both projects is brief.  Using LogPy to construct a term rewrite system is similarly brief, only a few lines in the function `rewrite_step`.
+Teaching LogPy to interact with SymPy is a simple exercise.  The need for simultaneous expertise in both projects is brief.  Using LogPy to construct a term rewrite system is similarly brief, only a few lines in the function `rewrite_step`.
 
 By supporting interoperation with preexisting data structures we were able to leverage the preexisting mathematical logic system in SymPy without significant hassle.
 

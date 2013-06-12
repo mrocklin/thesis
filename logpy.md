@@ -132,7 +132,7 @@ To resolve this issue we rely on a carefully managed set of global variables.  T
 (Alice,)
 ~~~~~~~~~~~~~~
 
-The `variables` context manager places `"NAME"` and `-1` into a global collection and then yields control to the code within the subsequent block.  Code within that block is executed and queries this collection.  Membership in the collection equivalent to being a logic variable.  After the completion of the `with variables` block the global collection is reset to its original value, commonly the empty set.
+The `variables` context manager places `"NAME"` and `-1` into a global collection and then yields control to the code within the subsequent block.  Code within that block is executed and queries this collection.  Membership in the collection equivalent to being a logic variable.  After the completion of the `with variables` block the global collection is reset to its original value, commonly the empty set.  This allows the use of arbitrarily typed values as logic variables, further enabling interoperation.
 
 
 ### Example - SymPy Interaction
