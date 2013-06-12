@@ -5,11 +5,12 @@ Pattern Matching
 
 include [TikZ](tikz_pattern.md)
 
-Rewriting via term matching enables the definition of transformations using only the mathematical language of terms (e.g. SymPy).  The underlying algorithmic language (e.g. Python) is separated from the definition of transformations.  This separation compounds many of the previously mentioned benefits of term rewrite systems.
+We consider the class of transformations that can be fully described by only source, target, and condition patterns.  We instantiate these transfromations using pattern matching.  Pattern matching enables the definition of transformations using only the mathematical language of terms (e.g. SymPy) without relying on the implementation (e.g. Python).  This separation compounds many of the previously mentioned benefits of term rewrite systems.
 
-Pattern matching enables the construction of transformations declaratively, requiring only the syntax of the term language.  This provides further convenience to the mathematical programmer as the practice aligns well with the written tradition of mathematics.  Additionally, transformations written as rewrite patterns are more durable and reusable, depending only on the syntax of mathematical terms.  The syntax of mathematical terms has demonstrated significant longevity.
+1.  Rewrite patterns align more closely with the tradition of written mathematics than does general purpose code
+2.  Development of mathematical transformations is not tied to the implementation, freeing both to be developped at different time scales by different communities.
 
-#### Mathematical Transformations
+### Motivation
 
 We reconsider the unpacking logarithms of exponents example 
 
@@ -50,3 +51,25 @@ In practice we will have a fixed set of variables, reducing the tuple to three e
     ( log(exp(x)),       x,      Q.real(x) )
 
 Using these rewrite patterns we reduce the problem of transformation to matching incoming terms against the source pattern, obtaining appropriate values for `x`, checking the condition, and then reifying these values into the target pattern.  These operations can be dealt with outside the context of mathematics.  Mature solutions already exist, largely stemming from work in logic programming languages and theorem provers. 
+
+
+### Concerns in Mathematical Theories
+
+\label{sec:pattern-concerns}
+
+Mathematical theories introduce the following additional computational concerns to the pattern matching problem
+
+
+#### Many Patterns
+
+Mathematical theories may contain thousands of rewrite patterns.  For example `RUBI`\cite{Rich2009}, a system for the solution of indefinite integrals, requires a collection of thousands of patterns; none of which overlap.  A matching process that scales linearly with the number of patterns can be computationally prohibitive.
+
+
+#### Associative Commutative Matching
+
+Mathematical theories often contain associative and commutative operations (like scalar addition or set union).  While associativity and commutativity could be defined in standard systems with the following identities 
+
+$$ f(x, f(y, z)) = f(f(x, y), f(z)) $$
+$$ f(x, y) = f(y, x) $$
+
+doing so may result in pathologically poor search patterns.
