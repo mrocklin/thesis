@@ -21,13 +21,14 @@ For a particular theory we may store a large collection of these
 
 ~~~~~~~~~~~~Python
 patterns = [
-    (Abs(x),        x,      Q.positive(x)),
-    (exp(log(x)),   x,      Q.positive(x)),
-    (log(exp(x)),   x,      Q.real(x)),
+    (Abs(x),            x,      Q.positive(x)),
+    (exp(log(x)),       x,      Q.positive(x)),
+    (log(exp(x)),       x,      Q.real(x)),
+    (log(x**y),     y*log(x),   True),
     ...    
           ]
 
-vars = {x}
+vars = {x, y}
 ~~~~~~~~~~~~
 
 These are later indexed in a LogPy relation.
@@ -64,9 +65,10 @@ The `run` function asks for a lazily evaluated iterator (`None`) that returns re
 
 The LogPy Relation `rewrites` stores facts, in this case our rewrite patterns.  The facts are of the form `(source, target, condition)` and claim that a expression matching `source` can be rewritten as `target` if the boolean expression `condition` holds true.  For example rewrites might contain the following facts
     
-    (Abs(x),        x,      Q.positive(x))
-    (exp(log(x)),   x,      Q.positive(x)),
-    (log(exp(x)),   x,      Q.real(x)),
+    (Abs(x),            x,      Q.positive(x)),
+    (exp(log(x)),       x,      Q.positive(x)),
+    (log(exp(x)),       x,      Q.real(x)),
+    (log(x**y),     y*log(x),   True),
 
     
 By placing the input, `expr`, in the source position we mandate that `expr` must match the `source` of the pattern.  The `rewrites` relation selects the set of potentially matching patterns and produces a stream of matchings.  The `target` and `condition` terms will be reified with these matchings during future computations.
