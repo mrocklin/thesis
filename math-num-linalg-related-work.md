@@ -47,8 +47,8 @@ is co-developped alongside PLASMA to support heterogeneous architectures with th
 
 BLAS/LAPACK, FLAME, PLASMA, and MAGMA all build custom treatments of linear algebra in order to create high performance libraries.  It is necessary to reason about linear algebra in order to produce an efficient codebase.  Each codebase encodes a substantial amount of linear algebra either directly in calls to subroutines or within some automated reasoning knowledgebase
 
-*   LAPACK knows that results from POTRF are triangular and can be used with POTRS
-*   The parallel systems (ScaLAPACK, PLASMA, MAGMA) each encode how to block a matrix multiply or solve so that they can distribute the work
+*   LAPACK encodes knowledge implicitly in its code.  For example the routine `POSV` knows that results from `POTRF`, the positive definite triangular factorization, are triangular and can be used with `POTRS` (solve) or `TRMM` (matrix multiply).  This relationship isn't explicit in the code or type system but is evident in the choice of subroutine calls.
+*   The parallel systems (ScaLAPACK, PLASMA, MAGMA) each encode how to block a matrix multiply or solve so that they can distribute the work.  This is encoded in explicit routines.
 *   FLAME tracks loop invariants across computation steps
 
 Unfortunately there is duplication and an inability to share the intermediate logic with other projects.  This abstract/symbolic knowledge has not been well described in any isolated and reusable symbolic system.
@@ -62,3 +62,10 @@ Given such a matrix of symbolic elements they are able to perform matrix multipl
 However there are add-ons for Mathematica, notably xAct, which solve variations.  xAct\cite{xact} defines and reasons about tensor expressions in a purely abstract and geometrical (coordinate free) manner.  This approach is in the same vein as SymPy.Matrix.Expressions but in a different application.
 
 Several treatments of matrix computations exist as libraries for Coq, an automated theorem prover.
+
+
+### Analysis
+
+Developers of numerical systems repeatedly encode parts of the mathematics behind their computations into their code.  This results in several partial expressions of matrix algebra, each of which is inextricably tied to the numerical implementation.
+
+Surprisingly, no isolated treatment of matrix algebra has ever been implemented in a well known computer algebra system.  While computer algebra systems implement explicit matrix computations they do not support the symbolic study of matrix computations themselves.  Existing approaches are more relevant to the application of computer algebra, rather than the support of numerical computating.
