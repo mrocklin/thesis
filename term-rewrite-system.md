@@ -74,3 +74,7 @@ include [Background](trs-background.md)
 include [Pattern-LogPy](pattern-logpy.md)
 
 include [Algorithm Search](search-direct.md)
+
+## Strategies - other work
+
+Originally I implemented a Stratego-like system in Python and used it to some effect within SymPy.  It powers part of the matrix algebra CAS and serves as a nice control system for trigonometric simplification\cite{Fu2006}.  For the my main problem of compiling BLAS/LAPACK programs though I've reverted back to traditional Python code (section \ref{sec:search-direct}).  I'm happy to talk about this other work if it adds relevance.  It's clean, simple to write about, but not novel (Stratego exists) and not related to the BLAS/LAPACK generation work ahead.
