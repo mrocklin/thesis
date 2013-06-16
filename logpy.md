@@ -81,14 +81,20 @@ Two important logical goal combinators are logical all `lall` and logical any `l
 
 ### Composition
 
-LogPy is designed to interoperate with legacy Python codes.  While LogPy traditionally uses trees of tuples to define terms it is also able to interoperate with user-defined types.  LogPy was designed to simultaneously support two computer algebra systems, SymPy and Theano.  Both of these projects are sufficiently entrenched to bar the possibility of changing the underlying data structures.  
+LogPy is designed to interoperate with legacy Python codes.  
 
-While several logic programming projects exist in the Python each requires client projects to adopt specific logic variable types.  LogPy makes no such requirement.  LogPy was developed simultaneously with multiple client projects with large and inflexible pre-existing codebases.  As a result it makes minimal demands for interoperation, significantly increasing its relevance. 
+A programming language operates on a language of terms.  In traditional logic programming languages like Prolog this term language is custom-built for and included within the logic programming system, enabling tight integration between terms and computational infrastructure.  However a custom term language limits interoperability with other term-based systems (like computer algebra systems).  miniKanren, the language implemented by LogPy, resolves this problem by describing terms with simple s-expressions, enabling broad interoperation with projects within its intended host language, Scheme.  While LogPy supports the manipulation of s-expressions (using Python tuples) this choice is not natural within the Python ecosystem.
+
+S-expressions are not idiomatic within the Python ecosystem and few projects (if any) define terms in this way.  Other logic programming systems in Python (do I need software citations here?) create custom classes both for logic variables and compound terms which operate well within their own infrastructure but do not adhere to any standard interface.  The intended object oriented approach is for client projects to subclass these logic programming classes if they want to interoperate with the logic programming system.
+
+This approach does not easily enable composition with legacy codes.  LogPy is designed to interoperate with legacy systems where changing the client codebases to subclass from logic classes is not an option.  In particular LogPy was designed to simultaneously support two computer algebra systems, SymPy and Theano.  Both of these projects are sufficiently entrenched to bar the possibility of changing the underlying data structures.  This application constraint forced a design which makes minimal demands for interoperation; easy of composition is a core tenet.  We believe that this is a significant contribution of this project.
+
+*LogPy is not intended to work with its own term syntax.  Instead it supports interoperation with domain specific term languages*.  This thesis discusses a computer algebra term rewrite system.  The term language is taken directly from the SymPy computer algebra system; mathematics is not reinvented within the logic programming system.
 
 To achieve interoperation we need to know how to do the following:
 
 1.  `unify` and `reify` against client types
-2.  Identify logic variables
+2.  Identify logic variables (TODO: miniKanren uses this term - John says to use meta-variable)
 
 #### `unify` and `reify`
 
@@ -99,57 +105,71 @@ To be useful in a client codebase we must specify how to `unify` and `reify` obj
 
 The first approach of rogue methods is simple and effective, if perhaps slightly caustic.  The method `_as_logpy` transforms the client object into types that LogPy can handle natively, notably `tuple`s and `dict`s.  Because most Python objects can be completely defined by their type and attribute dictionary the following methods are usually sufficient for any Python object that doesn't use advanced features.
 
-    def _as_logpy(self):
-        return (type(self), self.__dict__)
+~~~~~~~~~~~Python
+def _as_logpy(self):
+    return (type(self), self.__dict__)
 
-    def _from_logpy((typ, data)):
-        obj = object.__new__(typ)
-        obj.__dict__.update(data)
-        return obj
+def _from_logpy((typ, data)):
+    obj = object.__new__(typ)
+    obj.__dict__.update(data)
+    return obj
+~~~~~~~~~~~
 
 These methods can then be attached *after* client code has been imported
 
-    >>> from client_code import ClientClass
-    >>> ClientClass._as_logpy = _as_logpy
-    >>> ClientClass._from_logpy = staticmethod(_from_logpy)
+~~~~~~~~~~~Python
+def logify(cls):
+    cls._as_logpy = _as_logpy
+    cls._from_logpy = staticmethod(_from_logpy)
 
-In this way any Python object may be regarded as a term and manipulated by LogPy
+from client_code import ClientClass
+logify(ClientClass)
+~~~~~~~~~~~
+
+In this way any Python object may be regarded as a compound term and manipulated by LogPy.  We provide a single `logify` function to mutate classes defined under the standard object model.  In operation we provide a more complex function to handle common variations from the standard model (e.g. the use of `__slots__`)
+
+This approach builds up an interface in the following way.  LogPy handles terms built up of tuples and dictionaries natively.  As we have just seen a standard Python object may be expanded into a compound term using tuples and dicts.  We can mark those classes which we want to treat as operators in a logic programming sense using the `logify` function; otherwise objects are treated as constants or as variables (see next section for discussion of variables.)  Python inheritance is hijacked to mark broad sets of operations (e.g. `ClientSubClass` also has the methods `_as_logpy`, and `_from_logpy`.
+
+Note that the Python objects themselves are traversed, not a translation (we do not call `_as_logpy` exhaustively before the logic program executes.)  Keeping the objects intact enables users to debug their code with familiar data structures and enables the use of client code *within* the logic program.
 
 
 #### Variable identification
 
-Logic variables denote subterms that can match any other term.  In traditional LogPy programs they are identified as objects of the class `logpy.Var`.  Interation with client codes requires that attributes of client objects also be considered as logic variables. If client codes type-check inputs they may reject the inclusion of LogPy `Var`s as attributes within their objects.
+Logic variables (TODO: meta variables) denote subterms that can match any other term.  Traditionally logic variables are identified by their type.  Python objects of the class `logpy.Var` are considered to be logic variables.  However interaction with user defined classes may require the injection of a logic variable as an attribute in an arbitrary Python object.  It is possible that that object will perform checks that reject the inclusion of a LogPy `Var`.  For example in user-written code for an Account object it is feasible that a balance attribute will be checked to be of type `float`.  To match against a balance we need some way to make a `float` a logic variable.
 
-To resolve this issue we rely on a carefully managed set of global variables.  To avoid the normal confusion caused by global collections we manage this set with Python context managers.
+To resolve this issue we rely on a carefully managed set of global variables.  We make unique and rare values (e.g. `-9999.9`) and place them in a globally accessible collection.  Membership in this collection connotes logic variable.  To avoid the normal confusion caused by global collections we manage this set with Python context managers/coroutines.
 
 ~~~~~~~~~~~~~~Python
->>> from bank import Account
->>> acct    = Account(name="Alice", id=123)   # A user defined object
->>> pattern = Account(name="NAME",  id=-1)
+_logic_variables = set()
 
->>> with variables("NAME", -1):
-...     print run(1, "NAME", eq(pattern, acct))
+@contextmanager
+def variables(*variables):
+    old = _logic_variables.copy()            # Save old set
+    _logic_variables.update(set(variables))  # Inject new variables
+
+    yield                                           # Yield control to `with` block
+
+    _logic_variables.clear()                 # Delete current set
+    _logic_variables.update(old)             # Load old set
+~~~~~~~~~~~~~~
+
+In the example below we fin the name of the account-holder with 100 dollars.  The generic Python string "NAME" is used as a logic variable.
+The `variables` context manager places `"NAME"` into a global collection and then yields control to the code within the subsequent block.  Code within that block is executed and queries this collection.  Membership in the collection equivalent to being a logic variable.  After the completion of the `with variables` block the global collection is reset to its original value, commonly the empty set.  This allows the use of arbitrarily typed values as logic variables, further enabling interoperation.
+
+~~~~~~~~~~~~~~Python
+>>> from logpy import logify, variables, run, membero
+>>> from bank import Account
+>>> logify(Account)
+
+>>> accts = [Account(name="Alice", balance=100),
+             Account(name="Bob"  , balance=70)]
+
+>>> query =  Account(name="NAME",  balance=100)
+>>> vars = ["NAME"]
+
+>>> with variables(*vars):
+...     print run(1, "NAME", membero(query, accts))
 (Alice,)
 ~~~~~~~~~~~~~~
 
-The `variables` context manager places `"NAME"` and `-1` into a global collection and then yields control to the code within the subsequent block.  Code within that block is executed and queries this collection.  Membership in the collection equivalent to being a logic variable.  After the completion of the `with variables` block the global collection is reset to its original value, commonly the empty set.  This allows the use of arbitrarily typed values as logic variables, further enabling interoperation.
-
-
-### Example - SymPy Interaction
-
-\label{sec:logpy-sympy-interaction}
-
-LogPy can be trained to interact with SymPy terms with the following code
-
-~~~~~~~~~~~~~~Python
-def _as_logpy(self):
-    return (self.func, self.args)
-
-def _from_logpy((func, args)):
-    return func(*args)
-
-from sympy import Basic
-Basic._as_logpy = _as_logpy
-Basic._from_logpy = staticmethod(_from_logpy)
-~~~~~~~~~~~~~~
-
+Logpy is able to seemlessly interoperate with a generic client code with little setup.
