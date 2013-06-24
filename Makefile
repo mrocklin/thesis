@@ -33,6 +33,14 @@ outline: images/pdfs outline.md math-num front.md lib.bib
 	pdflatex outline.tex
 	bibtex outline.aux
 
+dissertation: images/pdfs dissertation.md math-num front.md lib.bib
+	python scripts/include.py dissertation.md dissertation2.md
+	python scripts/dollar.py dissertation2.md dissertation2.md
+	pandoc dissertation2.md -o dissertation.tex --standalone -H tex/preamble-extra.tex -A tex/biblio.tex
+	python scripts/inject-header.py dissertation.tex tex/header.tex 1 dissertation.tex
+	pdflatex dissertation.tex
+	bibtex dissertation.aux
+
 nexus-10: outline
 	bluetooth-sendto outline.pdf --device $$NEXUS_10 
 

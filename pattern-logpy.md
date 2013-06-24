@@ -1,9 +1,26 @@
 
-## Matching mathematical patterns with LogPy and SymPy
+## Mathematical Rewriting - LogPy and Sympy 
 
-\label{sec:term-rewriting}
+\label{sec:logpy-sympy}
 
-We implement a rudimentary pattern matcher using LogPy, a general purpose logic programming library, and SymPy, a computer algebra system.  We chose this approach instead of one of the mature systems mentioned in Section \ref{sec:pattern-previous-work} in order to limit the number of dependencies that are uncommon within the scientific computing ecosystem and in order to leverage and expose existing mathematical expertise.
+We implement a rudimentary mathematical pattern matcher by composing LogPy, a general purpose logic programming library, and SymPy, a computer algebra system.  We chose this approach instead of one of the mature systems mentioned in Section \ref{sec:pattern-previous-work} in order to limit the number of dependencies that are uncommon within the scientific computing ecosystem and in order to leverage and expose existing mathematical expertise already within SymPy.
+
+### LogPy Manipulates Sympy Terms
+
+Recall that LogPy supports the `term` interface discussed in Section \ref{sec:term}.
+
+We now impose the `term` interface on SymPy classes so that LogPy can manipulate SymPy terms.  This happens outside of the SymPy codebase.  We do this with the following definitions of the `_term_xxx` methods.
+
+~~~~~~~~~~Python
+from sympy import Basic
+Basic._term_op      = lambda self: self.func
+Basic._term_args    = lambda self: self.args
+Basic._term_new     = classmethod(lambda op, args: op(*args))
+Basic._term_isleaf  = lambda self: not self.args
+~~~~~~~~~~
+
+We do not invent a new term language for this term rewrite system.  Rather we reuse the existing language from the SymPy computer algebra system; mathematics is not reinvented within the logic programming system.
+
 
 ### Storing Mathematical Patterns
 

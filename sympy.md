@@ -73,4 +73,18 @@ log(3*exp(x + 2))
 x + log(3) + 2
 ~~~~~~~~~~
 
-include [SymPy Inference](sympy-inference.md)
+### Relation to other CAS
+
+SymPy differs from existing computer algebra systems in the following ways
+
+#### Application:  
+
+SymPy's community is more focused around scientific and computational applications and less around pure mathematics.  
+
+#### Library:  
+
+SymPy is intended to be imported as a library within other applications.  Most other computer algebra systems are monolithic systems with fixed user interfaces.
+
+#### Pure Python: 
+
+SymPy is written in Python, a common library for accessible scientific computing.  Additionally it restricts itself to Python rather than relying on C extension modules.  This sacrifices performance for ease of installation.

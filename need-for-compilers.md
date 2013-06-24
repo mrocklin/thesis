@@ -11,4 +11,3 @@ Each of these languages provide a set of high performance array operations.  A s
 None of these popular array programming languages are compiled (TODO: are there counter-examples?).  Because the array operations call down to precompiled library code this may at first seem unnecessary.
 
 include [Operation Ordering in Matlab](operation-ordering-matlab.md)
-

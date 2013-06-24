@@ -35,8 +35,6 @@ include [Linear regresion - Extensibility - SYRK v. GEMM](syrk.md)
 
 include [Kalman filter - The value of inference and specialized routines](kalman.md)
 
-include [Blocked Kalman filter in Theano](blocking.md)
-
 Conclusion
 ----------
 

@@ -1,9 +1,12 @@
+
 Pattern Matching
 ----------------
 
 \label{sec:pattern}
 
 include [TikZ](tikz_pattern.md)
+
+*The syntax of mathematics is both more widely understood and more stable than the syntax of programming*
 
 We consider the class of transformations that can be fully described by only source, target, and condition patterns.  We instantiate these transfromations using pattern matching.  Pattern matching enables the definition of transformations using only the mathematical language of terms (e.g. SymPy) without relying on the implementation (e.g. Python).  This separation compounds many of the previously mentioned benefits of term rewrite systems.
 
@@ -42,11 +45,7 @@ $$\log(\exp(x)) \rightarrow x \;\;\; \forall x \in \mathbb{R}$$
 *   Condition:  $x \in \mathbb{R}$
 *   Variables: $\forall x$
 
-Each of these elements may be encoded in the computer algebra system (SymPy) without additional support from the general purpose language (Python).  We encode them below in a `(source, target, condition, variables)` tuple. 
-
-    ( log(exp(x)),       x,      Q.real(x) ,    {x} )
-
-In practice we will have a fixed set of variables, reducing the tuple to three elements
+Each of these elements may be encoded in the computer algebra system (SymPy) without additional support from the general purpose language (Python).  We encode them below in a `(source, target, condition)` tuple. 
 
     ( log(exp(x)),       x,      Q.real(x) )
 
