@@ -31,3 +31,5 @@ The information known on states affects the search problem.  We consider the fol
 
 *   Validity:  There may be a notion of validity at each final state.  Only some leaves represent valid terminal points; others may be incompletely transformed dead-ends.
 *   Quality:  There may be a notion of quality or cost both at each final state and at intermediate states.  Such an objective function may be used as a local guide in a search process.
+
+include [Search Challenges](search-challenges.md)
