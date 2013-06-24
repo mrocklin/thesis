@@ -1,9 +1,9 @@
 
-### Inference
+## Inference
 
 \label{sec:sympy-inference}
 
-#### Problem description
+### Problem description
 
 We often want to test whether algebraic statements are true or not in a general case.  For example, 
 
@@ -32,11 +32,11 @@ To create a system to pose and answer these questions we need the following piec
 4.  A solver for satisfiability given the above relations
 
 
-#### Implementation in SymPy
+### Implementation in SymPy
 
 *Disclaimer: while I develop the underlying inference engine I am not its originator - this is not a contribution of mine*
 
-##### A set of predicates
+#### A set of predicates
 
 A set of predicates is collected inside the singleton object, `Q`
 
@@ -46,7 +46,7 @@ A set of predicates is collected inside the singleton object, `Q`
 
 These Python objects serve only as literal terms.  They contain no logic on their own.
 
-##### A syntax for posing queries
+#### A syntax for posing queries
 
 Predicates may be applied to SymPy Expressions. 
 
@@ -58,7 +58,7 @@ The user interface for query is the `ask` function
     >>> ask(query, context)
     True
 
-##### Predicate-Predicate Relations
+#### Predicate-Predicate Relations
 
 \label{sec:sympy-inference-predicate-predicate}
 
@@ -72,7 +72,7 @@ For efficiency forward chaining from these axioms is done at code-distribution t
 
     Implies(Q.natural, Q.real)
 
-##### Predicate-Operator Relations
+#### Predicate-Operator Relations
 
 \label{sec:sympy-inference-predicate-operator}
 
@@ -88,7 +88,7 @@ class AskPositiveHandler(...):
 ~~~~~~~~~~
 
 
-##### Testing for Satisfiability
+#### Testing for Satisfiability
 
 SymPy assumptions relies on the [Davis–Putnam–Logemann–Loveland](http://en.wikipedia.org/wiki/DPLL_algorithm) algorithm for solving the CNF-SAT problem.  This algorithm is separable from the rest of the codebase.  This solver accesses the predicate-predicate and predicate-operator relations defined above.
 
