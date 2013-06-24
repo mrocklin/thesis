@@ -22,7 +22,7 @@ The Maude system\cite{Clavel1996} uses term rewriting to support a meta-programm
 The Stratego/XT\cite{Visser2004} toolset contains several separate tools to support the definition of syntax, language, transformations on terms within that language, and strategies to coordinate the application of those transformations.  This orthogonal approach separates many of the ideas that are present in systems like Elan into distinct, clearly defined ideas.
 
 
-### Algorithmic Challenges - Pattern Matching
+### Algorithmic Challenges
 
 Pattern matching in some form is ubiquitous in modern programming languages.  Unification of terms has long been a cornerstone of both logic programming languages and of theorem provers.  Basic algorithms exist in standard texts on artificial intelligence\cite{aima}.
 
@@ -43,17 +43,3 @@ $$ f(x, y) = f(y, x) $$
 Instead operators that follow one or both of the associative-commutative identities are often specifically handled within the implementation of the term rewrite system.  For instance Maude requests that users mark such operators with special annotations.
 
 In the simple case associativity may be handled by a round of flattening to n-ary trees (e.g. $f(x, f(y, z)) \rightarrow f(x, y, z)$) and commutativity by bipartite graph matching\cite{Eker1995}.  Because associative-commutative operators often occur in theories with many rewrite patterns, these two problems may be solved simultaneously for greatest efficiency.  Discrimination nets can be extended (using multiple nets) to efficiently index many associative-commutative patterns\cite{Bachmair1993, Kirchner2001}, supporting many-to-one associative-commutative matching.
-
-
-### Algorithmic Challenges - Search Strategies
-
-Both multiple patterns and associative-commutative operators introduce the possibility of multiple valid transformations at a single stage.  If the collection of transformations are not confluent and if the set of possible states is large then a search strategy must be specified to find a good solution in a reasonable amount of time.
-
-Systems like Prolog hard-wire a single specific traversal into the transformation system.  It includes backtracking to allow the search to walk out of dead ends and continuation to allow a user to lazily request additional results.  Maude extends this system with the option of "fair rewrites" that samples from the applicable transformations with a round-robin policy.  
-
-While these strategies are useful in the common case it may be that a problem requires custom traversal for efficient computation.  Systems like Elan enable developers to specify search strategies within their program.  Elan includes terms like `repeat` to exhaustively evaluate a particular strategy or `dc one` to non-deterministically applies one of a set of strategies.  The Stratego/XT reinforces this idea by isolating it into it's own separate language Stratego.  Stratego enables the description of complex traversals independent of any particular search problem.
-
-
-### Mathematica
-
-Likely the most popular term rewrite system to date is Mathematica, the popular commercial computer algebra system.
