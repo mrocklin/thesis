@@ -1,6 +1,6 @@
 
-Adding Computations
--------------------
+SYRK - Adding Computations
+--------------------------
 
 \label{sec:syrk}
 
@@ -20,30 +20,25 @@ class SYRK(BLAS):
 And by adding the relevant patterns 
 
 ~~~~~~~~~Python
-  (alpha*A*A.T + beta*D, SYRK(alpha, A, beta, D), [alpha, A, beta, D], True),
-  (A*A.T,                SYRK(1.0, A, 0.0, 0),    [A],                 True),
+  (alpha*A*A.T + beta*D, SYRK(alpha, A, beta, D),   True),
+  (A*A.T,                SYRK(1.0, A, 0.0, 0),      True),
 ~~~~~~~~~
-
-This resulted in a 50% speedup in the `X -> X'*X` computation and a 9% speedup overall. 
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\textwidth]{images/hat-comp}
 \end{figure}
 
-    Elapsed time with GEMM = 0.43399999 
-    
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\textwidth]{images/hat-comp-syrk}
 \end{figure}
 
-    Elapsed time with SYRK = 0.39500001 
 
-### Numeric Result
+#### Numeric Result
 
-We achieved a 9% speedup in an important algorithm.  This speedup will be delivered to all naive developers.
+This optimization is relevant within this application.  The `SYRK` computation generally consumes about 50% as much compute time as the equivalent `GEMM`.  It reads the input `X` only once and performs an symmetric multiply.  The computation of $X^TX$ consumes a significant fraction of the cost within this computation.
 
-### Development Result
+#### Development Result
 
-Second, this speedup was both found and implemented by a domain expert.  He was able to identify the flaw in the current implementation because the intermediate representations (DAG, Fortran code) were clear and natural to someone in his domain.  The code invited inspection.  After identification he was able to implement the correct computation (`class SYRK`).  The `computations` project for BLAS/LAPACK routines was simple enough for him to quickly engage and develop his contribution.  Finally he was able to formulate a pattern `(A*A.T,  SYRK(1.0, A, 0.0, 0), True)` into the compilation system so that his work could be automatically applied.  The declarative inputs of the compiler are sufficiently approachable to be used by developers without a background in automated program development.
+This speedup was both found and implemented by a domain expert.  He was able to identify the flaw in the current implementation because the intermediate representations (DAG, Fortran code) were clear and natural to someone in his domain.  The code invited inspection.  After identification he was able to implement the correct computation (`class SYRK`).  The `computations` project for BLAS/LAPACK routines was simple enough for him to quickly engage and develop his contribution.  Finally he was able to formulate a pattern `(A*A.T,  SYRK(1.0, A, 0.0, 0), True)` into the compilation system so that his work could be automatically applied.  The declarative inputs of the compiler are sufficiently approachable to be used by developers without a background in automated program development.
