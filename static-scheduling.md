@@ -17,26 +17,14 @@ We want to develop high performance numerical algorithms on increasingly heterog
 
 Traditionally these kernels are written by hand using MPI.  They are then tuned manually.  We investigate the feasibility/utility of automation for these tasks?
 
-include [Static and Dynamic Task Scheduling](dynamic-static.md)
+include [Background](scheduling-background.md)
+
+include [Experiment](scheduling-experiment.md)
 
 include [Predicting Array Computation Times](array-times.md)
 
 include [Predicting Communication Times](communication-times.md)
 
-include [Scheduling Related Work](scheduling-related.md)
-
 include [Scheduling Algorithms](scheduling-algorithms.md)
 
-include [Interoperation with existing pieces](scheduling-interoperation.md)
-
-## Experiment
-
-Lets compute the Kalman filter over a few nodes.  Lets see that we obtain strong scaling.  Lets see to what degree our computation time is predictable.
-
-
-If I have time I'll implement a heterogeneous CUDA solution.  If I don't have time I'd like to cut this.
-
-
-### Analysis
-
-My goal is not to produce a production system to perform dense linear algebra.  Instead my goal is to demonstrate a proof of concept that scheduling concerns can be lifted from numerical linear algebra systems and still obtain quantitative results.  Hopefully I see this.
+include [Experiment - Parallel Kalman Filter](scheduling-kalman.md)
