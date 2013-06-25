@@ -3,7 +3,8 @@ Introduction
 
 
 include [Importance](importance.md)
-include [cost.md]
+
+include [Cost](cost.md)
 
 include [Modularity](modularity.md)
 
