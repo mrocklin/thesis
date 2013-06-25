@@ -2,11 +2,7 @@ Introduction
 ============
 
 
-Importance
-----------
-
-Scientific software is important. 
-
+include [Importance](importance.md)
 include [cost.md]
 
 include [Modularity](modularity.md)
