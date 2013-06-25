@@ -1,5 +1,5 @@
 
-## Inference
+## SymPy Inference
 
 \label{sec:sympy-inference}
 

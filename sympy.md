@@ -1,6 +1,6 @@
 
-SymPy
------
+SymPy Algebra
+-------------
 
 \label{sec:sympy-software}
 
