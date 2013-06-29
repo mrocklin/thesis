@@ -11,3 +11,11 @@
 tikz_*
 outline.tex
 *feedback*
+tmp*
+temp*
+*.bbl
+*.blg
+lib.bib
+outline2.md
+dissertation2.md
+*.tex
