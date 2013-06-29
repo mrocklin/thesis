@@ -7,7 +7,7 @@ include [Front Matter](front.md)
 
 include [Introduction](introduction-2.md)
 
-include [Background - Scientific Software Engineering](background-scientific-software.md)
+include [Background - Scientific Software Engineering](background-scientific-software-engineering.md)
 
 include [Background - Numerical Linear Algebra](background-nla.md)
 
