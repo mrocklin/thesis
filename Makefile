@@ -23,8 +23,8 @@ dissertation: images/pdfs dissertation.md math-num front.md lib.bib
 	pdflatex dissertation.tex
 	bibtex dissertation.aux
 
-nexus-10: outline
-	bluetooth-sendto outline.pdf --device $$NEXUS_10 
+nexus-10: dissertation
+	bluetooth-sendto dissertation.pdf --device $$NEXUS_10
 
 publish: outline 
 	scp outline.pdf ankaa.cs.uchicago.edu:html/storage/outline.pdf
