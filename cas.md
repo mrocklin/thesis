@@ -16,3 +16,5 @@ include [SymPy Inference](sympy-inference.md)
 include [Language](matrix-language.md)
 
 include [Inference](matrix-inference.md)
+
+include [Code Generation](cas-code-generation.md)
