@@ -10,7 +10,7 @@ Numerical code is often used to evaluate and solve mathematical problems.  Frequ
 2.  Human error is reduced
 3.  Multiple backends can be used
 
-We will demonstrate this with interactions between SymPy, discussed in section \ref{sec:sympy-software} and Theano, a library for the generation of mathematical codes in C and CUDA.
+We will demonstrate this with interactions between SymPy, discussed in section \ref{sec:sympy-software} and Theano\cite{theano2010}, a library for the generation of mathematical codes in C and CUDA.
 
 ### Radial Wave Function
 
@@ -132,3 +132,5 @@ To summarize
 Like SymPy, Theano transforms graphs to mathematically equivalent but computationally more efficient representations.  It provides standard compiler optimizations like constant folding, and common sub-expressions as well as array specific optimizations like the element-wise operation fusion.  
 
 Because users regularly handle mathematical terms Theano also provides a set of optimizations to simplify some common scalar expressions.  For example Theano will convert expressions like `x*y/x` to `y`.  In this sense it overlaps with SymPy's `simplify` functions.  This section demonstrates that SymPy's scalar simplifications are more powerful than Theano's and that their use can result in significant improvements.  This shouldn't be surprising.  Sympians are devoted to scalar simplification to a degree that far exceeds the Theano community's devotion to this topic.
+
+These experiments mostly contain polynomials and exponentials.  In this sense they are trivial from a computer algebra perspective.  Computer algebra systems are capable of substantially more sophisticated analyses.
