@@ -1,5 +1,5 @@
 
-### Trilinos
+## Trilinos
 
 The Trilinos grew out of an original three complementary projects into a loose federation of over fifty independently developed packages.  These packages interoperate by a set of C++ interfaces for generic solver types (e.g. Eigensolve).  Trilinos has become a robust and powerful ecosystem for numeric computing.
 
