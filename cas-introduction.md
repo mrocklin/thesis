@@ -39,4 +39,3 @@ A computer algebra system collects and applies functions to manipulate these tre
 #### Extensions
 
 Systems exist for the automatic expression of several branches of mathematics.  Extensive work has been done on traditional real and complex analysis including derivatives, integrals, simplification, equation solving, etc.... Other algebras like sets, groups, fields, polynomials, abstract and differential geometry, combinatorics and number theory all have similar treatments.  The literals, variables, and manipulations change but the basic idea of automatic manipulation of expression trees remains constant.
-
