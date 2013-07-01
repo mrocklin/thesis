@@ -17,4 +17,4 @@ To fully optimize these operations the software solutions must be tightly couple
 
 include [BLAS/LAPACK](blas-lapack.md)
 
-include [Parallel solutions](blas-lapack-parallel.md)
+include [Parallel solutions](blas-lapack-implementations.md)
