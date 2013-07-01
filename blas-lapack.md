@@ -17,11 +17,13 @@ The BLAS are organized into three levels
 *   Level-2:  Matrix-Vector operations, like Matrix-vector multiply or solve
 *   Level-3:  Matrix-Matrix operations, like Matrix-Matrix multiply or solve
 
+
 ### Hardware Coupling of Level-3
 
-As memory hierarchies have become both more complex and the upper levels have become substantially slower relative to compute power the importance of keeping data local in cache for as many computations as possible has increased.  This is of primary importance in the Level-3 BLAS, which are characterized by $O(n^3)$ computations on $O(n^2)$ data elements.  By organizing the communication correctly communication within the slower elements of the memory hierarchy can be effectively hidden, resulting in order-of-magnitude gains.
+As memory hierarchies have become both more complex and the upper levels have become substantially slower relative to compute power the importance of keeping data local in cache for as many computations as possible has increased.  This is of primary importance in the Level-3 BLAS, which are characterized by $O(n^3)$ computations on $O(n^2)$ data elements.  Through clever organization of the computation into blocks, communication within the slower elements of the memory hierarchy can be hidden, resulting in order-of-magnitude performance gains.
 
-In fact, Level-3 BLAS operations are one of the few cases where this compute-intensity matches the imbalance in CPU-Memory speeds, making them highly desirable operations.
+In fact, Level-3 BLAS operations are one of the few cases where compute-intensity can match the imbalance in CPU-Memory speeds, making them highly desirable operations on modern hardware.  This benefit is even more significant in the case of many-core accelerators, e.g. GPGPU.
+
 
 ### Linear Algebra Package (LAPACK)
 
