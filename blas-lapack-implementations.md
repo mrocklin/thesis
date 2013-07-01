@@ -1,5 +1,5 @@
 
-### BLAS/LAPACK Implementations
+## Implementations
 
 The BLAS/LAPACK\cite{LAPACK} interface has multiple implementations.  These stress a variety of techniques.  We list them both as a review of past work but also to demonstrate the wealth of techniques used to accelerate this set of operations.
 
