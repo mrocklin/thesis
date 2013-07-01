@@ -7,29 +7,35 @@ include [Tikz](tikz_computation.md)
 
 *Possible reorganization: These are important.  These are hard.*
 
-Sections \ref{sec:sympy}-\ref{sec:matrix-inference} described SymPy and then a Matrix extension to SymPy.  These projects are purely for the symbolic description of mathematics.  They are not appropriate for numeric computations.  In Section \ref{sec:computations} we describe a high-level description of the popular BLAS/LAPACK libraries for *numeric* matrix computations.  In this section we first provide background on these libraries.  Finally in Section \ref{sec:matrix-compilation} we tie the symbolic and numeric pieces together.
-
 ### Basic Linear Algebra Subroutines (BLAS)
 
-The Basic Linear Algebra Subroutines are a library of routines to perform common operations on dense matrices.  They were originally implemented in FORTRAN-77 in 1979.  They are in wide use today.  They have the following virtues:
+The Basic Linear Algebra Subroutines are a library of routines to perform common operations on dense matrices.  They were originally implemented in FORTRAN-77 in 1979.  They remain in wide use today.
 
-*   High performance:  They optimize for memory hierarchy, blocking, loop unrolling, assembly level tuning, multi-core etc....  BLAS routines traditionally run an order of magnitude faster than their naively implemented counterparts.
-*   Established interface:  
-*   Hardware support:
-*   Simple interface:  
-*   Historical familiarity: 
+The BLAS are organized into three levels
 
-Potential additional details: FLOP/memory usage, levels 1,2,3, common operations.
+*   Level-1:  Vector-Vector operations, like elementwise addition
+*   Level-2:  Matrix-Vector operations, like Matrix-vector multiply or solve
+*   Level-3:  Matrix-Matrix operations, like Matrix-Matrix multiply or solve
 
+### Hardware Coupling of Level-3
+
+As memory hierarchies have become both more complex and the upper levels have become substantially slower relative to compute power the importance of keeping data local in cache for as many computations as possible has increased.  This is of primary importance in the Level-3 BLAS, which are characterized by $O(n^3)$ computations on $O(n^2)$ data elements.  By organizing the communication correctly communication within the slower elements of the memory hierarchy can be effectively hidden, resulting in order-of-magnitude gains.
+
+In fact, Level-3 BLAS operations are one of the few cases where this compute-intensity matches the imbalance in CPU-Memory speeds, making them highly desirable operations.
 
 ### Linear Algebra Package (LAPACK)
 
 The Linear Algebra Package (LAPACK) is a library that builds on BLAS to solve more complex problems in dense numerical linear algebra.  LAPACK includes routines for the solution of systems of linear equations, matrix factorizations, eigenvalue problems, etc....
 
-These operations can often be solved by multiple algorithms.  These redundant algorithms are simultaneously included in LAPACK yielding a large library with thousands of individual routines.
-
 Algorithms for the solution of these operations often require standard operations on dense matrices.  Where possible LAPACK depends on BLAS for these operations.  This isolates the majority of hardware specific optimizations to the BLAS library, allowing LAPACK to remain relatively high-level.  Optimizations to BLAS improve LAPACK without additional development.
 
+### Expert LAPACK Subroutines
+
+LAPACK retains the compute-intense characteristic of Level-3 and so can provide highly preformant solutions.  However the expert use of LAPACK requires several additional considerations.
+
+LAPACK operations like matrix factorizations can often be solved by multiple algorithms.  For example matrices can be factored into LU or QR decompositions.  The Cholesky variant of LU can be used only if the left side is symmetric positive definite.  These redundant algorithms are simultaneously included in LAPACK yielding a large library with thousands of individual routines a collection of which might be valid in any situation.
+
+Additionally LAPACK internally makes use of utility functions (like matrix permutation) and special storage formats (like banded matrices), further adding to a set of high-level matrix operations.
 
 ### Interface
 
@@ -39,15 +45,22 @@ These types are widely implemented in general purpose programming languages.  As
 
 However, simplicity of parameter types significantly increases their cardinality.  In higher level languages array objects often contain fields for a data pointer, shape, and stride/access information.  In BLAS/LAPACK these must be passed explicitly.
 
-Many different algorithms exist for matrix problems with slightly different structure.  BLAS and LAPACK implement these different algorithms in independent subroutines.  For example the routine GEMM performs a Matrix-Matrix multiply in the general case, `SYMM` performs a Matrix-Matrix multiplication when one of the matrices is symmetric, and `TRMM` performs a Matrix-Matrix Multiplication when one of the matrices is triangular.  A combination of the quantity of different algorithms, multiple scalar types, and lack of polymorphism causes BLAS and LAPACK to contain over two thousand routines.
+Many different algorithms exist for matrix problems with slightly different structure.  BLAS and LAPACK implement these different algorithms in independent subroutines with very different subroutine headers.  For example the routine GEMM performs a Matrix-Matrix multiply in the general case, `SYMM` performs a Matrix-Matrix multiplication when one of the matrices is symmetric, and `TRMM` performs a Matrix-Matrix Multiplication when one of the matrices is triangular.  A combination of the quantity of different algorithms, multiple scalar types, and lack of polymorphism causes BLAS and LAPACK to contain over two thousand routines.
 
-Examples of the interfaces for `GEMM` and `SYMM` are included below
+For concreteness examples of the interfaces for `GEMM` and `SYMM` for double precision real numbers are included below
 
->*  `DGEMM` - **D**ouble precision **GE**neral **M**atrix **M**ultiply -- $\alpha A B + \beta C$
+*  `DGEMM` - **D**ouble precision **GE**neral **M**atrix **M**ultiply -- $\alpha A B + \beta C$
     *   `SUBROUTINE DGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC)`
 
->*  `DSYMM` - **D**ouble precision **SY**mmetric **M**atrix **M**ultiply -- $\alpha A B + \beta C$
+*  `DSYMM` - **D**ouble precision **SY**mmetric **M**atrix **M**ultiply -- $\alpha A B + \beta C$
     *   `SUBROUTINE DSYMM(SIDE,UPLO,M,N,ALPHA,A,LDA,B,LDB,BETA,C,LDC)`
+
+
+### Challenges
+
+The interface to BLAS/LAPACK was standardized in 1979 within the scope of the Fortran-77 language.  Memory locations, array sizes, strides, and transposition are all stated explicitly and independently.  Modern language assistance like basic type checking or wrapping shape and stride information into array objects is unavailable.
+
+The interface to BLAS/LAPACK appeals to a very low and common denominator.  This makes it trivial to interoperate with a broad set of languages.  For example the popular Fortran to Python wrapper `f2py` handles most of the BLAS/LAPACK library without additional configuration.  Unfortunately this same low and common denominator alienates direct use by naive scientific users.
 
 
 ### Analysis
