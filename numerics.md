@@ -1,6 +1,6 @@
 
-Numeric Libraries
------------------
+BLAS, LAPACK, PETSC, FEniCS
+---------------------------
 
 \label{sec:numerics}
 
