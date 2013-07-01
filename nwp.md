@@ -4,7 +4,7 @@ Case Study - Numerical Weather Prediction
 
 \label{sec:nwp}
 
-Numerical weather prediction benefits society.  Major industries like agriculture and construction rely on short-term forecasts to determine day-to-day operation.  The power grid relies on 12-24 hour forecasts to predict both load (due to climate control) and supply (due to weather dependent renewable energies) so that it can maintain a balanced resource without blackouts or burnouts.  Severe weather events are substantially less fatal due to several day advanced warning.
+Numerical weather prediction benefits society.  Major industries like agriculture and construction rely on short-term forecasts to determine day-to-day operation.  The power grid relies on 12-24 hour forecasts to predict both load (due to climate control) and supply (due to weather dependent renewable energies) so that it can maintain a balanced resource without blackouts or burnouts.  Severe weather events are substantially less fatal due to several day advanced warning.  Food is substantially cheaper; agriculture insurance is a multi-billion dollar industry in the United States alone.
 
 Numerical weather prediction is also computationally challenging.  It requires substantial atmospheric modeling, the simulation of difficult PDEs that represent an inherently chaotic system.  These must be solved over a very large domain (the United States) and yet very finely resolved both in space (10km) and in time (minutes) to maintain numerical stability.  Forecasts must be rerun frequently as a variety of new observations are recorded and assimilated and they must be run substantially faster than nature herself evolves.
 
