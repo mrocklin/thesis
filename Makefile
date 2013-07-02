@@ -26,8 +26,8 @@ dissertation: images/pdfs dissertation.md math-num front.md lib.bib
 nexus-10: dissertation
 	bluetooth-sendto dissertation.pdf --device $$NEXUS_10
 
-publish: outline 
-	scp outline.pdf ankaa.cs.uchicago.edu:html/storage/outline.pdf
+publish: dissertation 
+	scp dissertation.pdf ankaa.cs.uchicago.edu:html/storage/dissertation.pdf
 
 clean:
 	rm -f *.aux
