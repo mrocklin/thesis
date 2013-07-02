@@ -35,14 +35,14 @@ one = Integer(1)  # 1 is a Python int
 x = Symbol('x')   # 'x' is a Python string
 ~~~~~~~~~~
 
-Compound terms are also instantiated as Python objects which contain SymPy terms as children
+Compound terms are also instantiated as Python objects.  These contain SymPy terms as children.
 
 ~~~~~~~~~~Python
 y = Add(x, 1)
 z = Mul(3, Add(x, 5), Log(y))
 ~~~~~~~~~~
 
-Every term can be fully described by its type and its children which are stored as an instance variable, `.args`
+Every term can be fully described by its operation, stored as the type, and its children, stored as the instance variable `.args`
 
 ~~~~~~~~~~Python
 >>> type(y)
@@ -73,7 +73,7 @@ log(3*exp(x + 2))
 x + log(3) + 2
 ~~~~~~~~~~
 
-### Relation to other CAS
+### Relation to other Computer Algebra Systems 
 
 SymPy differs from existing computer algebra systems in the following ways
 
@@ -83,8 +83,8 @@ SymPy's community is more focused around scientific and computational applicatio
 
 #### Library:  
 
-Other dominant computer algebra systems today serve as a monolithic fully featured development environment.  The encapsulate a computer algebra system core with numeric, visual, and database components.  Interoperation with other software systems (e.g. application specific scientific codes) is rare.  In contrast SymPy is intended to be imported as a library within other applications.  It aggressively limits its scope, providing interfaces to other popular systems for visualization, computation, etc.... 
+Other dominant computer algebra systems today serve as a monolithic fully featured development environment.  They surround a computer algebra system core with specific numeric, visual, and database components.  Interoperation with other software systems (e.g. application specific scientific codes) is rare.  In contrast SymPy is intended to be imported as a library within other applications.  It aggressively limits its scope, providing interfaces to other popular systems for visualization, computation, etc... instead of shipping with particular implementations.
 
 #### Pure Python: 
 
-SymPy is written in Python, a common library for accessible scientific computing.  Additionally it restricts itself to Python rather than relying on C extension modules.  This sacrifices performance for ease of installation and interoperation.
+SymPy is written in Python, a common language for accessible scientific computing.  Additionally it restricts itself to pure Python rather than relying on C extension modules.  This sacrifices performance but enables trivial build and installation for ease of access and broad interoperation.  This feature is often cited by users as a primary motivation for the choice of SymPy over other computer algebra systems.

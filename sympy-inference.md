@@ -34,8 +34,6 @@ To create a system to pose and answer these questions we need the following piec
 
 ### Implementation in SymPy
 
-*Disclaimer: while I develop the underlying inference engine I am not its originator - this is not a contribution of mine*
-
 #### A set of predicates
 
 A set of predicates is collected inside the singleton object, `Q`
@@ -89,6 +87,8 @@ class AskPositiveHandler(...):
 
 
 #### Testing for Satisfiability
+
+TODO: Determine how relations are used
 
 SymPy assumptions relies on the [Davis–Putnam–Logemann–Loveland](http://en.wikipedia.org/wiki/DPLL_algorithm) algorithm for solving the CNF-SAT problem.  This algorithm is separable from the rest of the codebase.  This solver accesses the predicate-predicate and predicate-operator relations defined above.
 
