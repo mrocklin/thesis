@@ -8,7 +8,7 @@ include [Tikz](tikz_math.md)
 
 We extend the SymPy computer algebra system to Matrix Algebra.  Leaf variables in a matrix algebra are defined by an identifier (e.g. `'X'`) and a shape, two integers of rows or columns.  These shape integers may themselves be symbolic. Common matrix algebra operators include Matrix Multiplication, Matrix Addition, Transposition, and Inversion.  Each of these operators has its own logic about the shape of the term given the shapes of its inputs, validity, and possible simplifications.
 
-In the end we desire the construction of expressions like the following expression for least squares linear regression where $X$ is an $n \times m$ matrix and $y$ an $n \times 1$ column vector.
+In the end we enable the construction of expressions like the following expression for least squares linear regression where $X$ is an $n \times m$ matrix and $y$ an $n \times 1$ column vector.
 
 $$\beta = (X^T X)^{-1} X^T y $$
 
