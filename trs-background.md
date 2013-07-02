@@ -4,8 +4,6 @@ Background
 
 \label{sec:pattern-previous-work}
 
-*Comment*: In general I think I'm just saying what I know how to say, rather than precisely what needs to be said.  I also don't know much about what I'm talking about below.  My understanding here is obviously shallow; just deep enough to get the other pieces running.  To sound intelligent I think I either need to say much less or to learn much more.
-
 Logic programming and term rewrite systems benefit from substantial theory and mature software packages.
 
 ### Software Systems
