@@ -3,6 +3,7 @@
 
 The BLAS/LAPACK\cite{LAPACK} interface has multiple implementations.  These stress a variety of techniques.  We list them both as a review of past work but also to demonstrate the wealth of techniques used to accelerate this set of operations.
 
+### Sequential or Shared Memory BLAS-LAPACK
 
 #### Reference BLAS
 
@@ -31,14 +32,30 @@ The FLAME group collaborates with Goto in an effort to automate and more broadly
 The Microsoft Kernel Library is an industry standard.  It is a professional multi-core implementation.
 
 
+### Distributed Memory BLAS-LAPACK
+
+The ubiquity of numerical linear algebra makes it an attractive candidate for mature parallel solutions.  All computational kernels expressible as BLAS/LAPACK computations may be automatically parallelized if a robust solution can be found for distributed numerical linear algebra.
+
+Much of this work exists for sparse systems which are not part of the BLAS/LAPACK system.  See notes on PETSc and Trilinos in \ref{sec:numerics} and \ref{sec:trilinos} for more details.
+
+In the case of dense linear algebra data parallelism is often acheived through blocking.  Input arrays are blocked or tiled and then each operation manages distributed computation by managing sequential operations on blocks.  A distributed GEMM may be achieved through many smaller sequential GEMMs on computational nodes.  More sophisticated computations, like SYMM or POSV, may make use of a variety of sequential operations.
+
+Occasionally communication is handled by a separate abstraction.  For performance reasons these are often built off of or resemble MPI at a low level.
+
+
 #### ScaLAPACK
 
 is an implementation of LAPACK for distributed memory architecture.  ScaLAPACK\cite{ScaLAPACK} depends on BLACS\cite{Dongarra1997}, a library for the communication of blocks of memory, to coordinate computation of linear algebra routines across a parallel architecture.  ScaLAPACK was the first major parallel implementation
 
-
 #### Parallel Linear Algebra for Scalable Multi-core Architectures (PLASMA)
 
 is a more modern approach to the parallel linear algebra problem and the natural successor to ScaLAPACK.  It uses dynamic scheduling techniques to communicate tiles in a shared memory architecture.  PLASMA is actively developped to support distributed memory\cite{Bosilca2011}.
+
+DPLASMA, the distributed memory variant, depends on DAGuE\cite{Bosilca2012}, a "hardware aware" dynamic scheduler to manage its tile distribution. 
+
+#### Elemental
+
+Elemental\cite{Poulson2010} forks FLAME (listed above) to handle distributed memory parallelism.  Elemental breaks the fundamental model of fixed blocks/tiles, instead employing a more dynamic scheduler.
 
 
 #### Matrix Algebra on GPU and Multicore Architectures (MAGMA)
