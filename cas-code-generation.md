@@ -16,11 +16,13 @@ We will demonstrate this with interactions between SymPy, discussed in section \
 
 Computer algebra systems often have strong communities in the physical sciences.  We use SymPy to quickly generate a radial wavefunction corresponding to `n = 6` and `l = 2` for Carbon (`Z = 6`)
 
-    from sympy.physics.hydrogen import R_nl
-    from sympy.abc import x
-    n, l, Z = 6, 2, 6
-    expr = R_nl(n, l, x, Z)
-    print latex(expr)
+~~~~~~~~~~~~~~~~Python
+from sympy.physics.hydrogen import R_nl
+from sympy.abc import x
+n, l, Z = 6, 2, 6
+expr = R_nl(n, l, x, Z)
+print latex(expr)
+~~~~~~~~~~~~~~~~
 
 $$\frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x}$$
 
@@ -33,50 +35,50 @@ We show the expression, it's derivative, and SymPy's simplification of that deri
 
 **The target expression:**
 
-    print latex(expr)
 
 $$\frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x}$$
 
-    print "Operations: ", count_ops(expr)
+    expr
     Operations:  17
 
 **It's derivative**
 
-    print latex(expr.diff(x))
 
 $$ \frac{1}{210} \sqrt{70} x^{2} \left(- 4 x^{2} + 32 x - 56\right) e^{- x} - \frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x} + \frac{1}{105} \sqrt{70} x \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x} $$
 
-    print "Operations: ", count_ops(expr.diff(x))
+    expr.diff(x)
     Operations:  48
 
 **The result of `simplify`** on the derivative.  Note the significant cancellation of the above expression.
 
-    print latex(simplify(expr.diff(x)))
-
 $$ \frac{2}{315} \sqrt{70} x \left(x^{4} - 17 x^{3} + 90 x^{2} - 168 x + 84\right) e^{- x} $$
     
-    print "Operations: ", count_ops(simplify(expr.diff(x)))
+    simplify(expr.diff(x))
     Operations:  18
 
 
 ### Bounds on the cost of Differentiation
 
-Algorithmic scalar differentiation is actually a very simple transformation.  
-
-You need to know how to transform all of the elementary functions (`exp, log, sin, cos, polynomials, etc...`) and the chain rule; nothing else is required.  Theorems behind automatic differentiation state that the cost of a derivative will be at most five times the cost of the original.  In this case we're guaranteed to have at most `17*5 == 85` operations in the derivative computation; this holds in our case because `48 < 85`
+Algorithmic scalar differentiation is a simple transformation.  The system must know how to transform all of the elementary functions (`exp, log, sin, cos, polynomials, etc...`) and the chain rule; nothing else is required.  Theorems behind automatic differentiation state that the cost of a derivative will be at most five times the cost of the original.  In this case we're guaranteed to have at most `17*5 == 85` operations in the derivative computation; this holds in our case because `48 < 85`
 
 However derivatives are often far simpler than this upper bound.  We see that after simplification the operation count of the derivative is `18`, only one more than the original.  This is common in practice.
 
 
 ### Experiment
 
-We compute the derivative of our radial wavefunction and then simplify the result.  We do this using both SymPy's symbolic derivative and simplify routines and using Theano's automatic derivative and simplify routines.  We then compare the two results by counting the number of required operations.
+We compute the derivative of our radial wavefunction and then simplify the result.  Both SymPy and Theano are capable of these transformations.  We perform these operations using both 
+
+*   SymPy's symbolic derivative and simplify routines 
+*   Theano's automatic derivative and computation optimization routines
+
+We then compare the two results and evaluate by counting the number of required operations.
 
 In SymPy we create both an unevaluated derivative and a fully evaluated and sympy-simplified version.  We translate each to Theano, simplify within Theano, and then count the number of operations both before and after simplification.  In this way we can see the value added by both SymPy's and Theano's optimizations.
 
+
 #### Theano Only
 
-$$ \frac{\partial}{\partial x}\left(\frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x}\right) $$
+$$ \frac{1}{210} \sqrt{70} x^{2} \left(- 4 x^{2} + 32 x - 56\right) e^{- x} - \frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x} + \frac{1}{105} \sqrt{70} x \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x} $$
 
     Operations:                              40
     Operations after Theano Simplification:  21
@@ -90,9 +92,7 @@ $$ \frac{2}{315} \sqrt{70} x \left(x^{4} - 17 x^{3} + 90 x^{2} - 168 x + 84\righ
 
 #### Analysis
 
-On its own Theano produces a derivative expression that is about as complex as the unsimplified SymPy version.  Theano simplification then does a surprisingly good job, roughly halving the amount of work needed (`40 -> 21`) to compute the result.  If you dig deeper however you find that this isn't because it was able to algebraically simplify the computation (it wasn't) but rather because the computation contained several common sub-expressions.  The Theano version looks a lot like the unsimplified SymPy version.  Note the common sub-expressions like `56*x` below.
-
-$$ \frac{1}{210} \sqrt{70} x^{2} \left(- 4 x^{2} + 32 x - 56\right) e^{- x} - \frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x} + \frac{1}{105} \sqrt{70} x \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x} $$
+On its own Theano produces a derivative expression that is about as complex as the unsimplified SymPy version.  Theano simplification then does a surprisingly good job, roughly halving the amount of work needed (`40 -> 21`) to compute the result.  If you dig deeper however you find that this isn't because it was able to algebraically simplify the computation (it wasn't) but rather because the computation contained several common sub-expressions.  The Theano version looks a lot like the unsimplified SymPy version.  Note the common sub-expressions like `56*x`.
 
 The pure-SymPy simplified result is again substantially more efficient (`13` operations).  Interestingly Theano is still able to improve on this, again not because of additional algebraic simplification but rather due to constant folding.  The two projects simplify in orthogonal ways.
 
