@@ -2,6 +2,8 @@
 Term
 ----
 
+\label{sec:term}
+
 Term rewrite systems generally operate on a specific language of terms.  In traditional logic programming languages like Prolog this term language is custom-built for and included within the logic programming system, enabling tight integration between terms and computational infrastructure.  However a custom term language limits interoperability with other term-based systems (like computer algebra systems).  Systems like miniKanren resolve this problem by describing terms with simple s-expressions, enabling broad interoperation with projects within its intended host language, Scheme.  
 
 S-expressions are not idiomatic within the Python ecosystem and few projects (if any) define terms in this way.  The intended object oriented approach to this problem is to create an interface and have client projects implement this interface if they want to interoperate with term manipulation codes.
