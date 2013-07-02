@@ -41,7 +41,7 @@ Explicitly Term Rewrite Systems confer the following benefits in the context of 
 
 In Section \ref{sec:pattern} we discuss the pattern matching problem in the context of computer algebra.  In Section \ref{sec:search} we pose the problem of coordinating these rules as a graph search problem.  These respectively address parts 2 and 3 listed above.
 
-In Section \ref{sec:math-num-linalg} we demonstrate the utility of these tools by implementing a mathematically informed linear algebra compiler with minimal math/compilers expertise overlap.
+In Section \ref{sec:voltron} we demonstrate the utility of these tools by implementing a mathematically informed linear algebra compiler with minimal math/compilers expertise overlap.
 
 
 #### Example
