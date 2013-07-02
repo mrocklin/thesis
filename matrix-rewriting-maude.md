@@ -4,14 +4,14 @@ Matrix Rewriting in Maude
 
 \label{sec:matrix-rewriting-maude}
 
-We implement matrix expressions in Maude and use rewrite rules to declare mathematical transformations with intuitive syntax.  Our goal is to demonstrate the simplicity with which mathematical theories can be constructed and to serve as proof of concept for a later implementation using SymPy and LogPy.
+We implement matrix expressions in Maude and use rewrite rules to declare mathematical transformations with intuitive syntax.  Our goal is to demonstrate the simplicity with which mathematical theories can be constructed and to serve as proof of concept for a later implementation using SymPy and LogPy in Section \ref{sec:matrix-rewriting-sympy}.
 
 ### Matrix Algebra
 
 The `matrix-algebra`\cite{matrix-algebra} project defines a language for matrix expressions in Maude.  First we define the sorts of terms
 
-sorts MatrixExpr MatrixSymbol Vector RowVector
-subsort Vector RowVector MatrixSymbol < MatrixExpr
+    sorts MatrixExpr MatrixSymbol Vector RowVector
+    subsort Vector RowVector MatrixSymbol < MatrixExpr
 
 And a set of operators with associated precedences
 
@@ -45,7 +45,7 @@ This set of relations can be greatly increased with the ability to infer matrix 
         diagaonal tridiagonal : -> Predicate .
 
     op _is_ : MatrixExpr Predicate -> AppliedPredicate [prec 45].
-    op _,_ : Context Context -> Context [metadata "Conjoin two contexts"]
+    op _,_  : Context    Context   -> Context [metadata "Conjoin two contexts"]
 
 This provides the necessary infrastructure to declare a large set of matrix inference rules like the following example rules for symmetry
 
