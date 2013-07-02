@@ -1,6 +1,6 @@
 
-SYRK - Adding Computations
---------------------------
+SYRK - Extending Computations
+-----------------------------
 
 \label{sec:syrk}
 
