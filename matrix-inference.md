@@ -96,44 +96,4 @@ This is the first system that can answer questions like this for abstract matric
 
 This advanced inference enables a substantially larger set of optimizations that depend on logical information.   For example, the inverse of a matrix can be simplified to its transpose if that matrix is orthogonal.
 
-Linear algebra is a mature field with many such relations \cite{Petersen2008}.  Formally describing all of these relations is challenging due both to their quantity and the limited population of practitioners.  To address this issue we create a mechanism to describe them declaratively.  This reduces the extent of the code-base with which a mathematician must familiarize themselves to encode these relations and increases portability.  This reduction in scope drastically increases the domain of qualified developers.
-
-#### Matrix Algebra Relations in Maude
-
-Our original approach to this problem was through a meta-programming and term rewrite system \cite{matrix-algebra}.  Our original implementation of automated matrix algebra was written in Maude and contained code like the following
-
-    inverse(X) = transpose(X) if X is orthogonal
-
-Statements of this form are clear to mathematical experts.  More importantly the set of relations is sufficiently simple so that it can be extended by these same experts without teaching them the underlying system for their application to expression trees.
-
-The meta-programming approach allowed the specification of mathematical relations in a math-like syntax, drastically lowering the barrier of entry for potential mathematical developers.  The term-rewrite infrastructure allowed these relations to be automatically applied by generic, mature, and computationally efficient strategies.
-
-Unfortunately the Maude system is an exotic dependency in the scientific community and interoperability with low-level computational codes was not a priority in its development.
-
-#### Matrix Algebra Relations in SymPy
-
-We describe these transformations while restricting ourselves to the Python language.  Because our solution is embedded in Python we can not acheive the same convenient syntax support provided by Maude.  Instead we encode a set of transformations in `(source, target, condition)` tuples.  
-
-We suffer the following degredation in readability in order to extract Maude, an exotic dependency.  We describe the content of the transformation without specialized syntax
-
-    Wanted:      inverse(X) = transpose(X) if X is orthogonal
-    Delivered:  (inverse(X) , transpose(X) ,  Q.orthogonal(X))
-
-We can then separately connect an external term rewrite system to transform these tuples into rewrite rules and use them to simplify matrix expressions.  In \ref{sec:logpy} we describe a solution to this problem written in LogPy, a logic programming Python package designed for interoperability.  As with the system in Maude we believe that extending the set of simplification relations is straightforward and approachable to a very broad community.  Additionally, this declarative nature allows us to swap out the term rewrite system backend should future development produce more mature solutions.
-
-
-#### Example -- Determinants:
-
-We present mathematical information about determinants taken from the Matrix Cookbook \cite{Petersen2008} and encoded in the manner described above. 
-
-~~~~~~~~~~~~~~Python
-# Original,     Result,         Condition
-
-# Determinants
-(det(A),        0,              Q.singular(A)),
-(det(A),        1,              Q.orthogonal(A)),
-(Abs(det(A)),   1,              Q.unitary(A)),
-(det(A*B),      det(A)*det(B),  Q.square(A)),
-(det(BlockMatrix([[A,B],[C,D]])),   det(A)*det(D - C*A.I*B),  Q.invertible(A)),
-...
-~~~~~~~~~~~~~~
+Linear algebra is a mature field with many such relations \cite{Petersen2008}.  Formally describing all of these relations is challenging due both to their quantity and the limited population of practitioners.  To address this issue we create a mechanism to describe them declaratively.  This will be discussed further in Section \ref{sec:matrix-logpy-refine}.  This reduces the extent of the code-base with which a mathematician must familiarize themselves to encode these relations and increases portability.  This reduction in scope drastically increases the domain of qualified developers.
