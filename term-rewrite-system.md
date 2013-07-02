@@ -13,6 +13,8 @@ include [Search Theory](search.md)
 
 include [Background](trs-background.md)
 
+include [Matrix Rewriting in Maude](matrix-rewriting-maude.md)
+
 include [Software - Term](term.md)
 
 include [Software - LogPy](logpy.md)

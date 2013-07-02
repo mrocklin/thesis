@@ -109,3 +109,5 @@ Teaching LogPy to interact with SymPy is a simple exercise.  The need for simult
 By supporting interoperation with preexisting data structures we were able to leverage the preexisting mathematical logic system in SymPy without significant hassle.
 
 The implementation of the `rewrites` Relation determines matching performance.  Algorithmic code is a separate concern and not visible to the mathematical users.
+
+include [Matrix Rewriting in SymPy](matrix-rewriting-sympy.md)
