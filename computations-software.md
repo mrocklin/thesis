@@ -4,9 +4,9 @@ Software
 
 \label{sec:computations-software}
 
-Every BLAS/LAPACK routine can be logically identified by a set of inputs, outputs, conditions on the inputs, and inplace memory behavior.  Additionally each routine can be imbued with code for generation of the inline call in a variety of languages.  In our implementation we focus on Fortran but C, scipy, or even CUDA could be added without substantial difficulty.
+Every BLAS/LAPACK routine can be logically identified by a set of inputs, outputs, conditions on the inputs, and inplace memory behavior.  Additionally each routine can be imbued with code for generation of the inline call in a variety of languages.  In our implementation we focus on Fortran but C or scipy could be added without substantial difficulty.  CUDA code generation is a current work in progress.
 
-Each routine is represented by a Python class.  In this paragraph we describe `SYMM`, a routine for **SY**mmetric **M**atrix **M**ultiply, in prose; just below we describe this same routine in code.  `SYMM` fuses a matrix multiply `A*B` with a scalar multiplication `alpha*A*B` and an extra matrix addition `alpha*A*B + beta*C`.  This is done for computational efficiency.  `SYMM` is a specialized version which is only valid when one of the first two matrices `A, B` are symmetric.  It exploits this special structure and performs only half of the normally required FLOPs.  Like many BLAS/LAPACK routines `SYMM` operates *inplace*, storing the output in one of its inputs.  In this particular case it stores the result of the zeroth output, `alpha*A*B + beta*C` in its fourth input, `C`. 
+Each routine is represented by a Python class.  In this paragraph we describe `SYMM`, a routine for **SY**mmetric **M**atrix **M**ultiply, in prose; just below we describe this same routine in code.  `SYMM` fuses a matrix multiply `A*B` with a scalar multiplication `alpha*A*B` and an extra matrix addition `alpha*A*B + beta*C`.  This fusion is done for computational efficiency.  `SYMM` is a specialized version which is only valid when one of the first two matrices `A` or `B` are symmetric.  It exploits this special structure and performs only half of the normally required FLOPs.  Like many BLAS/LAPACK routines `SYMM` operates *inplace*, storing the output in one of its inputs.  In this particular case it stores the result of the zeroth output, `alpha*A*B + beta*C` in its fourth input, `C`. 
 
 ~~~~~~~~~~~~~Python
 class SYMM(BLAS):
@@ -40,15 +40,11 @@ Mathematically this definition is correct.  It consumes a variable, `X`, and pro
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[height=.2\textheight]{images/copy}
+\includegraphics[height=.15\textheight]{images/copy} \\
+\includegraphics[height=.15\textheight]{images/copy-inplace}
 \end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[height=.2\textheight]{images/copy-inplace}
-\end{figure}
-
-To encode this information about memory location we expand our model so that each variable is both a mathematical SymPy term and a unique identifier, usually a string.  This supports a new class of transformations to manage inplace computations.  These considerations are only relevant in the latter stages of compilation and so we delay their introduction until later in the pipeline.
+To encode this information about memory location we expand our model so that each variable is both a mathematical SymPy term and a unique identifier, usually a Python string.  This supports a new class of transformations to manage inplace computations.  These considerations are only relevant in the latter stages of compilation and so we delay their introduction until later in the pipeline.
 
 
 ### Fortran Code Generation
@@ -58,7 +54,7 @@ From such a directed acyclic graph we can generate readable low-level code.  We 
 
 ### Extensibility
 
-This model is not specific to BLAS/LAPACK.  In particular other developers have extended this to include other high performance numerical libraries like FFTW and ARPACK (arpack is in progress).
+This model is not specific to BLAS/LAPACK.  It has been extended to other high performance numerical libraries like MPI and FFTW.
 
 
 ### Example use of `computations`
