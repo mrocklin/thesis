@@ -5,8 +5,6 @@
 
 include [Tikz](tikz_computation.md)
 
-*Possible reorganization: These are important.  These are hard.*
-
 ### Basic Linear Algebra Subroutines (BLAS)
 
 The Basic Linear Algebra Subroutines are a library of routines to perform common operations on dense matrices.  They were originally implemented in FORTRAN-77 in 1979.  They remain in wide use today.
