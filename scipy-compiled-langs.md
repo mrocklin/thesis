@@ -1,5 +1,5 @@
 
-    \label{sec:scipy-compiled-langs}
+\label{sec:scipy-compiled-langs}
     
     Copperhead      Computations            Cython          HyperOpt
     Ignition        Instant                 Julia           PyOP2/Fenics
