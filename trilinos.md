@@ -1,6 +1,8 @@
 
 ## Trilinos
 
+\label{sec:trilinos}
+
 Trilinos is a success story for modular scientific design.  Trilinos grew from an original three complementary projects into a loose federation of over fifty packages, each developed by independent teams.  These packages interoperate by a set of C++ interfaces for generic solver types (e.g. Eigensolve).  Trilinos has grown into a robust and powerful ecosystem for numeric computing.
 
 The organization of Trilinos differs from the BLAS-LAPACK-PETSc-FEniCS stack. Trilinos packages operate largely as peers rather than in a strict hierarchy.  Trilinos does not dominate its domain like BLAS/LAPACK, but it does demonstrate the value of prespecified complex interfaces in a higher level setting.  A number of differently abled groups are able to co-develop in the same space with relatively little communication.
