@@ -6,7 +6,7 @@ Predicting Array Computation Times
 
 ### Challenges
 
-To create high performance task parallel programs at compile time we need to know the compute times of each task on each machine.  In general this is challenging.  
+To create high performance task parallel programs at compile time we need to know the compute times of each task on each machine.  This is challenging in general. 
 
 Compute times can depend strongly on the inputs (known only at runtime), other processes running on the hardware, behavior of the operating system, and potentially even the hardware itself.  Interactions with complex memory hierarchies introduce difficult-to-model durations.  Even if estimates of tasks are available the uncertainty may be sufficient to ruin the accuracy of the overall schedule.
 
@@ -20,7 +20,7 @@ Routines found in high performance libraries like BLAS/LAPACK are substantially 
 
 ### The Predictability of BLAS Operations
 
-We profile the runtime of the `DGEMM` operation.  We compute a $1000 \times 1000 \times 1000$ dense matrix multiply$ $1000$ times.  In Figure \ref{fig:gemm-profile-fortran} we present a time series and in Figure \ref{fig:gemm-hist-fortran} a histogram of the same data.  We find that the runtimes are tightly distributed around a central peak with variations less than a percent.  We also detect an outlier well outside of this distribution.  We believe that this is due to contention with other processes on the same system.
+We profile the runtime of the `DGEMM` operation.  We compute a $1000 \times 1000 \times 1000$ dense matrix multiply$ $1000$ times.  In Figure \ref{fig:gemm-profile-fortran} we present a time series and in Figure \ref{fig:gemm-hist-fortran} a histogram of the same data.  While runtimes are not deterministic we do find that a tight distribution around a central peak with variations less than a percent.  We also detect an outlier well outside of this distribution.  We believe that this is due to contention with other processes on the same system.
 
 
 \begin{figure}[htbp]

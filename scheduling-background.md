@@ -7,41 +7,33 @@ Task Scheduling is a broad topic under active development.
 Approaches in task scheduling can be separated along two different axes
 
 1.  The amount of assumed knowledge
-2.  When the scheduling is performed (run-time or compile-time)
+2.  When the scheduling is performed
 
-The distribution along these axes is highly correlated.  In general systems that assume knowledge can perform more sophisticated analyses which can consume a significant amount of resources.  These analyses are preferably done once at compile-time.  Conversely systems about which little is known are more likely to require real-time response, necessitating a runtime solution.
-
-### Ignorant Dynamic Scheduling 
-
-Fork-Join, Condor-Pegasus-Swift, Hadoop
-
-Locality, resource utilization, node failure
-
-Are there any universal/modular software/libraries for this?  
+The distribution along these axes is highly correlated.  In general systems with more knowledge perform sophisticated analyses which consume significant amounts of resources.  These analyses are preferably done once at compile-time rather than during execution when they may slow down the actual computation.  Conversely systems about which little is known often use simple analyses and so can be done cheaply at runtime.  While less is known a priori these cheaper runtime systems can respond more dynamically to events as they occur.
 
 
-### Informed Static Scheduling 
+### Dynamic Scheduling 
 
-The majority of static scheduling research assumes some knowledge both about the costs of tasks and, if the set of agents is heterogeneous, each agents strengths and weaknesses.  This situation is rare in parallel programming but is common in operations research where the application may be the efficient construction and assembly of an automobile or the distribution of goods.  These problems are far more regular than a generic program and also far more dependent on the worker agents available (not all agents can perform all tasks.)
+In general dynamic scheduling systems do not assume much knowledge about the computation.  In the simplest case they blindly schedule operations from the task graph to computational workers as they tasks become available (data dependencies are met) and workers become free (no longer working on previous job).  More sophisticated analyses may try to schedule tasks onto machines more intelligently, for example by preferentially keeping large amounts of data local to a single machine if possible.
+
+Systems like Condor, Pegasus, or Swift dynamically schedule a directed acyclic graph of tasks onto a pool of workers connected over a network.  These systems enable users to define a task graph as a set of processes.  They traditionally handle communication over a network file system.
+
+Hadoop, a common infrastructure for the MapReduce interface, bears mention.  The MapReduce interface allows only a restricted form of dependency graph defined by one-to-one mapping functions and many-to-one reduction functions.  This added restriction allows implementations, like Hadoop, to assume more about the problem and opens up more efficiencies.  Hadoop, an implementation, allows substantially more control for reduced communication than MapReduce.  For example by controlling Partitioner objects data locality can be exploited to minimize network or even disk communication.  In general, more restrictive models enable more sophisticated runtime analyses.
+
+
+### Static Scheduling 
+
+The majority of static scheduling research assumes some knowledge both about the costs of tasks and, if the set of agents is heterogeneous, each agent's strengths and weaknesses.  This situation is rare in parallel programming but is common in operations research.  For example operations in the construction and assembly of an automobile or the distribution of goods is often well known ahead of time.  These problems are far more regular than a generic program and also far more dependent on the worker agents available (not all agents can perform all tasks.)
 
 In general optimal scheduling is NP-hard.  However algorithms, approximations, and heuristics exist.  They differ by leveraging different theory, assuming different symmetries of the problem (e.g. homogenous static scheduling where all agents are identical) or by assuming different amounts of the knowledge or symmetries about the tasks (all times known, all times known and equivalent, communication times known, communication times are all zero, etc....)  Kwok and Ahmed\cite{Kwok1999} give a good review.
 
-TODO
-
-Finally we note that informed static scheduling is often written by hand.  MPI programs embed an explicit communications schedule statically into the code.
+Finally we note that in practice most static scheduling is written by hand.  HPC software developers often explicitly encode a schedule statically into their code with MPI calls.  This application is the target for this section.
 
 
 ### Informed Dynamic Scheduling
 
 In special cases we may know something about the tasks and the architecture and also want to schedule dynamically for robustness or performance reasons.   These situations tend to be fairly specialied.   In the context of numerical linear algebra we can consider the communication of blocks or tiles (a term for a small block) around a network.
 
-Talk about DAGuE\ref{Bosilca2012}?  Or maybe this is a separate section.
+This approach is taken by systems like Supermatrix, Elemental, BLACS, and most recently, DAGuE\ref{Bosilca2012}.  These systems all move regularly sized blocks between connected nodes to perform relatively similarly timed operations.  In the case of DAGuE informationa about the network can be encoded.
 
-### Distributed Numerical Linear Algebra
-
-Parallel solutions to linear algebra first gained popularity with ScaLAPACK, which used the Basic Linear Algebra Communication Subroutines (BLACS) as a communication interface on top of MPI.  ScaLAPACK acheives parallelism by breaking up matrices into blocks or small tiles, constructing a computation as in \ref{sec:blocked} and then coordinating task to different compute resources.
-
-This same model has been repeated in existing systems.  SuperMatrix extends the FLAME environement with a run-time scheduler for shared memory multi-core parallelism.  Elemental extends FLAME with a distributed memory run-time scheduler. 
-
-(Need to verify this) The PLASMA project describes parallel dense linear algebra problems as executable DAGs that it then hands off to DAGuE\ref{Bosilca2012}, a dedicated "high performance architecture aware runtime scheduler."  With this abstraction PLASMA has been able to grow from a purely multi-core project to a distributed and, in new work, heterogeneous system.
-
+    Recent work with PLAMSA \cite{Agullo2009, Song2012} shows a trend towards hybrid schedulers where part of the communication is handled dynamically for robustness and part is handled statically for performance.  As parallelism increases both sophisticated analyses and robustness are necessary.  These can be added at different levels of granularity; for example operations on sets of neighboring nodes can be statically scheduled while calls to this neighborhood can be scheduled dynamically for robustness.  Alternatively a top-down static schedule may exist over several high-granularity dynamic schedulers.
