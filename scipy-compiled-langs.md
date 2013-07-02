@@ -1,4 +1,6 @@
 
+    \label{sec:scipy-compiled-langs}
+    
     Copperhead      Computations            Cython          HyperOpt
     Ignition        Instant                 Julia           PyOP2/Fenics
     SymPy           Numba Pro / Lair        NumExpr         Theano
