@@ -44,3 +44,5 @@ This process has at least the following two benefits
 
 *   By assigning a value to programmer time and identifying modular elements we may be able to attribute an added cost of tightly coupled, unmodular code.
 *   By looking at download counts and dependency graphs we can attribute impact factors to projects, teams, or individual developers.  By publishing an impact factor that benefits from good software engineering we hope to incentivize better practices in the future.
+
+Understanding and expertise precede optimization.
