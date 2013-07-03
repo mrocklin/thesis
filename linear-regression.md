@@ -133,7 +133,38 @@ This code can be run in a separate context without the Python runtime environmen
 
 ### Numerical Result
 
-TODO: Provide timings for solutions of varying naivety.  Show that our solution matches the ideal.
+We provide timings for various implementations of least squares linear regression under a particular size.  As we increase the sophistication of the method we decrease the runtime substantially.
+
+>>> n, k = 1000, 500
+
+>>> X = np.matrix(np.random.rand(n, k))
+>>> y = np.matrix(np.random.rand(n, 1))
+
+>>> timeit (X.T*X).I * X.T*y
+10 loops, best of 3: 74.6 ms per loop
+
+>>> timeit numpy.linalg.solve(X.T*X, X.T*y)
+10 loops, best of 3: 36.3 ms per loop
+
+>>> timeit scipy.linalg.solve(X.T*X, X.T*y, sym_pos=True)
+10 loops, best of 3: 32.8 ms per loop
+
+We now take the most naive user input from SymPy
+
+>>> X = MatrixSymbol('X', n, k)
+>>> y = MatrixSymbol('y', n, 1)
+>>> beta = (X.T*X).I * X.T*y
+
+And have our compiler build the computation
+
+>>> with assuming(Q.real_elements(X), Q.real_elements(y)):
+...     f = build(c, [X, y], [beta])
+
+Our computation originates from the naive user input $(X^TX)^{-1} X^Ty$ but, due to inplace execution and the use of `SYRK` executes faster than the most sophisticated version that the `scipy` stack provides.
+
+>>> timeit f(nX, ny)
+10 loops, best of 3: 22.9 ms per loop
+
 
 ### Development Result
 

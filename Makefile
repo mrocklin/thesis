@@ -29,6 +29,13 @@ nexus-10: dissertation
 publish: dissertation 
 	scp dissertation.pdf ankaa.cs.uchicago.edu:html/storage/dissertation.pdf
 
+official: dissertation
+	cat dissertation.tex 												 \
+				| sed s/\\section/\\chapter/  							 \
+				| sed s/subsection/section/ > tmp.dat 					 \
+				| sed s/\\documentclass[]{article}/\documentclass{ucetd} \
+		&& mv tmp.dat official.tex
+
 clean:
 	rm -f *.aux
 	rm -f *.log
