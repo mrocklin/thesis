@@ -9,7 +9,7 @@ beta = (X.T*X).I * X.T*y
 
 c = compile([X, y], [beta], Q.fullrank(X))
 with assuming(Q.real_elements(X), Q.real_elements(y)):
-    f = build(c, [X, y], [beta])
+    f = build(c, [X, y], [beta], filename='lls.f90', modname='lls')
 
 import numpy as np
 nX = np.random.rand(n, k); ny = np.random.rand(n)

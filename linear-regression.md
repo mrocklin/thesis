@@ -133,8 +133,11 @@ This code can be run in a separate context without the Python runtime environmen
 
 ### Numerical Result
 
+\label{sec:linear-regression-numeric-result}
+
 We provide timings for various implementations of least squares linear regression under a particular size.  As we increase the sophistication of the method we decrease the runtime substantially.
 
+~~~~~~~~~~Python
 >>> n, k = 1000, 500
 
 >>> X = np.matrix(np.random.rand(n, k))
@@ -148,22 +151,32 @@ We provide timings for various implementations of least squares linear regressio
 
 >>> timeit scipy.linalg.solve(X.T*X, X.T*y, sym_pos=True)
 10 loops, best of 3: 32.8 ms per loop
+~~~~~~~~~~
 
 We now take the most naive user input from SymPy
 
+~~~~~~~~~~Python
 >>> X = MatrixSymbol('X', n, k)
 >>> y = MatrixSymbol('y', n, 1)
 >>> beta = (X.T*X).I * X.T*y
+~~~~~~~~~~
 
 And have our compiler build the computation
 
+~~~~~~~~~~Python
+>>> comp = compile([X, y], [beta], Q.fullrank(X))
 >>> with assuming(Q.real_elements(X), Q.real_elements(y)):
-...     f = build(c, [X, y], [beta])
+...     f = build(comp, [X, y], [beta])
+~~~~~~~~~~
 
-Our computation originates from the naive user input $(X^TX)^{-1} X^Ty$ but, due to inplace execution and the use of `SYRK` executes faster than the most sophisticated version that the `scipy` stack provides.
+Our computation originates from the naive user input $(X^TX)^{-1} X^Ty$ but competes with the most sophisticated version that the `scipy` stack provides.
 
+Disclaimer: These times are dependent on matrix size, architecture, and BLAS/LAPACK implementation.  Results may vary.  The relevant point is the comparable performance rather than the explicit numbers.
+
+~~~~~~~~~~Python
 >>> timeit f(nX, ny)
-10 loops, best of 3: 22.9 ms per loop
+10 loops, best of 3: 33.4 ms per loop
+~~~~~~~~~~
 
 
 ### Development Result

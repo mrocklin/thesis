@@ -42,3 +42,19 @@ This optimization is relevant within this application.  The `SYRK` computation g
 #### Development Result
 
 This speedup was both found and implemented by a domain expert.  He was able to identify the flaw in the current implementation because the intermediate representations (DAG, Fortran code) were clear and natural to someone in his domain.  The code invited inspection.  After identification he was able to implement the correct computation (`class SYRK`).  The `computations` project for BLAS/LAPACK routines was simple enough for him to quickly engage and develop his contribution.  Finally he was able to formulate a pattern `(A*A.T,  SYRK(1.0, A, 0.0, 0), True)` into the compilation system so that his work could be automatically applied.  The declarative inputs of the compiler are sufficiently approachable to be used by developers without a background in automated program development.
+
+#### Numeric Result
+
+In section \ref{sec:linear-regression-numeric-result} we saw that our automated system was able to acheive the same performance as the expert implementation from naive results.  The addition of SYRK pushes performance beyond what even specialized functions within the `scipy` stack allow
+
+~~~~~~~~~~Python
+>>> timeit scipy.linalg.solve(X.T*X, X.T*y, sym_pos=True)
+10 loops, best of 3: 32.8 ms per loop
+
+>>> comp = compile([X, y], [beta], Q.fullrank(X))
+>>> with assuming(Q.real_elements(X), Q.real_elements(y)):
+...     f = build(comp, [X, y], [beta])
+
+>>> timeit f(nX, ny)
+10 loops, best of 3: TODO ms per loop
+~~~~~~~~~~
