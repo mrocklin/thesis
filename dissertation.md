@@ -22,3 +22,5 @@ include [Voltron](voltron.md)
 include [Scheduling](static-scheduling.md)
 
 include [Extensibility](extensibility.md)
+
+include [Conclusion](conclusion.md)
