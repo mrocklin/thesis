@@ -63,8 +63,6 @@ The high-level syntax in Python and MatLab calls down to routines found within t
 
 ### Connecting Math and Computation
 
-    TODO: Need better connectivity here
-
 Languages like Matlab, Python, and R have demonstrated the utility of linking a "high productivity" syntax to low-level "high performance" routines like those within BLAS/LAPACK.  While the process of designing efficient programs is notably simpler it remains imperfect.  Naive users are often incapable even of the simple optimizations at the high level language (e.g. using solve rather than computing explicit inverses); these optimizations require significant computational experience.  Additionally, even moderately expert users are incapable of leveraging the full power of BLAS/LAPACK.  This may be because they are unfamiliar with the low-level interface or because their high-level language does not provide clean hooks to the full lower-level library.
 
 Ideally we want to be given a naive input like the following expression and predicates
