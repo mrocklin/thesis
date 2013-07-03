@@ -4,11 +4,11 @@ Term
 
 \label{sec:term}
 
-Term rewrite systems generally operate on a specific language of terms.  In traditional logic programming languages like Prolog this term language is custom-built for and included within the logic programming system, enabling tight integration between terms and computational infrastructure.  However a custom term language limits interoperability with other term-based systems (like computer algebra systems).  Systems like miniKanren resolve this problem by describing terms with simple s-expressions, enabling broad interoperation with projects within its intended host language, Scheme.  
+Term rewrite systems generally operate on a specific language of terms.  In traditional logic programming languages like Prolog this term language is custom-built for and included within the logic programming system, enabling tight integration between terms and computational infrastructure.  However a custom term language limits interoperation with other term-based systems (like computer algebra systems).  Systems like miniKanren resolve this problem by describing terms with simple s-expressions, enabling broad interoperation with projects within its intended host language, Scheme.  
 
 S-expressions are not idiomatic within the Python ecosystem and few projects (if any) define terms in this way.  The intended object oriented approach to this problem is to create an interface and have client projects implement this interface if they want to interoperate with term manipulation codes.
 
-Unfortunately the Python ecosystem lacks a common interface for term representation.
+Unfortunately the Python ecosystem lacks a common interface for term representation in the standard sense.
 
 
 ### Interface
@@ -41,9 +41,12 @@ To achieve interoperation we need to know how to do the following:
 
 #### `new, op, args, isleaf`
 
-To be useful in a client codebase we must specify how to interact with client types as terms.  The functions `new, op, args, and isleaf` query for the methods `_term_new`, `_term_op`, `_term_args`, `_term_isleaf` on their inputs.  Unfortunately no such standard interface exists for terms within the Python ecosystem and neither these methods nor any other, commonly occurs within existing code.
+To be useful in a client codebase we must specify how to interact with client types as terms.  These can be added after code import time in two ways
 
-We use Python's permissive and dynamic object model to attach `_term_xxx` methods onto client classes *after* import time.
+*   Dispatch on global registries
+*   Dynamic manipulation of client classes (monkey patching)
+
+The functions `new, op, args, and isleaf` query appropriate global registries and for the methods `_term_new`, `_term_op`, `_term_args`, `_term_isleaf` on their input objects.  These method names are intended to be monkey-patched onto client classes if they do not yet exist.  This is done dynamically at runtime.  This is possible after import time only due to Python's permissive and dynamic object model.  This practice is dangerous in general if other projects use the same names.
 
 Because most Python objects can be completely defined by their type and attribute dictionary the following methods are usually sufficient for any Python object that doesn't use advanced features.
 
@@ -60,7 +63,7 @@ def _term_new(op, args):
     return obj
 ~~~~~~~~~~~
 
-These methods can then be attached *after* client code has been imported
+These methods can then be attached after client code has been imported
 
 ~~~~~~~~~~~Python
 def termify(cls):
@@ -105,8 +108,9 @@ The `variables` context manager places `"NAME"` into a global collection and the
 >>> from bank import Account
 >>> termify(Account)
 
->>> acct = Account(name="Alice", balance=100)
->>> query =  Account(name="NAME",  balance=100)
+>>> acct  = Account(name="Alice", balance=100)
+>>> query = Account(name="NAME",  balance=100)
+>>> vars  = ["NAME"]
 
 >>> with variables(*vars):
 ...     print unify(acct, query, {})
