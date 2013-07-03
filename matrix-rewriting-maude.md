@@ -17,9 +17,6 @@ And a set of operators with associated precedences
 
     op _+_       : MatrixExpr MatrixExpr -> MatrixExpr [ctor assoc comm prec 30] .
     op __        : MatrixExpr MatrixExpr -> MatrixExpr [ctor assoc prec 25] .
-    op __        : Float      MatrixExpr -> MatrixExpr [ctor left id: 1.0 prec 25] .
-    op __        : Float      Float      -> Float      [ctor assoc comm prec 25] .
-    op _\_       : MatrixExpr MatrixExpr -> MatrixExpr [ctor assoc prec 25] .
     op transpose : MatrixExpr            -> MatrixExpr [ctor] .
     op inverse   : MatrixExpr            -> MatrixExpr [ctor] .
 
