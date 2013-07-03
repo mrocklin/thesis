@@ -56,5 +56,5 @@ In section \ref{sec:linear-regression-numeric-result} we saw that our automated 
 ...     f = build(comp, [X, y], [beta])
 
 >>> timeit f(nX, ny)
-10 loops, best of 3: TODO ms per loop
+10 loops, best of 3: 23.5 ms per loop
 ~~~~~~~~~~
