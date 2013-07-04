@@ -142,13 +142,13 @@ We provide timings for various implementations of least squares linear regressio
 >>> y = np.matrix(np.random.rand(n, 1))
 
 >>> timeit (X.T*X).I * X.T*y
-10 loops, best of 3: 74.6 ms per loop
+10 loops, best of 3: 76.1 ms per loop
 
 >>> timeit numpy.linalg.solve(X.T*X, X.T*y)
-10 loops, best of 3: 36.3 ms per loop
+10 loops, best of 3: 55.4 ms per loop
 
 >>> timeit scipy.linalg.solve(X.T*X, X.T*y, sym_pos=True)
-10 loops, best of 3: 32.8 ms per loop
+10 loops, best of 3: 33.2 ms per loop
 ~~~~~~~~~~
 
 We now take the most naive user input from SymPy
@@ -173,7 +173,7 @@ Disclaimer: These times are dependent on matrix size, architecture, and BLAS/LAP
 
 ~~~~~~~~~~Python
 >>> timeit f(nX, ny)
-10 loops, best of 3: 33.4 ms per loop
+10 loops, best of 3: 30.9 ms per loop
 ~~~~~~~~~~
 
 

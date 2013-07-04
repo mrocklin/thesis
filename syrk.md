@@ -49,12 +49,12 @@ In section \ref{sec:linear-regression-numeric-result} we saw that our automated 
 
 ~~~~~~~~~~Python
 >>> timeit scipy.linalg.solve(X.T*X, X.T*y, sym_pos=True)
-10 loops, best of 3: 32.8 ms per loop
+10 loops, best of 3: 33.2 ms per loop
 
 >>> comp = compile([X, y], [beta], Q.fullrank(X))
 >>> with assuming(Q.real_elements(X), Q.real_elements(y)):
 ...     f = build(comp, [X, y], [beta])
 
 >>> timeit f(nX, ny)
-10 loops, best of 3: 23.5 ms per loop
+10 loops, best of 3: 23.4 ms per loop
 ~~~~~~~~~~
