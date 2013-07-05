@@ -7,16 +7,16 @@ Static Scheduling Algorithms
 
 ### Complexity 
 
-Optimal scheduling is NP-Hard; limiting the scale of schedulable programs.  We can get around this in a few ways
+Optimal scheduling is NP-Hard; limiting the scale of schedulable programs.  We can get around this in a few ways:
 
 1.  Array programs can often be written with relatively few tasks, making the full NP-Hard problem feasible.
-2.  Approximation algorithms exist for common NP-Complete problems (in particular, we will use integer linear programming)
-3.  Heuristics for heterogeneous static scheduling exist
+2.  Approximation algorithms exist for common NP-Complete problems (in particular, we will use integer linear programming.)
+3.  Heuristics for heterogeneous static scheduling exist.
 
 
 ### Interface
 
-We use the following interface for heterogeneous static scheduling 
+We use the following interface for heterogeneous static scheduling:
 
 Inputs:
 

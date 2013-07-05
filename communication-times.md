@@ -21,7 +21,7 @@ We write an MPI computation to transfer arrays between two processes.  We profil
 
 ### Analysis
 
-The image demonstrates that there is clear polynomial relationship above a few thousand bytes.  Further inspection reveals that this relationship is linear, as is expected by a simple latency/bandwidth model.  Below this size the linear model breaks down.  Uncertainty varies with size but decreases steadily after a few thousand bytes to within a few percent. 
+The image demonstrates that there is a clear polynomial relationship above a few thousand bytes.  Further inspection reveals that this relationship is linear, as is expected by a simple latency/bandwidth model.  Below this size the linear model breaks down.  Uncertainty varies with size but decreases steadily after a few thousand bytes to within a few percent. 
 
 We conclude that for this architecture communication times are both predictable and modelable above a few thousand bytes, at least for the sensitivity required for our applications.
 
