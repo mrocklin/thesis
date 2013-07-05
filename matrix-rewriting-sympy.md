@@ -5,9 +5,9 @@
 
 By composing SymPy.matices.expressions with LogPy we obtain much of the same intuitive functionality presented in the matrix-algebra project in Maude discussed in Section \ref{sec:matrix-rewriting-maude}.
 
-We are able to describe the high-level mathematical transformations while restricting ourselves to the Python language.  Unfortunately because our solution is embedded in Python we can not acheive the same convenient syntax support provided by Maude.  Instead we encode a set of transformations in `(source, target, condition)` tuples of SymPy terms. 
+We describe high-level mathematical transformations while restricting ourselves to the Python language.  Unfortunately because our solution is embedded in Python we can not acheive the same convenient syntax support provided by Maude (e.g. the `_is_` operator.)  Instead we encode a set of transformations in `(source, target, condition)` tuples of SymPy terms. 
 
-We suffer the following degredation in readability in order to extract Maude, an exotic dependency.  We describe the content of the transformation without specialized syntax
+We suffer the following degredation in readability in order to extract Maude, an exotic dependency.  We describe the content of the transformation without specialized syntax.
 
     Wanted:      inverse(X) = transpose(X) if X is orthogonal
     Delivered:  (inverse(X) , transpose(X) ,  Q.orthogonal(X))

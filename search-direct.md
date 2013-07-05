@@ -14,20 +14,20 @@ We consider a sequence of decreasingly trivial traversal algorithms.  These expo
 
 #### Properties on Transformations
 
-The sets of transformations described within this thesis have two important properties
+The sets of transformations described within this thesis have the following two important properties:
 
-*   They *terminate*:  The graph has no cycles.  There is always a sense of constant bounded progression to a final result.  As a result the object of study is a directed acyclic graph (DAG).
+*   They are *strongly normalizing*:  The graph has no cycles.  There is always a sense of constant progression to a final result.  As a result the object of study is a directed acyclic graph (DAG).
 *   They are not *confluent* in general:  There are potentially multiple valid outcomes; the DAG may have multiple leaves.  The choice of final outcome depends on which path the system takes at intermediate stages.
 
-Due to these two properties we can consider the set of all possible intermediate and final states as a directed acyclic graph (DAG) with a single input.  In operational contexts this DAG can grow to be prohibitively large.  In this section we discuss ways to traverse this DAG to quickly find high quality nodes/computations.
+Due to these two properties we can consider the set of all possible intermediate and final states as a directed acyclic graph (DAG) with a single input.  Operationally this DAG can grow to be prohibitively large.  In this section we discuss ways to traverse this DAG to quickly find high quality nodes/computations.
 
 For simplicity this section will consider the simpler problem of searching a tree (without duplicates.)  The full DAG search problem can be recovered through use of dynamic programming.
 
 #### Properties on States 
 
-Additionally the states within this graph have two important properties
+Additionally, the states within this graph have two important properties:
 
-*   Quality:  There is a notion of quality or cost both at each final state and at all intermediate states.  This is provided by an objective function and can be used to guide our search
+*   Quality:  There is a notion of quality or cost both at each final state and at all intermediate states.  This is provided by an objective function and can be used to guide our search.
 *   Validity:  There is a notion of validity at each final state.  Only some leaves represent valid terminal points; others are dead-ends.
 
 #### Example Tree
@@ -45,9 +45,9 @@ This tree has a root at the top.  Each of its children represent incremental imp
 
 #### Interface
 
-In this section we consider the abstract problem of exploring a tree to minimize an objective function.  We depend on the following interface
+We exploring a tree to minimize an objective function.  We depend on the following interface:
 
-    children  ::  node -> list of nodes
+    children  ::  node -> [node]
     objective ::  node -> score
     isvalid   ::  node -> bool
 
@@ -110,7 +110,7 @@ def greedy(children, objective, isvalid, node):
 \includegraphics[width=.48\textwidth]{images/search-greedy}
 \end{wrapfigure}
 
-Greedy solutions like the one above can become trapped in a dead-end.  In our example they arrive at an invalid leaf with cost `8`.  There is no further option to pursue in this case.  The correct path to take at this stage is to regress backwards up the tree and consider other previously discarded options.
+Greedy solutions like the one above can become trapped in a dead-end.  Our example arrives at an invalid leaf with cost `8`.  There is no further option to pursue in this case.  The correct path to take at this stage is to regress backwards up the tree and consider other previously discarded options.
 
 This requires the storage and management of history of the traversal.  By propagating streams of ordered solutions rather than a single optimum we implement a simple backtracking scheme.
 
@@ -121,7 +121,7 @@ include [Greedy](greedy.py)
 The functions `chain` and `imap` operate lazily, computing results as they are requested.  Management of history, old state, and garbage collection is performed by the Python runtime and is localized to the generator mechanisms in the `chain` and `imap` functions found in the standard library `itertools`.
  
 
-#### Continuing the Search
+#### Continutation
  
 \begin{wrapfigure}[10]{r}{.5\textwidth}
 \vspace{-2em}
@@ -141,7 +141,7 @@ If equivalent nodes are found in multiple locations then we can increase search 
 
 ### Extensions
 
-In the section above we describe a greedy depth first search with backtracking.  In this section we discuss a few generalizations.
+In this section we discuss a few generalizations of greedy search.
 
 #### K-deep greedy 
 
@@ -149,7 +149,7 @@ Rather than compute and then minimize over the children of a node we could compu
 
 #### Breadth first 
 
-The greedy search above is *depth first*.  It exhausts its current subtree before moving on to siblings.  Alternatively it could search subtrees more fairly, returning a single greedily optimal solution within each before moving on to the next.  This cycles between early alternatives rather than late alternatives.  Code for this algorithm can be obtained by replacing `chain` with `interleave` in the code above.
+The greedy search above is *depth first*.  It exhausts its current subtree before moving on to siblings.  Alternatively, it could search subtrees more fairly, returning a single greedily optimal solution within each before moving on to the next.  This cycles between early alternatives rather than late alternatives.  Code for this algorithm can be obtained by replacing `chain` with `interleave` in the code above.
 
 #### Expanding Frontier
 

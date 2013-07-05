@@ -8,7 +8,7 @@ include [TikZ](tikz_pattern.md)
 
 LogPy is a general purpose logic programming library for Python.  It implements a varient of [miniKanren](http://kanren.sourceforge.net/)\cite{byrd2010}, a language originally implemented in a subset of Scheme.  [Comprehensive documentation](http://github.com/logpy/logpy/tree/master/docs)\cite{logpy} for LogPy is available online.  
 
-The construction of LogPy was motivated by duplicated efforts in SymPy and Theano, two computer algebra systems in Python.  Both SymPy and Theano built special purpose modules to define and apply optimiations to their built-in mathematical and computational data structures.  LogPy aims to replace these modules.  The desire to deliver functionality to two inflexible codebases forced the creation of the `term` system described in Section \ref{sec:term}.  LogPy uses the `term` interface.
+The construction of LogPy was motivated by duplicated efforts in SymPy and Theano, two computer algebra systems in Python.  Both SymPy and Theano built special purpose modules to define and apply optimiations to their built-in mathematical and computational data structures.  LogPy aims to replace these modules.  The desire to deliver functionality to two inflexible codebases forced the creation of the `term` system described in Section \ref{sec:term}.  LogPy provides functionality on top of the `term` interface.
 
 
 ### Basic Design - Goals
@@ -22,7 +22,7 @@ LogPy programs are built up of *goals*.  Goals produce and manage streams of sub
     >>> x = var('x')
     >>> a_goal = eq(x, 1)
 
-This goal uses `eq`, a goal constructor, to require that the logic variable `x` unifies to `1`.  As previously mentioned goals are functions from single substitutions to sequences of substitutions.  In the case of `eq` this stream has either one or zero elements
+This goal uses `eq`, a goal constructor, to require that the logic variable `x` unifies to `1`.  As previously mentioned goals are functions from single substitutions to sequences of substitutions.  In the case of `eq` this stream has either one or zero elements:
 
     >>> a_goal({})      # require no other constraints
     ({~x: 1},)
@@ -54,7 +54,7 @@ To find all substitutions that satisfy *both* goals we can feed each element of 
     {~x: 2}
     {~x: 3}
 
-Logic programs can have many goals in complex hierarchies.  Writing explicit for loops quickly becomes tedious.  Instead LogPy provides functions to combine goals logically.  
+Logic programs can have many goals in complex hierarchies.  Writing explicit for loops quickly becomes tedious.  Instead, LogPy provides functions to combine goals logically.  
 
     combinator :: [goals] -> goal
 
@@ -74,7 +74,7 @@ Two important logical goal combinators are logical all `lall` and logical any `l
 
 #### User Syntax
 
-These combinators and goals are accessed with the `run` function as in miniKanren
+These combinators and goals are accessed with the `run` function as in miniKanren:
 
     >>> run(0, x, lall(membero(x, (1, 2, 3)),
     ...                membero(x, (2, 3, 4)))

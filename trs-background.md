@@ -10,12 +10,12 @@ Logic programming and term rewrite systems benefit from substantial theory and m
 
 Several mature term rewrite systems exist.  In spirit these descend from logic programming, first popularized by the Prolog language in the early seventies.  Today systems like Maude and Elan from the OBJ family and the Stratego/XT toolset use term rewriting for the declarative definition of and optimization within languages.  They serve as repositories for results from academic research.
 
-#### Maude/Elan: 
+#### OBJ: Maude, Elan 
 
 The Maude system\cite{Clavel1996} uses term rewriting to support a meta-programming environment.  The Maude language provides syntax to define syntax for other languages.  It also enables the description of rewrite rules to transform terms in that language.  Rewrite rules are separated into a set of confluent equations and a set of non-confluent rewrite rules.  The non-confluent rules can be applied in two built-in strategies.  Elan\cite{Borovansky2002} differs from Maude in that it enables users to specify custom strategies.
 
 
-#### Stratego/XT:
+#### Stratego/XT
 
 The Stratego/XT\cite{Visser2004} toolset contains several separate tools to support the definition of syntax, language, transformations on terms within that language, and strategies to coordinate the application of those transformations.  This orthogonal approach separates many of the ideas that are present in systems like Elan into distinct, clearly defined ideas.
 
@@ -31,7 +31,7 @@ However, as mentioned in Section \ref{sec:pattern-concerns}, mathematical theori
 
 Because these patterns are used at every transformation step and because the collection changes infrequently it makes sense to store them in an indexed data structure that trades insertion time for query time.  Discrimination nets are often used in practice \cite{Christian1993}.  These provide simultaneous matching of one input term to many stored rewrite patterns in logarithmic time.
 
-#### Associative Commutative Matching
+#### Associative-Commutative Matching
 
 Including the traditional definitions of associativity and commutativity in the rule set may lengthen compute times beyond a reasonable threshold.
 

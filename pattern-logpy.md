@@ -9,28 +9,24 @@ We implement a rudimentary mathematical pattern matcher by composing LogPy, a ge
 
 Recall that LogPy supports the `term` interface discussed in Section \ref{sec:term}.
 
-We now impose the `term` interface on SymPy classes so that LogPy can manipulate SymPy terms.  This happens outside of the SymPy codebase.  We do this with the following definitions of the `_term_xxx` methods.
+We now impose the `term` interface on SymPy classes so that LogPy can manipulate SymPy terms.  This happens outside of the SymPy codebase.  We do this with the following definitions of the `_term_xxx` methods:
 
 ~~~~~~~~~~Python
 from sympy import Basic
 Basic._term_op      = lambda self: self.func
 Basic._term_args    = lambda self: self.args
 Basic._term_new     = classmethod(lambda op, args: op(*args))
-Basic._term_isleaf  = lambda self: not self.args
+Basic._term_isleaf  = lambda self: len(self.args) == 0
 ~~~~~~~~~~
 
-We do not invent a new term language for this term rewrite system.  Rather we reuse the existing language from the SymPy computer algebra system; mathematics is not reinvented within the logic programming system.
+We do not invent a new term language for this term rewrite system.  Rather, we reuse the existing language from the SymPy computer algebra system; mathematics is not reinvented within the logic programming system.
 
 
 ### Storing Mathematical Patterns
 
-A rewrite rule can be specified by a source, target, and condition terms.  These are specified with SymPy terms.  
-
-For examples the following transformation
+A rewrite rule can be specified by a source, target, and condition terms.  These are specified with SymPy terms.  For example the following transformation can be specified with the following tuple:
 
 $$\log(\exp(x)) \rightarrow x \;\;\; \forall x \in \mathbb{R}$$
-
-can be specified with the following tuple
 
     ( log(exp(x)),       x,      Q.real(x) )
 
@@ -80,7 +76,7 @@ The `run` function asks for a lazily evaluated iterator (`None`) that returns re
     
 #### `rewrites(expr, target, condition)`
 
-The LogPy Relation `rewrites` stores facts, in this case our rewrite patterns.  The facts are of the form `(source, target, condition)` and claim that a expression matching `source` can be rewritten as `target` if the boolean expression `condition` holds true.  For example rewrites might contain the following facts
+The LogPy Relation `rewrites` stores facts, in this case our rewrite patterns.  The facts are of the form `(source, target, condition)` and claim that a expression matching `source` can be rewritten as the `target` expression if the boolean expression `condition` holds true.  For example rewrites might contain the following facts
     
     (Abs(x),            x,      Q.positive(x)),
     (exp(log(x)),       x,      Q.positive(x)),
@@ -88,17 +84,17 @@ The LogPy Relation `rewrites` stores facts, in this case our rewrite patterns.  
     (log(x**y),     y*log(x),   True),
 
     
-By placing the input, `expr`, in the source position we mandate that `expr` must match the `source` of the pattern.  The `rewrites` relation selects the set of potentially matching patterns and produces a stream of matchings.  The `target` and `condition` terms will be reified with these matchings during future computations.
+By placing the input, `expr`, in the source position we mandate that `expr` must unify with the `source` of the pattern.  The `rewrites` relation selects the set of potentially matching patterns and produces a stream of matching substitutions.  The `target` and `condition` terms will be reified with these matchings during future computations.
 
-For example if `expr` is the term `Abs(y**2)` then only the first pattern matches.  The logic variables `target` and `condition` reify to `y**2` and `Q.positive(y**2)` respectively.  The second and third patterns do not match because we can unify `Abs` to neither `exp` nor `log`.  In this case only one pattern in our collection yields a valid transformation.
+For example if `expr` is the term `Abs(y**2)` then only the first pattern matches because the operations `exp` and `log` can not unify to `Abs`.  The logic variables `target` and `condition` reify to `y**2` and `Q.positive(y**2)` respectively.  In this case only one pattern in our collection yields a valid transformation.
 
 #### `asko(condition, True)`
 
 The `asko` goal further constrains results to those for which the `condition` of the pattern  evaluates to `True` under SymPy's `ask` routine.  This engages SymPy's logic system and the underlying SAT solver.  Through interoperation we gain access to and interact with a large body of pre-existing logic code.
 
-If as above `expr` is `Abs(y**2)` then we ask SymPy if the boolean expression `Q.positive(y**2)` is true.  This might hold if, for example, we knew that the SymPy variable `y` was real and non-zero.  If this is so then we yield the value of `target`, in this case `y**2`; otherwise this function returns an empty iterator.
+If as above `expr` is `Abs(y**2)` and `x` matches to `y**2` then we ask SymPy if the boolean expression `Q.positive(y**2)` is true.  This might hold if, for example, we knew that the SymPy variable `y` was real and non-zero.  If this is so then we yield the value of `target`, in this case `y**2`; otherwise this function returns an empty iterator.
 
-We return a lazy iterator of all target patterns such that the source pattern matches the input expression and that the condition of the pattern is satisfied.
+Finally we return a lazy iterator of all target patterns such that the source pattern matches the input expression and that the condition of the pattern is satisfied.
 
 #### Analysis
 
