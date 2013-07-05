@@ -6,25 +6,25 @@ Matrix Algebra
 
 include [Tikz](tikz_math.md)
 
-We extend the SymPy computer algebra system to Matrix Algebra.  Leaf variables in a matrix algebra are defined by an identifier (e.g. `'X'`) and a shape, two integers of rows or columns.  These shape integers may themselves be symbolic. Common matrix algebra operators include Matrix Multiplication, Matrix Addition, Transposition, and Inversion.  Each of these operators has its own logic about the shape of the term given the shapes of its inputs, validity, and possible simplifications.
+We extend the SymPy computer algebra system to matrix algebra.  Leaf variables in a matrix algebra are defined by an identifier (e.g. `'X'`) and a shape, two integers of rows or columns.  These shape integers may themselves be symbolic. Common matrix algebra operators include Matrix Multiplication, Matrix Addition, Transposition, and Inversion.  Each of these operators has its own logic about the shape of the term given the shapes of its inputs, validity, and possible simplifications.
 
-In the end we enable the construction of expressions like the following expression for least squares linear regression where $X$ is an $n \times m$ matrix and $y$ an $n \times 1$ column vector.
+In the end we enable the construction of expressions such as the following for least squares linear regression in which $X$ is an $n \times m$ matrix and $y$ an $n \times 1$ column vector.
 
 $$\beta = (X^T X)^{-1} X^T y $$
 
 
 #### Simplification
 
-Just as we simplify $\log(e^x) \rightarrow x$ in real analysis we have trivial simplifications in matrix algebra as well such as $(X^T)^T \rightarrow X$ or $\operatorname{Trace}(X + Y) \rightarrow \operatorname{Trace}(X) + \operatorname{Trace}(Y)$. 
+Just as we simplify $\log(e^x) \rightarrow x$ we know trivial simplifications in matrix algebra.  For example $(X^T)^T \rightarrow X$ or $\operatorname{Trace}(X + Y) \rightarrow \operatorname{Trace}(X) + \operatorname{Trace}(Y)$. 
 
 
 #### Extension 
 
-Like real analysis, matrix algebra has a rich and extensive theory.  As a result this algebra can be extended to include a large set of additional operators including Trace, Determinant, Blocks, Slices, EigenVectors, Adjoints, Matrix Derivatives, etc....   Each of these operators has its own rules about validity and propagation of shape, its own trivial simplifications, and its own special transformations.
+As with real analysis, matrix algebra has a rich and extensive theory.  As a result this algebra can be extended to include a large set of additional operators including Trace, Determinant, Blocks, Slices, EigenVectors, Adjoints, Matrix Derivatives, etc....   Each of these operators has its own rules about validity and propagation of shape, its own trivial simplifications, and its own special transformations.
 
 ### Embedding in SymPy
 
-We implement this matrix algebra in the SymPy langauge.  As in Section \ref{sec:sympy-software} we implement the literals and operators as Python classes.
+We implement this matrix algebra in the SymPy langauge.  As shown Section \ref{sec:sympy-software} we implement the literals and operators as Python classes.
 
 ~~~~~~~~~~Python
 # Literals
@@ -46,7 +46,7 @@ class Transpose(MatrixExpr):
     ...
 ~~~~~~~~~~
 
-In this case however matrix expression "literals" contain not only Python variables for identification but also SymPy scalar expressions like `Symbol('n')` for shape information.
+In this case however matrix expression "literals" contain not only Python variables for identification, but also SymPy scalar expressions like `Symbol('n')` for shape information.
 
 We can encode the least squares example above in the following way
 
@@ -68,12 +68,13 @@ The execution of these commands does not perform any specific numeric computatio
 
 ### Syntax
 
-As in Section \ref{sec:sympy-syntax} we overload Python operator methods `__add__`, `__mul__` to point to `MatAdd` and `MatMul` respectively.  We use Python `property`s to encode `.T` as Tranpose and `.I` as inverse.  This follows the precedent of `NumPy` a popular library for numeric linear algebra.  These changes allow a more familiar syntax for mathematical users
+As in Section \ref{sec:sympy-syntax} we overload Python operator methods `__add__`, `__mul__` to point to `MatAdd` and `MatMul` respectively.  We use Python `properties` to encode `.T` as Tranpose and `.I` as inverse.  This follows the precedent of `NumPy`, a popular library for numeric linear algebra.  These changes allow a more familiar syntax for mathematical users.
 
 ~~~~~~~~~~~Python
+>>> # beta = MatMul(Inverse(MatMul(Transpose(X), X)), Transpose(X), y)
 >>> beta = (X.T*X).I * X.T * y
 ~~~~~~~~~~~
 
-### Shape checking and Trivial Simplification
+### Shape Checking and Trivial Simplification
 
-Shape checking and trivial simplifications (e.g. removing pairs of transposes) are done at object instantiation time.  This is accomplished by calling raw Python code within the class `__init__` constructors.
+Shape checking and trivial simplifications, e.g. the removal of pairs of transposes, are done at object instantiation time.  This is accomplished by calling raw Python code within the class `__init__` constructors.
