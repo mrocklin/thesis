@@ -26,6 +26,6 @@ Therefore we need to efficiently compare, distribute, and interconnect expertise
 
 #### Broad Applicability of Single Domain
 
-A single domain may be used by a wide set of projects.  This set is rarely known by the domain expert*.  E.g. numerical integration is used in several fields which are unfamilar to numerical analysts.
+A single domain may be used by a wide set of projects.  This set is rarely known by the domain expert.  E.g. numerical integration is used in several fields which are unfamilar to numerical analysts.
 
 An ideal software ecosystem selects and distributes the best implementation of a particular domain to all relevant problems.  Multiple implementations of a domain in stable co-existence is a symptom of a poorly functioning ecosystem.  It is a sign of poor reuse and fragments future development.

@@ -2,7 +2,7 @@
 Modularity
 ----------
 
-Modularity is a software principle that supports the separation of a software project into modules, each of which performs an individual and independent task.  This approach confers the following benefits
+Modularity is a software principle that supports the separation of a software project into modules, each of which performs an individual and independent task.  This approach confers the following benefits:
 
 
 #### Specialization of Labor 
@@ -11,7 +11,7 @@ When separation between modules aligns with separation between disciplines of ex
 
 #### Evolution through Interchangeability
 
-When modules are combined with an established interface they become interchangeable with other simultaneous efforts by different groups in the same domain.  Shared interfaces and interchangeability supports experimentation and eases evolution under changing contexts (such as changing hardware)
+When modules are combined with an established interface they become interchangeable with other simultaneous efforts by different groups in the same domain.  Shared interfaces and interchangeability supports experimentation and eases evolution under changing contexts (such as changing hardware.)
 
 #### Verification
 
@@ -23,4 +23,4 @@ Scientific computing algorithms are often broadly shared across otherwise unrela
 
 #### Obsolescence
 
-Scientific software is often made obsolete either by development of new methods, new hardware, new languages within the programming community, or even very rarely by new science or new mathematics.  The separation of these projects into modules isolates the obsolescence to only the few modules that have been replaced.  Because different elements of scientific computing evolve at different rates (e.g. hardware changes quickly while math changes slowly), this separation can avoid frequent rewrites of infrequently changing domains (e.g. mathematical elements may be allowed persist from generation to generation.)
+Scientific software is often made obsolete either by development of new methods, new hardware, new languages within the programming community, or even very rarely by new science or new mathematics.  The separation of these projects into modules isolates the obsolescence to only the few modules that have been replaced.  Because different elements of scientific computing evolve at different rates (e.g. hardware changes quickly while math changes slowly), this separation can avoid frequent rewrites of infrequently changing domains (e.g. mathematical elements may be allowed to persist from generation to generation.)
