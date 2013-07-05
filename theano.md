@@ -2,19 +2,21 @@
 Theano Backend for Matrix Expressions
 -------------------------------------
 
-Systems built of modular components with enables interchangability.  We can experiment with alternative implementations of some of the components without rewriting the entire system.  This allows systems to evolve with higher granularity, rather than requiring global rewrites.
+\label{sec:theano}
 
-We demonstrate this virtue by swapping out our `computations` backend for BLAS/LAPACK routines with Theano, a Python package for array computing.  Theano comes from the machine learning community.  It was developed with different goals and so has a different set of strengths and weaknesses.  It supports NDArrays, non-contiguous memory, and GPU operation but fails to make use of mathematical information like positive-definiteness.  It is also significantly more mature.
+Modular components allow interchangability.  This enables experimentation with alternative implementations of some of the components without rewriting the entire system.  Fine software granularity encourages evolution and avoids global rewrites.
+
+We demonstrate this virtue by swapping out our `computations` backend for BLAS/LAPACK routines with Theano, a Python package for array computing.  Theano comes from the machine learning community.  It was developed with different goals and so has a different set of strengths and weaknesses.  It supports NDArrays, non-contiguous memory, and GPU operation but fails to make use of mathematical information like symmetry or positive-definiteness.  It is also significantly more mature.
 
 ### Kalman Filter
 
-In Section \ref{sec:kalman-filter} we mathematically defined the Kalman Filter in SymPy and then implemented it automatically in `computations`.
+In Section \ref{sec:kalman-filter} we mathematically defined the Kalman Filter in SymPy and then implemented it automatically in `computations`.  We do the same here with Theano.
 
 ~~~~~~~~~Python
 include [Kalman code](kalman.py)
 ~~~~~~~~~
 
-We take this same mathematical definition and generate a Theano computations graph and runnable function.
+We take this same mathematical definition and generate a Theano graph and runnable function.
 
 ~~~~~~~~~~~~~~~Python
 from sympy.printing.theanocode import theano_function
@@ -31,4 +33,5 @@ Theano builds a Python function that calls down to a combination of low-level `C
 \centering
 \includegraphics[width=\textwidth]{images/theano-kalman}
 \label{fig:theano-kalman}
+\caption{fig:Theano computation graph for the kalman filter}
 \end{figure}
