@@ -1,35 +1,35 @@
 
 ## Implementations
 
-The BLAS/LAPACK\cite{LAPACK} interface has multiple implementations.  These stress a variety of techniques.  We list them both as a review of past work but also to demonstrate the wealth of techniques used to accelerate this set of operations.
+The BLAS/LAPACK\cite{LAPACK} interface has multiple implementations.  These stress a variety of techniques.  We list them both as a review of past work and also to demonstrate the wealth of techniques used to accelerate this set of important operations.
 
 ### Sequential or Shared Memory BLAS-LAPACK
 
 #### Reference BLAS
 
-is still available from the original source.  It has been updated to more modern coding styles and has automated translations into C.
+A standard implementation of BLAS remains available in both Fortran and C.  It implements the subroutines in a decent and human understandable manner.
 
 
 #### Automatically Tuned Linear Algebra Software (ATLAS)
 
-benchmarks and several possible implementations on an architecture before installation.  ATLAS \cite{ATLAS} is able to intelligently select block sizes to fit memory hierarchy and even selects between different available execution paths with LAPACK.  ATLAS was the first successful use of automated methods in widespread use.
+The ATLAS system benchmarks several possible implementations with different block-size parameters on an architecture before installation.  ATLAS \cite{ATLAS} is able to intelligently select block sizes to fit the memory hierarchy and even selects between different available execution paths with LAPACK.  ATLAS was the first successful use of automated methods in this domain and remains in widespread use.  It is the commonly installed software solution on standard Linux distributions.
 
 
 #### GOTO BLAS
 
-is developped by a single man (Kazushige Goto) who hand-tunes the generated assembly for particular architectures.  GOTO BLAS\cite{Goto2008} is frequently among the fastest implementations available, routinely beating vendor supplied implementations.  This is an example of a single expert in low-level computation and memory hierarchy distributing expertise through software.
+Instead of searching a parameter space the BLAS can be optimzed by hand.  Kazushige Goto hand-tunes the generated assembly of BLAS for particular architectures.  GOTO BLAS\cite{Goto2008} is frequently among the fastest implementations available, routinely beating vendor supplied implementations.  This is an example of a single expert in low-level computation and memory hierarchy distributing expertise through software.
 
 
 #### Formal Linear Algebra Methodology Environment (FLAME) 
 
-provides a language for the idiomatic expression of blocked matrix computations.  FLAME\cite{Geijn2008} lowers the barriers to design novel matrix algorithms and provides some automated reasoning capabilities.  Using these methods FLAME is able to more exhaustively search the space of possible algorithms when creating a BLAS/LAPACK library.   
+The FLAME project provides a language for the idiomatic expression of blocked matrix computations.  FLAME\cite{Geijn2008} lowers barriers to design novel matrix algorithms and provides some automated reasoning capabilities.  Using these methods FLAME is able to more exhaustively search the space of possible algorithms when creating a BLAS/LAPACK library.
 
-The FLAME group collaborates with Goto in an effort to automate and more broadly apply expertise
+The FLAME group collaborates with Kazushige Goto in an effort to automate and more broadly apply expertise
 
 
-#### MKL
+#### Microsoft Kernel Library (MKL)
 
-The Microsoft Kernel Library is an industry standard.  It is a professional multi-core implementation.
+The MKL is an industry standard.  It is a professional multi-core implementation.
 
 
 ### Distributed Memory BLAS-LAPACK
@@ -38,7 +38,7 @@ The ubiquity of numerical linear algebra makes it an attractive candidate for ma
 
 Much of this work exists for sparse systems which are not part of the BLAS/LAPACK system.  See notes on PETSc and Trilinos in \ref{sec:numerics} and \ref{sec:trilinos} for more details.
 
-In the case of dense linear algebra data parallelism is often acheived through blocking.  Input arrays are blocked or tiled and then each operation manages distributed computation by managing sequential operations on blocks.  A distributed GEMM may be achieved through many smaller sequential GEMMs on computational nodes.  More sophisticated computations, like SYMM or POSV, may make use of a variety of sequential operations.
+In the case of dense linear algebra, data parallelism is most often acheived through blocking.  Input arrays are blocked or tiled and then each operation manages distributed computation by managing sequential operations on blocks.  A distributed GEMM may be achieved through many smaller sequential GEMMs on computational nodes.  More sophisticated computations, like SYMM or POSV, may make use of a variety of sequential operations.
 
 Occasionally communication is handled by a separate abstraction.  For performance reasons these are often built off of or resemble MPI at a low level.
 
@@ -51,7 +51,9 @@ is an implementation of LAPACK for distributed memory architecture.  ScaLAPACK\c
 
 is a more modern approach to the parallel linear algebra problem and the natural successor to ScaLAPACK.  It uses dynamic scheduling techniques to communicate tiles in a shared memory architecture.  PLASMA is actively developped to support distributed memory\cite{Bosilca2011}.
 
-DPLASMA, the distributed memory variant, depends on DAGuE\cite{Bosilca2012}, a "hardware aware" dynamic scheduler to manage its tile distribution. 
+### DPLASMA
+
+The distributed memory variant of Plasma, depends on DAGuE\cite{Bosilca2012}, a "hardware aware" dynamic scheduler to manage its tile distribution.
 
 #### Elemental
 
@@ -60,4 +62,4 @@ Elemental\cite{Poulson2010} forks FLAME (listed above) to handle distributed mem
 
 #### Matrix Algebra on GPU and Multicore Architectures (MAGMA)
 
-is co-developped alongside PLASMA to support heterogeneous architectures with thought to their eventual merger\cite{Agullo2009a}
+is co-developped alongside PLASMA to support heterogeneous architectures with thought to their eventual merger\cite{Agullo2009a}.
