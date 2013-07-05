@@ -13,7 +13,7 @@ $$ X \beta \cong y $$
 \includegraphics[width=.4\textwidth]{images/linregress-xy}
 \end{figure}
 
-The solution to this problem can be posed as a matrix expression.  The $\beta_i$ which minimize the squared error of the above equation can be computed by the following
+The solution to this problem can be posed as a matrix expression.  The $\beta_i$ which minimize the squared error of the above equation can be computed by the following:
 
 $$ \beta = (X^TX)^{-1}X^Ty $$
 
@@ -21,8 +21,6 @@ $$ \beta = (X^TX)^{-1}X^Ty $$
 ### Naive Implementation
 
 Writing code to compute this expression given variables `X` and `y` can be challenging in a low-level language.  Algorithms for multiplication and solution of matrices are not commonly known, even by practicing statisticians.  Fortunately high-level languages like Matlab and Python/NumPy provide idiomatic solutions to these problems.
-
-Math
 
 $$ \beta = (X^TX)^{-1}X^Ty $$
 
@@ -35,7 +33,7 @@ The code matches mathematical syntax almost exactly, greatly enabling mathematic
 
 ### Refined Implementations
 
-Unfortunately the code above is very inefficient.  The average numerical analyst will note that this code first computes explicit inverses and then performs a matrix multiply rather than performing matrix solves, an operation for which substantially cheaper and numerically robust methods exist.  A slight change yields the following, vastly improved implementations
+Unfortunately the code above is very inefficient.  The average numerical analyst will note that this code first computes explicit inverses and then performs a matrix multiply rather than performing matrix solves, an operation for which substantially cheaper and numerically robust methods exist.  A slight change yields the following, vastly improved implementations:
 
 -------------- -----------------------------
  Python/NumPy  `beta = solve(X.T*X, X.T*y)`
@@ -44,9 +42,9 @@ Unfortunately the code above is very inefficient.  The average numerical analyst
 
 A particularly astute numerical analyst will find yet another refinement.  In the case when `X` is full rank (this is almost always the case in linear regression) then the left hand side of the solve operation, $X^TX$, is both symmetric and positive definite.  In this case a more efficient solve routine exists based on the Cholesky decomposition.  
 
-The Matlab backslash operator will perform dynamic checks for this property, the Python `solve` routine will not.  The Matlab solution however still suffers from operation ordering issues as the backsolve will target the matrix `X'` rather than the vector `(X'*y)`.
+The Matlab backslash operator will perform dynamic checks for this property, while the Python `solve` routine will not.  The Matlab solution however still suffers from operation ordering issues as the backsolve will target the matrix `X'` rather than the vector `(X'*y)`.
 
-And so a further refined solution might look like the following
+And so a further refined solution might look like the following:
 
 -------------- -----------------------------
  Python/NumPy  `beta = solve(X.T*X, X.T*y, sym_pos=True)`
@@ -63,14 +61,14 @@ The high-level syntax in Python and MatLab calls down to routines found within t
 
 ### Connecting Math and Computation
 
-Languages like Matlab, Python, and R have demonstrated the utility of linking a "high productivity" syntax to low-level "high performance" routines like those within BLAS/LAPACK.  While the process of designing efficient programs is notably simpler it remains imperfect.  Naive users are often incapable even of the simple optimizations at the high level language (e.g. using solve rather than computing explicit inverses); these optimizations require significant computational experience.  Additionally, even moderately expert users are incapable of leveraging the full power of BLAS/LAPACK.  This may be because they are unfamiliar with the low-level interface or because their high-level language does not provide clean hooks to the full lower-level library.
+Languages like Matlab, Python, and R have demonstrated the utility of linking a "high productivity" syntax to low-level "high performance" routines like those within BLAS/LAPACK.  While the process of designing efficient programs is notably simpler, it remains imperfect.  Naive users are often incapable even of the simple optimizations at the high level language (e.g. using solve rather than computing explicit inverses); these optimizations require significant computational experience.  Additionally, even moderately expert users are incapable of leveraging the full power of BLAS/LAPACK.  This may be because they are unfamiliar with the low-level interface, or because their high-level language does not provide clean hooks to the full lower-level library.
 
-Ideally we want to be given a naive input like the following expression and predicates
+Ideally we want to be given a naive input like the following expression and predicates:
 
     (X.T*X).I * X.T*y
     full_rank(X)
 
-We produce the following sophisticated computation
+We produce the following sophisticated computation:
 
 \begin{figure}[htbp]
 \centering
@@ -90,7 +88,7 @@ We perform this through a progression of small mathematically informed transform
 
 ### User Experience
 
-This search process and the final code emission is handled automatically.  A scientific user has the following experience
+This search process and the final code emission is handled automatically.  A scientific user has the following experience:
 
 ~~~~~~~~Python
 X = MatrixSymbol('X', n, m)
@@ -98,9 +96,10 @@ y = MatrixSymbol('y', n, 1)
 
 inputs  = [X, y]
 outputs = [(X.T*X).I*X.T*y]
-facts   = fullrank(X)
+facts   = Q.fullrank(X)
+types   = Q.real_elements(X), Q.real_elements(y)
 
-f = fortran_function(inputs, outputs, facts)
+f = build(inputs, outputs, facts, *types)
 ~~~~~~~~~
 
 
@@ -159,7 +158,7 @@ We now take the most naive user input from SymPy
 >>> beta = (X.T*X).I * X.T*y
 ~~~~~~~~~~
 
-And have our compiler build the computation
+And have our compiler build the computation:
 
 ~~~~~~~~~~Python
 >>> comp = compile([X, y], [beta], Q.fullrank(X))

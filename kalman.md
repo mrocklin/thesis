@@ -11,7 +11,7 @@ $$ - \Sigma H^T \left(H \Sigma H^T + R\right)^{-1} H \Sigma + \Sigma $$
 
 ### Math Expressions
 
-We define these expressions in SymPy
+We define these expressions in SymPy:
 
 ~~~~~~~~~~~~~~~Python
 include [Kalman](kalman.py)
@@ -35,7 +35,7 @@ comp = compile([mu, Sigma, H, R, data], [new_mu, new_Sigma], *assumptions)
 
 ### Features 
 
-We note two features of the computation
+We note two features of the computation:
 
 1.  Common-subexpressions are identified, computed once, and shared.  In particular we can see that $H \Sigma H^T + R$ is shared between the two outputs.
 2.  This same subexpression is fed into a `POSV` routine for the solution of symmetric positive definite matrices.  The inference system determined that because $H$ is full rank, and $\Sigma$ and $R$ are symmetric positive definite that $H \Sigma H^T + R$ is symmetric positive definite.
