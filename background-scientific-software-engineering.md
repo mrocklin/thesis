@@ -10,10 +10,9 @@ Scientific software engineering is a deep topic with broad scope and decades of 
 Introduction
 ------------
 
-Computational science predates software.  Numerical methods for the solution of
-critical problems have a rich history.  Iterative methods for the solution of non-linear systems have roots dating back to French artillerymen.  Officers attempted to hit a military target by making small adjustments to cannon angles and gunpowder amounts.  Because this target was often aiming back at them it was critical that the solution to the non-linear system be found with as few tries as possible.  During World War Two machinery was specifically developped to aid in cryptanalysis at Bletchley park to intercept war messages.  Modern scientific software often contains the same sense of urgency.  All efforts are focused on building and pushing modern hardware to its limits for the solution of a problem deemed critical by society.
+Computational science predates software.  Numerical methods for the solution of critical problems have a rich history.  Iterative methods for the solution of non-linear systems have roots dating back to French artillerymen.  Officers attempted to hit a military target by making small adjustments to cannon angles and gunpowder amounts.  Because this target was often aiming back at them it was critical that the solution to the non-linear system be found with as few tries as possible.  During World War II machinery was specifically developped to aid in cryptanalysis at Bletchley Park to intercept war messages.  Modern scientific software often contains the same sense of urgency.  All efforts are focused on building and pushing modern hardware to its limits for the solution of a problem deemed critical by society.
 
-While these efforts are both commendable and groundbreaking they must often sacrifice general applicability in order to obtain peak performance.  As a result future endeavors are unable to benefit as strongly from past efforts. 
+While these efforts are both commendable and groundbreaking, they must often sacrifice general applicability in order to obtain peak performance.  As a result future endeavors are unable to benefit as strongly from past efforts. 
 
 
 ### Static Libraries
@@ -30,7 +29,7 @@ Scripting languages like Matlab, R, and Python address this growing user group b
 
 ### Open Source Scientific Ecosystems 
 
-A broad userbase coupled with advances in online code sharing and relatively robust package managers has fostered a culture of open source scientific code publication.  Often the choice of language is made due to the location of preexisting scientific codebases rather than the features of the language itself.  Large scientific software ecosystems provide a scaffolding for several disciplines ({Statistics: R, Biology: bio-perl, Numerics: SciPy})
+A broad userbase coupled with advances in online code sharing and relatively robust package managers has fostered a culture of open source scientific code publication.  Often the choice of language is made due to the location of preexisting scientific codebases rather than the features of the language itself.  Large scientific software ecosystems provide a scaffolding for several disciplines (R for Statistics, bioperl for Biology, SciPy for numerics).
 
 
 ### Adaptation to Parallelism
@@ -40,10 +39,11 @@ The rise of shared, distributed, and many-core parallelism forces the developmen
 
 ### Return to Compilation
 
-Performance issues on modern hardware have increased interest in the compilation of these dynamic languages.  At the time of writing the scientific Python ecosystem supports the following active projects for compilation and interoperation of Python with low-level languages (largely for array programming)
+Performance issues on modern hardware have increased interest in the compilation of these dynamic languages.  At the time of writing, the scientific Python ecosystem supports the following active projects for compilation and interoperation of Python with low-level languages (largely for array programming.)
 
 include [SciPy compiled languages](scipy-compiled-langs.md)
 
+We include this list mainly to stress the number of projects in this efforts.  This demonstrates both the community's commitment and a lack of organization.
 
 
 

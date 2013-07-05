@@ -10,14 +10,14 @@ Numerical weather prediction is also computationally challenging.  It requires s
 
 ### WRF
 
-Because of these benefits and costs the federal government has supported the production and maintenance of high performance numerical codes for the short-term simulation and forecast of the weather.  Along with several other federal and university groups the National Center for Atmospheric Research (NCAR) maintains the Weather Research Forecast model (WRF) which serves as a base for both research (ARW) and operational (NMW) codes.  It is written in Fortran and MPI by a dedicated team of software developers.
+Because of these benefits and costs the federal government has supported the production and maintenance of high performance numerical codes for the short-term simulation and forecast of the weather.  Along with several other federal and university groups the National Center for Atmospheric Research (NCAR) maintains the Weather Research Forecast model (WRF), which serves as a base for both research (ARW) and operational (NMW) codes.  It is written in Fortran and MPI by a dedicated team of software developers.
 
 It is used by a broad community of meteorologists and weather service professionals without computational expertise.  External control is managed through a set of Fortran namelists that specify model parameters.
 
 
 ### Code Example
 
-Internally the codebase is organized into several Fortran files that handle different physical processes.  A representative code snippet is reproduced below
+Internally the codebase is organized into several Fortran files that handle different physical processes.  A representative code snippet is reproduced below:
 
 ~~~~~~~~Fortran
 ! phys/module_mp_wsm5_accel.F:644 Version 3.4
@@ -36,7 +36,6 @@ Internally the codebase is organized into several Fortran files that handle diff
                             *((.3333333)))/sqrt((1.496e-6*((t(i,k,j))            &
                             *sqrt(t(i,k,j)))/((t(i,k,j))+120.)/(den(i,k,j))))        &
                             *sqrt(sqrt(den0/(den(i,k,j)))))
-\label{listing:wrf-snow}
 ~~~~~~~~~
 
 This snippet encodes the physics behind the melting of snow under certain conditions.  It is a large mathematical expression iterated over arrays in a do-loop.  This pattern is repeated in this routine for other physical processes such as "instantaneous melting of cloud ice", "homogeneous freezing of cloud water below -40c", "evaporation/condensation rate of rain", etc.... 
@@ -59,7 +58,7 @@ Much of the computational work required to forecast the weather is FLOP intensiv
 
         (a) Fortran                                 (b) CUDA C
 
-They report a `5-20x` speedup in the translated kernel resulting in a `1.25-1.3x` speedup in total execution time of the entire program.  They note the following
+They report a `5-20x` speedup in the translated kernel resulting in a `1.25-1.3x` speedup in total execution time of the entire program.  They note the following:
 
 *   *a modest investment in programming effort for GPUs yields an order of magnitude performance improvement*
 *   *Only about one percent of GPU performance was realized but these are initial results; little optimization effort has been put into GPU code.*
@@ -79,9 +78,9 @@ Four years later in \cite{Mielikainen2012} Mielikainen et al report increased su
 
 WRF software design is *embarassingly* modular.  This modularity separates routines representing physical processes from each other when they happen to be independent.  It makes little effort at *vertical* modularity that might separate high and low level code.
 
-In the listing above we see a high-level meteorological model implemented in a very low-level implementation alongside computational optimizations and array layouts.  This problem is intrinsically simple; it is an algebraic expression on a few indexed arrays.  And yet when external pressures (GPGPU) necessitated a code rewrite that work took months of work from a researcher who was already familiar with this codebase.  That work failed to implement several GPU specific optimizations that occured in the literature four years later.
+In the listing above we see a high-level meteorological model implemented in a very low-level implementation alongside computational optimizations and array layouts.  This problem is intrinsically simple; it is an algebraic expression on a few indexed arrays.  And yet when external pressures (GPGPU) necessitated a code rewrite, that work took months of work from a researcher who was already familiar with this codebase.  That work failed to implement several GPU specific optimizations that occured in the literature four years later.
 
-While this file encodes relatively high-level concepts it is difficult to perform sweeping high-level manipulations.  As physics, numerical methods, and computational architecture changes this flexibility is likely to become more important.
+While this file encodes relatively high-level concepts it is difficult to perform sweeping high-level manipulations.  As physics, numerical methods, and computational architecture change, this flexibility is likely to become more important.
 
 
 ### Other Codes
@@ -98,11 +97,11 @@ Despite these similarities the two codebases often produce substantially differe
 
 NCAR has forked and adjusted `WRF` for specific situations.  The Hurricane Weather Research Forecasting Model (`HWRF`) modifies `WRF` to be particularly suitable in the case of severe storms.  Particular models have been developed to support more perturbed states.
 
-`WRFDA` is an implementation of `WRF` for data assimilation.  The latest version contains experimental algorithms for 4D-var, a new numerical technique that uses automatic derivatives to more efficiently assimilate new observations.  This was done by applying automated AD compilers to a stripped down and version of `WRF` with some troublesome modules rewritten more simply.  Unfortunately the complete version of `WRF` was not amenable to automated transformation.
+`WRFDA` is an implementation of `WRF` for data assimilation.  The latest version contains experimental algorithms for 4D-var, a new numerical technique that uses automatic derivatives to more efficiently assimilate new observations.  This was done by applying automated AD compilers to a stripped down version of `WRF` with some troublesome modules rewritten more simply.  Unfortunately, the complete version of `WRF` was not amenable to automated transformation.
 
 #### Climate
 
-Growing concern over global warming has spurred research into climate models.  Meteorological codes like WRF are intended for short-term forecasts, rarely exceeding ten days.  Climate models simulate the same physical processes but over decade or century timescales.  Because of the difference in time scale climate models must differ from meteorological models both for computational efficiency and in order to conserve quantities that might not be of interest over the short term.
+Growing concern over global warming has spurred research into climate models.  Meteorological codes like WRF are intended for short-term forecasts, rarely exceeding ten days.  Climate models simulate the same physical processes but over decade or century timescales.  Because of the difference in time scale, climate models must differ from meteorological models, both for computational efficiency and in order to conserve quantities that might not be of interest over the short term.
 
 ### Analysis
 
