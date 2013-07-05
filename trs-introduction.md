@@ -39,7 +39,7 @@ Explicitly term rewrite systems confer the following benefits in the context of 
 *   Multiple sets of transformations can interact with the same coordination systems
 
 
-In Section \ref{sec:pattern} we discuss the pattern matching problem in the context of computer algebra.  In Section \ref{sec:search} we pose the problem of coordinating these rules as a graph search problem.  Respectively these address parts 2 and 3 listed above.  We discuss background and exisitng solutions in Section \ref{sec:trs-background} and implement a matrix algebra language in one of these solutions in Section \ref{sec:matrix-rewriting-maude}.  Finally we discuss our approach to these problems in Sections \ref{sec:term} \ref{sec:logpy}, and \ref{sec:search-direct}.
+In Section \ref{sec:pattern} we discuss the pattern matching problem in the context of computer algebra.  In Section \ref{sec:search} we pose the problem of coordinating these rules as a graph search problem.  Respectively these address parts 2 and 3 listed above.  We discuss background and exisitng solutions in Section \ref{sec:trs-background} and implement a matrix algebra language in one of these solutions in Section \ref{sec:matrix-rewriting-maude}.  Finally we discuss our approach to these problems in Sections \ref{sec:term}, \ref{sec:logpy}, and \ref{sec:search-direct}.
 
 In Section \ref{sec:voltron} we demonstrate the utility of these tools by implementing a mathematically informed linear algebra compiler with minimal math/compilers expertise overlap.
 

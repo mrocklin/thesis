@@ -2,6 +2,7 @@
 ## Mathematical Rewriting - LogPy and Sympy 
 
 \label{sec:logpy-sympy}
+\label{sec:pattern-logpy}
 
 We implement a rudimentary mathematical pattern matcher by composing LogPy, a general purpose logic programming library, and SymPy, a computer algebra system.  We chose this approach instead of one of the mature systems mentioned in Section \ref{sec:pattern-previous-work} in order to limit the number of dependencies that are uncommon within the scientific computing ecosystem and in order to leverage and expose existing mathematical expertise already within SymPy.
 

@@ -3,6 +3,7 @@ Background
 ----------
 
 \label{sec:pattern-previous-work}
+\label{sec:trs-background}
 
 Logic programming and term rewrite systems benefit from substantial theory and mature software packages.
 
