@@ -26,7 +26,7 @@ Composite computations may be built up from many constituents.  Edges between th
 
 \label{sec:tokenize}
 
-We desire to transform DAGs of computations into executable Fortran code.  Unfortunately the mathematical definition of our routines is not sufficient information to print consistent code.  Because the atomic computations overwrite memory we must consider and preserve state within our system.  This requires the introduction of `COPY` operations and a treatment of variable names.  Consider `COPY` defined below
+We desire to transform DAGs of computations into executable Fortran code.  Unfortunately the mathematical definition of our routines does not contain sufficient information to print consistent code.  Because the atomic computations overwrite memory we must consider and preserve state within our system.  This requires the introduction of `COPY` operations and a treatment of variable names.  Consider `COPY` defined below
 
 ~~~~~~~~~~~~~Python
 class COPY(BLAS):
@@ -61,7 +61,7 @@ This model is not specific to BLAS/LAPACK.  It has been extended to other high p
 
 We use `computations` to construct a simple program.  The following example uses `SYMM` and `AXPY`, a routine for vector addition, to create a complex composite computation.  It then introduces copy operations and generates human readable Fortran code.
 
-Specific instances of each computation can be constructed by providing corresponding inputs, traditionally SymPy Expressions.   We generate an instance of `SYMM`, here called `symm` that computes `X*Y` and stores the result in `Y`.
+Specific instances of each computation can be constructed by providing corresponding inputs, traditionally SymPy Expressions.   We generate an instance of `SYMM`, here called `symm`, that computes `X*Y` and stores the result in `Y`.
 
 ~~~~~~~~~~~~~Python
 >>> n = Symbol('n')
@@ -74,7 +74,7 @@ Specific instances of each computation can be constructed by providing correspon
 [X*Y]
 ~~~~~~~~~~~~~
 
-We now want to take the result `X*Y`, multiply it by `5` and add it again to `Y`.  This can be done with a vector addition, accomplished by the routine `AXPY`.  Notice that computations can take compound expressions like `X*Y` as inputs
+We now want to take the result `X*Y`, multiply it by `5`, and add it again to `Y`.  This can be done with a vector addition, accomplished by the routine `AXPY`.  Notice that computations can take compound expressions like `X*Y` as inputs
 
 ~~~~~~~~~~~~~Python
 >>> axpy = AXPY(5, X*Y, Y)
@@ -84,7 +84,7 @@ We now want to take the result `X*Y`, multiply it by `5` and add it again to `Y`
 [5*X*Y + Y]
 ~~~~~~~~~~~~~
 
-Computations like `symm` and `axpy` can be combined to form composite computations.  These are assembled into a directed acyclic graph based on their inputs and outputs.  For example because `symm` produces `X*Y` and `axpy` consumes `X*Y` we infer that an edge much extend from `symm` to `axpy`.
+Computations like `symm` and `axpy` can be combined to form composite computations.  These are assembled into a directed acyclic graph based on their inputs and outputs.  For example, because `symm` produces `X*Y` and `axpy` consumes `X*Y` we infer that an edge much extend from `symm` to `axpy`.
 
 ~~~~~~~~~~~~~Python
 >>> composite = CompositeComputation(axpy, symm)
