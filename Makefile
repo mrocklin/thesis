@@ -15,11 +15,13 @@ times-fortran:
 lib.bib: library.bib library2.bib
 	cat library.bib library2.bib > lib.bib
 
-dissertation: images/pdfs dissertation.md math-num front.md lib.bib
+dissertation.tex: images/pdfs dissertation.md math-num front.md lib.bib
 	python scripts/include.py dissertation.md dissertation2.md
 	python scripts/dollar.py dissertation2.md dissertation2.md
 	pandoc dissertation2.md -o dissertation.tex --standalone -H tex/preamble-extra.tex -A tex/biblio.tex
 	python scripts/inject-header.py dissertation.tex tex/header.tex 1 dissertation.tex
+
+dissertation: dissertation.tex
 	pdflatex dissertation.tex
 	bibtex dissertation.aux
 
@@ -29,14 +31,19 @@ nexus-10: dissertation
 publish: dissertation 
 	scp dissertation.pdf ankaa.cs.uchicago.edu:html/storage/dissertation.pdf
 
-official: dissertation
+official.tex: dissertation.tex
 	cat dissertation.tex 												 \
 				| sed s/\\\\section/\\\\chapter/  							 \
 				| sed s/subsection/section/          					 \
 				| sed s/\\documentclass\\[\\]{article}/\\documentclass{ucetd}/ \
 				| sed s/\\\\renewcommand.*$$/\\n/  						 \
+				| sed s/\\\\bibliography{lib}{}/\\\\makebibliography/  	 \
 				> tmp.dat												 \
 		&& mv tmp.dat official.tex
+
+official: official.tex
+	pdflatex official.tex
+	bibtex official.aux
 
 clean:
 	rm -f *.aux
