@@ -31,7 +31,7 @@ publish: dissertation
 
 official: dissertation
 	cat dissertation.tex 												 \
-				| sed s/\\section/\\chapter/  							 \
+				| sed s/\\\\section/\\\\chapter/  							 \
 				| sed s/subsection/section/          					 \
 				| sed s/\\documentclass\\[\\]{article}/\\documentclass{ucetd}/ \
 				| sed s/\\\\renewcommand.*$$/\\n/  						 \
