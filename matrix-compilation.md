@@ -4,8 +4,6 @@ Covering Matrix Expressions with Computations
 
 \label{sec:matrix-compilation}
 
-include [Tikz](tikz_megatron.md)
-
 We put the software pieces together.  We search for high quality computations to compute a set of matrix expressions.  This will require functionality from the following sections
 
 *   Matrix Language \ref{sec:matrix-language}: extends SymPy to handle symbolic linear algebra
