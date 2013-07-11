@@ -62,4 +62,4 @@ Elemental\cite{Poulson2010} forks FLAME (listed above) to handle distributed mem
 
 #### Matrix Algebra on GPU and Multicore Architectures (MAGMA)
 
-is co-developped alongside PLASMA to support heterogeneous architectures with thought to their eventual merger\cite{Agullo2009a}.
+is co-developped alongside PLASMA to support heterogeneous architectures with thought to their eventual merger\cite{Agullo2009}.
