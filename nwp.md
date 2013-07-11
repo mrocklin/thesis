@@ -66,7 +66,8 @@ They report a `5-20x` speedup in the translated kernel resulting in a `1.25-1.3x
 
 #### Use in Practice
 
-Two years later [installation instructions](http://www.mmm.ucar.edu/wrf/WG2/GPU/WSM5.htm) were released to use this work for a particular version of WRF.  Today GPGPU is still not a standard option for operational users.
+Two years later operational instructions were released to use use this work for a particular version of WRF \cite{Michalakes2008a}.  Today GPGPU is still not a standard option for operational users.
+
 
 #### Later work
 

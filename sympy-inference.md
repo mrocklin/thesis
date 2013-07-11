@@ -88,6 +88,6 @@ class AskPositiveHandler(...):
 
 #### Testing for Satisfiability
 
-SymPy assumptions relies on the [Davis–Putnam–Logemann–Loveland](http://en.wikipedia.org/wiki/DPLL_algorithm) algorithm for solving the CNF-SAT problem.  This algorithm is separable from the rest of the codebase.  This solver accesses the predicate-predicate and predicate-operator relations defined above.
+SymPy assumptions relies on the Davis–Putnam–Logemann–Loveland algorithm for solving the CNF-SAT problem.  This algorithm is separable from the rest of the codebase.  This solver accesses the predicate-predicate and predicate-operator relations defined above.
 
 The separation of the SAT solver enables the mathematical code to be very declarative in nature.  This system is trivial to extend.
