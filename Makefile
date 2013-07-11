@@ -32,8 +32,10 @@ publish: dissertation
 official: dissertation
 	cat dissertation.tex 												 \
 				| sed s/\\section/\\chapter/  							 \
-				| sed s/subsection/section/ > tmp.dat 					 \
-				| sed s/\\documentclass[]{article}/\documentclass{ucetd} \
+				| sed s/subsection/section/          					 \
+				| sed s/\\documentclass\\[\\]{article}/\\documentclass{ucetd}/ \
+				| sed s/\\\\renewcommand.*$$/\\n/  						 \
+				> tmp.dat												 \
 		&& mv tmp.dat official.tex
 
 clean:
