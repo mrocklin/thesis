@@ -33,5 +33,5 @@ Theano builds a Python function that calls down to a combination of low-level `C
 \centering
 \includegraphics[width=\textwidth]{images/theano-kalman}
 \label{fig:theano-kalman}
-\caption{fig:Theano computation graph for the kalman filter}
+\caption{Theano computation graph for the kalman filter}
 \end{figure}
