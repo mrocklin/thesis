@@ -125,7 +125,7 @@ RETURN
 END
 ~~~~~~~~~
 
-This code can be run in a separate context without the Python runtime environment.  Alternatively for interactive convenience it can be linked in with Python's foreign function interface to a callable python function object that consumes the popular numpy array data structure.  This wrapping functionality is provided by the pre-existing and widely supported package `f2py`.
+This code can be run in a separate context without the Python runtime environment.  Alternatively for interactive convenience it can be linked in with Python's foreign function interface to a callable python function object that consumes the popular NumPy array data structure.  This wrapping functionality is provided by the pre-existing and widely supported package `f2py`.
 
 
 ### Numerical Result

@@ -23,9 +23,9 @@ Given a set of expressions-to-be-computed we consider a tree where:
 
 At the top of this tree is the trivial identity computation which computes the desired outputs given those same outputs as inputs.  At the bottom of this tree are computations whose inputs are not decomposable by any of our patterns.  In particular, some of these leaf computations have inputs that are all atoms; we call these leaves valid.
 
-In principle this tree can be very large negating the possibility of exhaustive search in the general case.  Additionally some branches of this tree may contain dead-ends requiring back-tracking; we may not be able to find a valid all-inputs-are-atoms leaf within a subtree.   We desire an algorithm to efficiently find a valid and high-quality leaf of this tree.
+In principle this tree can be very large negating the possibility of exhaustive search in the general case.  Additionally some branches of this tree may contain dead-ends requiring back-tracking; we may not be able to find a valid all-inputs-are-atoms leaf within a subtree.   We desire an algorithm to find a valid and high-quality leaf of this tree efficiently.
 
-This problem matches the abstract version in Section \ref{sec:search-direct} on algorithmic search.  In that section we discussed the declarative definition and applicaiton of rewrite rules and algorithms to search a decision tree given the following interface: 
+This problem matches the abstract version in Section \ref{sec:search-direct} on algorithmic search.  In that section we discussed the declarative definition and application of rewrite rules and algorithms to search a decision tree given the following interface: 
 
     children  ::  node -> [node]
     objective ::  node -> score

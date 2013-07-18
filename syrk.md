@@ -45,7 +45,7 @@ This speedup was both found and implemented by a domain expert.  He was able to 
 
 #### Numeric Result
 
-In section \ref{sec:linear-regression-numeric-result} we saw that our automated system was able to acheive the same performance as the expert implementation from naive results.  The addition of SYRK pushes performance beyond what even specialized functions within the `scipy` stack allow:
+In section \ref{sec:linear-regression-numeric-result} we saw that our automated system was able to achieve the same performance as the expert implementation from naive results.  The addition of SYRK pushes performance beyond what even specialized functions within the `scipy` stack allow:
 
 ~~~~~~~~~~Python
 >>> timeit scipy.linalg.solve(X.T*X, X.T*y, sym_pos=True)
