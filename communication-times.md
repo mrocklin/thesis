@@ -25,4 +25,4 @@ The image demonstrates that there is a clear polynomial relationship above a few
 
 We conclude that for this architecture communication times are both predictable and modelable above a few thousand bytes, at least for the sensitivity required for our applications.
 
-We note that this is for a particular communication architecture and a particular implementation of MPI.  Our test cluster is a shared commodity cluster.  We expect that results in a high performance setting would not be less predictable.
+We note that this result is for a particular communication architecture and a particular implementation of MPI.  Our test cluster is a shared commodity cluster.  We expect that results in a high performance setting would not be less predictable.
