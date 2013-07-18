@@ -38,8 +38,11 @@ official.tex: dissertation.tex
 				| sed s/\\documentclass\\[\\]{article}/\\documentclass{ucetd}/ \
 				| sed s/\\\\renewcommand.*$$/\\n/  						 \
 				| sed s/\\\\bibliography{lib}{}/\\\\makebibliography/  	 \
+		| python scripts/inject.py before begin{document} tex/before-begin-document.tex \
+		| python scripts/inject.py after begin{document} tex/after-begin-document.tex   \
 				> tmp.dat												 \
 		&& mv tmp.dat official.tex
+	
 
 official: official.tex
 	pdflatex official.tex
