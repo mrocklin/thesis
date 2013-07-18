@@ -28,7 +28,7 @@ class Log(Expr):
     ...
 ~~~~~~~~~~
 
-Literal and variable terms are instantiated as Python objects.  Standard Python variables are used for indentifying information.
+Literal and variable terms are instantiated as Python objects.  Standard Python variables are used for identifying information.
 
 ~~~~~~~~~~Python
 one = Integer(1)  # 1 is a Python int
@@ -51,7 +51,7 @@ Add
 (x, 1)
 ~~~~~~~~~~
 
-At the lowest level SymPy manipulations are simply Python functions which inspect these terms, manipulate them with Python statements, and return the new versions.
+At the lowest level SymPy manipulations are simply Python functions that inspect these terms, manipulate them with Python statements, and return the new versions.
 
 
 ### Syntax and Printing

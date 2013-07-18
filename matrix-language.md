@@ -24,7 +24,7 @@ As with real analysis, matrix algebra has a rich and extensive theory.  As a res
 
 ### Embedding in SymPy
 
-We implement this matrix algebra in the SymPy langauge.  As shown Section \ref{sec:sympy-software} we implement the literals and operators as Python classes.
+We implement this matrix algebra in the SymPy language.  As shown Section \ref{sec:sympy-software} we implement the literals and operators as Python classes.
 
 ~~~~~~~~~~Python
 # Literals
@@ -68,7 +68,7 @@ The execution of these commands does not perform any specific numeric computatio
 
 ### Syntax
 
-As in Section \ref{sec:sympy-syntax} we overload Python operator methods `__add__`, `__mul__` to point to `MatAdd` and `MatMul` respectively.  We use Python `properties` to encode `.T` as Tranpose and `.I` as inverse.  This follows the precedent of `NumPy`, a popular library for numeric linear algebra.  These changes allow a more familiar syntax for mathematical users.
+As in Section \ref{sec:sympy-syntax} we overload Python operator methods `__add__`, `__mul__` to point to `MatAdd` and `MatMul` respectively.  We use Python `properties` to encode `.T` as Transpose and `.I` as inverse.  This approach follows the precedent of `NumPy`, a popular library for numeric linear algebra.  These changes allow a more familiar syntax for mathematical users.
 
 ~~~~~~~~~~~Python
 >>> # beta = MatMul(Inverse(MatMul(Transpose(X), X)), Transpose(X), y)
@@ -77,4 +77,4 @@ As in Section \ref{sec:sympy-syntax} we overload Python operator methods `__add_
 
 ### Shape Checking and Trivial Simplification
 
-Shape checking and trivial simplifications, e.g. the removal of pairs of transposes, are done at object instantiation time.  This is accomplished by calling raw Python code within the class `__init__` constructors.
+Shape checking and trivial simplifications, e.g. the removal of pairs of transposes, are done at object instantiation time.  This task is accomplished by calling raw Python code within the class `__init__` constructors.

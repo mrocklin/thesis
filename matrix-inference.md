@@ -18,7 +18,7 @@ In Section \ref{sec:sympy-inference} we posed the following example:
 
 *Given that $x$ is a natural number and that $y$ is real, is $x + y^2$ positive?*
 
-An analagous example in matrix algebra would be the following:
+An analogous example in matrix algebra would be the following:
 
 *Given that $\mathbf A$ is symmetric positive-definite and $\mathbf B$ is fullrank, is $\mathbf B \cdot\mathbf A \cdot\mathbf B^\top$ symmetric and positive-definite?*
 

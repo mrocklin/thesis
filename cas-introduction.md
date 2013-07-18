@@ -4,7 +4,7 @@ Introduction
 
 In order to leverage mathematics to generate efficient programs we must first describe mathematics in a formal manner amenable to computation.  To this end we engage computer algebra systems.
 
-In this section we describe the funciton of computer algebra in general and of the system SymPy in particular.
+In this section we describe the function of computer algebra in general and of the system SymPy in particular.
 
 #### Data Structure
 
@@ -23,7 +23,7 @@ Computer Algebra Systems (CAS) enable the expression and manipulation of mathema
 *   a variable like `x`
 *   a compound term like `5 + x` composed of an operator like `Add` and a list of child terms `(5, x)`
 
-We store expressions in a tree data structure in which each node is either an operator or a leaf term.  For example the expresion $\log(3 e^{x + 2})$ can be stored as shown in Figure \ref{fig:expr}.
+We store expressions in a tree data structure in which each node is either an operator or a leaf term.  For example the expression $\log(3 e^{x + 2})$ can be stored as shown in Figure \ref{fig:expr}.
 
 #### Manipulation
 

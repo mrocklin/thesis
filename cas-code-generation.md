@@ -4,17 +4,17 @@ Mathematical Code Generation
 
 \label{sec:cas-code-generation}
 
-Numerical code is often used to evaluate and solve mathematical problems.  Frequently human users translate high-level mathematics directly into low-level code.  In this section we motivate the use of computer algebra systems to serve as an intermediate step.  This confers the following benefits.
+Numerical code is often used to evaluate and solve mathematical problems.  Frequently human users translate high-level mathematics directly into low-level code.  In this section we motivate the use of computer algebra systems to serve as an intermediate step.  This approach confers the following benefits.
 
 1.  Automated systems can leverage mathematics deeper in the compilation system
 2.  Human error is reduced
 3.  Multiple backends can be used
 
-We will demonstrate this with interactions between SymPy as discussed in section \ref{sec:sympy-software} and Theano\cite{theano2010}, a library for the generation of mathematical codes in C and CUDA.
+We will demonstrate these benefits with interactions between SymPy as discussed in section \ref{sec:sympy-software} and Theano\cite{theano2010}, a library for the generation of mathematical codes in C and CUDA.
 
 ### Radial Wave Function
 
-Computer algebra systems often have strong communities in the physical sciences.  We use SymPy to quickly generate a radial wavefunction corresponding to `n = 6` and `l = 2` for Carbon (`Z = 6`).
+Computer algebra systems often have strong communities in the physical sciences.  We use SymPy to generate a radial wave-function corresponding to `n = 6` and `l = 2` for Carbon (`Z = 6`).
 
 ~~~~~~~~~~~~~~~~Python
 from sympy.physics.hydrogen import R_nl
@@ -66,9 +66,9 @@ Note the significant cancellation.
 
 ### Bounds on the Cost of Differentiation
 
-Algorithmic scalar differentiation is a simple transformation.  The system must know how to transform all of the elementary functions (`exp, log, sin, cos, polynomials, etc...`) as well as the chain rule; nothing else is required.  Theorems behind automatic differentiation state that the cost of a derivative will be at most five times the cost of the original.  In this case we're guaranteed to have at most `17*5 == 85` operations in the derivative computation; this holds in our case because `48 < 85`.
+Algorithmic scalar differentiation is a simple transformation.  The system must know how to transform all of the elementary functions (`exp, log, sin, cos, polynomials, etc...`) as well as the chain rule; nothing else is required.  Theorems behind automatic differentiation state that the cost of a derivative will be at most five times the cost of the original.  In this case we're guaranteed to have at most `17*5 == 85` operations in the derivative computation; this bound holds in our case because `48 < 85`.
 
-However, derivatives are often far simpler than this upper bound.  We see that after simplification the operation count of the derivative is `18`, only one more than the original.  This is common in practice.
+However, derivatives are often far simpler than this upper bound.  We see that after simplification the operation count of the derivative is `18`, only one more than the original.  This situation is common in practice.
 
 
 ### Experiment
@@ -103,7 +103,7 @@ $$ \frac{2}{315} \sqrt{70} x \left(x^{4} - 17 x^{3} + 90 x^{2} - 168 x + 84\righ
 
 #### Analysis
 
-On its own Theano produces a derivative expression that is about as complex as the unsimplified SymPy version.  Theano simplification then does a surprisingly good job, roughly halving the amount of work needed (`40 -> 21`) to compute the result.  If you dig deeper however you find that this isn't because it was able to algebraically simplify the computation (it wasn't), but rather because the computation contained several common sub-expressions.  The Theano version looks a lot like the unsimplified SymPy version.  Note the common sub-expressions like `56*x`.
+On its own Theano produces a derivative expression that is about as complex as the unsimplified SymPy version.  Theano simplification then does a surprisingly good job, roughly halving the amount of work needed (`40 -> 21`) to compute the result.  If you dig deeper however you find that this is not because it was able to algebraically simplify the computation (it was not), but rather because the computation contained several common sub-expressions.  The Theano version looks a lot like the unsimplified SymPy version.  Note the common sub-expressions like `56*x`.
 
 The pure-SymPy simplified result is again substantially more efficient (`13` operations).  Interestingly, Theano is still able to improve on this, again not because of additional algebraic simplification, but rather due to constant folding.  The two projects simplify in orthogonal ways.
 
@@ -142,6 +142,6 @@ To summarize:
 
 Similarly to SymPy, Theano transforms graphs to mathematically equivalent but computationally more efficient representations.  It provides standard compiler optimizations like constant folding, and common sub-expressions as well as array specific optimizations elementwise element-wise operation fusion.  
 
-Because users regularly handle mathematical terms, Theano also provides a set of optimizations to simplify some common scalar expressions.  For example, Theano will convert expressions like `x*y/x` to `y`.  In this sense it overlaps with SymPy's `simplify` functions.  This section demonstrates that SymPy's scalar simplifications are more powerful than Theano's and that their use can result in significant improvements.  This shouldn't be surprising.  Sympians are devoted to scalar simplification to a degree that far exceeds the Theano community's devotion to this topic.
+Because users regularly handle mathematical terms, Theano also provides a set of optimizations to simplify some common scalar expressions.  For example, Theano will convert expressions like `x*y/x` to `y`.  In this sense it overlaps with SymPy's `simplify` functions.  This section demonstrates that SymPy's scalar simplifications are more powerful than Theano's and that their use can result in significant improvements.  This should not be surprising.  Sympians are devoted to scalar simplification to a degree that far exceeds the Theano community's devotion to this topic.
 
 These experiments mostly contain polynomials and exponentials.  In this sense they are trivial from a computer algebra perspective.  Computer algebra systems are capable of substantially more sophisticated analyses.
