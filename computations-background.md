@@ -6,7 +6,7 @@ Background
 
 ### Low-level Libraries
 
-BLAS/LAPACK, FFTW, and MPI are examples of efficient low level libraries/interfaces that serve as computational building blocks of mathematical codes.  These codes are commonly linked to by higher level languages (e.g. `numpy.fft`, `scipy.linalg.blas`, `mpi4py`).  These libraries magnify the utility of these libraries both by providing a more modern interface for novice users and by interconnection with the scientific Python ecosystem.
+BLAS/LAPACK, FFTW, and MPI are examples of efficient low level libraries/interfaces that serve as computational building blocks of mathematical codes.  These codes are commonly linked to by higher level languages (e.g. `scipy.linalg.blas`, `numpy.fft`, `mpi4py`).  The high-level packages magnify the utility of the low-level libraries both by providing a more modern interface for novice users and by interconnection with the scientific Python ecosystem.
 
 "High productivity" languages like Python, Matlab, and `R` are very popular within scientific communities.  The dual needs of performance and accessibility are often met with such links to lower level refined code.
 
@@ -20,7 +20,7 @@ Dozens of projects have attempted to address these issues in recent years by com
 
 When these projects bind themselves to the CPython runtime they retain some of the less obvious inefficiencies of Python.  
 
-On a multicore machine concurrency between simultaneous operations remains difficult. In a HPC or massively parallel each process still needs to load the `python` runtime and import the necessary libraries.  This import process routinely takes hours on a standard network file system.  Resulting codes depend strongly on the Python ecosystem, eliminating opportunities for interaction with other software systems in the future.
+On a multicore machine concurrency between simultaneous operations remains difficult. In a massively parallel context each process still needs to load the `python` runtime and import the necessary libraries.  This import process routinely takes hours on a standard network file system.  Resulting codes depend strongly on the Python ecosystem, eliminating opportunities for interaction with other software systems in the future.
 
 These projects lack a common data structure or framework to share contributions.  Dozens of implementations exist which reimplement roughly the same architecture in order to experiment with a relatively small novel optimization.
 

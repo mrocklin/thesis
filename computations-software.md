@@ -4,6 +4,8 @@ Software
 
 \label{sec:computations-software}
 
+We describe a software system, `computations`, that serves both as a repository for a high-level description of numeric libraries (particularly BLAS/LAPACK), and as a rudimentary code generation system.  In describing this system we motivate that the high-level coordination of low-level numeric routines can succinctly describe a broad set of computational science.
+
 Every BLAS/LAPACK routine can be logically identified by a set of inputs, outputs, conditions on the inputs, and inplace memory behavior.  Additionally each routine can be imbued with code for generation of the inline call in a variety of languages.  In our implementation we focus on Fortran but C or scipy could be added without substantial difficulty.  CUDA code generation is a current work in progress.
 
 Each routine is represented by a Python class.  In this paragraph we describe `SYMM`, a routine for **SY**mmetric **M**atrix **M**ultiply, in prose; just below we describe this same routine in code.  `SYMM` fuses a matrix multiply `A*B` with a scalar multiplication `alpha*A*B` and an extra matrix addition `alpha*A*B + beta*C`.  This fusion is done for computational efficiency.  `SYMM` is a specialized version which is only valid when one of the first two matrices `A` or `B` are symmetric.  It exploits this special structure and performs only half of the normally required FLOPs.  Like many BLAS/LAPACK routines `SYMM` operates *inplace*, storing the output in one of its inputs.  In this particular case it stores the result of the zeroth output, `alpha*A*B + beta*C` in its fourth input, `C`. 
@@ -26,7 +28,7 @@ Composite computations may be built up from many constituents.  Edges between th
 
 \label{sec:tokenize}
 
-We desire to transform DAGs of computations into executable Fortran code.  Unfortunately the mathematical definition of our routines does not contain sufficient information to print consistent code.  Because the atomic computations overwrite memory we must consider and preserve state within our system.  This requires the introduction of `COPY` operations and a treatment of variable names.  Consider `COPY` defined below
+We desire to transform DAGs of computations into executable Fortran code.  Unfortunately the mathematical definition of our routines does not contain sufficient information to print consistent code.  Because the atomic computations overwrite memory we must consider and preserve state within our system.  The consideration of inplace operations requires the introduction of `COPY` operations and a treatment of variable names.  Consider `COPY` defined below
 
 ~~~~~~~~~~~~~Python
 class COPY(BLAS):
@@ -44,8 +46,7 @@ Mathematically this definition is correct.  It consumes a variable, `X`, and pro
 \includegraphics[height=.15\textheight]{images/copy-inplace}
 \end{figure}
 
-To encode this information about memory location we expand our model so that each variable is both a mathematical SymPy term and a unique identifier, usually a Python string.  This supports a new class of transformations to manage inplace computations.  These considerations are only relevant in the latter stages of compilation and so we delay their introduction until later in the pipeline.
-
+To encode this information about memory location we expand our model so that each variable is both a mathematical SymPy term and a unique identifier, usually a Python string.  This method supports a new class of transformations to manage inplace computations.
 
 ### Fortran Code Generation
 
@@ -54,7 +55,7 @@ From such a directed acyclic graph we can generate readable low-level code.  We 
 
 ### Extensibility
 
-This model is not specific to BLAS/LAPACK.  It has been extended to other high performance numerical libraries like MPI and FFTW.
+This model is not specific to BLAS/LAPACK.  A range of scientific software can be constructed through the coordination of historic numeric libraries.  Mature libraries exist for several fields of numerics.  Our particular system has been extended to support `MPI` and `FFTW`.  
 
 
 ### Example use of `computations`
