@@ -1,9 +1,5 @@
 
-## BLAS and LAPACK
-
 \label{sec:blas-lapack}
-
-include [Tikz](tikz_computation.md)
 
 ### Basic Linear Algebra Subroutines (BLAS)
 

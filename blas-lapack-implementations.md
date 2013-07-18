@@ -1,9 +1,7 @@
 
-## Implementations
+### BLAS/LAPACK Implementations
 
 The BLAS/LAPACK\cite{LAPACK} interface has multiple implementations.  These stress a variety of techniques.  We list them both as a review of past work and also to demonstrate the wealth of techniques used to accelerate this set of important operations.
-
-### Sequential or Shared Memory BLAS-LAPACK
 
 #### Reference BLAS
 
@@ -32,7 +30,7 @@ The FLAME group collaborates with Kazushige Goto in an effort to automate and mo
 The MKL is an industry standard.  It is a professional multi-core implementation.
 
 
-### Distributed Memory BLAS-LAPACK
+### Distributed Memory BLAS/LAPACK Implementations
 
 The ubiquity of numerical linear algebra makes it an attractive candidate for mature parallel solutions.  All computational kernels expressible as BLAS/LAPACK computations may be automatically parallelized if a robust solution can be found for distributed numerical linear algebra.
 
