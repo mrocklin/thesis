@@ -4,7 +4,7 @@ Conclusion
 
 \label{sec:conclusion}
 
-This thesis promotes the value of modularity in scientific computing, primarily through the construction of a modular system for the generation of mathematically informed numerical linear algebra codes.  We have highlighted cases where modularity is particularly relevant in scientific computing due to the abnormally high demands and opportunities from deep expertise.  We hope that this work motivates the use of modularity even in tightly coupled domains.  
+This dissertation promotes the value of modularity in scientific computing, primarily through the construction of a modular system for the generation of mathematically informed numerical linear algebra codes.  We have highlighted cases where modularity is particularly relevant in scientific computing due to the abnormally high demands and opportunities from deep expertise.  We hope that this work motivates the use of modularity even in tightly coupled domains.  
 
 Additionally, software components included in this work are useful in general applications and are published online with liberal licenses. 
 
