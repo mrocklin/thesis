@@ -61,3 +61,9 @@ Elemental\cite{Poulson2010} forks FLAME (listed above) to handle distributed mem
 #### Matrix Algebra on GPU and Multicore Architectures (MAGMA)
 
 is co-developed alongside PLASMA to support heterogeneous architectures with thought to their eventual merger\cite{Agullo2009}.
+
+### Analysis
+
+The development history of BLAS/LAPACK closely mirrors the development history of computational hardware.  This trend shows no signs of stopping.  On the contrary, after hitting the power wall architecture development seems to have entered an age of experimentation; BLAS/LAPACK development seem to follow suit with a focus on distributing and scheduling tiled computations.
+
+Robust BLAS/LAPACK implementations lag hardware development by several years.  This lag propagates to scientific codes because so many link to BLAS/LAPACK libraries.  Accelerating development and introducing hardware flexibility can meaningfully advance performance on mainstream scientific codes.
