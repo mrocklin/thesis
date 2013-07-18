@@ -11,7 +11,7 @@ The components and concepts discussed above are applicable to domains outside of
 
 We enable the expression of uncertain systems in computer algebra through the addition of a random variable type.  A random variable is an algebraic symbol attached to a probability space with a defined probability distribution.  Expressions containing random variables themselves become random.  Expressions containing multiple random variables exist over joint probability distributions.  The addition of conditions restricts the space over which these distributions have support.  Queries on random expressions generate deterministic computations.  
 
-SymPy.stats leverages existing SymPy objects to describe these concepts.  Distributions are described with scalar expressions, joint and conditional probability spaces with SymPy sets, and results with SymPy integral expressions.  SymPy.stats offloads difficult computations onto other, more heavily curated systems.  This was the motivating design principle of this project.
+SymPy.stats leverages existing SymPy objects to describe these concepts.  Distributions are described with scalar expressions, joint and conditional probability spaces with SymPy sets, and results with SymPy integral expressions.  SymPy.stats offloads difficult computations onto other, more heavily curated systems, which was the motivating design principle of this project.
 
 
 ### Example
@@ -54,7 +54,7 @@ $$ \int_{0}^{\infty} \frac{\sqrt{2} \left(e^{2 \frac{\mu \sqrt{z + y - 1}}{\sigm
 
 SymPy.stats tries to be as thin a layer as possible, transforming random expressions into integral expressions and no further.  This transformation is simple and robust for a large class of expressions.  It does not attempt to solve the entire computational problem on its own through, for example, the generation of Monte Carlo codes.  
 
-Fortunately its output language, integral expressions, are widely supported.  Integration techniques benefit from a long and rich history including both analytic and numeric techniques.  By robustly transforming queries on random expressions into integral expressions and then stepping aside, sympy.stats enables the entire integration ecosystem access to the domain of uncertainty.
+Fortunately its output language, integral expressions, are widely supported.  Integration techniques benefit from a long and rich history including both analytic and numeric techniques.  By robustly transforming queries on random expressions into integral expressions and then stepping aside, `sympy.stats` enables the entire integration ecosystem access to the domain of uncertainty.
 
 
 ### Rewrite Rules
@@ -77,7 +77,7 @@ SymPy is able to compute their densities trivially (these are known internally).
 
 $$ \frac{\sqrt{2} e^{- \frac{1}{2} z^{2}}}{2 \sqrt{\pi}} $$
 
-Using equation solving and differntiation SymPy.stats is able to compute densities of random expressions containing these random variables
+Using equation solving and differentiation SymPy.stats is able to compute densities of random expressions containing these random variables
 
 ~~~~~~~~~~~~Python
 >>> pdf = density(2*X)
@@ -110,7 +110,7 @@ The next expression however generates an integral that is too complex for the an
 
 $$ \int_{-\infty}^{\infty} \frac{\sqrt{2} e^{- \frac{1}{2} X^{2}} \int_{-\infty}^{\infty} \frac{\sqrt{2} e^{- \frac{1}{2} Y^{2}} \delta\left(X^{2} + Y^{2} - z\right)}{2 \sqrt{\pi}}\, dY}{2 \sqrt{\pi}}\, dX $$
 
-This is to be expected.  The integrals involved in analytic uncertainty modeling quickly become intractable.  At this point we may send this integral to one of the many available numeric systems.
+This result is to be expected.  The integrals involved in analytic uncertainty modeling quickly become intractable.  At this point we may send this integral to one of the many available numeric systems.
 
 
 ### Applying Statistical Expertise

@@ -19,7 +19,7 @@ $$ \begin{bmatrix} A & B \\\\ C & D \end{bmatrix}
    \begin{bmatrix} A E + B G & A F + B K \\\\ 
                    C E + D G & C F + D K\end{bmatrix} $$
 
-We are now able to focus on substantially smaller chunks of the array which fit more comfortably in memory.  This allows us to improve memory locality during execution.  For example we can choose to keep `A` in local memory and perform all computations that involve `A`.  We will still need to shuffle some memory around (this is inevitable) but by organizing with blocks we're able to shuffle less.
+We are now able to focus on substantially smaller chunks of the array that fit more comfortably in memory which allows us to improve memory locality during execution.  For example we can choose to keep `A` in local memory and perform all computations that involve `A`.  We will still need to shuffle some memory around (this is inevitable) but by organizing with blocks we're able to shuffle less.
 
 This idea extends beyond matrix multiplication.  Matrix inverse expressions can also be expanded. 
 
@@ -56,7 +56,7 @@ blockoutputs = [o.subs(dict(zip(inputs, blockinputs))) for o in outputs]
 collapsed_outputs = map(block_collapse, blockoutputs)
 ~~~~~~~~~~~~~~~
 
-We then compose this expression with a computational engine.  Below we translate this computation into a Theano graph and compile it to low-level code.  Note that this is the same operation as in Section \ref{sec:theano}.  At this stage the expresssions/computations are fairly complex and difficult to present.  An image of the computation as a directed acyclic graph is presented in Figure \ref{fig:fblocked}.  This image is not meant to be insightful, rather it is meant to demonstrate the complexity of the underlying programming task.  This would be a difficult operation to coordinate by hand.
+We then compose this expression with a computational engine.  Below we translate this computation into a Theano graph and compile it to low-level code.  Note that this is the same operation as in Section \ref{sec:theano}.  At this stage the expressions/computations are fairly complex and difficult to present.  An image of the computation as a directed acyclic graph is presented in Figure \ref{fig:fblocked}.  This image is not meant to be insightful, rather it is meant to demonstrate the complexity of the underlying programming task.  This would be a difficult operation to coordinate by hand.
 
 ~~~~~~~~~~~~~~~Python
 fblocked = theano_function(inputs, collapsed_outputs, dtypes=dtypes)
@@ -91,4 +91,4 @@ High-level modular systems with mathematical components enable experimentation. 
 
 #### Multiple Backends
 
-Because we invested in interfaces, we were able to trivially plug in a different backend.  This is critical for the comparision and evaluation of components instead of systems.  It also allows features to flow more smoothly between systems.  A loose federation of components is less brittle than a monolithic system.  Components with access to multiple clients encourage comparison, experimentation, and overall accelerate the evolution of scientific software.
+Because we invested in interfaces, we were able to trivially plug in a different backend.  This is critical for the comparison and evaluation of components instead of systems.  It also allows features to flow more smoothly between systems.  A loose federation of components is less brittle than a monolithic system.  Components with access to multiple clients encourage comparison, experimentation, and overall accelerate the evolution of scientific software.
