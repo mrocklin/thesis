@@ -118,8 +118,8 @@ This requires the storage and management of history of the traversal.  By propag
 include [Greedy](greedy.py)
 ~~~~~~~~~
 
-The functions `chain` and `imap` operate lazily, computing results as they are requested.  Management of history, old state, and garbage collection is performed by the Python runtime and is localized to the generator mechanisms in the `chain` and `imap` functions found in the standard library `itertools`.
- 
+We evaluate and multiplex streams of possibilities lazily, computing results as they are requested.  Management of history, old state, and garbage collection is performed by the Python runtime and is localized to the generator mechanisms and `chain` functions found in the standard library.  Similar elements are found within most functional or modern programming languages.
+
 
 #### Continutation
  
