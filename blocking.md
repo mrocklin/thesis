@@ -62,12 +62,12 @@ We then compose this expression with a computational engine.  Below we translate
 fblocked = theano_function(inputs, collapsed_outputs, dtypes=dtypes)
 ~~~~~~~~~~~~~~~
 
-\begin{figure}[htbp]
+\begin{sidewaysfigure}
 \centering
-\includegraphics[width=.9\textwidth]{images/fblocked}
+\includegraphics[width=\textwidth]{images/fblocked}
 \label{fig:fblocked}
 \caption{The 2-blocked Kalman filter in Theano.  It would be difficult to build this computation by hand.}
-\end{figure}
+\end{sidewaysfigure}
 
 
 ### Numeric Results
