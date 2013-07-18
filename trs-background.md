@@ -21,7 +21,14 @@ The Maude system\cite{Clavel1996} uses term rewriting to support a meta-programm
 The Stratego/XT\cite{Visser2004} toolset contains several separate tools to support the definition of syntax, language, transformations on terms within that language, and strategies to coordinate the application of those transformations.  This orthogonal approach separates many of the ideas that are present in systems like Elan into distinct, clearly defined ideas.
 
 
-### Algorithmic Challenges
+### Search Strategies
+
+Systems like Prolog hard-wire a single specific traversal into the transformation system.  It includes backtracking to allow the search to walk out of dead ends and continuation to allow a user to lazily request additional results.  Maude extends this system with the option of "fair rewrites" that samples from the applicable transformations with a round-robin policy.  
+
+While these strategies are useful in the common case it may be that a problem requires custom traversal for efficient computation.  Systems like Elan enable developers to specify search strategies within their program.  Elan includes terms like `repeat` to exhaustively evaluate a particular strategy or `dc one` to non-deterministically applies one of a set of strategies.  The Stratego/XT reinforces this idea by isolating it into it's own separate language Stratego.  Stratego enables the description of complex traversals independent of any particular search problem.
+
+
+### Pattern Matching Challenges
 
 Pattern matching in some form is ubiquitous in modern programming languages.  Unification of terms has long been a cornerstone of both logic programming languages and of theorem provers.  Basic algorithms exist in standard texts on artificial intelligence\cite{aima}.
 
