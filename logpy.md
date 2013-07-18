@@ -6,9 +6,9 @@ include [TikZ](tikz_pattern.md)
 
 \label{sec:logpy}
 
-LogPy is a general purpose logic programming library for Python.  It implements a varient of `miniKanren`\cite{byrd2010}, a language originally implemented in a subset of Scheme.  Comprehensive documentation for LogPy is available online\cite{logpy}.
+LogPy is a general purpose logic programming library for Python.  It implements a variant of `miniKanren`\cite{byrd2010}, a language originally implemented in a subset of Scheme.  Comprehensive documentation for LogPy is available online\cite{logpy}.
 
-The construction of LogPy was motivated by duplicated efforts in SymPy and Theano, two computer algebra systems in Python.  Both SymPy and Theano built special purpose modules to define and apply optimiations to their built-in mathematical and computational data structures.  LogPy aims to replace these modules.  The desire to deliver functionality to two inflexible codebases forced the creation of the `term` system described in Section \ref{sec:term}.  LogPy provides functionality on top of the `term` interface.
+The construction of LogPy was motivated by duplicated efforts in SymPy and Theano, two computer algebra systems in Python.  Both SymPy and Theano built special purpose modules to define and apply optimisations to their built-in mathematical and computational data structures.  LogPy aims to replace these modules.  The desire to deliver functionality to two inflexible codebases forced the creation of the `term` system described in Section \ref{sec:term}.  LogPy provides functionality on top of the `term` interface.
 
 
 ### Basic Design - Goals
@@ -85,4 +85,3 @@ These combinators and goals are accessed with the `run` function as in miniKanre
     (1, 2, 3, 4)
 
 include [Pattern-LogPy](pattern-logpy.md)
-

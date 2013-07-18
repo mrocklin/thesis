@@ -4,7 +4,7 @@ Matrix Rewriting in Maude
 
 \label{sec:matrix-rewriting-maude}
 
-We implement a matrix language in Maude and use rewrite rules to declare mathematical transformations.  Our goal is to demonstrate the simplicity with which mathematical theories can be constructed and the value of inuitive syntax.  This serves as proof of concept for a later implementation using SymPy and LogPy in Section \ref{sec:matrix-rewriting-sympy}.
+We implement a matrix language in Maude and use rewrite rules to declare mathematical transformations.  Our goal is to demonstrate the simplicity with which mathematical theories can be constructed and the value of intuitive syntax.  This serves as proof of concept for a later implementation using SymPy and LogPy in Section \ref{sec:matrix-rewriting-sympy}.
 
 ### Matrix Algebra
 
@@ -20,7 +20,7 @@ And a set of operators with associated precedences.  A subset is included below:
     op transpose : MatrixExpr            -> MatrixExpr [ctor] .
     op inverse   : MatrixExpr            -> MatrixExpr [ctor] .
 
-Note that operators are declared to be associative or commutative as keywords in the Maude system.  These attributes are special cased for efficiency's sake.  These operators define a language for expressions like the following expression for least squares linear regression.  Note that a space connotes matrix multiplication.
+Note that operators are declared to be associative or commutative as keywords in the Maude system.  These attributes are handled separately for the sake of efficiency.  These operators define a language for expressions like the following expression for least squares linear regression.  Note that a space connotes matrix multiplication.
 
     inverse(transpose(X) X) transpose(X) y
 
@@ -67,5 +67,3 @@ Statements of this form are clear to mathematical experts.  More importantly the
 The meta-programming approach allows the specification of mathematical relations in a math-like syntax, drastically lowering the barrier of entry for potential mathematical developers.  The term-rewrite infrastructure allows these relations to be automatically applied by mature and computationally efficient strategies.
 
 Unfortunately the Maude system is an exotic dependency in the scientific community and interoperation with low-level computational codes was not a priority in its development.  In Section \ref{sec:matrix-rewriting-sympy} we will attain the ideals presented in this section by composing the SymPy and LogPy packages.
-
-

@@ -1,12 +1,12 @@
 
-## Mathematical Rewriting - LogPy and Sympy 
+## Mathematical Rewriting - LogPy and SymPy 
 
 \label{sec:logpy-sympy}
 \label{sec:pattern-logpy}
 
 We implement a rudimentary mathematical pattern matcher by composing LogPy, a general purpose logic programming library, and SymPy, a computer algebra system.  We chose this approach instead of one of the mature systems mentioned in Section \ref{sec:pattern-previous-work} in order to limit the number of dependencies that are uncommon within the scientific computing ecosystem and in order to leverage and expose existing mathematical expertise already within SymPy.
 
-### LogPy Manipulates Sympy Terms
+### LogPy Manipulates SymPy Terms
 
 Recall that LogPy supports the `term` interface discussed in Section \ref{sec:term}.
 
@@ -77,7 +77,7 @@ The `run` function asks for a lazily evaluated iterator (`None`) that returns re
     
 #### `rewrites(expr, target, condition)`
 
-The LogPy Relation `rewrites` stores facts, in this case our rewrite patterns.  The facts are of the form `(source, target, condition)` and claim that a expression matching `source` can be rewritten as the `target` expression if the boolean expression `condition` holds true.  For example rewrites might contain the following facts
+The LogPy Relation `rewrites` stores facts, in this case our rewrite patterns.  The facts are of the form `(source, target, condition)` and claim that an expression matching `source` can be rewritten as the `target` expression if the boolean expression `condition` holds true.  For example rewrites might contain the following facts
     
     (Abs(x),            x,      Q.positive(x)),
     (exp(log(x)),       x,      Q.positive(x)),

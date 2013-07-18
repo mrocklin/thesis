@@ -15,7 +15,7 @@ In this section we discuss the third element, the coordination of transformation
 
 We iteratively evolve our input through repeated application of a collection of transformations.  At each stage we select one among a set of several valid transformations.  These repeated decisions form a decision tree.
 
-We may arrive at the same state through multiple different decision paths.  We consider a directed graph where nodes are states (terms) and edges are transitions between states (transformations).  Macroscopic properties of this graph of possible states depends on properties of the set of transformations and terms.
+We may arrive at the same state through multiple different decision paths.  We consider a directed graph where nodes are states (terms) and edges are transitions between states (transformations).  Macroscopic properties of this graph of possible states depend on properties of the set of transformations and terms.
 
 
 ### Properties on Transformations

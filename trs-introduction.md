@@ -15,7 +15,7 @@ Software may change due to evolution in programming languages, radical shifts in
 
 #### Demographics
 
-Deep understanding of both computational mathematics and software enginnering is held only by a small population of scientific software engineers.  Separating mathematics from software reduces the demands of writing and verifying solutions.  A larger body of mathematicians can work on the mathematics and a larger body of software engineers can work on the pure software components.  The costly practice of collaboration can be avoided.
+Deep understanding of both computational mathematics and software engineering is held only by a small population of scientific software engineers.  Separating mathematics from software reduces the demands of writing and verifying solutions.  A larger body of mathematicians can work on the mathematics and a larger body of software engineers can work on the pure software components.  The costly practice of collaboration can be avoided.
 
 ### Definition
 
@@ -33,13 +33,13 @@ Explicitly term rewrite systems confer the following benefits in the context of 
 
 *   Mathematical programmers can focus on much smaller units of software
 *   Algorithmic programmers are isolated from the mathematics
-*   Smaller transformations can be more effectively verified
-*   Isolated coordination systems can be more effectively verified
+*   Smaller transformations can be verified more effectively 
+*   Isolated coordination systems can be verified more effectively 
 *   Multiple independent coordination systems can interact with the same set of transformations
 *   Multiple sets of transformations can interact with the same coordination systems
 
 
-In Section \ref{sec:pattern} we discuss the pattern matching problem in the context of computer algebra.  In Section \ref{sec:search} we pose the problem of coordinating these rules as a graph search problem.  Respectively these address parts 2 and 3 listed above.  We discuss background and exisitng solutions in Section \ref{sec:trs-background} and implement a matrix algebra language in one of these solutions in Section \ref{sec:matrix-rewriting-maude}.  Finally we discuss our approach to these problems in Sections \ref{sec:term}, \ref{sec:logpy}, and \ref{sec:search-direct}.
+In Section \ref{sec:pattern} we discuss the pattern matching problem in the context of computer algebra.  In Section \ref{sec:search} we pose the problem of coordinating these rules as a graph search problem.  Respectively these address parts 2 and 3 listed above.  We discuss background and existing solutions in Section \ref{sec:trs-background} and implement a matrix algebra language in one of these solutions in Section \ref{sec:matrix-rewriting-maude}.  Finally we discuss our approach to these problems in Sections \ref{sec:term}, \ref{sec:logpy}, and \ref{sec:search-direct}.
 
 In Section \ref{sec:voltron} we demonstrate the utility of these tools by implementing a mathematically informed linear algebra compiler with minimal math/compilers expertise overlap.
 
@@ -50,7 +50,7 @@ First, a motivating example.  Mathematical theories contain many small transform
 
 $$\log(\exp(x)) \rightarrow x \;\;\; \forall x \in \mathbb{R}$$
 
-We encode this tranformation into a computer algebra system like SymPy by manipulating the tree directly
+We encode this transformation into a computer algebra system like SymPy by manipulating the tree directly
 
 ~~~~~~~~~~Python
 def unpack_log_exp_if_real(term):

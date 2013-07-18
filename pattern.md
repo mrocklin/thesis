@@ -31,7 +31,7 @@ However, this method of solution does simultaneously require the understanding o
 1.  It restricts the development pool to simultaneous experts in mathematics and in the particular computer algebra system.
 2.  The solution is only valuable within this particular computer algebra system.  It will need to be rewritten for future software solutions.
 
-These flaws can be avoided by separating the mathematics from the details of term manipulation.  We achieve this through the description and matching of patterns.  We use the mathematical term language to describe the transformations directly, without referring to the particular data structures used in the computer algebra system.
+These flaws can be avoided by separating the mathematics from the details of term manipulation.  We achieve this separation through the description and matching of patterns.  We use the mathematical term language to describe the transformations directly, without referring to the particular data structures used in the computer algebra system.
 
 
 ### Rewrite Patterns

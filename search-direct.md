@@ -6,7 +6,7 @@ Greedy Search with Backtracking
 
 ### Problem Description
 
-The projects within this thesis match and apply one of a set of possible transformations to a term.  This process is often repeated until no further transformations apply.  This process is not deterministic; each step may engage multiple valid transformations.  These in turn may yield multiple different transformation paths and multiple terminal results.  These steps and options define a graph with a single root node.  The root is the input expression and the nodes with zero out-degree (leaves) are terminal states on which no further transformation can be performed.
+The projects within this dissertation match and apply one of a set of possible transformations to a term.  This process is often repeated until no further transformations apply.  This process is not deterministic; each step may engage multiple valid transformations.  These in turn may yield multiple different transformation paths and multiple terminal results.  These steps and options define a graph with a single root node.  The root is the input expression and the nodes with zero out-degree (leaves) are terminal states on which no further transformation can be performed.
 
 This section discusses this search problem abstractly.  Section \ref{sec:matrix-compilation} discusses the search problem concretely in the context of BLAS/LAPACK computations.
 
@@ -14,7 +14,7 @@ We consider a sequence of decreasingly trivial traversal algorithms.  These expo
 
 #### Properties on Transformations
 
-The sets of transformations described within this thesis have the following two important properties:
+The sets of transformations described within this dissertation have the following two important properties:
 
 *   They are *strongly normalizing*:  The graph has no cycles.  There is always a sense of constant progression to a final result.  As a result the object of study is a directed acyclic graph (DAG).
 *   They are not *confluent* in general:  There are potentially multiple valid outcomes; the DAG may have multiple leaves.  The choice of final outcome depends on which path the system takes at intermediate stages.
@@ -129,9 +129,9 @@ The functions `chain` and `imap` operate lazily, computing results as they are r
 \includegraphics[width=.48\textwidth]{images/search-continue}
 \end{wrapfigure}
 
-This has the added benefit that a lazily evaluated stream of all leaves is returned.  If the first result is not adequate then one can ask the system to find subsequent solutions.  These subsequent computations pick up where the previous search process ended, limiting redundant search.
+This approach has the added benefit that a lazily evaluated stream of all leaves is returned.  If the first result is not adequate then one can ask the system to find subsequent solutions.  These subsequent computations pick up where the previous search process ended, limiting redundant search.
 
-By exhaustively computing the iterator above we may also traverse the entire tree and can minimize over all valid leaves.  This may be prohibitively expensive in some cases but remains possible when the size of the tree is small.
+By exhaustively computing the iterator above we may also traverse the entire tree and can minimize over all valid leaves.  This computation may be prohibitively expensive in some cases but remains possible when the size of the tree is small.
 
 
 #### Repeated Nodes - Dynamic Programming
@@ -145,7 +145,7 @@ In this section we discuss a few generalizations of greedy search.
 
 #### K-deep greedy 
 
-Rather than compute and then minimize over the children of a node we could compute and minimize over the grandchildren.  More generally we can compute and minimize over the descendents of depth k.  This increases foresight and computational cost.
+Rather than compute and then minimize over the children of a node we could compute and minimize over the grandchildren.  More generally we can compute and minimize over the descendents of depth k.  This method increases foresight and computational cost.
 
 #### Breadth first 
 

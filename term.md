@@ -46,7 +46,7 @@ To be useful in a client codebase we must specify how to interact with client ty
 *   Dispatch on global registries
 *   Dynamic manipulation of client classes (monkey patching)
 
-The functions `new, op, args, and isleaf` query appropriate global registries and search for the methods `_term_new`, `_term_op`, `_term_args`, `_term_isleaf` on their input objects.  These method names are intended to be monkey-patched onto client classes if they do not yet exist.  This is done dynamically at runtime.  This is possible after import time only due to Python's permissive and dynamic object model.  This practice is dangerous in general only if other projects use the same names.
+The functions `new, op, args, and isleaf` query appropriate global registries and search for the methods `_term_new`, `_term_op`, `_term_args`, `_term_isleaf` on their input objects.  These method names are intended to be monkey-patched onto client classes if they do not yet exist.  This patching is done dynamically at runtime.  This patching is possible after import time only due to Python's permissive and dynamic object model.  This practice is dangerous in general only if other projects use the same names.
 
 Because most Python objects can be completely defined by their type and attribute dictionary the following methods are usually sufficient for any Python object that doesn't use advanced features.
 
@@ -75,14 +75,14 @@ from client_code import ClientClass
 termify(ClientClass)  # mutation
 ~~~~~~~~~~~
 
-In this way any Python object may be regarded as a compound term.  We provide a single `termify` function to mutate classes defined under the standard object model.  In operation we provide a more comprehensive function to handle common variations from the standard model (e.g. the use of `__slots__`)
+In this way any Python object may be regarded as a compound term.  We provide a single `termify` function to mutate classes defined under the standard object model.  Operationally we provide a more comprehensive function to handle common variations from the standard model (e.g. the use of `__slots__`)
 
-Note that the Python objects themselves are traversed, not a translation (we do not call `_term_op, _term_args` exhaustively before execution.)  Keeping the objects intact enables users to debug their code with familiar data structures and enables the use of client code *within* term traversals.  This will be useful later when we leverage SymPy exxisting mathematical inference system within an external logic program.
+Note that the Python objects themselves are traversed, not a translation (we do not call `_term_op, _term_args` exhaustively before execution.)  Keeping the objects intact enables users to debug their code with familiar data structures and enables the use of client code *within* term traversals.  This method will be useful later when we leverage SymPy's existing mathematical inference system within an external logic program.
 
 
 #### Variable identification -- `isvar`
 
-Meta variables denote subterms that can match any other term.  Within existing Python logic programming projects meta variables are traditionally identified by their type.  Python objects of the class `term.Var` are considered to be meta-variables.  However, interaction with user defined classes may require the injection of a meta-variable as an attribute into an arbitrary Python object.  It is possible that that object will perform checks that reject the inclusion of a `term.Var` object.  For example, in user-written code for an Account object it is feasible that a balance attribute will be checked to be of type `float`.  To match against a balance we need some way to make a `float` a meta-variable.
+Meta variables denote sub-terms that can match any other term.  Within existing Python logic programming projects meta variables are traditionally identified by their type.  Python objects of the class `term.Var` are considered to be meta-variables.  However, interaction with user defined classes may require the injection of a meta-variable as an attribute into an arbitrary Python object.  It is possible that that object will perform checks that reject the inclusion of a `term.Var` object.  For example, in user-written code for an Account object it is feasible that a balance attribute will be checked to be of type `float`.  To match against a balance we need some way to make a `float` a meta-variable.
 
 To resolve this issue we rely on a carefully managed set of global variables.  We make unique and rare values (e.g. `-9999.9`) and place them in a globally accessible collection.  Membership in this collection connotes meta-variable-ness.  To avoid the normal confusion caused by global collections we manage this set with Python context managers/coroutines.
 
@@ -101,7 +101,7 @@ def variables(*variables):
 ~~~~~~~~~~~~~~
 
 In the example below we find the name of the account-holder with 100 dollars.  The generic Python string "NAME" is used as a meta-variable.
-The `variables` context manager places `"NAME"` into a global collection and then yields control to the code within the subsequent block.  Code within that block is executed and queries this collection.  Membership in the collection equivalent to being a meta-variable.  After the completion of the `with variables` block the global collection is reset to its original value, commonly the empty set.  This allows the use of arbitrarily typed values as meta-variables, further enabling interoperation.
+The `variables` context manager places `"NAME"` into a global collection and then yields control to the code within the subsequent block.  Code within that block is executed and queries this collection.  Membership in the collection is equivalent to being a meta-variable.  After the completion of the `with variables` block the global collection is reset to its original value, commonly the empty set.  This approach allows the use of arbitrarily typed values as meta-variables, further enabling interoperation.
 
 ~~~~~~~~~~~~~~Python
 >>> from term import termify, variables, unify 
