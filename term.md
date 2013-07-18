@@ -48,7 +48,7 @@ To be useful in a client codebase we must specify how to interact with client ty
 
 The functions `new, op, args, and isleaf` query appropriate global registries and search for the methods `_term_new`, `_term_op`, `_term_args`, `_term_isleaf` on their input objects.  These method names are intended to be monkey-patched onto client classes if they do not yet exist.  This patching is done dynamically at runtime.  This patching is possible after import time only due to Python's permissive and dynamic object model.  This practice is dangerous in general only if other projects use the same names.
 
-Because most Python objects can be completely defined by their type and attribute dictionary the following methods are usually sufficient for any Python object that doesn't use advanced features.
+Because most Python objects can be completely defined by their type and attribute dictionary the following methods are usually sufficient for any Python object that does not use advanced features.
 
 ~~~~~~~~~~~Python
 def _term_op(term):
