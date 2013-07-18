@@ -49,6 +49,7 @@ $$\frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56
  & + & \frac{1}{105} \sqrt{70} x \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x}
 \end{eqnarray*}
 
+
     expr.diff(x)
     Operations:  48
 

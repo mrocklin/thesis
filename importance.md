@@ -2,7 +2,7 @@
 Importance
 ----------
 
-Scientific software is important.  Computational software enables scientists to approximately simulate complex physical systems within a computer, providing insight to exotic systems, or foresight to developing ones.  
+Scientific software is important.  Computational software enables scientists to approximately simulate complex physical systems in a computer, providing insight into exotic systems, or foresight to developing ones.  
 
 Consider the benefits of numerical weather prediction.  Meteorological
 forecasting is able to reduce the cost of food (by warning farmers), decrease the frequency of power outages (by anticipating spikes in temperature and climate control usage), inform the location of renewable energy resources, and reduce the fatality of extreme weather events (e.g. hurricanes.)  Traumatic events like the recent Hurricane Sandy (2012) were predicted several days in advance, giving the coastal population time to secure valuables and vacate immobile residents inland.  Computation surrounds society and provides a thousand unnoticed efficiencies.

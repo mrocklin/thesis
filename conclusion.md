@@ -1,5 +1,5 @@
 
-conclusion
+Conclusion
 ==========
 
 \label{sec:conclusion}
