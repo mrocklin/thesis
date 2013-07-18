@@ -15,12 +15,12 @@ The ATLAS system benchmarks several possible implementations with different bloc
 
 #### GOTO BLAS
 
-Instead of searching a parameter space the BLAS can be optimzed by hand.  Kazushige Goto hand-tunes the generated assembly of BLAS for particular architectures.  GOTO BLAS\cite{Goto2008} is frequently among the fastest implementations available, routinely beating vendor supplied implementations.  This is an example of a single expert in low-level computation and memory hierarchy distributing expertise through software.
+Instead of searching a parameter space the BLAS can be optimized by hand.  Kazushige Goto hand-tunes the generated assembly of BLAS for particular architectures.  GOTO BLAS\cite{Goto2008} is frequently among the fastest implementations available, routinely beating vendor supplied implementations.  This implementation is an example of a single expert in low-level computation and memory hierarchy distributing expertise through software.
 
 
 #### Formal Linear Algebra Methodology Environment (FLAME) 
 
-The FLAME project provides a language for the idiomatic expression of blocked matrix computations.  FLAME\cite{Geijn2008} lowers barriers to design novel matrix algorithms and provides some automated reasoning capabilities.  Using these methods FLAME is able to more exhaustively search the space of possible algorithms when creating a BLAS/LAPACK library.
+The FLAME project provides a language for the idiomatic expression of blocked matrix computations.  FLAME\cite{Geijn2008} lowers barriers to designing novel matrix algorithms and provides some automated reasoning capabilities.  Using these methods FLAME is able to search the space of possible algorithms when creating a BLAS/LAPACK library.
 
 The FLAME group collaborates with Kazushige Goto in an effort to automate and more broadly apply expertise
 
@@ -34,9 +34,9 @@ The MKL is an industry standard.  It is a professional multi-core implementation
 
 The ubiquity of numerical linear algebra makes it an attractive candidate for mature parallel solutions.  All computational kernels expressible as BLAS/LAPACK computations may be automatically parallelized if a robust solution can be found for distributed numerical linear algebra.
 
-Much of this work exists for sparse systems which are not part of the BLAS/LAPACK system.  See notes on PETSc and Trilinos in \ref{sec:numerics} and \ref{sec:trilinos} for more details.
+Much of this work exists for sparse systems that are not part of the BLAS/LAPACK system.  See notes on PETSc and Trilinos in \ref{sec:numerics} and \ref{sec:trilinos} for more details.
 
-In the case of dense linear algebra, data parallelism is most often acheived through blocking.  Input arrays are blocked or tiled and then each operation manages distributed computation by managing sequential operations on blocks.  A distributed GEMM may be achieved through many smaller sequential GEMMs on computational nodes.  More sophisticated computations, like SYMM or POSV, may make use of a variety of sequential operations.
+In the case of dense linear algebra, data parallelism is most often achieved through blocking.  Input arrays are blocked or tiled and then each operation manages distributed computation by managing sequential operations on blocks.  A distributed GEMM may be achieved through many smaller sequential GEMMs on computational nodes.  More sophisticated computations, like SYMM or POSV, may make use of a variety of sequential operations.
 
 Occasionally communication is handled by a separate abstraction.  For performance reasons these are often built off of or resemble MPI at a low level.
 
@@ -47,7 +47,7 @@ is an implementation of LAPACK for distributed memory architecture.  ScaLAPACK\c
 
 #### Parallel Linear Algebra for Scalable Multi-core Architectures (PLASMA)
 
-is a more modern approach to the parallel linear algebra problem and the natural successor to ScaLAPACK.  It uses dynamic scheduling techniques to communicate tiles in a shared memory architecture.  PLASMA is actively developped to support distributed memory\cite{Bosilca2011}.
+is a more modern approach to the parallel linear algebra problem and the natural successor to ScaLAPACK.  It uses dynamic scheduling techniques to communicate tiles in a shared memory architecture.  PLASMA is actively developed to support distributed memory\cite{Bosilca2011}.
 
 ### DPLASMA
 
@@ -60,4 +60,4 @@ Elemental\cite{Poulson2010} forks FLAME (listed above) to handle distributed mem
 
 #### Matrix Algebra on GPU and Multicore Architectures (MAGMA)
 
-is co-developped alongside PLASMA to support heterogeneous architectures with thought to their eventual merger\cite{Agullo2009}.
+is co-developed alongside PLASMA to support heterogeneous architectures with thought to their eventual merger\cite{Agullo2009}.

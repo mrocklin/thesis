@@ -10,7 +10,7 @@ Numerical weather prediction is also computationally challenging.  It requires s
 
 ### WRF
 
-Because of these benefits and costs the federal government has supported the production and maintenance of high performance numerical codes for the short-term simulation and forecast of the weather.  Along with several other federal and university groups the National Center for Atmospheric Research (NCAR) maintains the Weather Research Forecast model (WRF), which serves as a base for both research (ARW) and operational (NMW) codes.  It is written in Fortran and MPI by a dedicated team of software developers.
+Because of these benefits and costs the federal government has supported the production and maintenance of high performance numerical codes for the short-term simulation and forecast of the weather.  Along with several other federal and university groups the National Center for Atmospheric Research (NCAR) maintains the Weather Research Forecast model (WRF), which serves as a base for both research (ARW) and operational (NMW) codes.  It is written in Fortran and MPI and maintained by a dedicated team of software developers.
 
 It is used by a broad community of meteorologists and weather service professionals without computational expertise.  External control is managed through a set of Fortran namelists that specify model parameters.
 
@@ -71,7 +71,7 @@ Two years later operational instructions were released to use use this work for 
 
 #### Later work
 
-Four years later in \cite{Mielikainen2012} Mielikainen et al report increased substantially efficiency through exploiting more specialized GPU optimizations not often known by general researchers, some specific to the model of GPU.
+Four years later Mielikainen et al\cite{Mielikainen2012} report increased substantially efficiency through exploiting more specialized GPU optimizations not often known by general researchers, some specific to the model of GPU.
 
 *These results represent a 60% improvement over the earlier GPU accelerated WSM5 module. The improvements over the previous GPU accelerated WSM5 module were numerous. Some minor improvements were that we scalarized more temporary arrays and compiler tricks specific to Fermi class GPU were used. The most important improvements were the use of coalesced memory access pattern for global memory and asynchronous memory transfers.*
 
@@ -81,7 +81,7 @@ WRF software design is *embarassingly* modular.  This modularity separates routi
 
 In the listing above we see a high-level meteorological model implemented in a very low-level implementation alongside computational optimizations and array layouts.  This problem is intrinsically simple; it is an algebraic expression on a few indexed arrays.  And yet when external pressures (GPGPU) necessitated a code rewrite, that work took months of work from a researcher who was already familiar with this codebase.  That work failed to implement several GPU specific optimizations that occured in the literature four years later.
 
-While this file encodes relatively high-level concepts it is difficult to perform sweeping high-level manipulations.  As physics, numerical methods, and computational architecture change, this flexibility is likely to become more important.
+While this file encodes relatively high-level concepts it is difficult to perform sweeping high-level manipulations.  As physics, numerical methods, and computational architecture change, flexibility is likely to become more important.
 
 
 ### Other Codes
@@ -98,7 +98,7 @@ Despite these similarities the two codebases often produce substantially differe
 
 NCAR has forked and adjusted `WRF` for specific situations.  The Hurricane Weather Research Forecasting Model (`HWRF`) modifies `WRF` to be particularly suitable in the case of severe storms.  Particular models have been developed to support more perturbed states.
 
-`WRFDA` is an implementation of `WRF` for data assimilation.  The latest version contains experimental algorithms for 4D-var, a new numerical technique that uses automatic derivatives to more efficiently assimilate new observations.  This was done by applying automated AD compilers to a stripped down version of `WRF` with some troublesome modules rewritten more simply.  Unfortunately, the complete version of `WRF` was not amenable to automated transformation.
+`WRFDA` is an implementation of `WRF` for data assimilation.  The latest version contains experimental algorithms for 4D-var, a new numerical technique that uses automatic derivatives to assimilate new observations more efficiently.  This was done by applying automated AD compilers to a stripped down version of `WRF` with some troublesome modules rewritten more simply.  Unfortunately, the complete version of `WRF` was not amenable to automated transformation.
 
 #### Climate
 

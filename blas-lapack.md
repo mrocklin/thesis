@@ -14,7 +14,7 @@ The BLAS are organized into three levels
 
 ### Hardware Coupling of Level-3
 
-As memory hierarchies have become more complex and as latencies from the upper levels have increased relative to clock cycle the importance of keeping data local in cache for as many computations as possible has increased.  This is of primary importance in the Level-3 BLAS, which are characterized by $O(n^3)$ computations on $O(n^2)$ data elements.  Through clever organization of the computation into blocks, communication within the slower elements of the memory hierarchy can be hidden, resulting in order-of-magnitude performance gains.
+As memory hierarchies have become more complex and as latencies from the upper levels have increased relative to clock cycle times the importance of keeping data local in cache for as many computations as possible has increased.  This locality is of primary importance in the Level-3 BLAS, which are characterized by $O(n^3)$ computations on $O(n^2)$ data elements.  Through clever organization of the computation into blocks, communication within the slower elements of the memory hierarchy can be hidden, resulting in order-of-magnitude performance gains.
 
 In fact, Level-3 BLAS operations are one of the few cases where computational intensity can match the imbalance in CPU-Memory speeds, making them highly desirable operations on modern hardware.  This benefit is even more significant in the case of many-core accelerators, e.g. GPGPU.
 
@@ -56,7 +56,7 @@ For concreteness, examples of the interfaces for `GEMM` and `SYMM` for double pr
 
 The interface to BLAS/LAPACK was standardized in 1979 within the scope of the Fortran-77 language.  Memory locations, array sizes, strides, and transposition are all stated explicitly and independently.  Modern language assistance like basic type checking or wrapping shape and stride information into array objects is unavailable.
 
-The interface to BLAS/LAPACK appeals to a very low and common denominator.  This makes it trivial to interoperate with a broad set of languages.  For example the popular Fortran to Python wrapper `f2py` handles most of the BLAS/LAPACK library without additional configuration.  Unfortunately this same low and common denominator alienates direct use by naive scientific users.
+The interface to BLAS/LAPACK appeals to a very low and common denominator.  This design makes it trivial to interoperate with a broad set of languages.  For example the popular Fortran to Python wrapper `f2py` handles most of the BLAS/LAPACK library without additional configuration.  Unfortunately this same low and common denominator alienates direct use by naive scientific users.
 
 
 ### Analysis

@@ -26,7 +26,7 @@ A broad userbase coupled with advances in online code sharing and relatively rob
 
 ### Adaptation to Parallelism
 
-The rise of shared, distributed, and many-core parallelism forces the development community to reevaluate its choice of implementation.  These codes are a software artifact with substantial value.  Unfortunately their adaptation to take advantage of parallel hardware seems both arduous and seemingly necessary.  Like old Fortran codes they are often called from other langauges at great expense (e.g. using foreign function interfaces to call SciPy from the Hadoop system via Java.)
+The rise of shared, distributed, and many-core parallelism forces the development community to reevaluate its choice of implementation.  Preexisting scientific software retains substantial value.  Unfortunately the adaptation of this software to take advantage of parallel hardware seems both arduous and necessary.  Like old Fortran codes they are often called from other langauges at great expense (e.g. using foreign function interfaces to call SciPy from the Hadoop system via Java.)
 
 
 ### Return to Compilation
