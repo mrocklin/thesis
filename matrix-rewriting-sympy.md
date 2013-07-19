@@ -27,6 +27,6 @@ We present mathematical information about determinants taken from the Matrix Coo
 (det(A),        1,              Q.orthogonal(A)),
 (Abs(det(A)),   1,              Q.unitary(A)),
 (det(A*B),      det(A)*det(B),  Q.square(A)),
-(det(BlockMatrix([[A,B],[C,D]])),   det(A)*det(D - C*A.I*B),  Q.invertible(A)),
+(det(BlockMatrix([[A,B],[C,D]])), det(A)*det(D - C*A.I*B), Q.invertible(A))
 ...
 ~~~~~~~~~~~~~~
