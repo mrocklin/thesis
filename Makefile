@@ -10,6 +10,11 @@ times-fortran:
 	 ~/Software/openmpi-1.6.4/bin/mpif90 image-scripts/profile_gemm.f90 -lblas -o image-scripts/profile_gemm.out
 	 ~/Software/openmpi-1.6.4/bin/mpirun image-scripts/profile_gemm.out > image-scripts/profile_gemm_fortran.dat
 
+commtimes:
+	mpif90 image-scripts/timempi.f90 -o image-scripts/timempi.out
+	mpirun --np 2 --hostfile hostfile image-scripts/timempi.out
+	python image-scripts/plot_variation.py
+
 lib.bib: library.bib library2.bib
 	cat library.bib library2.bib > lib.bib
 
@@ -44,3 +49,4 @@ clean:
 	rm -f lib.bib
 	rm -f *.bbl
 	rm -f *.blg
+
