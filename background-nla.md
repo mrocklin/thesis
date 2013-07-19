@@ -1,8 +1,8 @@
 
-\label{sec:background-nla}
-
 BLAS/LAPACK
 -----------
+
+\label{sec:background-nla}
 
 Computational science often relies on computationally intensive dense linear algebra operations.  This reliance is so pervasive that numerical linear algebra (NLA) libraries are among the most heavily optimized and studied algorithms in the field.  
 
