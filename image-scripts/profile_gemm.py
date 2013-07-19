@@ -19,7 +19,7 @@ nB = numpy.random.rand(1000, 1000)
 
 times = [f(nA, nB) for i in range(1000)]
 
-savetxt('profile_gemm.dat', times)
+numpy.savetxt('image-scripts/profile_gemm.dat', times)
 
 import pylab
 f = pylab.figure(figsize=(10, 4))
