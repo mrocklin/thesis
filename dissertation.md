@@ -1,9 +1,9 @@
 
-\begin{abstract}
-include [Abstract](abstract3.md)
-\end{abstract}
+\abstract
 
-include [Front Matter](front.md)
+include [Abstract](abstract3.md)
+
+\mainmatter
 
 include [Introduction](introduction-2.md)
 
