@@ -32,8 +32,7 @@ Additionally, the states within this graph have two important properties:
 
 #### Example Tree
 
-\begin{wrapfigure}[10]{r}{.5\textwidth}
-\vspace{-2em}
+\begin{wrapfigure}[10]{R}{.5\textwidth}
 \centering
 \includegraphics[width=.48\textwidth]{images/search}
 \caption{An example tree of possible computations.  A score annotates each node.}
@@ -59,8 +58,7 @@ In Section \ref{sec:matrix-compilation} we provide implementations of these func
 
 #### Leftmost
 
-\begin{wrapfigure}[10]{r}{.5\textwidth}
-\vspace{-2em}
+\begin{wrapfigure}[10]{R}{.5\textwidth}
 \centering
 \includegraphics[width=.48\textwidth]{images/search-left}
 \caption{A naive strategy to traverse down the left branch yields a sub-optimal result.}
@@ -84,8 +82,7 @@ def leftmost(children, objective, isvalid, node):
 
 #### Greedy Search
 
-\begin{wrapfigure}[10]{r}{.5\textwidth}
-\vspace{-2em}
+\begin{wrapfigure}[10]{R}{.5\textwidth}
 \centering
 \includegraphics[width=.48\textwidth]{images/search-dumb}
 \caption{A greedy strategy selects the branch whose root has the best score.}
@@ -110,8 +107,7 @@ def greedy(children, objective, isvalid, node):
         
 #### Greedy Search with Backtracking
 
-\begin{wrapfigure}[10]{r}{.5\textwidth}
-\vspace{-2em}
+\begin{wrapfigure}[10]{R}{.5\textwidth}
 \centering
 \includegraphics[width=.48\textwidth]{images/search-greedy}
 \caption{Backtracking allows us to avoid terminating in dead ends.}
@@ -131,8 +127,7 @@ We evaluate and multiplex streams of possibilities lazily, computing results as 
 
 #### Continutation
  
-\begin{wrapfigure}[10]{r}{.5\textwidth}
-\vspace{-2em}
+\begin{wrapfigure}[10]{R}{.5\textwidth}
 \centering
 \includegraphics[width=.48\textwidth]{images/search-continue}
 \caption{Continuation allows us to continue to search the tree even after a valid result has been found.}
