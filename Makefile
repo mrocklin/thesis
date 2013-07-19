@@ -15,7 +15,7 @@ times-fortran:
 lib.bib: library.bib library2.bib
 	cat library.bib library2.bib > lib.bib
 
-dissertation.tex: images/pdfs dissertation.md math-num front.md lib.bib
+dissertation.tex: images/pdfs dissertation.md front.md lib.bib
 	python scripts/include.py dissertation.md dissertation2.md
 	python scripts/dollar.py dissertation2.md dissertation2.md
 	pandoc dissertation2.md -o dissertation.tex --standalone -H tex/preamble-extra.tex -A tex/biblio.tex

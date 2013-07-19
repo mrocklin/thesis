@@ -64,6 +64,6 @@ is co-developed alongside PLASMA to support heterogeneous architectures with tho
 
 ### Analysis
 
-The development history of BLAS/LAPACK closely mirrors the development history of computational hardware.  This trend shows no signs of stopping.  On the contrary, after hitting the power wall architecture development seems to have entered an age of experimentation; BLAS/LAPACK development seem to follow suit with a focus on distributing and scheduling tiled computations.
+The development history of BLAS/LAPACK closely mirrors the development history of computational hardware; hardware developments are closely followed by new BLAS/LAPACK implementations.  We can expect BLAS/LAPACK development to continue aggressively into the future.  This is particularly true as architecture development seems to have entered an age of experimentation due to the power wall.  This architectural limit spurs the growth of parallel architectures; BLAS/LAPACK development seem to follow suit with a focus on distributing and scheduling tiled computations.
 
 Robust BLAS/LAPACK implementations lag hardware development by several years.  This lag propagates to scientific codes because so many link to BLAS/LAPACK libraries.  Accelerating development and introducing hardware flexibility can meaningfully advance performance on mainstream scientific codes.
