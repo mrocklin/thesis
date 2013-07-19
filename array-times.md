@@ -37,19 +37,19 @@ We profile the runtime of the `DGEMM` operation.  We compute a $1000 \times 1000
 \label{fig:gemm-hist-fortran}
 \end{figure}
 
-The context in which computations are run is relevant.  These times were computed on a notebook computer running a traditional operating system.  To study the effects of context we run this same computation within a Python environment.  Compute times are computed strictly within Fortran subroutines but the memory is managed by the Python runtime.  A time series and histogram are presented in Figures  \ref{fig:gemm-profile} and \ref{fig:gemm-hist}.  These times have the same central peak (the median value remains the same) but the distribution has widened in two ways.  First, there is a larger population of outliers that require around 30% more time.  Second, the central distribution is substantially wider with variations up to a few percent.
+The context in which computations are run is relevant.  These times were computed on a notebook computer running a traditional operating system.  To study the effects of runtime context we run this same computation within a Python environment.  Compute times are computed strictly within Fortran subroutines but the memory is managed by the Python runtime.  A time series and histogram are presented in Figures  \ref{fig:gemm-profile} and \ref{fig:gemm-hist}.  These times have a marginally shifted central peak (the median value remains similar) but the distribution has widened in two ways.  First, there is a larger population of outliers that require around substantially more time.  Second, the central distribution is substantially wider with variations up to a few percent.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.9\textwidth]{images/gemm-profile}
+\includegraphics[width=.9\textwidth]{images/gemm-profile-both}
 \caption{A time series of durations taken in a noisy environment}
 \label{fig:gemm-profile}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.6\textwidth]{images/gemm-hist}
-\caption{A histogram of durations taken in a noisy environment. {\it TODO: Merge this image with the previous one on the same axes}}
+\includegraphics[width=.6\textwidth]{images/gemm-hist-both}
+\caption{A histogram of durations taken in a noisy environment.}
 \label{fig:gemm-hist}
 \end{figure}
 
