@@ -5,8 +5,8 @@ def compile(inputs, outputs, *assumptions):
     def isvalid(comp):
         return set(comp.inputs).issubset(inputs)
 
-    with assuming(*assumptions):      # SymPy assumptions are globally available
-        stream = greedy(children, objective, isvalid, c) # all valid computations
-        result = next(stream)                            # first valid computation
+    with assuming(*assumptions):      # SymPy assumptions available
+        stream = greedy(children, objective, isvalid, c)
+        result = next(stream)
 
     return result
