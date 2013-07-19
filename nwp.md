@@ -22,20 +22,20 @@ Internally the codebase is organized into several Fortran files that handle diff
 ~~~~~~~~Fortran
 ! phys/module_mp_wsm5_accel.F:644 Version 3.4
 
-        do k = kte, kts, -1
-              if(t(i,k,j).gt.t0c.and.qrs(i,k,2).gt.0.) then
+do k = kte, kts, -1
+      if(t(i,k,j).gt.t0c.and.qrs(i,k,2).gt.0.) then
 !----------------------------------------------------------------
 ! psmlt: melting of snow [HL A33] [RH83 A25]
 !       (T>T0: S->R)
 !----------------------------------------------------------------
-                xlf = xlf0
+        xlf = xlf0
 !               work2(i,k)= venfac(p(i,k),t(i,k,j),den(i,k,j))
-                work2(i,k)= (exp(log(((1.496e-6*((t(i,k,j))*sqrt(t(i,k,j)))        &
-                            /((t(i,k,j))+120.)/(den(i,k,j)))/(8.794e-5             &
-                            *exp(log(t(i,k,j))*(1.81))/p(i,k,j))))                 &
-                            *((.3333333)))/sqrt((1.496e-6*((t(i,k,j))            &
-                            *sqrt(t(i,k,j)))/((t(i,k,j))+120.)/(den(i,k,j))))        &
-                            *sqrt(sqrt(den0/(den(i,k,j)))))
+        work2(i,k)= (exp(log(((1.496e-6*((t(i,k,j))*sqrt(t(i,k,j)))    &
+                    /((t(i,k,j))+120.)/(den(i,k,j)))/(8.794e-5         &
+                    *exp(log(t(i,k,j))*(1.81))/p(i,k,j))))             &
+                    *((.3333333)))/sqrt((1.496e-6*((t(i,k,j))          &
+                    *sqrt(t(i,k,j)))/((t(i,k,j))+120.)/(den(i,k,j))))  &
+                    *sqrt(sqrt(den0/(den(i,k,j)))))
 ~~~~~~~~~
 
 This snippet encodes the physics behind the melting of snow under certain conditions.  It is a large mathematical expression iterated over arrays in a do-loop.  This pattern is repeated in this routine for other physical processes such as "instantaneous melting of cloud ice", "homogeneous freezing of cloud water below -40c", "evaporation/condensation rate of rain", etc.... 
