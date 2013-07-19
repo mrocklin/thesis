@@ -1,6 +1,6 @@
 from numpy import loadtxt
 
-times = loadtxt('image-scripts/profile_gemm.dat')
+times = loadtxt('image-scripts/profile_gemm_fortran.dat')
 
 import pylab
 f = pylab.figure(figsize=(10, 4))
