@@ -32,12 +32,12 @@ Additionally, the states within this graph have two important properties:
 
 #### Example Tree
 
-\begin{wrapfigure}[10]{R}{.5\textwidth}
+\begin{figure}
 \centering
 \includegraphics[width=.48\textwidth]{images/search}
 \caption{An example tree of possible computations.  A score annotates each node.}
 \label{fig:search}
-\end{wrapfigure}
+\end{figure}
 
 We reinforce the problem description above with an example.
 
@@ -58,12 +58,12 @@ In Section \ref{sec:matrix-compilation} we provide implementations of these func
 
 #### Leftmost
 
-\begin{wrapfigure}[10]{R}{.5\textwidth}
+\begin{figure}
 \centering
 \includegraphics[width=.48\textwidth]{images/search-left}
 \caption{A naive strategy to traverse down the left branch yields a sub-optimal result.}
 \label{fig:search}
-\end{wrapfigure}
+\end{figure}
 
 A blind search may find sub-optimal solutions.  For example consider the strategy that takes the left-most node at each step.  This arrives at a node cost 21.  In this particular case that node is scored relatively poorly.  The search process was cheap but the result was poor. 
 
@@ -82,12 +82,12 @@ def leftmost(children, objective, isvalid, node):
 
 #### Greedy Search
 
-\begin{wrapfigure}[10]{R}{.5\textwidth}
+\begin{figure}
 \centering
 \includegraphics[width=.48\textwidth]{images/search-dumb}
 \caption{A greedy strategy selects the branch whose root has the best score.}
 \label{fig:search}
-\end{wrapfigure}
+\end{figure}
 
 If we can assume that the cost of intermediate nodes is indicative of the cost of their children then we can implement a greedy solution that always considers the subtree of the minimum cost child.
 
@@ -107,12 +107,12 @@ def greedy(children, objective, isvalid, node):
         
 #### Greedy Search with Backtracking
 
-\begin{wrapfigure}[10]{R}{.5\textwidth}
+\begin{figure}
 \centering
 \includegraphics[width=.48\textwidth]{images/search-greedy}
 \caption{Backtracking allows us to avoid terminating in dead ends.}
 \label{fig:search}
-\end{wrapfigure}
+\end{figure}
 
 Greedy solutions like the one above can become trapped in a dead-end.  Our example arrives at an invalid leaf with cost `8`.  There is no further option to pursue in this case.  The correct path to take at this stage is to regress backwards up the tree and consider other previously discarded options.
 
@@ -127,12 +127,12 @@ We evaluate and multiplex streams of possibilities lazily, computing results as 
 
 #### Continutation
  
-\begin{wrapfigure}[10]{R}{.5\textwidth}
+\begin{figure}
 \centering
 \includegraphics[width=.48\textwidth]{images/search-continue}
 \caption{Continuation allows us to continue to search the tree even after a valid result has been found.}
 \label{fig:search}
-\end{wrapfigure}
+\end{figure}
 
 This approach has the added benefit that a lazily evaluated stream of all leaves is returned.  If the first result is not adequate then one can ask the system to find subsequent solutions.  These subsequent computations pick up where the previous search process ended, limiting redundant search.
 
