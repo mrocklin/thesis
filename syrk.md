@@ -27,11 +27,15 @@ And by adding the relevant patterns
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\textwidth]{images/hat-comp}
+\caption{Least squares linear regression with `GEMM` computation}
+\label{fig:hat-comp-gemm}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\textwidth]{images/hat-comp-syrk}
+\caption{Least squares linear regression with `SYRK` computation}
+\label{fig:hat-comp-syrk}
 \end{figure}
 
 

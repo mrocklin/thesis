@@ -63,6 +63,7 @@ The execution of these commands does not perform any specific numeric computatio
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.4\textwidth]{images/beta}
+\caption{Expression tree for least squares linear regression}
 \label{fig:beta}
 \end{figure}
 

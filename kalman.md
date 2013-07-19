@@ -28,6 +28,7 @@ comp = compile([mu, Sigma, H, R, data], [new_mu, new_Sigma], *assumptions)
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.8\textwidth]{images/kalman-math}
+\caption{A computation graph for the Kalman Filter}
 \label{fig:kalman-math}
 \end{figure}
 

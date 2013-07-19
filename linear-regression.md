@@ -11,6 +11,8 @@ $$ X \beta \cong y $$
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.4\textwidth]{images/linregress-xy}
+\caption{Array shapes for linear regression}
+\label{fig:linregress-xy}
 \end{figure}
 
 The solution to this problem can be posed as a matrix expression.  The $\beta_i$ which minimize the squared error of the above equation can be computed by the following:
@@ -73,6 +75,8 @@ We produce the following sophisticated computation:
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.7\textwidth]{images/hat-comp}
+\caption{A computation graph for least squares linear regression}
+\label{fig:hat-comp}
 \end{figure}
 
 We perform this through a progression of small mathematically informed transformations.
@@ -83,6 +87,8 @@ We perform this through a progression of small mathematically informed transform
 \includegraphics[width=.24\textwidth]{images/hat1}
 \includegraphics[width=.24\textwidth]{images/hat2}
 \includegraphics[width=.24\textwidth]{images/hat3}
+\caption{A progression of computations to evolve to the computation in Figure \ref{fig:hat-comp}}
+\label{fig:hat-comp-progression}
 \end{figure}
 
 

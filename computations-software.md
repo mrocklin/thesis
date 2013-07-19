@@ -44,6 +44,8 @@ Mathematically this definition is correct.  It consumes a variable, `X`, and pro
 \centering
 \includegraphics[height=.15\textheight]{images/copy} \\
 \includegraphics[height=.15\textheight]{images/copy-inplace}
+\caption{A meaningful `Copy` operation with variables that contain both mathematical expressions and memory tokens}
+\label{fig:copy}
 \end{figure}
 
 To encode this information about memory location we expand our model so that each variable is both a mathematical SymPy term and a unique identifier, usually a Python string.  This method supports a new class of transformations to manage inplace computations.
@@ -98,6 +100,8 @@ Computations like `symm` and `axpy` can be combined to form composite computatio
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.5\textwidth]{images/symm-axpy}
+\caption{A computation graph to compute $5XY + Y$}
+\label{fig:symm-axpy}
 \end{figure}
 
 The computation above is purely mathematical in nature.  We now consider inplace behavior and inject unique tokens as described in Section \ref{sec:tokenize}.  We inject `COPY` operations where necessary.
@@ -109,6 +113,8 @@ The computation above is purely mathematical in nature.  We now consider inplace
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.7\textwidth]{images/symm-axpy-inplace}
+\caption{A tokenized computation graph to compute $5XY + Y$}
+\label{fig:symm-axpy-inplace}
 \end{figure}
 
 Finally we declare the types of the matrices, specify orders for inputs and outputs,  and print Fortran code
