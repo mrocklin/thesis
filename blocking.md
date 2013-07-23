@@ -2,6 +2,8 @@
 Blocked Kalman Filter
 ---------------------
 
+\label{sec:blocking}
+
 In this example we investigate the value of blocking matrices across large algorithms. We continue to use the Kalman filter as an example computation and Theano as a backend.
 
 
