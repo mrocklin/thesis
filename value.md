@@ -1,6 +1,6 @@
 
-Importance
-----------
+Value
+-----
 
 Scientific software is important.  Computational software enables scientists to approximately simulate complex physical systems in a computer, providing insight into exotic systems, or foresight to developing ones.  
 

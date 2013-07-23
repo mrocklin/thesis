@@ -2,7 +2,7 @@ Introduction
 ============
 
 
-The development and execution of scientific codes is both critical to society and challenging to scientific software developers.  When critical applications require faster solutions the development community often turns to more powerful computational hardware.  Unfortunately the full use of high performance hardware by scientific software developers has become more challenging in recent years due to changing hardware models.  In particular, power constraints have favored increased parallelism over increased clock speeds, triggering a paradigm shift in programming and algorithms models.  As a result squeezing progress out of continued hardware development is becoming increasingly challenging.
+The development and execution of scientific codes is both critical to society and challenging to scientific software developers.  When critical applications require faster solutions the development community often turns to more powerful computational hardware.  Unfortunately the full use of high performance hardware by scientific software developers has become more challenging in recent years due to changing hardware models.  In particular, power constraints have favored increased parallelism over increased clock speeds, triggering a paradigm shift in programming and algorithm models.  As a result squeezing progress out of continued hardware development is becoming increasingly challenging.
 
 An alternative approach to reduce solution times is to rely on sophisticated methods over sophisticated hardware.  One strives to reduce rather than to accelerate the computation necessary to obtain the desired scientific result.  Computationally challenging problems can often be made trivial by exposing and leveraging special structure of the problem at hand.  Problems that previously required weeks on a super-computer may only require hours or minutes on a standard workstation once the appropriate method is found to match the structure of the problem.
 
@@ -28,7 +28,7 @@ In summary:
 
 
 
-include [Importance](importance.md)
+include [Value](value.md)
 
 include [Cost](cost.md)
 
