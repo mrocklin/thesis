@@ -2,6 +2,8 @@
 Modularity
 ----------
 
+\label{sec:modularity}
+
 Modularity is a software principle that supports the separation of a software project into modules, each of which performs an individual and independent task.  This approach confers the following benefits:
 
 

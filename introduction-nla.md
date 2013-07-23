@@ -2,6 +2,8 @@
 Numerical Linear Algebra
 ------------------------
 
+\label{sec:introduction-nla}
+
 Numerical Linear Algebra is a well developed and optimized domain in scientific software.  This dissertation investigates linear algebra as a case study for modular scientific software development.
 
 Linear algebra serves as an interface between computational scientists and computational hardware.  Many scientific domains can express their problems as matrix computations.  Scientific or mathematical programmers are often well trained in theoretical linear algebra.  High performance and curated libraries for numerical linear algebra exist for most computational architectures.  These libraries have a consistent and durable interface and are supported by a variety of software.  As a result of this cross-familiarity, linear algebra serves as a de-facto computational language between computational researchers and low-level hardware.  The majority of floating point operations within scientific computations occur within a linear algebra routine.

@@ -2,6 +2,8 @@
 Contributions
 -------------
 
+\label{sec:contributions}
+
 This dissertation presents a softare system to transform high-level matrix expressions into high-performance code.  This project supplies mathematical programmers access to powerful-yet-inaccessible computational libraries.
 
 Additionally, this dissertation discusses the virtues of modularity within this domain.  Care has been taken to separate the software system into a set of individual components, each of which retains meaning independently.  These software contributions are the following:

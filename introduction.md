@@ -26,7 +26,7 @@ In summary:
 *   Interdisciplinary applications and a lack of software engineering tradition in the sciences encourage the use of a modular design that separates different domains into different software packages.
 *   In particular the practice of automation should itself be separated from the formal description of mathematical expertise.
 
-
+The rest of this chapter discusses traits of the scientific computing ecosystem introduced above in more detail and in isolation.  Sections \ref{sec:value} and \ref{sec:cost} discuss the value and cost of computing to society at large.  Sections \ref{sec:modularity} and \ref{sec:expertise} outline the challenges of the distribution of expertise and the benefits of modular software design.  This dissertation investigates these concepts through linear algebra, a paragon application; this will be introduced in section \ref{sec:introduction-nla}.  Finally in Sections \ref{sec:contributions} and \ref{sec:overview} we concretely outline the contributions and outline of the work that follows.
 
 include [Value](value.md)
 
@@ -34,7 +34,7 @@ include [Cost](cost.md)
 
 include [Modularity](modularity.md)
 
-include [Modularity](expertise.md)
+include [Expertise](expertise.md)
 
 include [Numerical Linear Algebra](introduction-nla.md)
 

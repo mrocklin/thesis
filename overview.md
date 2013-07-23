@@ -2,6 +2,8 @@
 Overview
 --------
 
+\label{sec:overview}
+
 This dissertation describes modularity in scientific computing in general and linear algebra in particular.  It is separated into the following chapters:
 
 First we discuss past and current efforts in modularity and numerical linear algebra in Chapter \ref{sec:background}.

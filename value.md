@@ -2,6 +2,8 @@
 Value
 -----
 
+\label{sec:value}
+
 Scientific software is important.  Computational software enables scientists to approximately simulate complex physical systems in a computer, providing insight into exotic systems, or foresight to developing ones.  
 
 Consider the benefits of numerical weather prediction.  Meteorological

@@ -2,6 +2,8 @@
 Cost
 ----
 
+\label{sec:cost}
+
 Scientific software is costly.  
 
 Scientific software is costly because it is difficult. The computational solution of scientific problems often require expertise from a variety of scientific, mathematical, and computational fields; in addition they must be formally encoded into software.  This task is intrinsically difficult and therefore costly.  
