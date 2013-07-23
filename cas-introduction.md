@@ -11,13 +11,11 @@ In order to leverage mathematics to generate efficient programs we must first de
 
 Computer Algebra Systems (CAS) enable the expression and manipulation of mathematical terms.  In real analysis a mathematical term may be any of the following 
 
-\begin{wrapfigure}{r}{.4\textwidth}
-\vspace{-8em}
+\begin{wrapfigure}{R}{.4\textwidth}
 \centering
 \includegraphics[width=.4\textwidth]{images/expr}
 \caption{An expression tree for $\log(3e^{x+2})$ }
 \label{fig:expr}
-\vspace{-8em}
 \end{wrapfigure}
 
 *   a literal like `5`
