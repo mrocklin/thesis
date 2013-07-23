@@ -9,7 +9,7 @@ A computer algebra system is composed of a data structure to represent mathemati
 
 SymPy \cite{sympy} is a computer algebra system embedded in the Python language.  It implements these pieces as follows:
 
-### Operators
+#### Operators
 
 Both SymPy operators and SymPy literal types are implemented as Python classes.
 
@@ -55,7 +55,7 @@ Add
 At the lowest level SymPy manipulations are simply Python functions that inspect these terms, manipulate them with Python statements, and return the new versions.
 
 
-### Syntax and Printing
+#### Syntax and Printing
 
 \label{sec:sympy-syntax}
 
@@ -74,18 +74,18 @@ log(3*exp(x + 2))
 x + log(3) + 2
 ~~~~~~~~~~
 
-### Relation to Other Computer Algebra Systems 
+#### Relation to Other Computer Algebra Systems 
 
 SymPy differs from existing computer algebra systems in the following ways
 
-#### Application:  
+#### Application
 
 SymPy's community is more focused around scientific and computational applications and less around pure mathematics.  This is largely due to the focus of the developer community.  SymPy is one of six core modules within the scientific Python software stack.
 
-#### Library:  
+#### Library
 
 Other dominant computer algebra systems today serve as a monolithic fully-featured development environment.  They surround a computer algebra system core with specific numeric, visual, and database components.  Interoperation with other software systems (e.g. application specific scientific codes) is rare.  In contrast SymPy is intended to be imported as a library within other applications.  It aggressively limits its scope, providing interfaces to other popular systems for visualization, computation, etc... instead of shipping with particular implementations.
 
-#### Pure Python: 
+#### Pure Python
 
 SymPy is written in Python, a common language for accessible scientific computing.  Additionally SymPy restricts itself to pure Python rather than relying on C extension modules.  This restriction sacrifices performance to enable trivial build and installation for ease of access and broad interoperation.  This feature is often cited by users as a primary motivation for the choice of SymPy over other computer algebra systems.

@@ -8,7 +8,7 @@ include [Tikz](tikz_math.md)
 
 In Section \ref{sec:sympy-inference} we saw that SymPy supports the expression and solution of logical queries on mathematical expressions.  In this section we extend this system to matrix algebra.
 
-### Inference Problems
+#### Inference Problems
 
 Matrices can satisfy a rich set of predicates.  A matrix can have structural attributes like symmetry, upper or lower triangularity, or bandedness.  Matrices can also exhibit mathematical structure like invertibility, orthogonality, or positive definiteness.  Matrices also have basic field types like real, complex, or integer valued elements.  Rich interactions exist between these predicates and between predicate/operator pairs.  For example positive definiteness implies invertibility (a predicate-predicate relation) and the product of invertible matrices is always invertible (a predicate-operator relation).
 
@@ -90,7 +90,7 @@ This particular question is computationally relevant.  It arises frequently in s
 SymPy matrix expressions is the first computer algebra system that can answer questions like this for abstract matrices.  In Section \ref{sec:computations} we describe a system to describe the desired subroutines.  In Section \ref{sec:matrix-compilation} we describe a system to select the desired subroutine given the power of inference described here.
 
 
-### Refined Simplification
+#### Refined Simplification
 
 \label{sec:matrix-refine}
 

@@ -4,8 +4,6 @@ Motivation
 
 \label{sec:trs-motivation}
 
-### Motivation
-
 *The mathematical software ecosystem can best be served by the separation of  mathematics from software.*
 
 The following arguments support this principle
@@ -19,7 +17,7 @@ Software may change due to evolution in programming languages, radical shifts in
 
 Deep understanding of both computational mathematics and software engineering is held only by a small population of scientific software engineers.  Separating mathematics from software reduces the demands of writing and verifying solutions.  A larger body of mathematicians can work on the mathematics and a larger body of software engineers can work on the pure software components.  The costly practice of collaboration can be avoided.
 
-### Definition
+#### Definition
 
 We use Term Rewrite Systems to enable the separation of mathematics from software.  A term rewrite system is composed of the following:
 

@@ -9,7 +9,7 @@ The Kalman filter is an algorithm to compute the Bayesian update of a normal ran
 $$ \Sigma' = \Sigma H^T \left(H \Sigma H^T + R\right)^{-1} \left(-data + H \mu\right) + \mu $$
 $$ \mu' = - \Sigma H^T \left(H \Sigma H^T + R\right)^{-1} H \Sigma + \Sigma $$
 
-### Math Expressions
+#### Math Expressions
 
 We define these expressions in SymPy:
 
@@ -17,7 +17,7 @@ We define these expressions in SymPy:
 include [Kalman](kalman.py)
 ~~~~~~~~~~~~~~~
 
-### Computation
+#### Computation
 
 We compiles these expressions into a computation.
 
@@ -34,7 +34,7 @@ comp = compile([mu, Sigma, H, R, data], [new_mu, new_Sigma], *assumptions)
 
 \newpage
 
-### Features 
+#### Features 
 
 We note two features of the computation:
 
@@ -45,7 +45,7 @@ The first benefit is trivial in traditional compiled systems but a substantial e
 
 The second benefit is more substantial.  Noticing that $H \Sigma H^T + R$ is symmetric positive definite requires both mathematical expertise and substantial attention to detail.  This optimization can easily be missed, even by an expert mathematical developer.  It is also numerically quite relevant.
 
-### Experiment
+#### Experiment
 
 How can we quantify the value of this sort of inference?  It allows us to improve the runtime / development time trade off.
 

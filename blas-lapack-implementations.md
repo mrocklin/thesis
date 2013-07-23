@@ -30,7 +30,7 @@ The FLAME group collaborates with Kazushige Goto in an effort to automate and mo
 The MKL is an industry standard.  It is a professional multi-core implementation.
 
 
-### Distributed Memory BLAS/LAPACK Implementations
+#### Distributed Memory BLAS/LAPACK Implementations
 
 The ubiquity of numerical linear algebra makes it an attractive candidate for mature parallel solutions.  All computational kernels expressible as BLAS/LAPACK computations may be automatically parallelized if a robust solution can be found for distributed numerical linear algebra.
 
@@ -49,7 +49,7 @@ is an implementation of LAPACK for distributed memory architecture.  ScaLAPACK\c
 
 is a more modern approach to the parallel linear algebra problem and the natural successor to ScaLAPACK.  It uses dynamic scheduling techniques to communicate tiles in a shared memory architecture.  PLASMA is actively developed to support distributed memory\cite{Bosilca2011}.
 
-### DPLASMA
+#### DPLASMA
 
 The distributed memory variant of Plasma, depends on DAGuE\cite{Bosilca2012}, a "hardware aware" dynamic scheduler to manage its tile distribution.
 
@@ -62,7 +62,7 @@ Elemental\cite{Poulson2010} forks FLAME (listed above) to handle distributed mem
 
 is co-developed alongside PLASMA to support heterogeneous architectures with thought to their eventual merger\cite{Agullo2009}.
 
-### Analysis
+#### Analysis
 
 The development history of BLAS/LAPACK closely mirrors the development history of computational hardware; hardware developments are closely followed by new BLAS/LAPACK implementations.  We can expect BLAS/LAPACK development to continue aggressively into the future.  This is particularly true as architecture development seems to have entered an age of experimentation due to the power wall.  This architectural limit spurs the growth of parallel architectures; BLAS/LAPACK development seem to follow suit with a focus on distributing and scheduling tiled computations.
 

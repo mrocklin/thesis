@@ -6,7 +6,7 @@ Matrix Rewriting in Maude
 
 We implement a matrix language in Maude and use rewrite rules to declare mathematical transformations.  Our goal is to demonstrate the simplicity with which mathematical theories can be constructed and the value of intuitive syntax.  This serves as proof of concept for a later implementation using SymPy and LogPy in Section \ref{sec:matrix-rewriting-sympy}.
 
-### Matrix Algebra
+#### Algebra
 
 The `matrix-algebra`\cite{matrix-algebra} project defines a language for matrix expressions in Maude.  First we define the sorts of terms:
 
@@ -30,7 +30,7 @@ We then provide a collection of equality transformations like the following
     eq inverse(A) A = I .           
     eq A (B + C) = (A B) + (A C) [metadata "Distributive Law"] . 
 
-### Matrix Inference
+#### Inference
 
 This set of relations can be greatly increased with the ability to infer matrix properties on large expressions.  In Maude we define a set of predicates:
 
@@ -56,7 +56,7 @@ This provides the necessary infrastructure to declare a large set of matrix infe
 
 `matrix-algebra` contains dozens of such statements.
 
-### Matrix Refinement
+#### Refinement
 
 The language and the inference can be combined to generate a rich set of simplification rules like the following:
 

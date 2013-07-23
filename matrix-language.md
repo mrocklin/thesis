@@ -22,7 +22,7 @@ Just as we simplify $\log(e^x) \rightarrow x$ we know trivial simplifications in
 
 As with real analysis, matrix algebra has a rich and extensive theory.  As a result this algebra can be extended to include a large set of additional operators including Trace, Determinant, Blocks, Slices, EigenVectors, Adjoints, Matrix Derivatives, etc....   Each of these operators has its own rules about validity and propagation of shape, its own trivial simplifications, and its own special transformations.
 
-### Embedding in SymPy
+#### Embedding in SymPy
 
 We implement this matrix algebra in the SymPy language.  As shown Section \ref{sec:sympy-software} we implement the literals and operators as Python classes.
 
@@ -67,7 +67,7 @@ The execution of these commands does not perform any specific numeric computatio
 \label{fig:beta}
 \end{figure}
 
-### Syntax
+#### Syntax
 
 As in Section \ref{sec:sympy-syntax} we overload Python operator methods `__add__`, `__mul__` to point to `MatAdd` and `MatMul` respectively.  We use Python `properties` to encode `.T` as Transpose and `.I` as inverse.  This approach follows the precedent of `NumPy`, a popular library for numeric linear algebra.  These changes allow a more familiar syntax for mathematical users.
 
@@ -76,6 +76,6 @@ As in Section \ref{sec:sympy-syntax} we overload Python operator methods `__add_
 >>> beta = (X.T*X).I * X.T * y
 ~~~~~~~~~~~
 
-### Shape Checking and Trivial Simplification
+#### Shape Checking and Trivial Simplification
 
 Shape checking and trivial simplifications, e.g. the removal of pairs of transposes, are done at object instantiation time.  This task is accomplished by calling raw Python code within the class `__init__` constructors.

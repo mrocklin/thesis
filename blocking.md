@@ -7,7 +7,7 @@ Blocked Kalman Filter
 In this example we investigate the value of blocking matrices across large algorithms. We continue to use the Kalman filter as an example computation and Theano as a backend.
 
 
-### Blocked Execution
+#### Blocked Execution
 
 If arrays are too large to fit comfortably in the fastest parts of the memory hierarchy then each sequential operation needs to move large chunks of memory in and out of cache during computation.  After one operation completes the next operation moves around the same memory while it performs its task.  This repeated memory shuffling hurts performance.
 
@@ -38,7 +38,7 @@ High performance dense linear algebra libraries hard-code these tricks into indi
 Fortunately, SymPy can generate these high-level blocked matrix mathematical expressions at compile time and Theano can generate code for them.
 
 
-### General Code to Block the Kalman Filter
+#### General Code to Block the Kalman Filter
 
 SymPy can define and reduce the blocked Kalman filter using matrix relations like those shown above for multiplication and inversion.  The listing below shows all the code necessary to block the Kalman filter into blocks of size `n/2`.  The code is dense and not particularly insightful.  The intention is to demonstrate that blocking, a general mathematical utility in a mathematical code, can be used in a specific computational context with a small amount of general purpose glue code.
 
@@ -72,7 +72,7 @@ fblocked = theano_function(inputs, collapsed_outputs, dtypes=dtypes)
 \end{sidewaysfigure}
 
 
-### Numeric Results
+#### Numeric Results
 
 We measure performance by timing the standard and blocked variants of the Kalman filter
 

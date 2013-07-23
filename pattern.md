@@ -13,7 +13,7 @@ We consider the class of transformations that can be fully described by only sou
 1.  Rewrite patterns align more closely with the tradition of written mathematics than does general purpose code
 2.  Development of mathematical transformations is not tied to the implementation, freeing both to be developed at different time scales by different communities.
 
-### Motivation
+#### Motivation
 
 We reconsider the unpacking of logarithms of exponents.
 
@@ -34,7 +34,7 @@ However, this method of solution does simultaneously require the understanding o
 These flaws can be avoided by separating the mathematics from the details of term manipulation.  We achieve this separation through the description and matching of patterns.  We use the mathematical term language to describe the transformations directly, without referring to the particular data structures used in the computer algebra system.
 
 
-### Rewrite Patterns
+#### Rewrite Patterns
 
 We define a rewrite pattern/rule as a source term, a target term, a condition and a set of variables, each of which is a term in the mathematical language.  For example, the $\log(\exp(\cdot))$ transformation can be decomposed into the following pieces:
 
@@ -51,7 +51,7 @@ Each of these elements may be encoded in the computer algebra system (SymPy) wit
 Using these rewrite patterns we reduce the problem of transformation to matching incoming terms against the source pattern, obtaining appropriate values for `x`, checking the condition, and then reifying these values into the target pattern.  These operations can be dealt with outside the context of mathematics.  Mature solutions already exist, largely stemming from work in logic programming languages and theorem provers. 
 
 
-### Concerns in Mathematical Theories
+#### Concerns in Mathematical Theories
 
 \label{sec:pattern-concerns}
 

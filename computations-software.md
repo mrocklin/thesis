@@ -19,12 +19,12 @@ class SYMM(BLAS):
     inplace   = {0: 4}
 ~~~~~~~~~~~~~
 
-### Composite Computations
+#### Composite Computations
 
 Composite computations may be built up from many constituents.  Edges between these constituents exist if the output of one computation is the input of the other.  Treating computations as nodes and data dependencies as edges defines a directed acyclic graph (DAG) over the set of computations.
 
 
-### Tokenized Computations
+#### Tokenized Computations
 
 \label{sec:tokenize}
 
@@ -50,17 +50,17 @@ Mathematically this definition is correct.  It consumes a variable, `X`, and pro
 
 To encode this information about memory location we expand our model so that each variable is both a mathematical SymPy term and a unique identifier, usually a Python string.  This method supports a new class of transformations to manage inplace computations.
 
-### Fortran Code Generation
+#### Fortran Code Generation
 
 From such a directed acyclic graph we can generate readable low-level code.  We focus on Fortran 90.  Each atomic computation contains a method to print a string to execute that computation given the correct parameter names.  We traverse the directed acyclic graph to obtain variable names and a topological sort of atomic computations.  Generating Fortran code from this stage is trivial.
 
 
-### Extensibility
+#### Extensibility
 
 This model is not specific to BLAS/LAPACK.  A range of scientific software can be constructed through the coordination of historic numeric libraries.  Mature libraries exist for several fields of numerics.  Our particular system has been extended to support `MPI` and `FFTW`.  
 
 
-### Example use of `computations`
+#### Example use of `computations`
 
 We use `computations` to construct a simple program.  The following example uses `SYMM` and `AXPY`, a routine for vector addition, to create a complex composite computation.  It then introduces copy operations and generates human readable Fortran code.
 

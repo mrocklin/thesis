@@ -11,7 +11,7 @@ LogPy is a general purpose logic programming library for Python.  It implements 
 The construction of LogPy was motivated by duplicated efforts in SymPy and Theano, two computer algebra systems in Python.  Both SymPy and Theano built special purpose modules to define and apply optimisations to their built-in mathematical and computational data structures.  LogPy aims to replace these modules.  The desire to deliver functionality to two inflexible codebases forced the creation of the `term` system described in Section \ref{sec:term}.  LogPy provides functionality on top of the `term` interface.
 
 
-### Basic Design - Goals
+#### Basic Design - Goals
 
 LogPy programs are built up of *goals*.  Goals produce and manage streams of substitutions.
 
@@ -29,7 +29,7 @@ This goal uses `eq`, a goal constructor, to require that the logic variable `x` 
     >>> a_goal({x: 2})  # require that x maps to 2 and that eq(x, 1)
     ()
 
-### Basic Design - Goal Combinators
+#### Basic Design - Goal Combinators
 
 LogPy provides logical goal combinators to manage the union and intersection of streams.
 

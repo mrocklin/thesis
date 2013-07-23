@@ -15,7 +15,7 @@ Challenges to Modularity
 We take a moment to point out the technical challenges to modular development within modern contexts.  This is separate from what we see as the two primary challenges of lack of incentives and lack of training.
 
 
-### Coupled Testing and Source
+#### Coupled Testing and Source
 
 Testing code is of paramount importance to the development of robust and trusted software.  Modern practices encourage the simultaneous development of tests alongside source code.  I believe that this practice unnecessarily couples tests, which serve as a de facto interface for the functionality of code, to one particular implementation of source code.  This promotes one implementation above others and stifles adoption of future attempts. 
 
@@ -24,7 +24,7 @@ Additionally, as software increases in modularity packages become more granular.
 Thus, we propose the separation of testing code into first class citizens of package ecosystems.
 
 
-### Package Management
+#### Package Management
 
 Software is often packaged together in order to reduce the cost of configuration, build, and installation.  As modern ecosystems develop more robust package managers this cost decreases, thus enabling finer granularity and increased modularity.  Multi-lingual ecosystems without good standards on versioning can complicate this issue substantially.  Package management and installation tools such as pip/easy_install (Python) and CRAN (R) have alleviated these problems for many novice users.  They continue to break under more complex situations.  Further development into this field is necessary before fine-grained modularity becomes possible.
 

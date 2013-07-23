@@ -7,14 +7,14 @@ Background
 Computer algebra is the solution of mathematical problems via the manipulation of mathematical terms.  This symbolic approach contrasts with the more popular numerical methods.  Computer algebra methods maintain the mathematical meaning of their arguments longer, enabling sophisticated analysis further along in the computation.  Unfortunately, many real-world problems are intractable using symbolic methods, often due to irregular inputs.  For example computing the heat flow through an engine requires a description of the shape of the engine, which may be difficult to describe symbolically.  Symbolic methods are often preferable if analytic solutions exist because they retain substantially more information and may provide additional insight.  Their lack of robustness has largely relegated them to pure mathematics, cryptography, and education.
 
 
-### History of Computer Algebra 
+#### History of Computer Algebra 
 
 The first computer algebra system, Macsyma\cite{Martin1971}, was developed in 1962.  The field grew slowly both in academic scope and in software.  Commercial and open computer algebra systems like Maple and GAP began appearing in the 1980s.  These were commonly used in pure mathematics research.  Some systems were specialized to particular fields while others were general.  For example GAP was specialized to algebraic group theory while Maple remained generally applicable.  The community around a project often defined its function more than the language design.
 
 The popular solution Mathematica was initially released in 1988 and grew, alongside Maple, to include numeric solvers, creating an "all in one" development environment.  This trend was copied by the Sage project which serves as a fully featured mathematical development environment within the open software community.
 
 
-### Computation
+#### Computation
 
 The majority of computer algebra research applies automated methods within pure mathematics.  However, as early as 1988 computer algebra systems were also used to generate computational codes in Fortran\cite{Florence1988}.  The automated numerical computation subfield has remained minor but persistent within the CAS community.
 

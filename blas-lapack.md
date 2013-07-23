@@ -1,7 +1,7 @@
 
 \label{sec:blas-lapack}
 
-### Basic Linear Algebra Subroutines (BLAS)
+#### Basic Linear Algebra Subroutines (BLAS)
 
 The Basic Linear Algebra Subroutines are a library of routines to perform common operations on dense matrices.  They were originally implemented in FORTRAN-77 in 1979.  They remain in wide use today.
 
@@ -12,20 +12,20 @@ The BLAS are organized into three levels
 *   Level-3:  Matrix-Matrix operations, like Matrix-Matrix multiply or solve
 
 
-### Hardware Coupling of Level-3
+#### Hardware Coupling of Level-3
 
 As memory hierarchies have become more complex and as latencies from the upper levels have increased relative to clock cycle times the importance of keeping data local in cache for as many computations as possible has increased.  This locality is of primary importance in the Level-3 BLAS, which are characterized by $O(n^3)$ computations on $O(n^2)$ data elements.  Through clever organization of the computation into blocks, communication within the slower elements of the memory hierarchy can be hidden, resulting in order-of-magnitude performance gains.
 
 In fact, Level-3 BLAS operations are one of the few cases where computational intensity can match the imbalance in CPU-Memory speeds, making them highly desirable operations on modern hardware.  This benefit is even more significant in the case of many-core accelerators, e.g. GPGPU.
 
 
-### Linear Algebra Package (LAPACK)
+#### Linear Algebra Package (LAPACK)
 
 The Linear Algebra Package (LAPACK) is a library that builds on BLAS to solve more complex problems in dense numerical linear algebra.  LAPACK includes routines for the solution of systems of linear equations, matrix factorizations, eigenvalue problems, etc....
 
 Algorithms for the solution of these operations often require standard operations on dense matrices.  Where possible LAPACK depends on BLAS for these operations.  This isolates the majority of hardware-specific optimizations to the BLAS library, allowing LAPACK to remain relatively high-level.  Optimizations to BLAS improve LAPACK without additional development.
 
-### Expert LAPACK Subroutines
+#### Expert LAPACK Subroutines
 
 LAPACK retains the computationally intense characteristic of Level-3 BLAS and so can provide highly preformant solutions.  However the expert use of LAPACK requires several additional considerations including new storage formats and a selection between multiple valid subroutines.
 
@@ -33,7 +33,7 @@ LAPACK operations like matrix factorizations can often be solved by multiple alg
 
 Additionally LAPACK internally makes use of utility functions (like matrix permutation) and special storage formats (like banded matrices), further adding to a set of high-level matrix operations.
 
-### Interface
+#### Interface
 
 Parameters to BLAS/LAPACK routines include scalars (real, complex, integer) of varying precision, arrays of those types, and strings.  
 
@@ -52,14 +52,14 @@ For concreteness, examples of the interfaces for `GEMM` and `SYMM` for double pr
     *   `SUBROUTINE DSYMM(SIDE,UPLO,M,N,ALPHA,A,LDA,B,LDB,BETA,C,LDC)`
 
 
-### Challenges
+#### Challenges
 
 The interface to BLAS/LAPACK was standardized in 1979 within the scope of the Fortran-77 language.  Memory locations, array sizes, strides, and transposition are all stated explicitly and independently.  Modern language assistance like basic type checking or wrapping shape and stride information into array objects is unavailable.
 
 The interface to BLAS/LAPACK appeals to a very low and common denominator.  This design makes it trivial to interoperate with a broad set of languages.  For example the popular Fortran to Python wrapper `f2py` handles most of the BLAS/LAPACK library without additional configuration.  Unfortunately this same low and common denominator does not facilitate direct use by naive scientific users.
 
 
-### Analysis
+#### Analysis
 
 BLAS and LAPACK are sufficiently entrenched and widely supported to be a stable and de facto programming interface in numeric computing.  This stability causes two notable attributes:
 

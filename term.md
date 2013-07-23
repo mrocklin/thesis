@@ -11,7 +11,7 @@ S-expressions are not idiomatic within the Python ecosystem and few projects def
 Unfortunately the Python ecosystem lacks a common interface for term representation in the standard sense.  The lowest common shared denominator is the Python `object`.
 
 
-### Interface
+#### Interface
 
 `Term` is a Python library to establish such an interface for terms.  It provides the following functions:
 
@@ -28,7 +28,7 @@ These functions serve as a general interface.  Client codes must somehow impleme
 The `term` library also provides utility functions for search and unification. 
 
 
-### Composition
+#### Composition
 
 In Python most systems that manipulate terms (like existing logic programming projects) create an interface which must be inherited by objects if they want to use the functionality of the system.  This approach requires both foresight and coordination with the client projects.  It is difficult to convince project organizers to modify their code, particularly if that code is pre-existing and well entrenched.
 

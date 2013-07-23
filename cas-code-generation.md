@@ -14,7 +14,7 @@ We will demonstrate these benefits with interactions between SymPy as discussed 
 
 As an aside we note that this example uses differentiation, an algorithmic transform of contemporary popularity.  Automatic differentiation techniques are an application of a small section of computer algebra at the numeric level.  Much of this dissertation argues for repeating this experience with other domains of computer algebra beyond differentiation.
 
-### Radial Wave Function
+#### Radial Wave Function
 
 Computer algebra systems often have strong communities in the physical sciences.  We use SymPy to generate a radial wave-function corresponding to `n = 6` and `l = 2` for Carbon (`Z = 6`).
 
@@ -29,7 +29,7 @@ $$\frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56
 As a case study, we generate code to evaluate this expression and its derivative on an array of real values.
 
 
-### Simplification
+#### Simplification
 
 We show the expression, its derivative, and SymPy's simplification of that derivative.  In each case we quantify the complexity of the expression by the number of algebraic operations.
 
@@ -66,14 +66,14 @@ Operations:  18
 Note the significant cancellation.
 
 
-### Bounds on the Cost of Differentiation
+#### Bounds on the Cost of Differentiation
 
 Algorithmic scalar differentiation is a simple transformation.  The system must know how to transform all of the elementary functions (`exp, log, sin, cos, polynomials, etc...`) as well as the chain rule; nothing else is required.  Theorems behind automatic differentiation state that the cost of a derivative will be at most five times the cost of the original.  In this case we're guaranteed to have at most `17*5 == 85` operations in the derivative computation; this bound holds in our case because `48 < 85`.
 
 However, derivatives are often far simpler than this upper bound.  We see that after simplification the operation count of the derivative is `18`, only one more than the original.  This situation is common in practice.
 
 
-### Experiment
+#### Experiment
 
 We compute the derivative of our radial wavefunction and then simplify the result.  Both SymPy and Theano are capable of these transformations.  We perform these operations using both of the following methods:
 
@@ -115,7 +115,7 @@ On its own Theano produces a derivative expression that is about as complex as t
 The pure-SymPy simplified result is again substantially more efficient (`13` operations).  Interestingly, Theano is still able to improve on this, again not because of additional algebraic simplification, but rather due to constant folding.  The two projects simplify in orthogonal ways.
 
 
-### Simultaneous Computation
+#### Simultaneous Computation
 
 When we compute both the expression and its derivative simultaneously we find substantial benefits from using the two projects together.
 
@@ -149,7 +149,7 @@ To summarize:
  SymPy+Theano             17         
 
 
-### Conclusion 
+#### Conclusion 
 
 Similarly to SymPy, Theano transforms graphs to mathematically equivalent but computationally more efficient representations.  It provides standard compiler optimizations like constant folding, and common sub-expressions as well as array specific optimizations elementwise element-wise operation fusion.  
 

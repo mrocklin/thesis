@@ -8,14 +8,14 @@ Numerical weather prediction benefits society.  Major industries like agricultur
 
 Numerical weather prediction is also computationally challenging.  It requires substantial atmospheric modeling, the simulation of difficult PDEs that represent an inherently chaotic system.  These must be solved over a very large domain (the United States) and yet very finely resolved both in space (10km) and in time (minutes) to maintain numerical stability.  Forecasts must be rerun frequently as a variety of new observations are recorded and assimilated and they must be run substantially faster than nature herself evolves.
 
-### WRF
+#### WRF
 
 Because of these benefits and costs the federal government has supported the production and maintenance of high performance numerical codes for the short-term simulation and forecast of the weather.  Along with several other federal and university groups the National Center for Atmospheric Research (NCAR) maintains the Weather Research Forecast model (WRF), which serves as a base for both research (ARW) and operational (NMW) codes.  It is written in Fortran and MPI and maintained by a dedicated team of software developers.
 
 It is used by a broad community of meteorologists and weather service professionals without computational expertise.  External control is managed through a set of Fortran namelists that specify model parameters.
 
 
-### Code Example
+#### Code Example
 
 Internally the codebase is organized into several Fortran files that handle different physical processes.  A representative code snippet is reproduced below:
 
@@ -41,7 +41,7 @@ do k = kte, kts, -1
 This snippet encodes the physics behind the melting of snow under certain conditions.  It is a large mathematical expression iterated over arrays in a do-loop.  This pattern is repeated in this routine for other physical processes such as "instantaneous melting of cloud ice", "homogeneous freezing of cloud water below -40c", "evaporation/condensation rate of rain", etc.... 
 
 
-### Adaptability to Hardware
+#### Adaptability to Hardware
 
 Much of the computational work required to forecast the weather is FLOP intensive and highly regular, making it amenable to GPU computing.  In 2008 \cite{Michalakes2008} WRF developers investigated both the ease and utility of translating parts of WRF to CUDA.  They relate translating a 1500 line Fortran codebase to CUDA through a combination of hand coding, Perl scripts, and specialized language extensions.  They include the following listing showing the original Fortran and their CUDA equivalent annotated with their custom memory layout macros
 
@@ -84,7 +84,7 @@ In the listing above we see a high-level meteorological model implemented in a v
 While this file encodes relatively high-level concepts it is difficult to perform sweeping high-level manipulations.  As physics, numerical methods, and computational architecture change, flexibility is likely to become more important.
 
 
-### Other Codes
+#### Other Codes
 
 WRF is an instance of a meteorological code written for a specific purpose.  The surrounding ecosystem contains many variants and completely separate implementations.
 
@@ -104,6 +104,6 @@ NCAR has forked and adjusted `WRF` for specific situations.  The Hurricane Weath
 
 Growing concern over global warming has spurred research into climate models.  Meteorological codes like WRF are intended for short-term forecasts, rarely exceeding ten days.  Climate models simulate the same physical processes but over decade or century timescales.  Because of the difference in time scale, climate models must differ from meteorological models, both for computational efficiency and in order to conserve quantities that might not be of interest over the short term.
 
-### Analysis
+#### Analysis
 
 Computational atmospheric science is a large, and active field.  The political and economic impact of weather and climate prediction have spurred research into new methods and applications.  Unfortunately most developments seem to be either painful incremental improvements or are complete rewrites by large collaborations.  These developments are more costly and development is much slower than is necessary.

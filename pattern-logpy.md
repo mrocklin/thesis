@@ -1,12 +1,13 @@
 
-## Mathematical Rewriting - LogPy and SymPy 
+Mathematical Rewriting - LogPy and SymPy 
+----------------------------------------
 
 \label{sec:logpy-sympy}
 \label{sec:pattern-logpy}
 
 We implement a rudimentary mathematical pattern matcher by composing LogPy, a general purpose logic programming library, and SymPy, a computer algebra system.  We chose this approach instead of one of the mature systems mentioned in Section \ref{sec:pattern-previous-work} in order to limit the number of dependencies that are uncommon within the scientific computing ecosystem and in order to leverage and expose existing mathematical expertise already within SymPy.
 
-### LogPy Manipulates SymPy Terms
+#### LogPy Manipulates SymPy Terms
 
 Recall that LogPy supports the `term` interface discussed in Section \ref{sec:term}.
 
@@ -23,7 +24,7 @@ Basic._term_isleaf  = lambda self: len(self.args) == 0
 We do not invent a new term language for this term rewrite system.  Rather, we reuse the existing language from the SymPy computer algebra system; mathematics is not reinvented within the logic programming system.
 
 
-### Storing Mathematical Patterns
+#### Storing Mathematical Patterns
 
 A rewrite rule can be specified by a source, target, and condition terms.  These are specified with SymPy terms.  For example the following transformation can be specified with the following tuple:
 
@@ -57,7 +58,7 @@ facts(rewrites, *patterns)
 Note that the definition of the mathematical patterns depends only on SymPy.  The injection into a LogPy relation is well isolated.  In the future more mature implementations can replace the LogPy interaction easily without necessitating changes in the mathematical code.  Removing such connections enables components to survive obsolesence of neighboring components.  The `patterns` collection does not depend on the continued use of `LogPy`.  By removing unnecessary connections between modules we avoid "weakest link in the chain" survivability.
 
 
-### LogPy Execution
+#### LogPy Execution
 
 We transform SymPy's `ask` function for mathematical inference into a LogPy goal with `goalify` to form `asko`, a goal constructor.  `asko` simply evaluates `ask` on the first parameter and filters a stream so that results match the second parameter.
 

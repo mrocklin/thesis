@@ -14,7 +14,7 @@ We put the software pieces together.  We search for high quality computations to
 These projects are disjoint.  In this section we describe the information necessary to compose them to solve our problem in automated generation of mathematically informed linear algebra routines. 
 
 
-### A Graph of Computations
+#### A Graph of Computations
 
 Given a set of expressions-to-be-computed we consider a tree where:
 
@@ -38,7 +38,7 @@ Section \ref{sec:matrix-patterns} describes transformations declaratively in `Sy
 We reinforce that this is the entirety of the solution for the particular problem of automated search of dense linear algebra algorithms.  All other intelligence is distributed to the appropriate application agnostic package.
 
 
-### Compute Patterns 
+#### Compute Patterns 
 
 \label{sec:matrix-patterns}
 
@@ -55,7 +55,7 @@ include [Computes](computes.py)
 ~~~~~~~~~~~~~~
 
 
-### Children of a Computation
+#### Children of a Computation
 
 \label{sec:matrix-children}
 
@@ -68,7 +68,7 @@ include [Children](children.py)
 ~~~~~~~~~~~~~~
 
 
-### Validity
+#### Validity
 
 \label{sec:matrix-isvalid}
 
@@ -87,7 +87,7 @@ def isvalid(comp):
 ~~~~~~~~~~~~~~
 
 
-### Objective Function
+#### Objective Function
 
 \label{sec:matrix-objective}
 
@@ -102,7 +102,7 @@ include [Objective](objective.py)
 The list `order` is trivially accessible by numeric experts.  This solution is intuitive to extend and works surprisingly well in practice.
 
 
-### Search
+#### Search
 
 \label{sec:matrix-search}
 
@@ -114,7 +114,7 @@ include [Greedy Search](greedy.py)
 
 Note that this solution is ignorant of the application of matrix computations.
 
-### Compile 
+#### Compile 
 
 \label{sec:matrix-compilation-compile} 
 
@@ -124,14 +124,12 @@ We coordinate these functions in the following master function:
 include [Compile master function](compile.py)
 ~~~~~~~~~~~~~~
 
-### Analysis
+#### Analysis
 
 We chose to explicitly provide code in this section both for completeness and to demonstrate the simplicity of this problem once the appropriate machinery is in place.
 We showed that once the generally applicable components exist the particular problem of automated matrix algorithm search can be reduced to around 40 lines of general purpose code (including comments and whitespace).  The `conglomerate` project contains very little logic outside of what is present in the application agnostic and reusable packages (like LogPy).  The information that is present is largely expert knowledge for this application (like the objective function or patterns.)
 
-\newpage
-
-### Finished Result
+#### Finished Result
 
 ~~~~~~~~~~~~~~Python
 include [Patterns](patterns.py)

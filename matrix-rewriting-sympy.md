@@ -1,5 +1,5 @@
 
-### Matrix Rewriting in SymPy
+## Matrix Rewriting in SymPy
 
 \label{sec:matrix-rewriting-sympy}
 

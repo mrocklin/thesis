@@ -4,8 +4,6 @@ SymPy Inference
 
 \label{sec:sympy-inference}
 
-### Problem description
-
 We often want to test whether algebraic statements are true or not in a general case.  For example, 
 
 *Given that $x$ is a natural number and that $y$ is real, is $x + y^2$  positive?*
@@ -32,8 +30,7 @@ To create a system capable of posing and answering these questions we need the f
 
 4.  A solver for satisfiability given the above relations:
 
-
-### Implementation in SymPy
+These components exist in SymPy.  We describe them below.
 
 #### A set of predicates
 
