@@ -12,16 +12,16 @@ Numerical code is often used to evaluate and solve mathematical problems.  Frequ
 
 We will demonstrate these benefits with interactions between SymPy as discussed in section \ref{sec:sympy-software} and Theano\cite{theano2010}, a library for the generation of mathematical codes in C and CUDA.
 
+As an aside we note that this example uses differentiation, an algorithmic transform of contemporary popularity.  Automatic differentiation techniques are an application of a small section of computer algebra at the numeric level.  Much of this dissertation argues for repeating this experience with other domains of computer algebra beyond differentiation.
+
 ### Radial Wave Function
 
 Computer algebra systems often have strong communities in the physical sciences.  We use SymPy to generate a radial wave-function corresponding to `n = 6` and `l = 2` for Carbon (`Z = 6`).
 
 ~~~~~~~~~~~~~~~~Python
 from sympy.physics.hydrogen import R_nl
-from sympy.abc import x
 n, l, Z = 6, 2, 6
 expr = R_nl(n, l, x, Z)
-print latex(expr)
 ~~~~~~~~~~~~~~~~
 
 $$\frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x}$$
@@ -38,8 +38,9 @@ We show the expression, its derivative, and SymPy's simplification of that deriv
 
 $$\frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x}$$
 
-    expr
-    Operations:  17
+~~~~~~~~~~
+Operations:  17
+~~~~~~~~~~
 
 #### It's derivative
 
@@ -49,17 +50,18 @@ $$\frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56
  & + & \frac{1}{105} \sqrt{70} x \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x}
 \end{eqnarray*}
 
-
-    expr.diff(x)
-    Operations:  48
+~~~~~~~~~~
+Operations:  48
+~~~~~~~~~~
 
 #### The result of `simplify` on the derivative
 
 
 $$ \frac{2}{315} \sqrt{70} x \left(x^{4} - 17 x^{3} + 90 x^{2} - 168 x + 84\right) e^{- x} $$
     
-    simplify(expr.diff(x))
-    Operations:  18
+~~~~~~~~~~
+Operations:  18
+~~~~~~~~~~
 
 Note the significant cancellation.
 
@@ -91,15 +93,20 @@ In SymPy we create both an unevaluated derivative and a fully evaluated and SymP
  & + & \frac{1}{105} \sqrt{70} x \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x}
 \end{eqnarray*}
 
-    Operations:                              40
-    Operations after Theano Simplification:  21
+
+~~~~~~~~~~
+Operations:                              40
+Operations after Theano Simplification:  21
+~~~~~~~~~~
 
 #### SymPy + Theano
 
 $$ \frac{2}{315} \sqrt{70} x \left(x^{4} - 17 x^{3} + 90 x^{2} - 168 x + 84\right) e^{- x} $$ 
 
-    Operations:                              13
-    Operations after Theano Simplification:  10
+~~~~~~~~~~
+Operations:                              13
+Operations after Theano Simplification:  10
+~~~~~~~~~~
 
 #### Analysis
 
@@ -117,15 +124,19 @@ When we compute both the expression and its derivative simultaneously we find su
 
 $$ \begin{pmatrix}\frac{\partial}{\partial x}\left(\frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x}\right), & \frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x}\end{pmatrix} $$
 
-    Operations:                              57
-    Operations after Theano Simplification:  24
+~~~~~~~~~~
+Operations:                              57
+Operations after Theano Simplification:  24
+~~~~~~~~~~
 
 #### SymPy + Theano
 
 $$ \begin{pmatrix}\frac{2}{315} \sqrt{70} x \left(x^{4} - 17 x^{3} + 90 x^{2} - 168 x + 84\right) e^{- x}, & \frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x}\end{pmatrix} $$
 
-    Operations:                              27
-    Operations after Theano Simplification:  17
+~~~~~~~~~~
+Operations:                              27
+Operations after Theano Simplification:  17
+~~~~~~~~~~
 
 The combination of SymPy's scalar simplification and Theano's common sub-expression optimization yields a significantly simpler computation than either project could do independently.
 
