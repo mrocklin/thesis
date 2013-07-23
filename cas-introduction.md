@@ -2,6 +2,8 @@
 Introduction
 ------------
 
+\label{sec:cas-introduction}
+
 In order to leverage mathematics to generate efficient programs we must first describe mathematics in a formal manner amenable to computation.  To this end we engage computer algebra systems.
 
 

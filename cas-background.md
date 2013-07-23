@@ -2,6 +2,8 @@
 Background
 ----------
 
+\label{sec:cas-background}
+
 Computer algebra is the solution of mathematical problems via the manipulation of mathematical terms.  This symbolic approach contrasts with the more popular numerical methods.  Computer algebra methods maintain the mathematical meaning of their arguments longer, enabling sophisticated analysis further along in the computation.  Unfortunately, many real-world problems are intractable using symbolic methods, often due to irregular inputs.  For example computing the heat flow through an engine requires a description of the shape of the engine, which may be difficult to describe symbolically.  Symbolic methods are often preferable if analytic solutions exist because they retain substantially more information and may provide additional insight.  Their lack of robustness has largely relegated them to pure mathematics, cryptography, and education.
 
 

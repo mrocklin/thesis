@@ -2,6 +2,7 @@
 SymPy Algebra
 -------------
 
+\label{sec:sympy}
 \label{sec:sympy-software}
 
 A computer algebra system is composed of a data structure to represent mathematical expressions in a computer, a syntax for the idiomatic construction of trees by mathematical users, and a collection of functions for common mathematical routines.
