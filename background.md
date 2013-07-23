@@ -11,7 +11,7 @@ Scientific software engineering is a deep topic with broad scope and decades of 
 *   In Section \ref{sec:background-nla} we discuss BLAS and LAPACK, widely reused static libraries for numerical linear algebra.
 *   In Sections \ref{sec:numerics} and \ref{sec:trilinos} we discuss the BLAS/LAPACK/PETSc/FEniCS software stack and Trilinos as representatives of modern scientific software
 
-include [Introduction](background-motivation.md)
+include [Introduction](background-evolution.md)
 
 include [Numerical Weather Prediction](nwp.md)
 
