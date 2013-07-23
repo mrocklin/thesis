@@ -1,6 +1,6 @@
 
-Theano Backend for Matrix Expressions
--------------------------------------
+Theano Backend
+--------------
 
 \label{sec:theano}
 
