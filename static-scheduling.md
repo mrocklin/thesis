@@ -7,7 +7,10 @@ Heterogeneous Static Scheduling
 Introduction
 ------------
 
-Recent developments in computations for dense linear algebra engage parallelism at the shared memory, distributed memory, and heterogeneous levels.  This has required several significant software rewrites among many research teams.  In this section we adapt our existing system to engage parallel computation by adding another composable component, a static scheduler.  We show that this can be done separately, without affecting existing code.  This demonstrates both the extensibility of the existing system and durability of the individual components.
+Recent developments in computations for dense linear algebra engage parallelism
+at the shared memory, distributed memory, and heterogeneous levels.  This has
+required several significant software rewrites among many research teams.  In
+this chapter we adapt our existing system to engage parallel computation by adding another composable component, a static scheduler.  We show that this can be done separately, without affecting existing code.  This demonstrates both the extensibility of the existing system and durability of the individual components.
 
 Specifically we implement application-agnostic static scheduling algorithms in isolation.  We compose these with our existing components to automatically generate MPI programs to compute dense linear algebra on specific parallel architectures. 
 

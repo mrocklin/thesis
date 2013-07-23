@@ -19,7 +19,7 @@ In a sense this style of hierarchical modularity is like a Russian Doll.  Each n
 
 ### BLAS/LAPACK
 
-As just described BLAS/LAPACK are libraries for dense linear algebra.  They have a simple-yet-verbose interface that is traditionally accessed by Fortran function calls with several inputs (5-20) of very basic types (string, int, float, array of floats).  Attempts to refactor the BLAS/LAPACK interface into object oriented frameworks has had some success but the original interface remains dominant.  This may be because every numeric project is capable of providing these basic types but may not have simple access to the custom objected oriented framework.  The original Fortran interface (or it's c counterpart) remain the defacto standard.  This outcome supports the use of common simple interfaces over rich interfaces.
+As just described BLAS/LAPACK are libraries for dense linear algebra.  They have a simple-yet-verbose interface that is traditionally accessed by Fortran function calls with several inputs (5-20) of very basic types (string, int, float, array of floats).  Attempts to refactor the BLAS/LAPACK interface into object oriented frameworks has had some success but the original interface remains dominant.  This may be because every numeric project is capable of providing these basic types but may not have simple access to the custom objected oriented framework.  The original Fortran interface (or it's `C` counterpart) remain the defacto standard.  This outcome supports the use of common simple interfaces over rich interfaces.
 
 
 ### PETSc

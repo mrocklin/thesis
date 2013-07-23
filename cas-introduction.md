@@ -4,7 +4,7 @@ Introduction
 
 In order to leverage mathematics to generate efficient programs we must first describe mathematics in a formal manner amenable to computation.  To this end we engage computer algebra systems.
 
-In this section we describe the function of computer algebra in general and of the system SymPy in particular.
+In this chapter we describe the function of computer algebra in general and of the system SymPy in particular.
 
 #### Data Structure
 

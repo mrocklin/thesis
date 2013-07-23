@@ -56,7 +56,7 @@ For concreteness, examples of the interfaces for `GEMM` and `SYMM` for double pr
 
 The interface to BLAS/LAPACK was standardized in 1979 within the scope of the Fortran-77 language.  Memory locations, array sizes, strides, and transposition are all stated explicitly and independently.  Modern language assistance like basic type checking or wrapping shape and stride information into array objects is unavailable.
 
-The interface to BLAS/LAPACK appeals to a very low and common denominator.  This design makes it trivial to interoperate with a broad set of languages.  For example the popular Fortran to Python wrapper `f2py` handles most of the BLAS/LAPACK library without additional configuration.  Unfortunately this same low and common denominator alienates direct use by naive scientific users.
+The interface to BLAS/LAPACK appeals to a very low and common denominator.  This design makes it trivial to interoperate with a broad set of languages.  For example the popular Fortran to Python wrapper `f2py` handles most of the BLAS/LAPACK library without additional configuration.  Unfortunately this same low and common denominator does not facilitate direct use by naive scientific users.
 
 
 ### Analysis

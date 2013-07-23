@@ -35,5 +35,5 @@ Performance issues on modern hardware have increased interest in the compilation
 
 include [SciPy compiled languages](scipy-compiled-langs.md)
 
-We include this list mainly to stress the number of projects in this efforts.  This demonstrates both the community's commitment and a lack of organization.
+We include this list mainly to stress the number of projects in this effort.  This demonstrates both the community's commitment and a lack of organization.
 

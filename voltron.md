@@ -6,7 +6,7 @@ Automated Matrix Computations
 
 include [Tikz](tikz_megatron.md)
 
-In this section we compose software components from the previous sections to create a compiler for the generation of linear algebra codes from matrix expressions.
+In this chapter we compose software components from the previous sections to create a compiler for the generation of linear algebra codes from matrix expressions.
 
 *   Chapter \ref{sec:cas}: Computer Algebra
 *   Chapter \ref{sec:computations}: Computations
