@@ -4,10 +4,7 @@ Overview
 
 This dissertation describes modularity in scientific computing in general and linear algebra in particular.  It is separated into the following chapters:
 
-First we discuss past and current efforts in modularity and numerical linear algebra
-
-*   Chapter \ref{sec:background-scientific-software-engineering} discusses modularity in scientific software
-*   Chapter \ref{sec:background-nla} discusses work in numerical linear algebra
+First we discuss past and current efforts in modularity and numerical linear algebra in Chapter \ref{sec:background}.
 
 We then separate the problem of automated generation of high-level codes for matrix computations into reusable components.  In each section we discuss the history, problems, and a software solution to a single subproblem.
 
