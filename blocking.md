@@ -25,8 +25,7 @@ We are now able to focus on substantially smaller chunks of the array that fit m
 
 This idea extends beyond matrix multiplication.  Matrix inverse expressions can also be expanded. 
 
-$$ \begin{bmatrix} A & B \\\\ C & D \end{bmatrix} 
-   \begin{bmatrix} E & F \\\\ G & K \end{bmatrix}^{-1}
+$$ \begin{bmatrix} A & B \\\\ C & D \end{bmatrix} ^{-1}
    \rightarrow
    \begin{bmatrix} 
 \left(- B D^{-1} C + A\right)^{-1} & - A^{-1} B \left(- C A^{-1} B + D\right)^{-1} \\\\ 
