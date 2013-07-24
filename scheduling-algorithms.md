@@ -5,7 +5,7 @@ Static Scheduling Algorithms
 \label{sec:scheduling-algorithms}
 
 
-### Complexity 
+#### Complexity 
 
 Optimal scheduling is NP-Hard; limiting the scale of schedulable programs.  We can get around this in a few ways:
 
@@ -14,7 +14,7 @@ Optimal scheduling is NP-Hard; limiting the scale of schedulable programs.  We c
 3.  Heuristics for heterogeneous static scheduling exist.
 
 
-### Interface
+#### Interface
 
 We use the following interface for heterogeneous static scheduling:
 
@@ -33,14 +33,14 @@ Outputs:
 We implement two static scheduling algorithms that satisfy this interface.
 
 
-### Mixed Integer Linear Programming
+#### Mixed Integer Linear Programming
 
 We pose the heterogeneous static scheduling problem as a mixed integer linear program as was done by Tompkins in \cite{Tompkins2003}. 
 
 Integer programming is a standard description language with a rich theory and mature software solutions.  It is an NP-Complete problem with a variety of approximation algorithms.  It is a common intermediate representation to computational engines in operations research.
 
 
-### Dynamic List Scheduling Heuristic
+#### Dynamic List Scheduling Heuristic
 
 We also experiment with the Heterogeneous Earliest Finish Time (HEFT)\cite{Topcuoglu2002} heuristic.  This heuristic runs in polynomial time but is greedy and does not guarantee optimal solutions.
 

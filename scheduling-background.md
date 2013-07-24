@@ -12,7 +12,7 @@ Approaches in task scheduling can be separated along two different axes
 The distribution along these axes is highly correlated.  In general, systems with more knowledge perform sophisticated analyses which consume significant amounts of resources.  These analyses are preferably done only once at compile-time rather than during execution when they may slow down the actual computation.  Conversely systems about which little is known often use simple analyses and so can be done cheaply at runtime.  While less is known a priori, these cheaper runtime systems can respond more dynamically to events as they occur.
 
 
-### Dynamic Scheduling 
+#### Dynamic Scheduling 
 
 In general, dynamic scheduling systems do not assume much knowledge about the computation.  In the simplest case they blindly schedule operations from the task graph to computational workers as these tasks become available (data dependencies are met) and workers become free (no longer working on previous job).  More sophisticated analyses may try to schedule tasks onto machines more intelligently, for example by preferentially keeping large amounts of data local to a single machine if possible.
 
@@ -21,7 +21,7 @@ Systems like Condor, Pegasus, or Swift dynamically schedule a directed acyclic g
 Hadoop, a common infrastructure for the MapReduce interface, bears mention.  The MapReduce interface allows only a restricted form of dependency graph defined by one-to-one mapping functions and many-to-one reduction functions.  This added restriction allows implementations, like Hadoop, to assume more about the problem and opens up more efficiencies.  Hadoop, an implementation, allows substantially more control for reduced communication than MapReduce.  For example, by controlling Partitioner objects data locality can be exploited to minimize network or even disk communication.  In general, more restrictive models enable more sophisticated runtime analyses.
 
 
-### Static Scheduling 
+#### Static Scheduling 
 
 The majority of static scheduling research assumes some knowledge both about the costs of tasks and, if the set of agents is heterogeneous, each agent's strengths and weaknesses.  This situation is rare in parallel programming but is common in operations research.  For example operations in the construction and assembly of an automobile or the distribution of goods is often well known ahead of time.  These problems are far more regular than a generic program and also far more dependent on the worker agents available (not all agents can perform all tasks.)
 
@@ -30,7 +30,7 @@ In general, optimal scheduling is NP-hard.  However algorithms, approximations, 
 Finally we note that in practice most static scheduling is written by hand.  HPC software developers often explicitly encode a schedule statically into their code with MPI calls.  This application is the target for this section.
 
 
-### Informed Dynamic Scheduling
+#### Informed Dynamic Scheduling
 
 In special cases we may know something about the tasks and the architecture and also want to schedule dynamically for robustness or performance reasons.   These situations tend to be fairly specialied.   In the context of numerical linear algebra we can consider the communication of blocks or tiles (a term for a small block) around a network.
 

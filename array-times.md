@@ -4,21 +4,21 @@ Predicting Array Computation Times
 
 \label{sec:computation-times}
 
-### Challenges
+#### Challenges
 
 To create high performance task parallel programs at compile time we need to know the compute times of each task on each machine.  This task is challenging in general. 
 
 Compute times can depend strongly on the inputs (known only at runtime), other processes running on the hardware, behavior of the operating system, and potentially even the hardware itself.  Interactions with complex memory hierarchies introduce difficult-to-model durations.  Even if estimates of tasks are available the uncertainty may be sufficient to ruin the accuracy of the overall schedule.
 
 
-### Array Programming is Easier
+#### Array Programming is Easier
 
 Fortunately, scheduling in the context of array operations in a high performance computing context mitigates several of these concerns.
 
 Routines found in high performance libraries like BLAS/LAPACK are substantially more predictable.  Often the action of the routine depends only on the size of the input, not the contents.  Memory access patterns are often very regular and extend beyond the unpredictable lower levels of the cache.  Because this computation occurs in a high performance context there are relatively few other processes sharing resources and our task is given relatively high priority.
 
 
-### The Predictability of BLAS Operations
+#### The Predictability of BLAS Operations
 
 We profile the runtime of the `DGEMM` operation.  We compute a $1000 \times 1000 \times 1000$ dense matrix multiply $1000$ times.  In Figure \ref{fig:gemm-profile-fortran} we present a time series and in Figure \ref{fig:gemm-hist-fortran} a histogram of the same data.  While runtimes are not deterministic we do find that a tight distribution around a central peak with variations less than a percent.  We also detect an outlier well outside of this distribution.  We believe that this is due to contention with other processes on the same system.
 
@@ -57,7 +57,7 @@ The context in which computations are run is relevant.  These times were compute
 Presumably by running this same computation on a high performance machine with a quiet operating system the uncertainty could be further reduced.
 
 
-### Operational
+#### Operational
 
 We introduce a high-level `Profile` operation that wraps existing operations within the `computations` package.  `Profile` wraps an operation's emitted Fortran code within `MPI_Wtime` timing blocks provided by the MPI library.  Implementations for `MPI_Wtime` are high resolution and generally well respected within the computational community.  This provides a simple high-level way to generate code to provide accurate computation times.
 
