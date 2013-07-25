@@ -1,7 +1,7 @@
 
-### BLAS/LAPACK Implementations
+### Implementations
 
-The BLAS/LAPACK\cite{LAPACK} interface has multiple implementations.  These stress a variety of techniques.  We list them both as a review of past work and also to demonstrate the wealth of techniques used to accelerate this set of important operations.
+The BLAS/LAPACK interface has multiple implementations.  These stress a variety of techniques.  We list them both as a review of past work and also to demonstrate the wealth of techniques used to accelerate this set of important operations.
 
 #### Reference BLAS
 
@@ -15,7 +15,7 @@ The ATLAS system benchmarks several possible implementations with different bloc
 
 #### GOTO BLAS
 
-Instead of searching a parameter space the BLAS can be optimized by hand.  Kazushige Goto hand-tunes the generated assembly of BLAS for particular architectures.  GOTO BLAS\cite{Goto2008} is frequently among the fastest implementations available, routinely beating vendor supplied implementations.  This implementation is an example of a single expert in low-level computation and memory hierarchy distributing expertise through software.
+Instead of searching a parameter space the BLAS can be optimized by hand.  Kazushige Goto, a single developer, hand-tunes the generated assembly of BLAS for particular architectures.  GOTO BLAS\cite{Goto2008} is frequently among the fastest implementations available, routinely beating vendor supplied implementations.  This implementation is an example of a single expert in low-level computation and memory hierarchy distributing expertise through software.
 
 
 #### Formal Linear Algebra Methodology Environment (FLAME) 
@@ -25,25 +25,23 @@ The FLAME project provides a language for the idiomatic expression of blocked ma
 The FLAME group collaborates with Kazushige Goto in an effort to automate and more broadly apply expertise
 
 
-#### Microsoft Kernel Library (MKL)
+#### Math Kernel Library (MKL)
 
-The MKL is an industry standard.  It is a professional multi-core implementation.
+The MKL is an industry standard.  It is a professional implementation for multi-core Intel processors.
 
 
 #### Distributed Memory BLAS/LAPACK Implementations
 
-The ubiquity of numerical linear algebra makes it an attractive candidate for mature parallel solutions.  All computational kernels expressible as BLAS/LAPACK computations may be automatically parallelized if a robust solution can be found for distributed numerical linear algebra.
+The ubiquity of numerical linear algebra makes it an attractive candidate for mature parallel solutions.  All computational kernels expressible as BLAS/LAPACK computations may be automatically parallelized if a robust solution can be found for distributed numerical linear algebra.  Much of this work exists for sparse systems that are not part of the BLAS/LAPACK system.  See notes on PETSc and Trilinos in \ref{sec:numerics} and \ref{sec:trilinos} for more details.
 
-Much of this work exists for sparse systems that are not part of the BLAS/LAPACK system.  See notes on PETSc and Trilinos in \ref{sec:numerics} and \ref{sec:trilinos} for more details.
-
-In the case of dense linear algebra, data parallelism is most often achieved through blocking.  Input arrays are blocked or tiled and then each operation manages distributed computation by managing sequential operations on blocks.  A distributed GEMM may be achieved through many smaller sequential GEMMs on computational nodes.  More sophisticated computations, like SYMM or POSV, may make use of a variety of sequential operations.
+In the case of dense linear algebra, data parallelism is most often achieved through blocking.  Input arrays are blocked or tiled and then each operation distributes computation by managing sequential operations on blocks on different processors.  A distributed GEMM may be achieved through many smaller sequential GEMMs on computational nodes.  More sophisticated computations, like SYMM or POSV, may make use of a variety of sequential operations.
 
 Occasionally communication is handled by a separate abstraction.  For performance reasons these are often built off of or resemble MPI at a low level.
 
 
 #### ScaLAPACK
 
-is an implementation of LAPACK for distributed memory architecture.  ScaLAPACK\cite{ScaLAPACK} depends on BLACS\cite{Dongarra1997}, a library for the communication of blocks of memory, to coordinate computation of linear algebra routines across a parallel architecture.  ScaLAPACK was the first major parallel implementation
+is the original widespread implementation of LAPACK for distributed memory architecture.  ScaLAPACK\cite{ScaLAPACK} depends on BLACS\cite{Dongarra1997}, a library for the communication of blocks of memory, to coordinate computation of linear algebra routines across a parallel architecture.  ScaLAPACK was the first major parallel implementation
 
 #### Parallel Linear Algebra for Scalable Multi-core Architectures (PLASMA)
 
@@ -55,7 +53,7 @@ The distributed memory variant of Plasma, depends on DAGuE\cite{Bosilca2012}, a 
 
 #### Elemental
 
-Elemental\cite{Poulson2010} forks FLAME (listed above) to handle distributed memory parallelism.  Elemental breaks the fundamental model of fixed blocks/tiles, instead employing a more dynamic scheduler.
+Elemental\cite{Poulson2010} forks FLAME to handle distributed memory parallelism.  Elemental breaks the fundamental model of fixed blocks/tiles, instead employing a more dynamic scheduler.
 
 
 #### Matrix Algebra on GPU and Multicore Architectures (MAGMA)

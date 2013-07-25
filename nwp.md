@@ -4,6 +4,8 @@ Case Study - Numerical Weather Prediction
 
 \label{sec:nwp}
 
+An alternative approach is to collect a group of experts for the long-term development and maintenance of code for a critical application.  Numerical weather prediction is an example of such a monolithic code. 
+
 Numerical weather prediction benefits society.  Major industries like agriculture and construction rely on short-term forecasts to determine day-to-day operation.  The power grid relies on 12-24 hour forecasts to predict both load (due to climate control) and supply (due to weather dependent renewable energies) so that it can maintain a balanced resource without blackouts or burnouts.  Severe weather events are substantially less fatal due to several day advanced warning.  Food is substantially cheaper; agriculture insurance is a multi-billion dollar industry in the United States alone.
 
 Numerical weather prediction is also computationally challenging.  It requires substantial atmospheric modeling, the simulation of difficult PDEs that represent an inherently chaotic system.  These must be solved over a very large domain (the United States) and yet very finely resolved both in space (10km) and in time (minutes) to maintain numerical stability.  Forecasts must be rerun frequently as a variety of new observations are recorded and assimilated and they must be run substantially faster than nature herself evolves.
@@ -43,12 +45,12 @@ This snippet encodes the physics behind the melting of snow under certain condit
 
 #### Adaptability to Hardware
 
-Much of the computational work required to forecast the weather is FLOP intensive and highly regular, making it amenable to GPU computing.  In 2008 \cite{Michalakes2008} WRF developers investigated both the ease and utility of translating parts of WRF to CUDA.  They relate translating a 1500 line Fortran codebase to CUDA through a combination of hand coding, Perl scripts, and specialized language extensions.  They include the following listing showing the original Fortran and their CUDA equivalent annotated with their custom memory layout macros
+Like the code snippet above, much of the computational work required to forecast the weather is FLOP intensive and highly regular, making it amenable to GPU computing.  In 2008 WRF developers investigated both the ease and utility of translating parts of WRF to CUDA\cite{Michalakes2008}.  They relate translating a 1500 line Fortran codebase to CUDA through a combination of hand coding, Perl scripts, and specialized language extensions.  They include the following listing showing the original Fortran and their CUDA equivalent annotated with their custom memory layout macros
 
     DO j = jts, jte                             //_def_ arg ikj:q,t,den 
       DO k = kts, kte                           //_def_ copy_up_memory ikj:q 
         DO i = its, ite                         [...]
-          IF (t(i,k,j) .GT. t0c) THEN           for (k = kps-1; k <= kpe-1; k++) {
+          IF (t(i,k,j) .GT. t0c) THEN           for (k = kps-1; k<=pe-1; k++){
             Q(i,k,j) = T(i,k,j) * DEN( i,k,j )    if (t[k] > t0c) {
           ENDIF                                     q[k] = t[k] * den[k] ;
         ENDDO                                     }
@@ -66,7 +68,7 @@ They report a `5-20x` speedup in the translated kernel resulting in a `1.25-1.3x
 
 #### Use in Practice
 
-Two years later operational instructions were released to use use this work for a particular version of WRF \cite{Michalakes2008a}.  Today GPGPU is still not a standard option for operational users.
+Two years later operational instructions were released to use this work for a particular version of WRF \cite{Michalakes2008a}.  Today GPGPU is still not a standard option for operational users.
 
 
 #### Later work
@@ -86,7 +88,7 @@ While this file encodes relatively high-level concepts it is difficult to perfor
 
 #### Other Codes
 
-WRF is an instance of a meteorological code written for a specific purpose.  The surrounding ecosystem contains many variants and completely separate implementations.
+WRF is an instance of a meteorological code written for a specific purpose.  The surrounding ecosystem contains many variants and completely separate implementations.  Each of these represented opportunities for reuse.
 
 #### Independent Codes
 
@@ -106,4 +108,4 @@ Growing concern over global warming has spurred research into climate models.  M
 
 #### Analysis
 
-Computational atmospheric science is a large, and active field.  The political and economic impact of weather and climate prediction have spurred research into new methods and applications.  Unfortunately most developments seem to be either painful incremental improvements or are complete rewrites by large collaborations.  These developments are more costly and development is much slower than is necessary.
+Computational atmospheric science is a large, and active field.  The political and economic impact of weather and climate prediction have spurred research into new methods and applications.  Unfortunately most developments seem to be either painful incremental improvements or are complete rewrites by large collaborations.  These developments are more costly and development is slower than seems necessary.
