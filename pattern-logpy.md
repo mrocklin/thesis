@@ -9,9 +9,7 @@ We implement a rudimentary mathematical pattern matcher by composing LogPy, a ge
 
 #### LogPy Manipulates SymPy Terms
 
-Recall that LogPy supports the `term` interface discussed in Section \ref{sec:term}.
-
-We now impose the `term` interface on SymPy classes so that LogPy can manipulate SymPy terms.  This happens outside of the SymPy codebase.  We do this with the following definitions of the `_term_xxx` methods:
+Recall that LogPy supports the `term` interface discussed in Section \ref{sec:term}.  We now impose the `term` interface on SymPy classes so that LogPy can manipulate SymPy terms.  This happens outside of the SymPy codebase.  We do this with the following definitions of the `_term_xxx` methods:
 
 ~~~~~~~~~~Python
 from sympy import Basic
@@ -26,7 +24,7 @@ We do not invent a new term language for this term rewrite system.  Rather, we r
 
 #### Storing Mathematical Patterns
 
-A rewrite rule can be specified by a source, target, and condition terms.  These are specified with SymPy terms.  For example the following transformation can be specified with the following tuple:
+We use our old example unpacking logarithms of exponents.  A rewrite rule can be specified by a source, target, and condition terms.  These are specified with SymPy terms.  For example the following transformation can be specified with the following tuple:
 
 $$\log(\exp(x)) \rightarrow x \;\;\; \forall x \in \mathbb{R}$$
 
@@ -102,10 +100,6 @@ Finally we return a lazy iterator of all target patterns such that the source pa
 
 Interactions between mathematical, logical, and algorithmic pieces of our solution are limited to a few lines of code.  Simultaneous expertise is only rarely necessary.
 
-Teaching LogPy to interact with SymPy is a simple exercise.  The need for simultaneous expertise in both projects is brief.  Using LogPy to construct a term rewrite system is similarly brief, only a few lines in the function `rewrite_step`.
-
-By supporting interoperation with preexisting data structures we were able to leverage the preexisting mathematical logic system in SymPy without significant hassle.
-
-The implementation of the `rewrites` Relation determines matching performance.  Algorithmic code is a separate concern and not visible to the mathematical users.
+Teaching LogPy to interact with SymPy is a simple exercise; the need for simultaneous expertise in both projects is brief.  Using LogPy to construct a term rewrite system is similarly brief, only a few lines in the function `rewrite_step`.  By supporting interoperation with preexisting data structures we were able to leverage the preexisting mathematical logic system in SymPy without significant hassle.  The implementation of the `rewrites` Relation determines matching performance.  Algorithmic code is a separate concern and not visible to the mathematical users.
 
 include [Matrix Rewriting in SymPy](matrix-rewriting-sympy.md)

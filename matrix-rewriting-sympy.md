@@ -3,9 +3,9 @@
 
 \label{sec:matrix-rewriting-sympy}
 
-By composing SymPy.matrices.expressions with LogPy we obtain much of the same intuitive functionality presented in the matrix-algebra project in Maude discussed in Section \ref{sec:matrix-rewriting-maude}.
+By composing SymPy.matrices.expressions with LogPy we obtain much of the same intuitive functionality presented in the `matrix-algebra` project in Maude discussed in Section \ref{sec:matrix-rewriting-maude}.
 
-We describe high-level mathematical transformations while restricting ourselves to the Python language.  Unfortunately because our solution is embedded in Python we can not achieve the same convenient syntax support provided by Maude (e.g. the `_is_` operator.)  Instead we encode a set of transformations in `(source, target, condition)` tuples of SymPy terms. 
+We describe high-level mathematical transformations while restricting ourselves to the SymPy language.  Unfortunately because our solution is embedded in Python we can not achieve the same convenient syntax support provided by Maude (e.g. the `_is_` operator.)  Instead we encode a set of transformations in `(source, target, condition)` tuples of SymPy terms. 
 
 We suffer the following degradation in readability in order to extract Maude, an exotic dependency.  We describe the content of the transformation without specialized syntax.
 
@@ -21,8 +21,6 @@ We present mathematical information about determinants taken from the Matrix Coo
 
 ~~~~~~~~~~~~~~Python
 # Original,     Result,         Condition
-
-# Determinants
 (det(A),        0,              Q.singular(A)),
 (det(A),        1,              Q.orthogonal(A)),
 (Abs(det(A)),   1,              Q.unitary(A)),

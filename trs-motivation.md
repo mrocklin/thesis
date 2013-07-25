@@ -15,7 +15,7 @@ Software may change due to evolution in programming languages, radical shifts in
 
 #### Demographics
 
-Deep understanding of both computational mathematics and software engineering is held only by a small population of scientific software engineers.  Separating mathematics from software reduces the demands of writing and verifying solutions.  A larger body of mathematicians can work on the mathematics and a larger body of software engineers can work on the pure software components.  The costly practice of collaboration can be avoided.
+Deep understanding of both computational mathematics and software engineering is held only by a small population of scientific software engineers.  Separating mathematics from software reduces the demands of writing and verifying solutions.  A larger body of mathematicians can work on the mathematics and a larger body of software engineers can work on the pure software components, rather than all developers needing to know both.  The costly practice of collaboration can be avoided.
 
 #### Definition
 
@@ -25,14 +25,12 @@ We use Term Rewrite Systems to enable the separation of mathematics from softwar
 2.  A collection of isolated transformations on those terms
 3.  A system to coordinate the application of those transformations
 
-In our case terms are mathematical expressions, transformations are known mathematical relations, and the system of coordination is abstracted as a graph search problem.
-
-This approach separates mathematics from software.  The language and transformations are mathematical while the system for coordination is algorithmic.  The isolated nature of the transformations limits the extent to which mathematical programmers need to understand the broader software context.  The system for coordination need not depend on the transformations themselves, eliminating the need for mathematical understanding from an algorithmically centered task.
+In our case the terms are mathematical expressions, the transformations are known mathematical relations, and the system of coordination is abstracted as a graph search problem.  This approach separates mathematics from software.  The language and transformations are mathematical while the system for coordination is algorithmic.  The isolated nature of the transformations limits the extent to which mathematical programmers need to understand the broader software context.  The system for coordination need not depend on the transformations themselves, eliminating the need for mathematical understanding from an algorithmically centered task.
 
 Explicitly term rewrite systems confer the following benefits in the context of mathematical computing:
 
 *   Mathematical programmers can focus on much smaller units of software
-*   Algorithmic programmers are isolated from the mathematics
+*   Algorithmic programmers without mathematical training can be enlisted
 *   Smaller transformations can be verified more effectively 
 *   Isolated coordination systems can be verified more effectively 
 *   Multiple independent coordination systems can interact with the same set of transformations

@@ -66,4 +66,4 @@ Statements of this form are clear to mathematical experts.  More importantly the
 
 The meta-programming approach allows the specification of mathematical relations in a math-like syntax, drastically lowering the barrier of entry for potential mathematical developers.  The term-rewrite infrastructure allows these relations to be automatically applied by mature and computationally efficient strategies.
 
-Unfortunately the Maude system is an exotic dependency in the scientific community and interoperation with low-level computational codes was not a priority in its development.  In Section \ref{sec:matrix-rewriting-sympy} we will attain the ideals presented in this section by composing the SymPy and LogPy packages.
+Unfortunately the Maude system is an exotic dependency in the scientific community and interoperation with low-level computational codes was not a priority in its development.  In Section \ref{sec:matrix-rewriting-sympy} we will attain the ideals presented in this section by composing the Term, SymPy and LogPy packages.

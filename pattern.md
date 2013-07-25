@@ -8,14 +8,14 @@ include [TikZ](tikz_pattern.md)
 
 *The syntax of mathematics is both more widely understood and more stable than the syntax of programming*
 
-We consider the class of transformations that can be fully described by only source, target, and condition patterns.  We instantiate these transformations using pattern matching.  Pattern matching enables the definition of transformations using only the mathematical language of terms (e.g. SymPy) without relying on the implementation (e.g. Python).  This separation compounds many of the previously mentioned benefits of term rewrite systems.
+The last section argues that by separating mathematics from coordination we can more comfortably engage a wider development pool.  This section repeats the same goal by separating math syntax from the term data structures.  We consider the class of transformations that can be fully described by only source, target, and condition patterns.  We instantiate these transformations using pattern matching.  Pattern matching enables the definition of transformations using only the mathematical language of terms (e.g. SymPy) without relying on the implementation (e.g. Python).  This separation compounds many of the previously mentioned benefits of term rewrite systems.
 
 1.  Rewrite patterns align more closely with the tradition of written mathematics than does general purpose code
 2.  Development of mathematical transformations is not tied to the implementation, freeing both to be developed at different time scales by different communities.
 
 #### Motivation
 
-We reconsider the unpacking of logarithms of exponents.
+As an example we again consider the unpacking of logarithms of exponents.
 
 $$\log(\exp(x)) \rightarrow x \;\;\; \forall x \in \mathbb{R} $$
 
@@ -26,7 +26,7 @@ if isinstance(term, log) and isinstance(term.args[0], exp) and ask(Q.real(x)):
     return term.args[0].args[0]  # unpack both `log` and `exp`
 ~~~~~~~~~~
 
-However, this method of solution does simultaneously require the understanding of both the underlying mathematics and the particular data structures within the computer algebra system.  This approach has two flaws.
+However, this method of solution does simultaneously require the understanding of both the mathematics and the particular data structures within the computer algebra system.  This approach has two flaws.
 
 1.  It restricts the development pool to simultaneous experts in mathematics and in the particular computer algebra system.
 2.  The solution is only valuable within this particular computer algebra system.  It will need to be rewritten for future software solutions.
@@ -36,7 +36,7 @@ These flaws can be avoided by separating the mathematics from the details of ter
 
 #### Rewrite Patterns
 
-We define a rewrite pattern/rule as a source term, a target term, a condition and a set of variables, each of which is a term in the mathematical language.  For example, the $\log(\exp(\cdot))$ transformation can be decomposed into the following pieces:
+We define a rewrite pattern/rule as a source term, a target term, and a condition, each of which is a term in the mathematical language.  For example, the $\log(\exp(\cdot))$ transformation can be decomposed into the following pieces:
 
 $$\log(\exp(x)) \rightarrow x \;\;\; \forall x \in \mathbb{R}$$
 
@@ -48,15 +48,13 @@ Each of these elements may be encoded in the computer algebra system (SymPy) wit
 
     ( log(exp(x)),       x,      Q.real(x) )
 
-Using these rewrite patterns we reduce the problem of transformation to matching incoming terms against the source pattern, obtaining appropriate values for `x`, checking the condition, and then reifying these values into the target pattern.  These operations can be dealt with outside the context of mathematics.  Mature solutions already exist, largely stemming from work in logic programming languages and theorem provers. 
+Using these rewrite patterns we reduce the problem of transformation to matching incoming terms against the source pattern, checking the condition, and then reifying these values into the target pattern.  These pattern matching operations can be dealt with outside the context of mathematics.  Mature solutions already exist, largely stemming from other work in logic programming languages and theorem provers. 
 
 
-#### Concerns in Mathematical Theories
+
+Mathematical theories differ somewhat from traditional pattern matching systems by introducing the following additional computational concerns to the pattern matching problem
 
 \label{sec:pattern-concerns}
-
-Mathematical theories introduce the following additional computational concerns to the pattern matching problem
-
 
 #### Many Patterns
 
