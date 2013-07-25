@@ -4,7 +4,7 @@ Software
 
 \label{sec:computations-software}
 
-We describe a software system, `computations`, that serves both as a repository for a high-level description of numeric libraries (particularly BLAS/LAPACK), and as a rudimentary code generation system.  In describing this system we motivate that the high-level coordination of low-level numeric routines can succinctly describe a broad set of computational science.
+We describe a software system, `computations`, that serves both as both a rudimentary code generation system and as a repository for a high-level description of numeric libraries (particularly BLAS/LAPACK).  In describing this system we claim that the high-level coordination of low-level numeric routines can succinctly describe a broad set of computational science.
 
 Every BLAS/LAPACK routine can be logically identified by a set of inputs, outputs, conditions on the inputs, and inplace memory behavior.  Additionally each routine can be imbued with code for generation of the inline call in a variety of languages.  In our implementation we focus on Fortran but C or scipy could be added without substantial difficulty.  CUDA code generation is a current work in progress.
 
@@ -21,14 +21,14 @@ class SYMM(BLAS):
 
 #### Composite Computations
 
-Composite computations may be built up from many constituents.  Edges between these constituents exist if the output of one computation is the input of the other.  Treating computations as nodes and data dependencies as edges defines a directed acyclic graph (DAG) over the set of computations.
+Multiple operations like `SYMM` can be joined together to form larger composite computations.  Composite computations may be built up from many constituents.  Edges between these constituents exist if the output of one computation is the input of the other.  Treating computations as nodes and data dependencies as edges defines a directed acyclic graph (DAG) over the set of computations.
 
 
 #### Tokenized Computations
 
 \label{sec:tokenize}
 
-We desire to transform DAGs of computations into executable Fortran code.  Unfortunately the mathematical definition of our routines does not contain sufficient information to print consistent code.  Because the atomic computations overwrite memory we must consider and preserve state within our system.  The consideration of inplace operations requires the introduction of `COPY` operations and a treatment of variable names.  Consider `COPY` defined below
+When we transform DAGs of computations into executable Fortran code we find that the mathematical definition of our routines does not contain sufficient information to print consistent code, particularly due to the considerations of state.  Because the atomic computations overwrite memory we must consider and preserve state within our system.  The consideration of inplace operations requires the introduction of `COPY` operations and a treatment of variable names.  Consider `COPY` defined below
 
 ~~~~~~~~~~~~~Python
 class COPY(BLAS):
@@ -48,11 +48,11 @@ Mathematically this definition is correct.  It consumes a variable, `X`, and pro
 \label{fig:copy}
 \end{figure}
 
-To encode this information about memory location we expand our model so that each variable is both a mathematical SymPy term and a unique identifier, usually a Python string.  This method supports a new class of transformations to manage inplace computations.
+To encode this information about memory location we expand our model so that each variable is both a mathematical SymPy term and a unique token identifier, usually a Python string.  This method supports a new class of transformations to manage the inplace computations common throughout BLAS/LAPACK.
 
 #### Fortran Code Generation
 
-From such a directed acyclic graph we can generate readable low-level code.  We focus on Fortran 90.  Each atomic computation contains a method to print a string to execute that computation given the correct parameter names.  We traverse the directed acyclic graph to obtain variable names and a topological sort of atomic computations.  Generating Fortran code from this stage is trivial.
+From such a directed acyclic graph we can generate readable low-level code; in particular we focus on Fortran 90.  Each atomic computation contains a method to print a string to execute that computation given the correct parameter names.  We traverse the directed acyclic graph to obtain variable names and a topological sort of atomic computations.  Generating Fortran code from this stage is trivial.
 
 
 #### Extensibility
@@ -62,7 +62,7 @@ This model is not specific to BLAS/LAPACK.  A range of scientific software can b
 
 #### Example use of `computations`
 
-We use `computations` to construct a simple program.  The following example uses `SYMM` and `AXPY`, a routine for vector addition, to create a complex composite computation.  It then introduces copy operations and generates human readable Fortran code.
+We now demonstrate `computations` by constructing a simple program.  The following example uses `SYMM` and `AXPY`, routines matrix multiplication and vector addition, to create a complex composite computation.  It then introduces tokens and copy operations to generate human readable Fortran code.
 
 Specific instances of each computation can be constructed by providing corresponding inputs, traditionally SymPy Expressions.   We generate an instance of `SYMM`, here called `symm`, that computes `X*Y` and stores the result in `Y`.
 
@@ -99,12 +99,12 @@ Computations like `symm` and `axpy` can be combined to form composite computatio
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.5\textwidth]{images/symm-axpy}
+\includegraphics[width=.6\textwidth]{images/symm-axpy}
 \caption{A computation graph to compute $5XY + Y$}
 \label{fig:symm-axpy}
 \end{figure}
 
-The computation above is purely mathematical in nature.  We now consider inplace behavior and inject unique tokens as described in Section \ref{sec:tokenize}.  We inject `COPY` operations where necessary.
+The computation above is purely mathematical in nature.  We now consider inplace behavior and inject unique tokens as described in Section \ref{sec:tokenize}.  We inject `COPY` operations where necessary to avoid loss of essential data.
 
 ~~~~~~~~~~~~~Python
 >>> inplace = inplace_compile(composite)
@@ -112,7 +112,7 @@ The computation above is purely mathematical in nature.  We now consider inplace
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.7\textwidth]{images/symm-axpy-inplace}
+\includegraphics[width=.8\textwidth]{images/symm-axpy-inplace}
 \caption{A tokenized computation graph to compute $5XY + Y$}
 \label{fig:symm-axpy-inplace}
 \end{figure}
