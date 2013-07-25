@@ -4,7 +4,7 @@ SymPy Inference
 
 \label{sec:sympy-inference}
 
-We often want to test whether algebraic statements are true or not in a general case.  For example, 
+Later work in this disseration will require inference over mathematical terms.  We discuss this element of SymPy now in preparation.  We often want to test whether algebraic statements are true or not in a general case.  For example, 
 
 *Given that $x$ is a natural number and that $y$ is real, is $x + y^2$  positive?*
 
@@ -46,8 +46,8 @@ These Python objects serve only as literal terms.  They contain no logic on thei
 
 Predicates may be applied to SymPy expressions. 
 
-    context = Q.positive(x)
-    query   = Q.positive(x + 1)
+    context = Q.positive(x) & Q.positive(y)
+    query   = Q.positive(x + y)
 
 The user interface for query is the `ask` function.
 

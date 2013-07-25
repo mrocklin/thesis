@@ -4,6 +4,8 @@ Mathematical Code Generation
 
 \label{sec:cas-code-generation}
 
+We now give a brief experiment to support the general use of computer algebra in numeric code generation.  This is separate from the work in matrix algebra.  
+
 Numerical code is often used to evaluate and solve mathematical problems.  Frequently human users translate high-level mathematics directly into low-level code.  In this section we motivate the use of computer algebra systems to serve as an intermediate step.  This approach confers the following benefits.
 
 1.  Automated systems can leverage mathematics deeper in the compilation system
@@ -26,7 +28,7 @@ expr = R_nl(n, l, x, Z)
 
 $$\frac{1}{210} \sqrt{70} x^{2} \left(- \frac{4}{3} x^{3} + 16 x^{2} - 56 x + 56\right) e^{- x}$$
 
-As a case study, we generate code to evaluate this expression and its derivative on an array of real values.
+As a case study, we generate code to simultaneously evaluate this expression and its derivative on an array of real values.
 
 
 #### Simplification
@@ -70,7 +72,7 @@ Note the significant cancellation.
 
 Algorithmic scalar differentiation is a simple transformation.  The system must know how to transform all of the elementary functions (`exp, log, sin, cos, polynomials, etc...`) as well as the chain rule; nothing else is required.  Theorems behind automatic differentiation state that the cost of a derivative will be at most five times the cost of the original.  In this case we're guaranteed to have at most `17*5 == 85` operations in the derivative computation; this bound holds in our case because `48 < 85`.
 
-However, derivatives are often far simpler than this upper bound.  We see that after simplification the operation count of the derivative is `18`, only one more than the original.  This situation is common in practice.
+However, derivatives are often far simpler than this upper bound.  We see that after simplification the operation count of the derivative is `18`, only one more than the original.  This situation is common in practice but is rarely leverage fully.
 
 
 #### Experiment
@@ -80,7 +82,7 @@ We compute the derivative of our radial wavefunction and then simplify the resul
 *   SymPy's symbolic derivative and simplify routines 
 *   Theano's automatic derivative and computation optimization routines
 
-We then compare the two results and evaluate by counting the number of required operations.
+We then compare and evaluate the two results by counting the number of algebraic operations.
 
 In SymPy we create both an unevaluated derivative and a fully evaluated and SymPy-simplified version.  We translate each to Theano, simplify within Theano, and then count the number of operations both before and after simplification.  In this way we can see the value added by both SymPy's and Theano's optimizations.
 
@@ -110,7 +112,7 @@ Operations after Theano Simplification:  10
 
 #### Analysis
 
-On its own Theano produces a derivative expression that is about as complex as the unsimplified SymPy version.  Theano simplification then does a surprisingly good job, roughly halving the amount of work needed (`40 -> 21`) to compute the result.  If you dig deeper however you find that this is not because it was able to algebraically simplify the computation (it was not), but rather because the computation contained several common sub-expressions.  The Theano version looks a lot like the unsimplified SymPy version.  Note the common sub-expressions like `56*x`.
+On its own Theano produces a derivative expression that is about as complex as the unsimplified SymPy version.  Theano simplification then does a surprisingly good job, roughly halving the amount of work needed ($40 \rightarrow 21$) to compute the result.  If you dig deeper however you find that this is not because it was able to algebraically simplify the computation (it was not), but rather because the computation contained several common sub-expressions.  The Theano version looks a lot like the unsimplified SymPy version.  Note the common sub-expressions like `56*x`.
 
 The pure-SymPy simplified result is again substantially more efficient (`13` operations).  Interestingly, Theano is still able to improve on this, again not because of additional algebraic simplification, but rather due to constant folding.  The two projects simplify in orthogonal ways.
 
@@ -144,6 +146,7 @@ To summarize:
 
  Project            operation count 
 ----------------- ------------------
+ Input                    57         
  SymPy                    27         
  Theano                   24         
  SymPy+Theano             17         

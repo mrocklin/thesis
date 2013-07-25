@@ -6,7 +6,7 @@ Matrix Algebra
 
 include [Tikz](tikz_math.md)
 
-We extend the SymPy computer algebra system to matrix algebra.  Leaf variables in a matrix algebra are defined by an identifier (e.g. `'X'`) and a shape, two integers of rows or columns.  These shape integers may themselves be symbolic. Common matrix algebra operators include Matrix Multiplication, Matrix Addition, Transposition, and Inversion.  Each of these operators has its own logic about the shape of the term given the shapes of its inputs, validity, and possible simplifications.
+We now extend the SymPy computer algebra system to matrix algebra.  Leaf variables in a matrix algebra are defined by an identifier (e.g. `'X'`) and a shape, two integers of rows and columns.  These shape integers may themselves be symbolic. Common matrix algebra operators include Matrix Multiplication, Matrix Addition, Transposition, and Inversion.  Each of these operators has its own logic about the shape of the term given the shapes of its inputs, validity, and possible simplifications.
 
 In the end we enable the construction of expressions such as the following for least squares linear regression in which $X$ is an $n \times m$ matrix and $y$ an $n \times 1$ column vector.
 
@@ -69,7 +69,7 @@ The execution of these commands does not perform any specific numeric computatio
 
 #### Syntax
 
-As in Section \ref{sec:sympy-syntax} we overload Python operator methods `__add__`, `__mul__` to point to `MatAdd` and `MatMul` respectively.  We use Python `properties` to encode `.T` as Transpose and `.I` as inverse.  This approach follows the precedent of `NumPy`, a popular library for numeric linear algebra.  These changes allow a more familiar syntax for mathematical users.
+As in Section \ref{sec:sympy-syntax} we overload Python operator methods `__add__`, `__mul__` to point to `MatAdd` and `MatMul` respectively.  We use Python `properties` to encode `.T` as Transpose and `.I` as inverse.  This approach follows the precedent of `NumPy`, a popular library for numerical linear algebra.  These changes allow a more familiar syntax for mathematical users.
 
 ~~~~~~~~~~~Python
 >>> # beta = MatMul(Inverse(MatMul(Transpose(X), X)), Transpose(X), y)
@@ -78,4 +78,4 @@ As in Section \ref{sec:sympy-syntax} we overload Python operator methods `__add_
 
 #### Shape Checking and Trivial Simplification
 
-Shape checking and trivial simplifications, e.g. the removal of pairs of transposes, are done at object instantiation time.  This task is accomplished by calling raw Python code within the class `__init__` constructors.
+Shape checking and trivial simplifications, e.g. the removal of nested transposes, are done at object instantiation time.  This task is accomplished by calling raw Python code within the class `__init__` constructors.
