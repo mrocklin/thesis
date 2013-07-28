@@ -23,8 +23,8 @@ Feeding this information into the integer programming static scheduler we obtain
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.5\textwidth]{images/ABiCD_0}
-\includegraphics[width=.5\textwidth]{images/ABiCD_1}
+\includegraphics[width=.55\textwidth]{images/ABiCD_0}
+\includegraphics[width=.35\textwidth]{images/ABiCD_1}
 \caption{The computation from Fig. \ref{fig:ABiCD} scheduled onto two nodes}
 \label{fig:ABiCD-scheduled}
 \end{figure}
