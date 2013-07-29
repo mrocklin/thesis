@@ -25,3 +25,5 @@ include [Software - Term](term.md)
 include [Software - LogPy](logpy.md)
 
 include [Software - Search](search-direct.md)
+
+include [Managing Rule Sets](trs-managing-rule-sets.md)

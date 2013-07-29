@@ -141,3 +141,7 @@ include [Objective](objective.py)
 
 include [Compile master function](compile.py)
 ~~~~~~~~~~~~~~
+
+#### Termination
+
+In Section \ref{sec:trs-managing-rule-sets.md} we discussed that the termination and performance properties of compilation may strongly depend on the set of transformations.  In this case we are guaranteed termination because each of our transformations breaks down the inputs of the computation by a finite amount.  Each rule application reduces the complexity of the inputs by an integer value, bounding the number of steps by the complexity of the inputs.
