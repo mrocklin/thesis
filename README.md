@@ -3,14 +3,15 @@ Dissertation
 
 This is the source for the following dissertation 
 
---------------  -----------------------------------------------------
-Title:             Modular Generation of Scientific Software
-
-Author:           [Matthew David Rocklin](http://matthewrocklin.com)
-
-Organization:          University of Chicago
-                    Physical Sciences Division
-                    Computer Science Department
+|                |                                                      |
+|:-------------- | -----------------------------------------------------|
+| Title          |       Modular Generation of Scientific Software      |
+|                |                                                      |
+| Author         |  [Matthew David Rocklin](http://matthewrocklin.com)  |
+|                |                                                      |
+| Organization   |                  University of Chicago               |
+|                |                Physical Sciences Division            |
+|                |                Computer Science Department           |
 
 Build
 -----
