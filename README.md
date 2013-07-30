@@ -25,3 +25,8 @@ This dissertation depends on a number of utilities and scripts.  It works with
     python 2.7
     pdflatex
     bibtex
+
+License
+-------
+
+All rights reserved.
