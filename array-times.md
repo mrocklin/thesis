@@ -13,14 +13,12 @@ Compute times can depend strongly on the inputs (known only at runtime), other p
 
 #### Array Programming is Easier
 
-Fortunately, scheduling in the context of array operations in a high performance computing context mitigates several of these concerns.
-
-Routines found in high performance libraries like BLAS/LAPACK are substantially more predictable.  Often the action of the routine depends only on the size of the input, not the contents.  Memory access patterns are often very regular and extend beyond the unpredictable lower levels of the cache.  Because this computation occurs in a high performance context there are relatively few other processes sharing resources and our task is given relatively high priority.
+Fortunately, scheduling in the context of array operations in a high performance computing context mitigates several of these concerns.  Routines found in high performance libraries like BLAS/LAPACK are substantially more predictable.  Often the action of the routine depends only on the size of the input, not the contents.  Memory access patterns are often very regular and extend beyond the unpredictable lower levels of the cache.  Because this computation occurs in a high performance context there are relatively few other processes sharing resources and our task is given relatively high priority.
 
 
 #### The Predictability of BLAS Operations
 
-We profile the runtime of the `DGEMM` operation.  We compute a $1000 \times 1000 \times 1000$ dense matrix multiply $1000$ times.  In Figure \ref{fig:gemm-profile-fortran} we present a time series and in Figure \ref{fig:gemm-hist-fortran} a histogram of the same data.  While runtimes are not deterministic we do find that a tight distribution around a central peak with variations less than a percent.  We also detect an outlier well outside of this distribution.  We believe that this is due to contention with other processes on the same system.
+We profile the runtime of the `DGEMM` operation.  We compute a $1000 \times 1000 \times 1000$ dense matrix multiply $1000$ times.  In Figure \ref{fig:gemm-profile-fortran} we present a time series and in Figure \ref{fig:gemm-hist-fortran} a histogram of the same data.  While runtimes are not deterministic we do find that a tight distribution around a central peak with variations less than a percent. 
 
 
 \begin{figure}[htbp]
@@ -57,27 +55,6 @@ The context in which computations are run is relevant.  These times were compute
 Presumably by running this same computation on a high performance machine with a quiet operating system the uncertainty could be further reduced.
 
 
-#### Operational
+#### Dynamic Routines
 
-We introduce a high-level `Profile` operation that wraps existing operations within the `computations` package.  `Profile` wraps an operation's emitted Fortran code within `MPI_Wtime` timing blocks provided by the MPI library.  Implementations for `MPI_Wtime` are high resolution and generally well respected within the computational community.  This provides a simple high-level way to generate code to provide accurate computation times.
-
-We can use this `Profile` operation to transform a computation into a profiled computation
-
-~~~~~~~~~~~Python
-def profile(comp):
-    """ Build a profiled version of ``comp``, a Computation 
-    
-    Returns a tuple of (computation, [inputs], [outputs])
-    """
-    # Wrap a ProfileMPI node around each sub-computation
-    pcomp = CompositeComputation(*map(ProfileMPI, c.computations))
-
-    # Desired inputs and outputs
-    inputs = comp.inputs
-    durations = [p.duration for p in pcomp.computations]
-    outputs = comp.outputs + durations
-
-    return pcomp, inputs, outputs
-~~~~~~~~~~~
-
-This computation can then be compiled and run with the expected numerical inputs.  It will return the duration of each task rather than the normal numerical outputs.  This computation can be run independently on each computational worker.
+These results on `GEMM` are representative of most but not all BLAS/LAPACK routines.  Some routines, like `GESV` for general matrix solve do perform dynamic checks at runtime on the content of the array.  In special cases, such as when the solving matrix is the identity, different execution paths are taken, drastically changing the execution time.  Ideally such conditions are avoided beforehand at the mathematical level; if a matrix is known ahead-of-time to be the identity then SymPy should be able to reduce it before a `GESV` is ever generated.  If this information is not known ahead of time then schedules may be invalid.  In general we test with random matrices as they are, for most operations, representative of the general/common/poor quality case.  Even this assumption breaks down under iterative methods like conjugate gradient solution, for which this approach is invalid.

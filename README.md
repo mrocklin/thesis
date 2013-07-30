@@ -24,6 +24,7 @@ Dependencies
 ------------
 
 This dissertation depends on a number of utilities and scripts.  It works with
+the following
 
     pandoc 1.11.1
     python 2.7

@@ -9,8 +9,8 @@ Static Scheduling Algorithms
 
 Optimal scheduling is NP-Hard; limiting the scale of schedulable programs.  We can get around this in a few ways:
 
-1.  Array programs can often be written with relatively few tasks, making the full NP-Hard problem feasible.
-2.  Approximation algorithms exist for common NP-Complete problems (in particular, we will use integer linear programming.)
+1.  Array programs can often be written with relatively few tasks, making the full NP-Hard problem feasible for interesting problems.
+2.  Robust approximation algorithms exist for common NP-Complete problems (e.g. integer linear programming.)
 3.  Heuristics for heterogeneous static scheduling exist.
 
 
@@ -35,9 +35,7 @@ We implement two static scheduling algorithms that satisfy this interface.
 
 #### Mixed Integer Linear Programming
 
-We pose the heterogeneous static scheduling problem as a mixed integer linear program as was done by Tompkins in \cite{Tompkins2003}. 
-
-Integer programming is a standard description language with a rich theory and mature software solutions.  It is an NP-Complete problem with a variety of approximation algorithms.  It is a common intermediate representation to computational engines in operations research.
+We pose the heterogeneous static scheduling problem as a mixed integer linear program as was done by Tompkins in \cite{Tompkins2003}.  Integer programming is a standard description language with a rich theory and mature software solutions.  It is an NP-Complete problem with a variety of approximation algorithms.  It is a common intermediate representation to computational engines in operations research.
 
 
 #### Dynamic List Scheduling Heuristic
