@@ -18,11 +18,17 @@ commtimes:
 lib.bib: library.bib library2.bib
 	cat library.bib library2.bib > lib.bib
 
-dissertation.tex: images/pdfs dissertation.md front.md lib.bib
+header-tmp.tex: tex/official-header.tex
+	cat tex/official-header.tex \
+		| sed s/[0-9]\.[0-9]*,[0-9]\.[0-9]*,[0-9]\.[0-9]*/0.00,0.00,0.00/g \
+		> tex/header-tmp.tex
+
+
+dissertation.tex: images/pdfs dissertation.md front.md lib.bib header-tmp.tex
 	python scripts/include.py dissertation.md dissertation2.md
 	python scripts/dollar.py dissertation2.md dissertation2.md
 	pandoc dissertation2.md -o dissertation.tex
-	cat tex/official-header.tex dissertation.tex tex/official-footer.tex \
+	cat tex/header-tmp.tex dissertation.tex tex/official-footer.tex \
 				| sed s/\\\\section/\\\\chapter/  						 \
 				| sed s/subsection/section/          					 \
 				> tmp.dat												 \
