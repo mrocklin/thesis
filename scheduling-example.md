@@ -23,10 +23,11 @@ Our two node system consists of two workstations (Intel Core i7-3770 with 8GB me
 
 Feeding this information into the integer programming static scheduler we obtain the computations in Figure \ref{fig:ABiCD-scheduled} with a total runtime of `13.03` seconds.  Note that the graph has been split and asynchronous MPI computations have been injected to handle communication.  In particular the matrix multiplications are done in parallel and then collected onto a single node to perform the final general matrix solve `GESV/LASWP`.
 
+\newpage
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.8\textwidth]{images/ABiCD_0}
-\includegraphics[width=.6\textwidth]{images/ABiCD_1}
+\includegraphics[width=\textwidth]{images/ABiCD_0}
+\includegraphics[width=.7\textwidth]{images/ABiCD_1}
 \caption{The computation from Fig. \ref{fig:ABiCD} scheduled onto two nodes}
 \label{fig:ABiCD-scheduled}
 \end{figure}
