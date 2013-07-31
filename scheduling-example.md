@@ -13,7 +13,7 @@ To show how schedulers interoperate with our existing compilation chain we walk 
 \label{fig:ABiCD}
 \end{figure}
 
-Our two node system consists of two workstations (i7-3770 with 8GB Ram) over a gigabit switch.  Profiling the network shows that connections can be well characterized by a latency of $270\mu s$ and a bandwidth of `1.1e8 Bytes/s`.  With inputs of random $2000 \times 2000$ matrices computation times are as follows
+Our two node system consists of two workstations (Intel Core i7-3770 with 8GB memory ) over a gigabit switch.  Profiling the network shows that connections can be well characterized by a latency of $270\mu s$ and a bandwidth of `1.1e8 Bytes/s`.  With inputs of random $2000 \times 2000$ matrices computation times are as follows
 
    Computation        Mean (s)        Standard Error (s)
 -----------------   ----------      --------------------

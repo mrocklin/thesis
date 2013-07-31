@@ -24,14 +24,14 @@ Inputs:
 
 *   Task Directed Acyclic Graph
 *   Graph of Computational Agents
-*   Compute Time function :  `Task x Agent` $\rightarrow$ `Time`
-*   Communication Time function :  `Variable x Agent x Agent` $\rightarrow$ `Time`
+*   Compute Time function :  `Task` $\times$ `Agent` $\rightarrow$ `Time`
+*   Communication Time function :  `Variable` $\times$ `Agent` $\times$ `Agent` $\rightarrow$ `Time`
 
 Outputs:
 
 *   Mapping of `Agent` $\rightarrow$ `Task Directed Acyclic Graph`
 
-I.e. we take information about a computation (a DAG), a network (a graph), and compute and communication times and produce a set of sub-computations (a set of DAGs) such that each sub-computation is assigned to one of the compute units.  
+I.e. we take information about a computation (a DAG), a network (a graph), and compute and communication times (functions) and produce a set of sub-computations (a set of DAGs) such that each sub-computation is assigned to one of the worker agents.  
 
 We implement two static scheduling algorithms that satisfy this interface.
 
