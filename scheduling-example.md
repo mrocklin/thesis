@@ -21,7 +21,7 @@ Our two node system consists of two workstations (Intel Core i7-3770 with 8GB me
     GEMM                  4.19                     0.012
     GESV/LASWP            8.57                     0.038
 
-Feeding this information into the integer programming static scheduler we obtain the computations in Figure \ref{fig:ABiCD-scheduled} with a total runtime of `13.03` seconds.  Note that the graph has been split and asynchronous MPI computations have been injected to handle communication.  In particular the matrix multiplications are done in parallel and then collected onto a single node to perform the final general matrix solve `GESV/LASWP`.
+Feeding this information into either of our static schedulers (they produce identical results) we obtain the computations in Figure \ref{fig:ABiCD-scheduled} with a total runtime of `13.03` seconds.  Note that the graph has been split and asynchronous MPI computations have been injected to handle communication.  In particular the matrix multiplications are done in parallel and then collected onto a single node to perform the final general matrix solve `GESV/LASWP`.
 
 \newpage
 \begin{figure}[htbp]
