@@ -7,12 +7,14 @@ Static Scheduling Algorithms
 
 #### Complexity 
 
-Optimal scheduling is NP-Hard; limiting the scale of schedulable programs.  We can get around this in a few ways:
+Optimal scheduling is NP-Complete\cite{Kwok1999}; which limits the scale of optimally schedulable programs.  We can get around this problem in a few ways:
 
-1.  Array programs can often be written with relatively few tasks, making the full NP-Hard problem feasible for interesting problems.
+1.  Array programs can often be written with relatively few tasks, making the
+full NP-Complete problem feasible for interesting problems.
 2.  Robust approximation algorithms exist for common NP-Complete problems (e.g. integer linear programming.)
 3.  Heuristics for heterogeneous static scheduling exist.
 
+In this section we connect existing work in static DAG scheduling to our linear algebra compilation system.  We first describe an interface between linear algebra computations and schedulers, and then describe two schedulers that match this interface.
 
 #### Interface
 
@@ -22,16 +24,16 @@ Inputs:
 
 *   Task Directed Acyclic Graph
 *   Graph of Computational Agents
-*   Compute Time function,  `Task, Agent` $\rightarrow$ `Time`
-*   Communication Time function,  `Variable, Agent, Agent` $\rightarrow$ `Time`
+*   Compute Time function :  `Task x Agent` $\rightarrow$ `Time`
+*   Communication Time function :  `Variable x Agent x Agent` $\rightarrow$ `Time`
 
 Outputs:
 
 *   Mapping of `Agent` $\rightarrow$ `Task Directed Acyclic Graph`
 
+I.e. we take information about a computation (a DAG), a network (a graph), and compute and communication times and produce a set of sub-computations (a set of DAGs) such that each sub-computation is assigned to one of the compute units.  
 
 We implement two static scheduling algorithms that satisfy this interface.
-
 
 #### Mixed Integer Linear Programming
 

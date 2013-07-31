@@ -27,3 +27,5 @@ include [Predicting Communication Times](communication-times.md)
 include [Scheduling Algorithms](scheduling-algorithms.md)
 
 include [Experiment - Parallel Kalman Filter](scheduling-example.md)
+
+include [Experiment - Parallel Matrix Multiply](scheduling-non-example.md)
