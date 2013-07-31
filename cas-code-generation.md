@@ -4,7 +4,7 @@ Mathematical Code Generation
 
 \label{sec:cas-code-generation}
 
-We now give a brief experiment to support the general use of computer algebra in numeric code generation.  This is separate from the work in matrix algebra.  
+We now give a brief experiment to support the general use of computer algebra in numeric code generation.  This example is separate from the work in matrix algebra.  
 
 Numerical code is often used to evaluate and solve mathematical problems.  Frequently human users translate high-level mathematics directly into low-level code.  In this section we motivate the use of computer algebra systems to serve as an intermediate step.  This approach confers the following benefits.
 
@@ -112,7 +112,7 @@ Operations after Theano Simplification:  10
 
 #### Analysis
 
-On its own Theano produces a derivative expression that is about as complex as the unsimplified SymPy version.  Theano simplification then does a surprisingly good job, roughly halving the amount of work needed ($40 \rightarrow 21$) to compute the result.  If you dig deeper however you find that this is not because it was able to algebraically simplify the computation (it was not), but rather because the computation contained several common sub-expressions.  The Theano version looks a lot like the unsimplified SymPy version.  Note the common sub-expressions like `56*x`.
+On its own Theano produces a derivative expression that is about as complex as the unsimplified SymPy version.  Theano simplification then does a surprisingly good job, roughly halving the amount of work needed ($40 \rightarrow 21$) to compute the result.  If you dig deeper however you find that this result arises not because it was able to algebraically simplify the computation (it was not), but rather because the computation contained several common sub-expressions.  The Theano version looks a lot like the unsimplified SymPy version.  Note the common sub-expressions like `56*x`.
 
 The pure-SymPy simplified result is again substantially more efficient (`13` operations).  Interestingly, Theano is still able to improve on this, again not because of additional algebraic simplification, but rather due to constant folding.  The two projects simplify in orthogonal ways.
 
@@ -154,8 +154,8 @@ To summarize:
 
 #### Conclusion 
 
-Similarly to SymPy, Theano transforms graphs to mathematically equivalent but computationally more efficient representations.  It provides standard compiler optimizations like constant folding, and common sub-expressions as well as array specific optimizations elementwise element-wise operation fusion.  
+Similarly to SymPy, Theano transforms graphs to mathematically equivalent but computationally more efficient representations.  It provides standard compiler optimizations like constant folding, and common sub-expressions as well as array specific optimizations element-wise element-wise operation fusion.  
 
-Because users regularly handle mathematical terms, Theano also provides a set of optimizations to simplify some common scalar expressions.  For example, Theano will convert expressions like `x*y/x` to `y`.  In this sense it overlaps with SymPy's `simplify` functions.  This section demonstrates that SymPy's scalar simplifications are more powerful than Theano's and that their use can result in significant improvements.  This should not be surprising.  Sympians are devoted to scalar simplification to a degree that far exceeds the Theano community's devotion to this topic.
+Because users regularly handle mathematical terms, Theano also provides a set of optimizations to simplify some common scalar expressions.  For example, Theano will convert expressions like `x*y/x` to `y`.  In this sense it overlaps with SymPy's `simplify` functions.  This section demonstrates that SymPy's scalar simplifications are more powerful than Theano's and that their use can result in significant improvements.  This result should not be surprising.  Sympians are devoted to scalar simplification to a degree that far exceeds the Theano community's devotion to this topic.
 
 These experiments mostly contain polynomials and exponentials.  In this sense they are trivial from a computer algebra perspective.  Computer algebra systems are capable of substantially more sophisticated analyses.

@@ -80,11 +80,11 @@ SymPy differs from existing computer algebra systems in the following ways
 
 #### Application
 
-SymPy is focused more around scientific and computational applications and less around pure mathematics.  This is largely due to the focus of the developer community.  SymPy is one of six core modules commonly associated with the scientific Python software stack.
+SymPy is focused more around scientific and computational applications and less around pure mathematics.  This choice of focus is largely due to the focus of the developer community.  SymPy is one of six core modules commonly associated with the scientific Python software stack.
 
 #### Library
 
-Other dominant computer algebra systems today serve as monolithic fully-featured development environments.  They surround a computer algebra system core with specific numeric, visual, and database components.  Interoperation with other software systems (e.g. application specific scientific codes) is rare.  In contrast SymPy is intended to be imported as a library within other applications.  It aggressively limits its scope, providing interfaces to other popular systems for visualization, computation, etc... instead of shipping with particular implementations.
+Other dominant computer algebra systems today serve as monolithic fully-featured development environments.  They surround a computer algebra system core with specific numeric, visual, and database components.  Interoperation with other software systems (e.g. application specific scientific codes) is rare.  In contrast SymPy is intended to be imported as a library within other applications.  It aggressively limits its scope, providing interfaces to other popular systems for visualization, computation, etc.,instead of shipping with particular implementations.
 
 #### Pure Python
 

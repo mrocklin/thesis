@@ -9,7 +9,7 @@ We implement a rudimentary mathematical pattern matcher by composing LogPy, a ge
 
 #### LogPy Manipulates SymPy Terms
 
-Recall that LogPy supports the `term` interface discussed in Section \ref{sec:term}.  We now impose the `term` interface on SymPy classes so that LogPy can manipulate SymPy terms.  This happens outside of the SymPy codebase.  We do this with the following definitions of the `_term_xxx` methods:
+Recall that LogPy supports the `term` interface discussed in Section \ref{sec:term}.  We now impose the `term` interface on SymPy classes so that LogPy can manipulate SymPy terms.  This process happens outside of the SymPy codebase.  We do this with the following definitions of the `_term_xxx` methods:
 
 ~~~~~~~~~~Python
 from sympy import Basic
@@ -72,7 +72,7 @@ We construct a function to perform a single term rewrite step.  It creates and e
 include [rewrite_step.py](rewrite_step.py)
 ~~~~~~~~~~
 
-The `run` function asks for a lazily evaluated iterator (`None`) that returns reified values of the variable `target` that satisfy both of the following goals:
+The `run` function asks for a lazily evaluated iterator that returns reified values of the variable `target` that satisfy both of the following goals:
     
 #### `rewrites(expr, target, condition)`
 
@@ -90,7 +90,7 @@ For example if `expr` is the term `Abs(y**2)` then only the first pattern matche
 
 #### `asko(condition, True)`
 
-The `asko` goal further constrains results to those for which the `condition` of the pattern  evaluates to `True` under SymPy's `ask` routine.  This engages SymPy's logic system and the underlying SAT solver.  Through interoperation we gain access to and interact with a large body of pre-existing logic code.
+The `asko` goal further constrains results to those for which the `condition` of the pattern  evaluates to `True` under SymPy's `ask` routine.  This process engages SymPy's logic system and the underlying SAT solver.  Through interoperation we gain access to and interact with a large body of pre-existing logic code.
 
 If as above `expr` is `Abs(y**2)` and `x` matches to `y**2` then we ask SymPy if the boolean expression `Q.positive(y**2)` is true.  This might hold if, for example, we knew that the SymPy variable `y` was real and non-zero.  If this is so then we yield the value of `target`, in this case `y**2`; otherwise this function returns an empty iterator.
 
@@ -101,5 +101,3 @@ Finally we return a lazy iterator of all target patterns such that the source pa
 Interactions between mathematical, logical, and algorithmic pieces of our solution are limited to a few lines of code.  Simultaneous expertise is only rarely necessary.
 
 Teaching LogPy to interact with SymPy is a simple exercise; the need for simultaneous expertise in both projects is brief.  Using LogPy to construct a term rewrite system is similarly brief, only a few lines in the function `rewrite_step`.  By supporting interoperation with preexisting data structures we were able to leverage the preexisting mathematical logic system in SymPy without significant hassle.  The implementation of the `rewrites` Relation determines matching performance.  Algorithmic code is a separate concern and not visible to the mathematical users.
-
-include [Matrix Rewriting in SymPy](matrix-rewriting-sympy.md)

@@ -22,7 +22,7 @@ We may arrive at the same state through multiple different decision paths.  We c
 
 A set of transformations is said to be *simply normalizing* if they are unable to return to visited states.  In this case the graph of state transitions is a directed *acyclic* graph (DAG).
 
-A set of terminating transformations is *confluent* if exhaustive application of the transformations can only lead to a single state, regardless of the order of application.  I.e. the DAG has at most one node with zero out-degree.
+A set of terminating transformations is *confluent* if exhaustive application of the transformations can only lead to a single state, regardless of the order of application.  I.e. the DAG has at most one node with out-degree zero.
 
 
 #### Properties on States 

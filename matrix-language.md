@@ -20,7 +20,7 @@ Just as we simplify $\log(e^x) \rightarrow x$ we know trivial simplifications in
 
 #### Extension 
 
-As with real analysis, matrix algebra has a rich and extensive theory.  As a result this algebra can be extended to include a large set of additional operators including Trace, Determinant, Blocks, Slices, EigenVectors, Adjoints, Matrix Derivatives, etc....   Each of these operators has its own rules about validity and propagation of shape, its own trivial simplifications, and its own special transformations.
+As with real analysis, matrix algebra has a rich and extensive theory.  As a result this algebra can be extended to include a large set of additional operators including Trace, Determinant, Blocks, Slices, EigenVectors, Adjoints, Matrix Derivatives, etc.   Each of these operators has its own rules about validity and propagation of shape, its own trivial simplifications, and its own special transformations.
 
 #### Embedding in SymPy
 

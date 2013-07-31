@@ -19,7 +19,7 @@ The sets of transformations described within this dissertation have the followin
 *   They are *strongly normalizing*:  The graph has no cycles.  There is always a sense of constant progression to a final result.  As a result the object of study is a directed acyclic graph (DAG).
 *   They are not *confluent* in general:  There are potentially multiple valid outcomes; the DAG may have multiple leaves.  The choice of final outcome depends on which path the system takes at intermediate stages.
 
-Due to these two properties we can consider the set of all possible intermediate and final states as a directed acyclic graph (DAG) with a single input.  Operationally this DAG can grow to be prohibitively large.  In this section we discuss ways to traverse this DAG to quickly find high quality nodes/computations.
+Due to these two properties we can consider the set of all possible intermediate and final states as a directed acyclic graph (DAG) with a single input.  Operationally this DAG can grow to be prohibitively large.  In this section we discuss ways to traverse this DAG to find high quality nodes/computations quickly.
 
 For simplicity this section will consider the simpler problem of searching a tree (without duplicates.)  The full DAG search problem can be recovered through use of dynamic programming.
 
@@ -27,7 +27,7 @@ For simplicity this section will consider the simpler problem of searching a tre
 
 Additionally, the states within this graph have two important properties:
 
-*   Quality:  There is a notion of quality or cost both at each final state and at all intermediate states.  This is provided by an objective function and can be used to guide our search.
+*   Quality:  There is a notion of quality or cost both at each final state and at all intermediate states.  This cost is provided by an objective function and can be used to guide our search.
 *   Validity:  There is a notion of validity at each final state.  Only some leaves represent valid terminal points; others are dead-ends.
 
 #### Example Tree
@@ -46,7 +46,7 @@ This tree has a root at the top.  Each of its children represent incremental imp
 
 #### Interface
 
-We exploring a tree to minimize an objective function.  We depend on the following interface:
+When exploring a tree to minimize an objective function, we depend on the following interface:
 
     children  ::  node -> [node]
     objective ::  node -> score
@@ -65,7 +65,7 @@ In Section \ref{sec:matrix-compilation} we provide implementations of these func
 \label{fig:search-left}
 \end{figure}
 
-A blind search may find sub-optimal solutions.  For example consider the strategy that takes the left-most node at each step as in Figure \ref{fig:search-left}.  This arrives at a node cost 21.  In this particular case that node is scored relatively poorly.  The search process was cheap but the result was poor. 
+A blind search may find sub-optimal solutions.  For example consider the strategy that takes the left-most node at each step as in Figure \ref{fig:search-left}.  This process arrives at a node cost 21.  In this particular case that node is scored relatively poorly.  The search process was cheap but the result was poor. 
 
 ~~~~~~~~~Python
 def leftmost(children, objective, isvalid, node):
@@ -114,7 +114,7 @@ def greedy(children, objective, isvalid, node):
 
 Greedy solutions like the one above can become trapped in a dead-end.  Our example arrives at an invalid leaf with cost `8`.  There is no further option to pursue in this case.  The correct path to take at this stage is to regress backwards up the tree as in Figure \ref{fig:search-greedy} and consider other previously discarded options.
 
-This requires the storage and management of history of the traversal.  By propagating streams of ordered solutions rather than a single optimum we implement a simple backtracking scheme.
+This process requires the storage and management of history of the traversal.  By propagating streams of ordered solutions rather than a single optimum we implement a simple backtracking scheme.
 
 ~~~~~~~~~Python
 include [Greedy](greedy.py)
@@ -123,7 +123,7 @@ include [Greedy](greedy.py)
 We evaluate and multiplex streams of possibilities lazily, computing results as they are requested.  Management of history, old state, and garbage collection is performed by the Python runtime and is localized to the generator mechanisms and `chain` functions found in the standard library.  Similar elements are found within most functional or modern programming languages.
 
 
-#### Continutation
+#### Continuation
  
 \begin{figure}[htbp]
 \centering
@@ -132,14 +132,14 @@ We evaluate and multiplex streams of possibilities lazily, computing results as 
 \label{fig:search-continue}
 \end{figure}
 
-This approach has the added benefit that a lazily evaluated stream of all leaves is returned.  If the first result is not adequate then one can ask the system to find subsequent solutions.  These subsequent computations pick up where the previous search process ended, limiting redundant search.  See Figure \ref{fig:search-continue}.
+The greedy search with backtracking approach has the added benefit that a lazily evaluated stream of all leaves is returned.  If the first result is not adequate then one can ask the system to find subsequent solutions.  These subsequent computations pick up where the previous search process ended, limiting redundant search.  See Figure \ref{fig:search-continue}.
 
 By exhaustively computing the iterator above we may also traverse the entire tree and can minimize over all valid leaves.  This computation may be prohibitively expensive in some cases but remains possible when the size of the tree is small.
 
 
 #### Repeated Nodes - Dynamic Programming
 
-If equivalent nodes are found in multiple locations then we can increase search efficiency by considering a DAG rather than tree search problem.  This is equivalent to dynamic programming and can be achieved by memoizing the intermediate shared results.  The tree search functions presented above can be transformed into their DAG equivalents with a `memoize` function decorator.
+If equivalent nodes are found in multiple locations then we can increase search efficiency by considering a DAG rather than tree search problem.  This method is equivalent to dynamic programming and can be achieved by memoizing the intermediate shared results.  The tree search functions presented above can be transformed into their DAG equivalents with a `memoize` function decorator.
 
 
 ### Extensions
@@ -148,7 +148,7 @@ In this section we discuss a few generalizations of greedy search.
 
 #### K-deep greedy 
 
-Rather than compute and then minimize over the children of a node we could compute and minimize over the grandchildren.  More generally we can compute and minimize over the descendents of depth k.  This method increases foresight and computational cost.
+Rather than compute and then minimize over the children of a node we could compute and minimize over the grandchildren.  More generally we can compute and minimize over the descendants of depth k.  This method increases foresight and computational cost.
 
 #### Breadth first 
 
@@ -156,4 +156,4 @@ The greedy search above is *depth first*.  It exhausts its current subtree befor
 
 #### Expanding Frontier
 
-Both depth and breadth first are special cases of an expanding frontier, navigating the graph (evaluating `children`) at nodes adjacet to those just visited.  This restriction of adjacency is not essential.  Instead we can maintain a set of accessible nodes and select a global optimum to evaluate.
+Both depth and breadth first are special cases of an expanding frontier, navigating the graph (evaluating `children`) at nodes adjacent to those just visited.  This restriction of adjacency is not essential.  Instead we can maintain a set of accessible nodes and select a global optimum to evaluate.

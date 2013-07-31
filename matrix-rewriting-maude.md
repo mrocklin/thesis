@@ -4,7 +4,7 @@ Matrix Rewriting in Maude
 
 \label{sec:matrix-rewriting-maude}
 
-We implement a matrix language in Maude and use rewrite rules to declare mathematical transformations.  Our goal is to demonstrate the simplicity with which mathematical theories can be constructed and the value of intuitive syntax.  This serves as proof of concept for a later implementation using SymPy and LogPy in Section \ref{sec:matrix-rewriting-sympy}.
+We implement a matrix language in Maude and use rewrite rules to declare mathematical transformations.  Our goal is to demonstrate the simplicity with which mathematical theories can be constructed and the value of intuitive syntax.  This discussion serves as proof of concept for a later implementation using SymPy and LogPy in Section \ref{sec:matrix-rewriting-sympy}.
 
 #### Algebra
 
@@ -24,7 +24,7 @@ Note that operators are declared to be associative or commutative as keywords in
 
     inverse(transpose(X) X) transpose(X) y
 
-We then provide a collection of equality transformations like the following
+We then provide a collection of equality transformations like the following:
     
     eq inverse(inverse(A)) = A .    
     eq inverse(A) A = I .           
@@ -44,7 +44,7 @@ This set of relations can be greatly increased with the ability to infer matrix 
     op _is_ : MatrixExpr Predicate -> AppliedPredicate [prec 45].
     op _,_  : Context    Context   -> Context [metadata "Conjoin two contexts"]
 
-This provides the necessary infrastructure to declare a large set of matrix inference rules like the following example rules for symmetry:
+These lines provide the necessary infrastructure to declare a large set of matrix inference rules like the following example rules for symmetry:
 
     var C     : Context .
     vars X Y  : MatrixExpr .
@@ -58,12 +58,12 @@ This provides the necessary infrastructure to declare a large set of matrix infe
 
 #### Refinement
 
-The language and the inference can be combined to generate a rich set of simplification rules like the following:
+The language and the inference can be combined automatically by a user to generate a rich set of simplification rules like the following:
 
     ceq inverse(X) = transpose(X) if X is orthogonal
 
 Statements of this form are clear to mathematical experts.  More importantly the set of relations is sufficiently simple so that it can be extended by these same experts without teaching them the underlying system for their application to expression trees.
 
-The meta-programming approach allows the specification of mathematical relations in a math-like syntax, drastically lowering the barrier of entry for potential mathematical developers.  The term-rewrite infrastructure allows these relations to be automatically applied by mature and computationally efficient strategies.
+The meta-programming approach allows the specification of mathematical relations in a math-like syntax, drastically lowering the barrier of entry for potential mathematical developers.  The term-rewrite infrastructure allows these relations to be applied automatically by mature and computationally efficient strategies.
 
 Unfortunately the Maude system is an exotic dependency in the scientific community and interoperation with low-level computational codes was not a priority in its development.  In Section \ref{sec:matrix-rewriting-sympy} we will attain the ideals presented in this section by composing the Term, SymPy and LogPy packages.

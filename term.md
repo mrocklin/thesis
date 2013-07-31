@@ -6,7 +6,7 @@ Term
 
 Term rewrite systems generally operate on a specific language of terms.  In traditional logic programming languages like Prolog this term language is custom-built for and included within the logic programming system, enabling tight integration between terms and computational infrastructure.  However a custom term language limits interoperation with other term-based systems (like computer algebra systems).  Logic programming systems like miniKanren, written in Scheme, resolve this problem by describing terms with simple s-expressions, enabling broad interoperation with projects that use that same representation within its intended host language.
 
-S-expressions are not idiomatic within the Python ecosystem and few projects define terms in this way.  The intended object oriented approach to this problem is to create an interface class and have client classes implement this interface if they want to interoperate with term manipulation codes. Unfortunately the Python ecosystem lacks a common interface for term representation in the standard sense.  The lowest common shared denominator is the Python `object`.
+S-expressions are not idiomatic within the Python ecosystem and few projects define terms in this way.  The intended object-oriented approach to this problem is to create an interface class and have client classes implement this interface if they want to interoperate with term manipulation codes. Unfortunately the Python ecosystem lacks a common interface for term representation in the standard sense.  The lowest common shared denominator is the Python `object`.
 
 
 #### Interface
@@ -28,7 +28,7 @@ The `term` library also provides general utility functions for search and unific
 
 #### Composition
 
-In Python most systems that manipulate terms (like existing logic programming projects) create an interface which must be inherited by objects if they want to use the functionality of the system.  This approach requires both foresight and coordination with the client projects.  It is difficult to convince project organizers to modify their code to impement these interfaces, particularly if that code is pre-existing and well established.
+In Python most systems that manipulate terms (like existing logic programming projects) create an interface which must be inherited by objects if they want to use the functionality of the system.  This approach requires both foresight and coordination with the client projects.  It is difficult to convince project organizers to modify their code to implement these interfaces, particularly if that code is pre-existing and well established.
 
 Term was designed to interoperate with legacy systems where changing the client codebases to subclass from `term` classes is not an option.  In particular, `term` was designed to simultaneously support two computer algebra systems, SymPy and Theano.  Both of these projects are sufficiently entrenched to bar the possibility of changing the underlying data structures.  This application constraint forced a design which makes minimal demands for interoperation; ease of composition is a core tenet.
 
@@ -42,9 +42,9 @@ To achieve interoperation we need to know how to do the following:
 To be useful in a client codebase we must specify how to interact with client types as terms.  These can be added after code import time in two ways:
 
 *   Dispatch on global registries
-*   Dynamic manipulation of client classes (monkey patching)
+*   Dynamic manipulation of client classes
 
-The functions `new, op, args, and isleaf` query appropriate global registries and search for the methods `_term_new`, `_term_op`, `_term_args`, `_term_isleaf` on their input objects.  These method names are intended to be monkey-patched onto client classes if they do not yet exist and is done dynamically at runtime.  This patching is possible after import time only due to Python's permissive and dynamic object model.  This practice is dangerous in general only if other projects use the same names.
+The functions `new, op, args, and isleaf` query appropriate global registries and search for the methods `_term_new`, `_term_op`, `_term_args`, `_term_isleaf` on their input objects.  These method names are intended to be added onto client classes if they do not yet exist dynamically at runtime (so called "monkey patching").  This patching is possible after import time only due to Python's permissive and dynamic object model.  This practice is dangerous in general only if other projects use the same names.
 
 Because most Python objects can be completely defined by their type and attribute dictionary the following methods are usually sufficient for any Python object that does not use advanced features.
 

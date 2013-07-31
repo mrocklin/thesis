@@ -10,7 +10,7 @@ The following arguments support this principle
 
 #### Math changes more slowly than Software
 
-Software may change due to evolution in programming languages, radical shifts in hardware, or simply due to the adoption of an old technique by a new community.  Conversely much of the mathematics used in computation is well established and changes relatively slowly.  By separating the mathematics (a slowly changing component) from the software (a rapidly changing component) we reduce the extent of the expertise which must be frequently rewritten due to the natural evolution of the scientific computing ecosystem.
+Software may change due to evolution in programming languages, radical shifts in hardware, or simply due to the adoption of an old technique by a new community.  Conversely much of the mathematics used in computation is well established and changes relatively slowly.  By separating the mathematics (a slowly changing component) from the software (a rapidly changing component) we reduce the frequency with with expertise must be rewritten.
 
 
 #### Demographics
@@ -19,7 +19,7 @@ Deep understanding of both computational mathematics and software engineering is
 
 #### Definition
 
-We use Term Rewrite Systems to enable the separation of mathematics from software.  A term rewrite system is composed of the following:
+We use term rewrite systems to enable the separation of mathematics from software.  A term rewrite system is composed of the following:
 
 1.  A language of terms
 2.  A collection of isolated transformations on those terms
@@ -27,7 +27,7 @@ We use Term Rewrite Systems to enable the separation of mathematics from softwar
 
 In our case the terms are mathematical expressions, the transformations are known mathematical relations, and the system of coordination is abstracted as a graph search problem.  This approach separates mathematics from software.  The language and transformations are mathematical while the system for coordination is algorithmic.  The isolated nature of the transformations limits the extent to which mathematical programmers need to understand the broader software context.  The system for coordination need not depend on the transformations themselves, eliminating the need for mathematical understanding from an algorithmically centered task.
 
-Explicitly term rewrite systems confer the following benefits in the context of mathematical computing:
+Specifically term rewrite systems confer the following benefits in the context of mathematical computing:
 
 *   Mathematical programmers can focus on much smaller units of software
 *   Algorithmic programmers without mathematical training can be enlisted
@@ -51,4 +51,4 @@ def unpack_log_exp_if_real(term):
         return term.args[0].args[0]  # unpack both `log` and `exp`
 ~~~~~~~~~~
 
-We appreciate that this transformation is isolated and compact.  The function `unpack_log_exp_if_real` may be one of a large set of transformations, each of which transform terms to other, possibly better terms.  This approach of many small `term -> term` functions isolates the mathematics from the coordination of the functions.  A mathematical programmer may easily encode several such functions without thinking about how they are applied while an algorithmic programmer may develop sophisticated systems to coordinate these many functions without thinking about what math they represent.
+We appreciate that this transformation is isolated and compact.  The function `unpack_log_exp_if_real` may be one of a large set of transformations, each of which transform terms to other, possibly better terms.  This approach of many small `term -> term` functions isolates the mathematics from the coordination of the functions.  A mathematical programmer may easily encode several such functions without thinking about how they are applied while an algorithmic programmer may develop sophisticated systems to coordinate these many functions without thinking about the math they represent.
