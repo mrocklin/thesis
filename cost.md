@@ -4,7 +4,7 @@ Cost
 
 \label{sec:cost}
 
-Scientific software is also of great cost to sciety.  Scientific researchers spend more and more of their time engineering software.  
+Scientific software is also of great cost to society.  Scientific researchers spend more and more of their time engineering software.  
 
 Scientific software is costly because it is difficult. The computational solution of scientific problems often require expertise from a variety of scientific, mathematical, and computational fields; in addition they must be formally encoded into software.  This task is intrinsically difficult and therefore costly.  
 
@@ -23,15 +23,15 @@ These problems also often benefit from rich and mature mathematical theory built
 
 Existing code may not be applied to novel problems for any of the following reasons
 
-1.  It is not released to the public or sufficiently documented
+1.  It is not released to the public or is not sufficiently documented
 2.  The new researcher may not know to look for it
-3.  It integrates too many details about the previous application or architecture
+3.  It integrates too many details about previous application or architecture
 
 Coding practices, package managers, and general software support/infrastructure from the general programming community have alleviated many of these issues recently.  Tool support and dependency systems have enabled the widespread propagation of small general purpose utilities.  A culture of open source scientific code sharing around accessible scripting languages has drastically lowered the bar to obtaining, building, and integrating foreign code.
 
 Unfortunately this development rarely extends to more sophisticated solutions.  Particularly, this dissertation is concerned with the last issue in the context of sophisticated algorithms; existing code often integrates too many details about the previous application or architecture.
 
-Older scientific software often assumes too much about its original application.  E.g. codes for the interaction of many particles may be specialized to molecular dynamics, limiting their applicability to similar problems in astronomy such as the simulation of stellar systems within globular clusters.  Broadly useful code elements are often tightly and unnecessarily integrated into application-specific code elements within a single codebase.  Extracting relevant components from irrelevant ones may be more difficult than simply rewriting the relevant components from scratch.  Unfortunately, this rewritten work may continue to suffer from the original flaw of integrating general components into domain specific ones.  As a result the same algorithm ends up implemented again and again in several marginally different scientific projects, each at a substantial cost to society.
+Older scientific software often assumes too much about its original application.  E.g. codes for the interaction of many particles may be specialized to molecular dynamics, limiting their applicability to similar problems in astronomy, such as the simulation of stellar systems within globular clusters.  Broadly useful code elements are often tightly and unnecessarily integrated into application-specific code elements within a single codebase.  Extracting relevant components from irrelevant ones may be more difficult than simply rewriting the relevant components from scratch.  Unfortunately, this rewritten work may continue to suffer from the original flaw of integrating general components into domain specific ones.  As a result the same algorithm ends up being implemented again and again in several marginally different scientific projects, each at a substantial cost to society.
 
 #### Incentives 
 

@@ -13,7 +13,6 @@ Additionally, this dissertation discusses the virtues of modularity within this 
 *   A composable Python implementation of miniKanren, a logic programming system
 *   A conglomerate compiler from matrix expressions to intelligently selected computational routines 
 
-Conceptually this software experiment has yielded the following novel ideas within the context of numerical linear algebra:
+Conceptually this software experiment has yielded the following novel idea within the context of numerical linear algebra:
 
 *   The use of logic inference over mathematical attributes for algorithm selection
-*   The use of static scheduling for distributed numerical linear algebra

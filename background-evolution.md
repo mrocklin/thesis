@@ -11,12 +11,12 @@ While these efforts are both commendable and groundbreaking, they must often sac
 
 #### Static Libraries
 
-Fortunately as trends in scientific computing emerge computer science communities are incentivized to produce generally applicable codes for use across many simulations.  Libraries like BLAS/LAPACK, FFTW, QUADPACK, ARPACK, etc... were created and refined early on and maintain relevance today.  These battle-hardened codes form a set of high-level primitive operations on which much of the core community relies.
+Fortunately as trends in scientific computing emerge computer science communities are encouraged to produce generally applicable codes for use across many simulations.  Libraries like BLAS/LAPACK, FFTW, QUADPACK, ARPACK, etc... were created and refined early on and maintain relevance today.  These battle-hardened codes form a set of high-level primitive operations on which much of the core community relies.
 
 
 #### Scripting Languages
 
-As computers become more prevalent the use of numeric methods expands into smaller and less computationally specialized disciplines and research groups.  Groups without formal training in writing scientific code may find historical systems and interfaces challenging.
+As computers become more prevalent, the use of numeric methods expands into smaller and less computationally specialized disciplines and research groups.  Groups without formal training in writing scientific code may find historical systems and interfaces challenging.
 
 Scripting languages like Matlab, R, and Python address this growing user group by providing high-level dynamic languages with permissive syntax and interactive use.  Unfortunately the lack of explicit types and a compilation step drastically reduces the performance of codes written within these languages.  Linking low-level performant codes (e.g. tuned matrix multiplication) to high-level routines (e.g. Matlab's `*` operator) bridges this gap on a small but expressive set of array primitives.  Scripting languages linked to low-level libraries are often sufficiently performant for many array programming tasks found in small research labs.
 

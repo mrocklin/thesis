@@ -8,7 +8,7 @@ An alternative approach is to collect a group of experts for the long-term devel
 
 Numerical weather prediction benefits society.  Major industries like agriculture and construction rely on short-term forecasts to determine day-to-day operation.  The power grid relies on 12-24 hour forecasts to predict both load (due to climate control) and supply (due to weather dependent renewable energies) so that it can maintain a balanced resource without blackouts or burnouts.  Severe weather events are substantially less fatal due to several day advanced warning.  Food is substantially cheaper; agriculture insurance is a multi-billion dollar industry in the United States alone.
 
-Numerical weather prediction is also computationally challenging.  It requires substantial atmospheric modeling, the simulation of difficult PDEs that represent an inherently chaotic system.  These must be solved over a very large domain (the United States) and yet very finely resolved both in space (10km) and in time (minutes) to maintain numerical stability.  Forecasts must be rerun frequently as a variety of new observations are recorded and assimilated and they must be run substantially faster than nature herself evolves.
+Numerical weather prediction is also computationally challenging.  It requires substantial atmospheric modeling to simulate difficult sets of PDEs that represent an inherently chaotic system.  These must be solved over a very large domain (the United States) and yet very finely resolved both in space (10km) and in time (minutes) to maintain numerical stability.  Forecasts must be rerun frequently as a variety of new observations are recorded and assimilated and they must be run substantially faster than nature herself evolves.
 
 #### WRF
 
@@ -40,7 +40,7 @@ do k = kte, kts, -1
                     *sqrt(sqrt(den0/(den(i,k,j)))))
 ~~~~~~~~~
 
-This snippet encodes the physics behind the melting of snow under certain conditions.  It is a large mathematical expression iterated over arrays in a do-loop.  This pattern is repeated in this routine for other physical processes such as "instantaneous melting of cloud ice", "homogeneous freezing of cloud water below -40c", "evaporation/condensation rate of rain", etc.... 
+This snippet encodes the physics behind the melting of snow under certain conditions.  It is a large mathematical expression iterated over arrays in a do-loop.  This pattern is repeated in this routine for other physical processes such as "instantaneous melting of cloud ice", "homogeneous freezing of cloud water below -40c", "evaporation/condensation rate of rain", etc. 
 
 
 #### Adaptability to Hardware
@@ -100,7 +100,7 @@ Despite these similarities the two codebases often produce substantially differe
 
 NCAR has forked and adjusted `WRF` for specific situations.  The Hurricane Weather Research Forecasting Model (`HWRF`) modifies `WRF` to be particularly suitable in the case of severe storms.  Particular models have been developed to support more perturbed states.
 
-`WRFDA` is an implementation of `WRF` for data assimilation.  The latest version contains experimental algorithms for 4D-var, a new numerical technique that uses automatic derivatives to assimilate new observations more efficiently.  This was done by applying automated AD compilers to a stripped down version of `WRF` with some troublesome modules rewritten more simply.  Unfortunately, the complete version of `WRF` was not amenable to automated transformation.
+`WRFDA` is an implementation of `WRF` for data assimilation.  The latest version contains experimental algorithms for 4D-var, a new numerical technique that uses automatic derivatives to assimilate new observations more efficiently.  This change was accomplished by applying automated AD compilers to a stripped down version of `WRF` with some troublesome modules rewritten more simply.  Unfortunately, the complete version of `WRF` was not amenable to automated transformation.
 
 #### Climate
 

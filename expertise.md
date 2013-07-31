@@ -4,7 +4,7 @@ Expertise
 
 \label{sec:expertise}
 
-Modularity allows single-field experts to meaningfully contribute their expertise broadly across applications.  This can yield immeasurable value.  In this section we discuss the value, distribution, and demands of expertise in scientific applications.  We use integration by numeric quadrature as a running example.
+Modularity allows single-field experts to meaningfully contribute their expertise broadly across applications, yielding immeasurable value.  In this section we discuss the value, distribution, and demands of expertise in scientific applications.  We use integration by numeric quadrature as a running example.
 
 #### Skewed Distribution
 

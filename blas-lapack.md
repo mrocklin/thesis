@@ -7,7 +7,7 @@ The Basic Linear Algebra Subroutines are a library of routines to perform common
 
 The BLAS are organized into three levels
 
-*   Level-1:  Vector-Vector operations, like elementwise addition
+*   Level-1:  Vector-Vector operations, like element-wise addition
 *   Level-2:  Matrix-Vector operations, like Matrix-vector multiply or solve
 *   Level-3:  Matrix-Matrix operations, like Matrix-Matrix multiply or solve
 
@@ -21,7 +21,7 @@ In fact, Level-3 BLAS operations are one of the few cases where computational in
 
 #### Linear Algebra Package (LAPACK)
 
-The Linear Algebra Package (LAPACK) is a library that builds on BLAS to solve more complex problems in dense numerical linear algebra.  LAPACK includes routines for the solution of systems of linear equations, matrix factorizations, eigenvalue problems, etc....
+The Linear Algebra Package (LAPACK) is a library that builds on BLAS to solve more complex problems in dense numerical linear algebra.  LAPACK includes routines for the solution of systems of linear equations, matrix factorizations, eigenvalue problems, etc.
 
 Algorithms for the solution of these operations often require standard operations on dense matrices.  Where possible LAPACK depends on BLAS for these operations.  This isolates the majority of hardware-specific optimizations to the BLAS library, allowing LAPACK to remain relatively high-level.  Optimizations to BLAS improve LAPACK without additional development.
 
@@ -33,7 +33,7 @@ LAPACK operations like matrix factorizations can often be solved by multiple alg
 
 #### Interface
 
-These subroutines do not adhere to a hierarchically structured interface.  instead BLAS/LAPACK rpvoides a flat, low-level interface.  Parameters to BLAS/LAPACK routines include scalars (real, complex, integer) of varying precision, arrays of those types, and strings.  These types are widely implemented in general purpose programming languages.  As a result many numerical packages in other languages link to BLAS/LAPACK, extending their use beyond Fortran users.  In particular array-oriented scripting languages like MatLab, R, and Python/NumPy rely on BLAS/LAPACK routines for their array operators.
+These subroutines do not adhere to a hierarchically structured interface.  Instead BLAS/LAPACK provides a flat, low-level interface.  Parameters to BLAS/LAPACK routines include scalars (real, complex, integer) of varying precision, arrays of those types, and strings.  These types are widely implemented in general purpose programming languages.  As a result many numerical packages in other languages link to BLAS/LAPACK, extending their use beyond Fortran users.  In particular array-oriented scripting languages like MatLab, R, and Python/NumPy rely on BLAS/LAPACK routines for their array operators.
 
 However, simplicity of parameter types significantly increases their cardinality.  In higher level languages array objects often contain fields for a data pointer, shape, and stride/access information.  In BLAS/LAPACK these must be passed explicitly.
 
