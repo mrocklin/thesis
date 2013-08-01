@@ -30,6 +30,8 @@ the following
     python 2.7
     pdflatex
     bibtex
+    dot
+    svg2pdf
 
 License
 -------
