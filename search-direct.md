@@ -4,6 +4,8 @@ Greedy Search with Backtracking
 
 \label{sec:search-direct}
 
+Pattern matching enables the declarative expression of a large number of transformations.  To be used effectively these transformations must be coordinated intelligently.  In this section we complement the previous discussion on pattern matching with a discussion of coordination strategies.
+
 ### Problem Description
 
 The projects within this dissertation match and apply one of a set of possible transformations to a term.  This process is often repeated until no further transformations apply.  This process is not deterministic; each step may engage multiple valid transformations.  These in turn may yield multiple different transformation paths and multiple terminal results.  These steps and options define a graph with a single root node.  The root is the input expression and the nodes with zero out-degree (leaves) are terminal states on which no further transformation can be performed.

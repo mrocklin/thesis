@@ -72,7 +72,7 @@ Two important logical goal combinators are logical all `lall` and logical any `l
 
 #### User Syntax
 
-These combinators and goals are accessed with the `run` function as in miniKanren:
+These combinators and goals are accessed with the `run` function as in miniKanren.  `run` has three arguments, the number of desired results, the desired target variable, and a set of goals to satisfy.  The number of desired results can also take on the value `0` for "all results" or `None` for a lazy iterator.  Examples are shown below:
 
     >>> run(0, x, lall(membero(x, (1, 2, 3)),
     ...                membero(x, (2, 3, 4)))

@@ -1,10 +1,10 @@
 
-Introduction
-------------
+Design
+------
 
 \label{sec:cas-introduction}
 
-Before we leverage mathematics to generate efficient programs we must first describe mathematics in a formal manner amenable to automated reasoning.  To this end we engage computer algebra systems.
+To describe and leverage mathematics to generate efficient programs we must first describe mathematics in a formal manner amenable to automated reasoning.  In this section we describe the basic design of most computer algebra systems.
 
 
 #### Data Structure
@@ -16,7 +16,7 @@ Before we leverage mathematics to generate efficient programs we must first desc
 \label{fig:expr}
 \end{wrapfigure}
 
-Computer Algebra Systems (CAS) enable the expression and manipulation of mathematical terms.  In real analysis a mathematical term may be a literal like `5`, a variable like `x` or a compound term like `5 + x` composed of an operator like `Add` and a list of child terms `(5, x)`
+Computer Algebra Systems enable the expression and manipulation of mathematical terms.  In real analysis a mathematical term may be a literal like `5`, a variable like `x` or a compound term like `5 + x` composed of an operator like `Add` and a list of child terms `(5, x)`
 
 We store mathematical terms in a tree data structure in which each node is either an operator or a leaf term.  For example the expression $\log(3 e^{x + 2})$ can be stored as shown in Figure \ref{fig:expr}.
 

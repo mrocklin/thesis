@@ -54,7 +54,7 @@ These lines provide the necessary infrastructure to declare a large set of matri
     ceq C => transpose(X)     is symmetric = true if C => X is symmetric .
     eq  C => transpose(X) X   is symmetric = true .
 
-`matrix-algebra` contains dozens of such statements.
+`eq` statements describe equality relations, `ceq` statements describe equality relations that are conditional on some expression, e.g. `C => X is symmetric`.  `matrix-algebra` contains dozens of such statements.
 
 #### Refinement
 
