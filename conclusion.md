@@ -22,7 +22,7 @@ Additionally, as software increases in modularity packages become more granular.
 
 #### Package Management
 
-Software is often packaged together in order to reduce the cost of configuration, build, and installation.  As modern ecosystems develop more robust package managers this cost decreases, thus enabling finer granularity and increased modularity.  Multi-lingual ecosystems without good standards on versioning can complicate this issue substantially.  Package management and installation tools such as pip/easy_install (Python) and CRAN (R) have alleviated these problems for many novice users.  They continue to break under more complex situations.  Further development into this field is necessary before fine-grained modularity becomes possible.
+Software is often packaged together in order to reduce the cost of configuration, build, and installation.  As modern ecosystems develop more robust package managers this cost decreases, thus enabling finer granularity and increased modularity.  Multi-lingual ecosystems without good standards on versioning can complicate this issue substantially.  Package management and installation tools such as pip/easy_install (Python) and CRAN (R) have alleviated these problems for many novice users.  They continue to break under more complex situations.  Further development into this field is necessary before wide-spread use of fine-grained modularity is possible.
 
 
 Analytics
@@ -37,7 +37,7 @@ These relationships describe a large complex graph.  The code elements of this g
 This process has at least the following two benefits:
 
 *   By assigning a value to programmer time and identifying modular elements we may be able to attribute an added cost of tightly coupled, unmodular code.
-*   By looking at download counts and dependency graphs we can attribute impact factors to projects, teams, or individual developers.  By publishing an impact factor that benefits from good software engineering we hope to incentivize better practices in the future.
+*   By looking at download counts and dependency graphs we can attribute impact factors to projects, teams, or individual developers.  By publishing an impact factor that benefits from good software engineering we hope to encourage better practices in the future.
 
 Understanding and expertise precede optimization.
 
@@ -53,11 +53,11 @@ Concrete software contributions include the following:
 
 #### SymPy Matrix Expressions
 
-An extension of a computer algebra system to matrix algebra including both a general language and a robust inference system.  This is the first such system to pose and answer questions about abstractly defined matrices.  It serves as repository for commonly used theory of the style found in the popular Matrix Cookbook.  We demonstrated the value of this theory in the creation of numerical computations.
+An extension of a computer algebra system to matrix algebra including both a general language and a robust inference system.  This system is the first to pose and answer questions about abstractly defined matrices.  It serves as repository for commonly used theory of the style found in the popular Matrix Cookbook.  We demonstrated the value of this theory in the creation of numerical computations.
 
 #### Computations
 
-A high level encapsulation of popular low-level libraries, particularly BLAS/LAPACK, MPI, and FFTW.  This system lifts the de-facto scientific programming primitives to a level that is more accessible to non-expert users.  It also serves as a high-level target to automated systems, encapsulating many of the simple decisions made in traditional compilation.
+A high level encapsulation of popular low-level libraries, particularly BLAS/LAPACK, MPI, and FFTW.  This system lifts the de-facto scientific programming primitives to a level that is more accessible to non-expert users.  It also serves as a high-level target for automated systems, encapsulating many of the simple decisions made in traditional compilation.
 
 #### Term, LogPy
 
@@ -65,7 +65,7 @@ The `term` and `logpy` libraries support the composition of logic programming wi
 
 #### Conglomerate
 
-We compose the above three elements to translate mathematical matrix expressions into low-level Fortran code that makes sophisticated use of low-level libraries.  This brings the power of mature but aging libraries into new communities without a tradition in low-level software.  It serves as a repository for the expertise of numerical analysis.
+We compose the above three elements to translate mathematical matrix expressions into low-level Fortran code that makes sophisticated use of low-level libraries.  This conglomerate project brings the power of mature but aging libraries into new communities without a tradition in low-level software.  It serves as a repository for the expertise of numerical analysis.
 
 #### Static Schedulers
 
@@ -73,11 +73,11 @@ We provide a high-level interface and two isolated implementations of static sch
 
 #### SymPy.stats
 
-An extension of SymPy enables the expression of uncertainty in mathematical models.  The abstraction of random variables allows the concepts of uncertainty to compose cleanly with other elements of the computer algebra system.  This is the first such system within a general computer algebra system.  By relying on and translating to other well used interfaces (like integral expressions) it is able to be broadly accessible while tightening its development scope enabling single-field statisticians to have broad impact in a range of applications.
+An extension of SymPy enables the expression of uncertainty in mathematical models.  The abstraction of random variables allows the concepts of uncertainty to compose cleanly with other elements of the computer algebra system.  This module is the first such system within a general computer algebra system.  By relying on and translating to other well used interfaces (like integral expressions) it is able to be broadly accessible while tightening its development scope enabling single-field statisticians to have broad impact in a range of applications.
 
 
 ### Principles 
 
-This dissertation demonstrates the value of small composable software modules that align themselves with existing specialist communities.  Experiments in this dissertation focused on the ease with which systems to select and implement sophisticated methods could be developed once the software system was properly separated.  We showed how experts in linear algebra, numerical libraries, and statistics could each provide improvements that significantly impacted numerical performance.  Each of these improvements was trivial from someone within that field and did not depend on simultaneous expertise in other fields.  
+This dissertation demonstrates the value of small composable software modules that align themselves with existing specialist communities.  Experiments in this dissertation focused on the ease with which systems to select and implement sophisticated methods could be developed once the software system was properly separated.  We showed how experts in linear algebra, numerical libraries, and statistics could each provide improvements that significantly impacted numerical performance.  Each of these improvements was trivial for someone within that field and did not depend on simultaneous expertise in other fields.  
 
 As the scope of computational science continues to expand we believe that adaptation to developer demographics will increase in importance.

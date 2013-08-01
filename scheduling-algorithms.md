@@ -31,13 +31,13 @@ Outputs:
 
 *   Mapping of `Agent` $\rightarrow$ `Task Directed Acyclic Graph`
 
-I.e. we take information about a computation (a DAG), a network (a graph), and compute and communication times (functions) and produce a set of sub-computations (a set of DAGs) such that each sub-computation is assigned to one of the worker agents.  
+That is we take information about a computation (a DAG), a network (a graph), and compute and communication times (functions) and produce a set of sub-computations (a set of DAGs) such that each sub-computation is assigned to one of the worker agents.  
 
 We implement two static scheduling algorithms that satisfy this interface.
 
 #### Mixed Integer Linear Programming
 
-We pose the heterogeneous static scheduling problem as a mixed integer linear program as was done by Tompkins in \cite{Tompkins2003}.  Integer programming is a standard description language with a rich theory and mature software solutions.  It is an NP-Complete problem with a variety of approximation algorithms.  It is a common intermediate representation to computational engines in operations research.
+We pose the heterogeneous static scheduling problem as a mixed integer linear program as was done by Tompkins\cite{Tompkins2003}.  Integer programming is a standard description language with a rich theory and mature software solutions.  It is an NP-Complete problem with a variety of approximation algorithms.  It is a common intermediate representation to computational engines in operations research.
 
 
 #### Dynamic List Scheduling Heuristic

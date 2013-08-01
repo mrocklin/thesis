@@ -20,7 +20,7 @@ $$ \begin{bmatrix} A & B \\\\ C & D \end{bmatrix}
    \begin{bmatrix} A E + B G & A F + B K \\\\ 
                    C E + D G & C F + D K\end{bmatrix} $$
 
-We are now able to focus on substantially smaller chunks of the array that fit more comfortably in memory allowing us to improve memory locality during execution.  For example we can choose to keep `A` in local memory and perform all computations that involve `A` (i.e. $AE$, $AF$) before releasing it permanently.  We will still need to shuffle some memory around (this is inevitable) but by organizing with blocks we're able to shuffle less.  This idea extends beyond matrix multiplication.  Matrix inverse expressions can also be expanded. 
+We are now able to focus on substantially smaller chunks of the array that fit more comfortably in memory allowing us to improve memory locality during execution.  For example we can choose to keep `A` in local memory and perform all computations that involve `A` (i.e. $AE$, $AF$) before releasing it permanently.  We will still need to shuffle some memory around (this need is inevitable) but by organizing with blocks we're able to shuffle less.  This idea extends beyond matrix multiplication.  Matrix inverse expressions can also be expanded. 
 
 $$ \begin{bmatrix} A & B \\\\ C & D \end{bmatrix} ^{-1}
    \rightarrow
@@ -36,34 +36,9 @@ Fortunately, SymPy can generate these high-level blocked matrix mathematical exp
 
 #### General Code to Block the Kalman Filter
 
-SymPy can define and reduce the blocked Kalman filter using matrix relations like those shown above for multiplication and inversion.  The listing below shows all the code necessary to block the Kalman filter into blocks of size `n/2`.  The code is dense and not particularly insightful but demonstrates that blocking, a general mathematical transformation can be transferred to a computatinoal context with a small amount of general purpose glue code.  SymPy is able to block a large computation with the following general purpose commands.
+SymPy can define and reduce the blocked Kalman filter using matrix relations like those shown above for multiplication and inversion.  The listing below shows all the code necessary to block the Kalman filter into blocks of size `n/2`.  The code is dense and not particularly insightful but demonstrates that blocking, a general mathematical transformation can be transferred to a computational context with a small amount of general purpose glue code.  SymPy is able to block a large computation with general purpose commands.  No special computation-blocking library needs to be built.
 
-~~~~~~~~~~~~~~~Python
-from sympy import blockcut, block_collapse
-blocksizes = {
-        Sigma: [(n/2, n/2), (n/2, n/2)],
-        H:     [(k/2, k/2), (n/2, n/2)],
-        R:     [(k/2, k/2), (k/2, k/2)],
-        mu:    [(n/2, n/2), (1,)],
-        data:  [(k/2, k/2), (1,)]
-        }
-blockinputs = [blockcut(i, *blocksizes[i]) for i in inputs]
-blockoutputs = [o.subs(dict(zip(inputs, blockinputs))) for o in outputs]
-collapsed_outputs = map(block_collapse, blockoutputs)
-~~~~~~~~~~~~~~~
-
-The mathematical expression is then transfomred to a computation with our traditional approach.  No new interface is required for the increase in mathematical complexity.  The two systems are well isolated.  Below we translate this computation into a Theano graph and compile it to low-level code.  Note that this is the same operation as in Section \ref{sec:theano}.  At this stage the expressions/computations are fairly complex and difficult to present.  An image of the computation as a directed acyclic graph is presented in Figure \ref{fig:fblocked}.  This image is not meant to be insightful, rather it is meant to demonstrate the complexity of the underlying programming task.  This would be a difficult operation to coordinate by hand.
-
-~~~~~~~~~~~~~~~Python
-fblocked = theano_function(inputs, collapsed_outputs, dtypes=dtypes)
-~~~~~~~~~~~~~~~
-
-\begin{sidewaysfigure}
-\centering
-\includegraphics[width=\textwidth]{images/fblocked}
-\label{fig:fblocked}
-\caption{The 2-blocked Kalman filter in Theano.  It would be difficult to build this computation by hand.}
-\end{sidewaysfigure}
+The mathematical expression is then transformed to a computation with our traditional approach.  No new interface is required for the increase in mathematical complexity.  The two systems are well isolated.  We can translate the expression into a Theano graph and compile it to low-level code with the same process as in Section \ref{sec:theano}.  The resulting computation calls and organizes over a hundred operations; both the mathematics and the computation would be a difficult to coordinate by hand.
 
 
 #### Numeric Results
@@ -87,4 +62,4 @@ High-level modular systems with mathematical components enable experimentation. 
 
 #### Multiple Backends
 
-Because we invested in interfaces, we were able to trivially plug in a different backend.  This is critical for the comparison and evaluation of components instead of systems.  It also allows features to flow more smoothly between systems.  A loose federation of components is less brittle than a monolithic system.  Components with access to multiple clients encourage comparison, experimentation, and overall accelerate the evolution of scientific software.
+Because we invested in interfaces, we were able to trivially plug in a different backend.  This ability is critical for the comparison and evaluation of components instead of systems.  It also allows features to flow more smoothly between systems.  A loose federation of components is less brittle than a monolithic system.  Components with access to multiple clients encourage comparison, experimentation, and overall accelerate the evolution of scientific software.

@@ -15,11 +15,11 @@ For large matrices over a fast interconnect this problem can be parallelized eff
 
 #### Negative Results
 
-Unfortunately on our test framework the executed runtimes do not match the predictions produced by the scheduler.  Upon close inspection this mismatch is owed to a mismatch in assumptions made by the scheduler and the common MPI implementations.  As they are written the schedulers assume perfect asynchronous communication/computation overlap.  On our architecture with our MPI implementation (`openmpi-1.6.4`), this is not the case and valid transactions for which both the `iRecv` and `iSend` calls have occurred are not guaranteed to transmit immediately, even if the network is open.  The underlying problem is the lack of a separate thread for communication in the MPI implementation.
+Unfortunately on our test framework the executed runtimes do not match the predictions produced by the scheduler.  Upon close inspection this mismatch is owed to a mismatch in assumptions made by the scheduler and the common MPI implementations.  As they are written the schedulers assume perfect asynchronous communication/computation overlap.  On our architecture with our MPI implementation (`openmpi-1.6.4`), this assumption is not the case and valid transactions for which both the `iRecv` and `iSend` calls have occurred are not guaranteed to transmit immediately, even if the network is open.  The underlying problem is the lack of a separate thread for communication in the MPI implementation.
 
 #### Details on the Communication Issue
 
-To better understand the communication failure we focus on a particular computation within our program, the multiplication of `X*Y` via a `GEMM` on Machine 1.  Times and code have been altered for presentation.  General magnitudes and ordering have been preserved.
+To better understand the communication failure we focus on a particular computation within our program, the multiplication of `X*Y` via a `GEMM` on Machine 1.  Times have been rounded for presentation.  General magnitudes and ordering have been preserved.
 
     Machine 1                  Actual Start Time    Scheduled Start Time
 
@@ -35,13 +35,13 @@ To better understand the communication failure we focus on a particular computat
     ... Time consuming work ...
     iSend(A to 1)                           3.00                    3.00
 
-Note the discrepancy between the actual and scheduled start time of the `GEMM` operation on Machine 1.  This operation depends on `X`, generated locally, and `Y`, transferred from Machine 2.  Both the `iSend` and `iRecv` for this transfer started near the beginning of the program.  Based on the bandwidth of `1e8 Bytes/s` and data size of $1000^2*8 Bytes$, we expect a transfer time of around `0.1` seconds as is reflected in the schedule.  Instead, from the perspective of Machine 1, the `Wait` call blocks on this transfer for three seconds.  It appears that the transfer of `X` is implicitly blocked by the transfer of `A`, presumably by scheduling policies internal to the MPI implementation.  As a result of this inability to coordinate asynchronous transfers across the machines at precise times the computation effectively runs sequentially.
+Note the discrepancy between the actual and scheduled start time of the `GEMM` operation on Machine 1.  This operation depends on `X`, generated locally, and `Y`, transferred from Machine 2.  Both the `iSend` and `iRecv` for this transfer started near the beginning of the program.  Based on the bandwidth of `1e8 Bytes/s` and data size of $1000^2*8 Bytes$, we expect a transfer time of around `0.1` seconds as is reflected in the schedule.  Instead, from the perspective of Machine 1, the `Wait` call blocks on this transfer for three seconds.  It appears that the transfer of `X` is implicitly blocked by the transfer of `A`, presumably by scheduling policies internal to the MPI implementation.  As a result of this inability to coordinate asynchronous transfers across the machines at precise times, the computation effectively runs sequentially.
 
 #### Approaches for Resolution
 
 This problem could be resolved in the following ways: 
 
-*   The spawning of threads to handle simultaneous communication (so-called progress threads).  Historically many MPI implementations have threads to handle communication even when control is not explicitly given to the library.  These are disabled by default for due to overhead concerns in common-case applications and development support for them has ceased (at least in our implementation).  This deprecated feature suits our needs well.
+*   The spawning of threads to handle simultaneous communication (so-called progress threads).  Historically many MPI implementations have used threads to handle communication even when control is not explicitly given to the library.  These are disabled by default for due to overhead concerns in common-case applications and development support for them has ceased (at least in our implementation).  This deprecated feature suits our needs well.
 
 *   The careful generation of MPI calls that are mindful of the MPI scheduler in question.  Currently `iRecv` several calls are dumped at the beginning of the routine without thought to how they will be interpreted by the internal MPI scheduler.  By matching this order with the expected availability of data across machines implicit blocks caused by the scheduler may be avoided.
 

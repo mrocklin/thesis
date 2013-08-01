@@ -4,8 +4,7 @@ Predicting Communication Times
 
 \label{sec:communication-times}
 
-In Section \ref{sec:computation-times} we analyzed the predictability of computations on conventional hardware.  We found that array computations on large data sets were generally predictable to an accuracy of one percent.  In this section we perform a similar analysis on communication within a network.  We find a similar result that communication times of bulk data transfer are fairly predictable within a local network.
-
+In Section \ref{sec:computation-times} we analyzed the predictability of computations on conventional hardware.  We found that array computations on large data sets were generally predictable to an accuracy of one percent.  In this section we perform a similar analysis on communication within a network.  We find a similar result that communication times of bulk data transfer are fairly predictable within a local network, in particular a commodity gigabit switch.
 
 We write an MPI computation to transfer arrays between two processes.  We profile this computation, generate and run this code on two nodes within a conventional cluster on a wide range of data sizes.  We plot the relationship between data size and communication time in Figure \ref{fig:communication-time}.  We measure both the duration of the `MPI_Send` and `MPI_Recv` calls for data sizes ranging logarithmically from one eight byte float to $10^7$ floats.  We time each size coordinate multiple times to obtain an estimate of the variance.  
 

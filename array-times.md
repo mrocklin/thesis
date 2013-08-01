@@ -18,7 +18,7 @@ Fortunately, scheduling in the context of array operations in a high performance
 
 #### The Predictability of BLAS Operations
 
-We profile the runtime of the `DGEMM` operation.  We compute a $1000 \times 1000 \times 1000$ dense matrix multiply $1000$ times.  In Figure \ref{fig:gemm-profile-fortran} we present a time series and in Figure \ref{fig:gemm-hist-fortran} a histogram of the same data.  While runtimes are not deterministic we do find that a tight distribution around a central peak with variations less than a percent. 
+We profile the runtime of the `DGEMM` operation.  We compute a $1000 \times 1000 \times 1000$ dense matrix multiply $1000$ times on a workstation with an Intel i5-3320M running `OpenBLAS`.  In Figure \ref{fig:gemm-profile-fortran} we present a time series and in Figure \ref{fig:gemm-hist-fortran} a histogram of the same data.  While runtimes are not deterministic we do find that a tight distribution around a central peak with variations less than a percent. 
 
 
 \begin{figure}[htbp]
@@ -35,7 +35,7 @@ We profile the runtime of the `DGEMM` operation.  We compute a $1000 \times 1000
 \label{fig:gemm-hist-fortran}
 \end{figure}
 
-The context in which computations are run is relevant.  These times were computed on a notebook computer running a traditional operating system.  To study the effects of runtime context we run this same computation within a Python environment.  Compute times are computed strictly within Fortran subroutines but the memory is managed by the Python runtime.  A time series and histogram are presented in Figures  \ref{fig:gemm-profile} and \ref{fig:gemm-hist}.  These times have a marginally shifted central peak (the median value remains similar) but the distribution has widened in two ways.  First, there is a larger population of outliers that require around substantially more time.  Second, the central distribution is substantially wider with variations up to a few percent.
+The context in which computations are run is relevant.  These times were computed on a workstation running a traditional operating system.  To study the effects of runtime context we run this same computation within a Python environment.  Compute times are computed strictly within Fortran subroutines but the memory is managed by the Python runtime.  A time series and histogram are presented in Figures  \ref{fig:gemm-profile} and \ref{fig:gemm-hist}.  These times have a marginally shifted central peak (the median value remains similar) but the distribution has widened in two ways.  First, there is a larger population of outliers that require around substantially more time.  Second, the central distribution is substantially wider with variations up to a few percent.
 
 \begin{figure}[htbp]
 \centering
@@ -57,4 +57,4 @@ Presumably by running this same computation on a high performance machine with a
 
 #### Dynamic Routines
 
-These results on `GEMM` are representative of most but not all BLAS/LAPACK routines.  Some routines, like `GESV` for general matrix solve do perform dynamic checks at runtime on the content of the array.  In special cases, such as when the solving matrix is the identity, different execution paths are taken, drastically changing the execution time.  Ideally such conditions are avoided beforehand at the mathematical level; if a matrix is known ahead-of-time to be the identity then SymPy should be able to reduce it before a `GESV` is ever generated.  If this information is not known ahead of time then schedules may be invalid.  In general we test with random matrices as they are, for most operations, representative of the general/common/poor quality case.  Even this assumption breaks down under iterative methods like conjugate gradient solution, for which this approach is invalid.
+These results on `GEMM` are representative of most but not all BLAS/LAPACK routines.  Some routines, like `GESV` for general matrix solve do perform dynamic checks at runtime on the content of the array.  In special cases, such as when the solving matrix is the identity, different execution paths are taken, drastically changing the execution time.  Ideally such conditions are avoided beforehand at the mathematical level; if a matrix is known ahead-of-time to be the identity then SymPy should be able to reduce it before a `GESV` is ever generated.  If this information is not known ahead of time then schedules may be invalid.  In general we test with random matrices as they are, for most operations, representative of the general/worst case.  Even this assumption breaks down under iterative methods like conjugate gradient solution, for which this approach is invalid.

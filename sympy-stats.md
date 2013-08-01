@@ -4,14 +4,14 @@ SymPy Stats
 
 \label{sec:sympy-stats}
 
-The components and concepts discussed above are applicable to domains outside of numerical linear algebra.  In this section we apply these same ideas to probability and uncertainty.  In our past work\cite{Rocklin2012b} we support uncertainty modeling in computer algebra systems through the addition of a random variable type.  The random variable abstraction allows existing computer algebra functionality to compose cleanly with the notions of probability and statistics.  In this section we'll discuss of the design in that system relevant for the discussion of modularity and show how work on term rewrite systems in this document is able to apply to that older project. 
+The components and concepts discussed above are applicable to domains outside of numerical linear algebra.  In this section we apply these same ideas to probability and uncertainty.  In our past work\cite{Rocklin2012b} we support uncertainty modeling in computer algebra systems through the addition of a random variable type.  The random variable abstraction allows existing computer algebra functionality to compose cleanly with the notions of probability and statistics.  In this section we discuss the design in that system relevant for the discussion of modularity and show how work on term rewrite systems in this document is able to apply to that older project. 
 
 
 #### Composition in SymPy.stats
 
 We enable the expression of uncertain systems in computer algebra through the addition of a random variable type.  A random variable is an algebraic symbol attached to a probability space with a defined probability distribution.  Expressions containing random variables themselves become random.  Expressions containing multiple random variables exist over joint probability distributions.  The addition of conditions restricts the space over which these distributions have support.  Queries on random expressions generate deterministic computations.  
 
-SymPy.stats leverages existing SymPy objects to describe these concepts.  Distributions are described with scalar expressions, joint and conditional probability spaces with SymPy sets, and results with SymPy integral expressions.  SymPy.stats offloads difficult computations onto other, more heavily curated systems, which was the motivating design principle of this project.  This enables the expression of statistical expertise in isolation from these computational concerns.
+SymPy.stats leverages existing SymPy objects to describe these concepts.  Distributions are described with scalar expressions, joint and conditional probability spaces with SymPy sets, and results with SymPy integral expressions.  SymPy.stats offloads difficult computations onto other, more heavily curated systems, which was the motivating design principle of this project.  This organization enables the expression of statistical expertise in isolation from these computational concerns.
 
 
 #### Example
