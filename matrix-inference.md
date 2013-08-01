@@ -61,7 +61,7 @@ As in \ref{sec:sympy-inference-predicate-operator} the relationship between pred
 class AskInvertibleHandler(...):
     @staticmethod
     def MatMul(expr, assumptions):
-        """ An MatMul is invertible if all of its arguments are invertible """
+        """ MatMul is invertible if all arguments are invertible """
         if all(ask(Q.invertible(arg, assumptions) for arg in expr.args)):
             return True
 ~~~~~~~~~~

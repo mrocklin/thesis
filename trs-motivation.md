@@ -47,7 +47,8 @@ We encode this transformation into a computer algebra system like SymPy by manip
 
 ~~~~~~~~~~Python
 def unpack_log_exp_if_real(term):
-    if isinstance(term, log) and isinstance(term.args[0], exp) and ask(Q.real(x)):
+    if (isinstance(term, log) and isinstance(term.args[0], exp) 
+                             and ask(Q.real(x))):
         return term.args[0].args[0]  # unpack both `log` and `exp`
 ~~~~~~~~~~
 

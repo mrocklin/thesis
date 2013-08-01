@@ -130,11 +130,11 @@ Rules for the simplification of such expressions can be written down in SymPy as
 
 ~~~~~~~~~~~~Python
 patterns = [
-    (Normal('X', 0, 1),                         StandardNormal('X'),        True),
-    (StandardNormal('X')**2,                    ChiSquared('X', 1),         True),
-    (ChiSquared('X', m) + ChiSquared('Y', n),   ChiSquared('X', n + m),     True),
-    ...
-    ]
+  (Normal('X', 0, 1),                       StandardNormal('X'),    True),
+  (StandardNormal('X')**2,                  ChiSquared('X', 1),     True),
+  (ChiSquared('X', m) + ChiSquared('Y', n), ChiSquared('X', n + m), True),
+  ...
+  ]
 ~~~~~~~~~~~~
 
 Note that these rules are only valid within a `Density` operation when the user is querying for the distribution of the expression.  They are not true in general because they destroy the notion of which distributions correspond to which random variables in the system (note the loss of `'Y'` in the last pattern).

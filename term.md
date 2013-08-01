@@ -92,7 +92,7 @@ def variables(*variables):
     old = _meta_variables.copy()            # Save old set
     _meta_variables.update(set(variables))  # Inject new variables
 
-    yield                                   # Yield control to `with` block
+    yield                                   # Yield control to with block
 
     _meta_variables.clear()                 # Delete current set
     _meta_variables.update(old)             # Load old set
@@ -114,7 +114,7 @@ The `variables` context manager places `"NAME"` into a global collection and the
 ...     print unify(acct, query, {})
 {"NAME": "Alice"}
 
->>> print unify(acct, query, {})    # Does not unify outside the with block 
+>>> print unify(acct, query, {})  # Does not unify outside the with block 
 False
 ~~~~~~~~~~~~~~
 

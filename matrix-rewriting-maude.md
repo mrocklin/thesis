@@ -15,8 +15,8 @@ The `matrix-algebra`\cite{matrix-algebra} project defines a language for matrix 
 
 And a set of operators with associated precedences.  A subset is included below:
 
-    op _+_       : MatrixExpr MatrixExpr -> MatrixExpr [ctor assoc comm prec 30] .
-    op __        : MatrixExpr MatrixExpr -> MatrixExpr [ctor assoc prec 25] .
+    op _+_   : MatrixExpr MatrixExpr -> MatrixExpr [ctor assoc comm prec 30] .
+    op __    : MatrixExpr MatrixExpr -> MatrixExpr [ctor assoc prec 25] .
     op transpose : MatrixExpr            -> MatrixExpr [ctor] .
     op inverse   : MatrixExpr            -> MatrixExpr [ctor] .
 
