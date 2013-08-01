@@ -31,34 +31,27 @@ $$ \beta = (X^TX)^{-1}X^Ty $$
  MatLab        `beta = inv(X'*X) * X'*y`
 -------------- -----------------------------
 
-The code matches mathematical syntax almost exactly, greatly enabling mathematical programmers.
+The code matches mathematical syntax almost exactly, enabling mathematical programmers.
 
 #### Refined Implementations
 
-Unfortunately the code above is very inefficient.  The average numerical analyst will note that this code first computes explicit inverses and then performs a matrix multiply rather than performing matrix solves, an operation for which substantially cheaper and numerically robust methods exist.  A slight change yields the following, vastly improved implementations:
+Unfortunately this implementation is also inefficient.  A numerical expert would note that this code first computes an explicit inverse and then performs a matrix multiply rather than performing a direct matrix solve, an operation for which substantially cheaper and numerically robust methods exist.  A slight change yields the following, improved implementation:
 
 -------------- -----------------------------
  Python/NumPy  `beta = solve(X.T*X, X.T*y)`
  MatLab        `beta = X'*X \ X'*y`
 -------------- -----------------------------
 
-A particularly astute numerical analyst will find yet another refinement.  In the case when `X` is full rank (this is almost always the case in linear regression) then the left hand side of the solve operation, $X^TX$, is both symmetric and positive definite.  In this case a more efficient solve routine exists based on the Cholesky decomposition.  
+These implementations can again be refined.  In the case when `X` is full rank (this is often the case in linear regression) then the left hand side of the solve operation, $X^TX$, is both symmetric and positive definite.  The symmetric positive definite case supports a more efficient solve routine based on the Cholesky decomposition.
 
-The Matlab backslash operator will perform dynamic checks for this property, while the Python `solve` routine will not.  The Matlab solution however still suffers from operation ordering issues as the backsolve will target the matrix `X'` rather than the vector `(X'*y)`.
+The Matlab backslash operator performs dynamic checks for this property, while the Python/NumPy `solve` routine will not.  The Matlab solution however still suffers from operation ordering issues as the backsolve will target the matrix `X'` rather than the vector `(X'*y)`.
 
-And so a further refined solution might look like the following:
+And so a further refined solution looks like the following, using a specialized solve from the `scipy` Python library and explicitly parenthesizing operations in MatLab.
 
 -------------- -----------------------------
- Python/NumPy  `beta = solve(X.T*X, X.T*y, sym_pos=True)`
+ Python/NumPy  `beta = scipy.solve(X.T*X, X.T*y, sym_pos=True)`
  MatLab        `beta = (X'*X) \ (X'*y)`
 -------------- -----------------------------
-
-
-#### BLAS/LAPACK
-
-The high-level syntax in Python and MatLab calls down to routines found within the BLAS/LAPACK libraries for dense linear algebra.  In particular the routine `POSV` for symmetric positive definite matrix solve is the ideal routine in the case presented above.  Searching for and using the correct routine is non-trivial for scientific developers.
-
-    SUBROUTINE DPOSV( UPLO, N, NRHS, A, LDA, B, LDB, INFO )
 
 
 #### Connecting Math and Computation
@@ -90,6 +83,8 @@ We perform this through a progression of small mathematically informed transform
 \caption{A progression of computations to evolve to the computation in Figure \ref{fig:hat-comp}}
 \label{fig:hat-comp-progression}
 \end{figure}
+
+We engage the pattern matching and search system described in Section \ref{sec:term-rewrite-system} to transform the mathematical expression into the computational directed acyclic graph.
 
 
 #### User Experience
@@ -167,19 +162,19 @@ We now take the most naive user input from SymPy
 And have our compiler build the computation:
 
 ~~~~~~~~~~Python
->>> comp = compile([X, y], [beta], Q.fullrank(X))
 >>> with assuming(Q.real_elements(X), Q.real_elements(y)):
+...     comp = compile([X, y], [beta])
 ...     f = build(comp, [X, y], [beta])
 ~~~~~~~~~~
 
 Our computation originates from the naive user input $(X^TX)^{-1} X^Ty$ but competes with the most sophisticated version that the `scipy` stack provides.
 
-Disclaimer: These times are dependent on matrix size, architecture, and BLAS/LAPACK implementation.  Results may vary.  The relevant point is the comparable performance rather than the explicit numbers.
-
 ~~~~~~~~~~Python
 >>> timeit f(nX, ny)
 10 loops, best of 3: 30.9 ms per loop
 ~~~~~~~~~~
+
+Disclaimer: These times are dependent on matrix size, architecture, and BLAS/LAPACK implementation.  Results may vary.  The relevant point is the comparable performance rather than the explicit numbers.
 
 
 #### Development Result
