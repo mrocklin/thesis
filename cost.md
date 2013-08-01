@@ -35,6 +35,6 @@ Older scientific software often assumes too much about its original application.
 
 #### Incentives 
 
-Unfortunately scientists have little incentive to generalize their codes to other domains.  Existing incentives drive progress within a narrow scientific field, not within the broader field of scientific software.  Producing computational components applicable to foreign fields generally has only marginal value within any individual scientist's career.  Unfortunately this situtation produces a prisoner's dilemma type situation with a globally suboptimal result.
+Unfortunately scientists have little incentive to generalize their codes to other domains.  Existing incentives drive progress within a narrow scientific field, not within the broader field of scientific software.  Producing computational components applicable to foreign fields generally has only marginal value within any individual scientist's career.  Unfortunately this situation produces a prisoner's dilemma type situation with a globally suboptimal result.
 
-It is the position of this dissertation that the construction of a base of modular software can shift incentives to tip the prisonner's dilemma situation towards the global optimum.
+It is the position of this dissertation that the construction of a base of modular software can shift incentives to tip the prisoner's dilemma situation towards the global optimum.

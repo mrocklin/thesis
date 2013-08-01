@@ -27,7 +27,7 @@ Algorithms for the solution of these operations often require standard operation
 
 #### Expert LAPACK Subroutines
 
-LAPACK retains the computationally intense characteristic of Level-3 BLAS and so can provide highly preformant solutions.  However the expert use of LAPACK requires several additional considerations including new storage formats and a selection between multiple valid subroutines.
+LAPACK retains the computationally intense characteristic of Level-3 BLAS and so can provide highly performant solutions.  However the expert use of LAPACK requires several additional considerations including new storage formats and a selection between multiple valid subroutines.
 
 LAPACK operations like matrix factorizations can often be solved by multiple algorithms.  For example matrices can be factored into LU or QR decompositions.  The Cholesky variant of LU can be used only if the left side is symmetric positive definite.  These redundant algorithms are simultaneously included in LAPACK, yielding a large library with thousands of individual routines, a collection of which might be valid in any situation.  Additionally LAPACK internally makes use of utility functions (like matrix permutation) and special storage formats (like banded matrices), further adding to a set of high-level matrix operations.
 

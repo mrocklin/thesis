@@ -150,7 +150,7 @@ In this section we discuss a few generalizations of greedy search.
 
 #### K-deep greedy 
 
-Rather than compute and then minimize over the children of a node we could compute and minimize over the grandchildren.  More generally we can compute and minimize over the descendants of depth k.  This method increases foresight and computational cost.
+Rather than compute and then minimize over the children of a node we could compute and minimize over the grandchildren.  More generally we can compute and minimize over the descendants of depth `k`.  This method increases foresight and computational cost.
 
 #### Breadth first 
 

@@ -53,7 +53,7 @@ rewrites = Relation('rewrites')
 facts(rewrites, *patterns)
 ~~~~~~~~~~~~
 
-Note that the definition of the mathematical patterns depends only on SymPy.  The injection into a LogPy relation is well isolated.  In the future more mature implementations can replace the LogPy interaction easily without necessitating changes in the mathematical code.  Removing such connections enables components to survive obsolesence of neighboring components.  The `patterns` collection does not depend on the continued use of `LogPy`.  By removing unnecessary connections between modules we avoid "weakest link in the chain" survivability.
+Note that the definition of the mathematical patterns depends only on SymPy.  The injection into a LogPy relation is well isolated.  In the future more mature implementations can replace the LogPy interaction easily without necessitating changes in the mathematical code.  Removing such connections enables components to survive obsolescence of neighboring components.  The `patterns` collection does not depend on the continued use of `LogPy`.  By removing unnecessary connections between modules we avoid "weakest link in the chain" survivability.
 
 
 #### LogPy Execution

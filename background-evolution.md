@@ -11,7 +11,7 @@ While these efforts are both commendable and groundbreaking, they must often sac
 
 #### Static Libraries
 
-Fortunately as trends in scientific computing emerge computer science communities are encouraged to produce generally applicable codes for use across many simulations.  Libraries like BLAS/LAPACK, FFTW, QUADPACK, ARPACK, etc... were created and refined early on and maintain relevance today.  These battle-hardened codes form a set of high-level primitive operations on which much of the core community relies.
+Fortunately as trends in scientific computing emerge computer science communities are encouraged to produce generally applicable codes for use across many simulations.  Libraries like BLAS/LAPACK, FFTW, QUADPACK, ARPACK, etc., were created and refined early on and maintain relevance today.  These battle-hardened codes form a set of high-level primitive operations on which much of the core community relies.
 
 
 #### Scripting Languages
@@ -28,7 +28,7 @@ A broad userbase coupled with advances in online code sharing and relatively rob
 
 #### Adaptation to Parallelism
 
-The rise of shared, distributed, and many-core parallelism forces the development community to reevaluate its implementation.  Preexisting scientific software has substantial intellectual value.  Unfortunately the adaptation of this software to take advantage of parallel hardware seems both arduous and necessary.  Like old Fortran codes they are often called from other langauges at great expense (e.g. using foreign function interfaces to call SciPy from Hadoop via Java.)
+The rise of shared, distributed, and many-core parallelism forces the development community to reevaluate its implementation.  Preexisting scientific software has substantial intellectual value.  Unfortunately the adaptation of this software to take advantage of parallel hardware seems both arduous and necessary.  Like old Fortran codes they are often called from other languages at great expense (e.g. using foreign function interfaces to call SciPy from Hadoop via Java.)
 
 
 #### Return to Compilation

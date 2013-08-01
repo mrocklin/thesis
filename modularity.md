@@ -13,7 +13,7 @@ When separation between modules aligns with separation between disciplines of ex
 
 #### Evolution through Interchangeability
 
-When modules are combined with an established interface they become interchangeable with other simultaneous efforts by different groups in the same domain.  Shared interfaces and interchangeability supports experimentation and eases evolution under changing contexts (such as changing hardware,)  which gives users more choices and module developers an immediate audience of applicaitons.
+When modules are combined with an established interface they become interchangeable with other simultaneous efforts by different groups in the same domain.  Shared interfaces and interchangeability supports experimentation and eases evolution under changing contexts (such as changing hardware,)  which gives users more choices and module developers an immediate audience of applications.
 
 #### Reuse
 

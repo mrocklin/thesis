@@ -15,7 +15,7 @@ In this section we examine a stack of numeric libraries for the solution of diff
 
 As just discussed, BLAS is a library for simple dense matrix operations (e.g. matrix multiply) and LAPACK is a similar library for more complex matrix operations (e.g. Cholesky Solve) that calls on BLAS for most manipulations.  PETSc builds on MPI, BLAS, and LAPACK to implement numeric solvers for distributed and sparse problems.  FEniCS is a high level domain specific language that transforms a high-level description of PDEs into C++ code that assembles matrices and then calls PETSc routines.  Each of these libraries builds off of the layers beneath, making use of preexisting high-quality implementations when available.
 
-In a sense this style of hierarchical modularity is like a russian doll.  Each new higher-level project can omit a substantial computational core by depending on generally applicable previous solutions.  New higher level projects must create a shell rather than a complete solid.
+In a sense this style of hierarchical modularity is like a Russian doll.  Each new higher-level project can omit a substantial computational core by depending on generally applicable previous solutions.  New higher level projects must create a shell rather than a complete solid.
 
 
 #### Analysis

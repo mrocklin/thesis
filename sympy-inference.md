@@ -4,7 +4,7 @@ SymPy Inference
 
 \label{sec:sympy-inference}
 
-Later work in this disseration will require inference over mathematical terms.  We discuss this element of SymPy now in preparation.  We often want to test whether algebraic statements are true or not in a general case.  For example, 
+Later work in this dissertation will require inference over mathematical terms.  We discuss this element of SymPy now in preparation.  We often want to test whether algebraic statements are true or not in a general case.  For example, 
 
 *Given that $x$ is a natural number and that $y$ is real, is $x + y^2$  positive?*
 
