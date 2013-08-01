@@ -4,12 +4,12 @@ Covering Matrix Expressions with Computations
 
 \label{sec:matrix-compilation}
 
-We put the software pieces together.  We search for high quality computations to compute a set of matrix expressions.  This will require functionality from the following sections
+We search for high quality computations to compute a set of matrix expressions.  This task will require functionality from the following sections
 
 *   Matrix Language \ref{sec:matrix-language}: extends SymPy to handle symbolic linear algebra
 *   Computations \ref{sec:computations}: describes BLAS/LAPACK at a high level and provides Fortran90 code generation
 *   Pattern Matching \ref{sec:pattern} and LogPy \ref{sec:logpy}: provides functionality to match a current state to a set of valid next states
-*   Graph Search \ref{sec:search}: traverses a potentially large tree of decisions to arrive at a "good" final state.
+*   Graph Search \ref{sec:search-direct}: traverses a potentially large tree of decisions to arrive at a "good" final state.
 
 These projects are disjoint.  In this section we describe the information necessary to compose them to solve our problem in automated generation of mathematically informed linear algebra routines. 
 
@@ -23,7 +23,7 @@ Given a set of expressions-to-be-computed we consider a tree where:
 
 At the top of this tree is the trivial identity computation which computes the desired outputs given those same outputs as inputs.  At the bottom of this tree are computations whose inputs are not decomposable by any of our patterns.  In particular, some of these leaf computations have inputs that are all atoms; we call these leaves valid.
 
-In principle this tree can be very large negating the possibility of exhaustive search in the general case.  Additionally some branches of this tree may contain dead-ends requiring back-tracking; we may not be able to find a valid all-inputs-are-atoms leaf within a subtree.   We desire an algorithm to find a valid and high-quality leaf of this tree efficiently.
+In principle this tree can be very large, negating the possibility of exhaustive search in the general case.  Additionally some branches of this tree may contain dead-ends requiring back-tracking; we may not be able to find a valid all-inputs-are-atoms leaf within a subtree.   We desire an algorithm to find a valid and high-quality leaf of this tree efficiently.
 
 This problem matches the abstract version in Section \ref{sec:search-direct} on algorithmic search.  In that section we discussed the declarative definition and application of rewrite rules and algorithms to search a decision tree given the following interface: 
 
@@ -31,11 +31,7 @@ This problem matches the abstract version in Section \ref{sec:search-direct} on 
     objective ::  node -> score
     isvalid   ::  node -> bool
 
-In this section we implement a concrete version.  We provide a set of transformation patterns and implementations of the search interface functions.
-
-Section \ref{sec:matrix-patterns} describes transformations declaratively in `SymPy` and `computations`.  Section \ref{sec:matrix-children} uses these transformations and `LogPy` to define the `children` function.  Section \ref{sec:matrix-objective} discusses a simple and effective objective functions on intermediate computations.  Section \ref{sec:matrix-isvalid} quickly defines a validity function.  Section \ref{sec:matrix-search} reproduces a function for simple greedy search with backtracking first encountered in Section \ref{sec:search}.  Finally, Section \ref{sec:matrix-compilation-compile} produces our final code.
-
-We reinforce that this is the entirety of the solution for the particular problem of automated search of dense linear algebra algorithms.  All other intelligence is distributed to the appropriate application agnostic package.
+In this section we implement a concrete version.  We provide a set of transformation patterns and implementations of the search interface functions.  We describe transformations declaratively in `SymPy` and `computations`, and then use these transformations and the `LogPy` project to define the `children` function.  We implement and discusses a simple and effective objective functions on intermediate computations and build a simple validity function.  We reproduce a function for greedy search with backtracking first encountered in Section \ref{sec:search} and finally produce our final code.  We reinforce that this is the entirety of the solution for the particular problem of automated search of dense linear algebra algorithms.  All other intelligence is distributed to the appropriate application agnostic package.
 
 
 #### Compute Patterns 
@@ -72,7 +68,7 @@ include [Children](children.py)
 
 \label{sec:matrix-isvalid}
 
-When we build a computation we ask for the desired inputs of that computation.  Our frontend interface will look like the following:
+When we build a computation we ask for the desired inputs of that computation.  Our frontend interface will look like the following example:
 
 ~~~~~~~~~~~~~~Python
 #      compile(inputs,       outputs       ,   assumptions )
@@ -126,7 +122,7 @@ include [Compile master function](compile.py)
 
 #### Analysis
 
-We chose to explicitly provide code in this section both for completeness and to demonstrate the simplicity of this problem once the appropriate machinery is in place.
+We chose to provide explicit code in this section both for completeness and to demonstrate the simplicity of this problem once the appropriate machinery is in place.
 We showed that once the generally applicable components exist the particular problem of automated matrix algorithm search can be reduced to around 40 lines of general purpose code (including comments and whitespace).  The `conglomerate` project contains very little logic outside of what is present in the application agnostic and reusable packages (like LogPy).  The information that is present is largely expert knowledge for this application (like the objective function or patterns.)
 
 #### Finished Result

@@ -4,7 +4,7 @@ Linear Regression
 
 \label{sec:linear-regression}
 
-Linear regression is a common computational problem in data driven science.  It is used to find parameters $\beta$ such that several equations of the form $\beta_n x_{i,n} + \beta_{i,n-1} x_{i,n-1} + \beta_{i,1} x_{i,1} + \beta_{i,0} = y_i$ are correct possible for many $i$.  In practice there are many more equations than unknowns and so these equations can not be satisfied exactly.  Instead the $\beta$s are chosen to minimize the squared error.
+We automatically generate code to compute least squares linear regression, a common application first encountered in Section \ref{sec:matrix-language}.
 
 $$ X \beta \cong y $$
 
@@ -15,7 +15,7 @@ $$ X \beta \cong y $$
 \label{fig:linregress-xy}
 \end{figure}
 
-The solution to this problem can be posed as a matrix expression.  The $\beta_i$ which minimize the squared error of the above equation can be computed by the following:
+The solution to this problem can be posed as the following matrix expression which will serve as the input to our compilation chain.
 
 $$ \beta = (X^TX)^{-1}X^Ty $$
 

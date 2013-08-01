@@ -12,7 +12,7 @@ In this chapter we compose software components from the previous sections to cre
 *   Chapter \ref{sec:computations}: Computations
 *   Chapter \ref{sec:term-rewrite-systems}: Term Rewriting
 
-We then use this system to produce codes for common matrix expressions.  These examples demonstrate both the ability and the extensibility of our system.
+We then compose these components to create a larger system to produce numeric codes for common matrix expressions called.  These examples demonstrate both the ability and the extensibility of our system.  We refer to this composition as the `conglomerate` project.  Specifically we will construct two computations that are common in scientific computing, least squares linear regression and the Kalman Filter.  In each case we will highlight the added value of modular design.
 
 include [Compilation](matrix-compilation.md)
 
