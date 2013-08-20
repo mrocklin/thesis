@@ -24,9 +24,20 @@ header-tmp.tex: tex/official-header.tex
 		> tex/header-tmp.tex
 
 
-dissertation.tex: images/pdfs dissertation.md front.md lib.bib header-tmp.tex
+dissertation2.md: images/pdfs dissertation.md front.md lib.bib header-tmp.tex
 	python scripts/include.py dissertation.md dissertation2.md
 	python scripts/dollar.py dissertation2.md dissertation2.md
+
+tech-report.tex: 
+	python scripts/include.py tech-report.md tech-report2.md
+	python scripts/dollar.py tech-report2.md tech-report2.md
+	pandoc tech-report2.md -o tech-report.tex --standalone -H tex/header.tex
+
+tech-report: tech-report.tex
+	pdflatex tech-report.tex
+	bibtex tech-report.aux
+
+dissertation.tex: dissertation2.md
 	pandoc dissertation2.md -o dissertation.tex
 	cat tex/header-tmp.tex dissertation.tex tex/official-footer.tex \
 				| sed s/\\\\section/\\\\chapter/  						 \
