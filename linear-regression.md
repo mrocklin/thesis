@@ -53,6 +53,8 @@ And so a further refined solution looks like the following, using a specialized 
  MatLab        `beta = (X'*X) \ (X'*y)`
 -------------- -----------------------------
 
+\newpage
+
 
 #### Connecting Math and Computation
 
