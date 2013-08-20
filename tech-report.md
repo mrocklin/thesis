@@ -1,5 +1,6 @@
-
-
+% Mathematically Informed Linear Algebra Codes Through Term Rewriting
+% Matthew Rocklin
+% August 2013
 
 \begin{abstract}
 include [Abstract](abstract.md)

@@ -31,7 +31,8 @@ dissertation2.md: images/pdfs dissertation.md front.md lib.bib header-tmp.tex
 tech-report.tex: 
 	python scripts/include.py tech-report.md tech-report2.md
 	python scripts/dollar.py tech-report2.md tech-report2.md
-	pandoc tech-report2.md -o tech-report.tex --standalone -H tex/header.tex
+	pandoc tech-report2.md -o tech-report.tex --standalone -H tex/preamble-extra.tex -A tex/biblio.tex
+	python scripts/inject-header.py tech-report.tex tex/header.tex 1 tech-report.tex
 
 tech-report: tech-report.tex
 	pdflatex tech-report.tex
