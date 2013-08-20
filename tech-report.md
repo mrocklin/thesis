@@ -2,9 +2,17 @@
 % Matthew Rocklin
 % August 2013
 
+\newpage
+
+\tableofcontents
+
+\newpage
+
 \begin{abstract}
 include [Abstract](abstract.md)
 \end{abstract}
+
+\newpage
 
 include [Introduction](introduction.md)
 
