@@ -18,11 +18,9 @@ The ATLAS system benchmarks several possible implementations with different bloc
 Instead of searching a parameter space the BLAS can be optimized by hand.  Kazushige Goto, a single developer, hand-tunes the generated assembly of BLAS for particular architectures.  GOTO BLAS\cite{Goto2008} is frequently among the fastest implementations available, routinely beating vendor supplied implementations.  This implementation is an example of a single expert in low-level computation and memory hierarchy distributing expertise through software.
 
 
-#### Formal Linear Algebra Methodology Environment (FLAME) 
+#### Formal Linear Algebra Methodology Environment (FLAME)
 
 The FLAME project provides a language for the idiomatic expression of blocked matrix computations.  FLAME\cite{Geijn2008} lowers barriers to designing novel matrix algorithms and provides some automated reasoning capabilities.  Using these methods FLAME is able to search the space of possible algorithms when creating a BLAS/LAPACK library.
-
-The FLAME group collaborates with Kazushige Goto in an effort to automate and more broadly apply expertise
 
 
 #### Math Kernel Library (MKL)
@@ -53,8 +51,8 @@ The distributed memory variant of Plasma, depends on DAGuE\cite{Bosilca2012}, a 
 
 #### Elemental
 
-Elemental\cite{Poulson2010} forks FLAME to handle distributed memory parallelism.  Elemental breaks the fundamental model of fixed blocks/tiles, instead employing a more dynamic scheduler.
-
+Elemental\cite{Poulson2010} breaks the computation into element-sized blocks
+($1 \times 1$) and distributes them across distributed memory systems.
 
 #### Matrix Algebra on GPU and Multicore Architectures (MAGMA)
 
