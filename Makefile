@@ -28,7 +28,7 @@ dissertation2.md: images/pdfs dissertation.md front.md lib.bib header-tmp.tex
 	python scripts/include.py dissertation.md dissertation2.md
 	python scripts/dollar.py dissertation2.md dissertation2.md
 
-tech-report.tex: tech-report.md
+tech-report.tex: tech-report.md background.md background-automation.md lib.bib
 	python scripts/include.py tech-report.md tech-report2.md
 	python scripts/dollar.py tech-report2.md tech-report2.md
 	pandoc tech-report2.md -o tech-report.tex --standalone -H tex/preamble-extra.tex -A tex/biblio.tex
