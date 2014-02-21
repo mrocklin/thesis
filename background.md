@@ -23,4 +23,7 @@ include [Trilinos](trilinos.md)
 
 include [Automation](background-automation.md)
 
+
+## Conclusion
+
 Scientific software development has a rich history with a variety of approaches from which we can draw insight.  High-level decisions in interfaces, data structures, and community have strong impacts on the practicality of the code, perhaps eclipsing the virtues of the low-level performance qualities.  Interfaces supporting modular development can succeed where guaranteed federal funding and development fail.
