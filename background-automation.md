@@ -16,7 +16,13 @@ The Tensor Contraction Engine\cite{Hirata2003} accelerates quantum chemistry pro
 
 Built-to-Order BLAS\cite{BTO:ComposedLinAlgKernels} enables the fusion of high-level operations within the BLAS family, reducing the number of requisite passes over memory.
 
-Work by Bientinesi and Fabregat\cite{CLAK-VECPAR12, CLAK-IJHPCA} translates matrix expressions into a sequence of appropriate BLAS and LAPACK calls, selecting calls based on mathematical inference provided by rules encoded into Mathematica.  They also TODO: **Add more here**  This work is similar to the work we present in Sections \ref{sec:computations},\ref{sec:voltron}.
+Work by Bientinesi and Fabregat\cite{CLAK-VECPAR12, CLAK-IJHPCA} translates
+matrix expressions into a sequence of appropriate BLAS and LAPACK calls,
+selecting calls based on mathematical inference provided by rules encoded into
+Mathematica.  This work is similar to the work we present in Sections
+\ref{sec:computations},\ref{sec:voltron}.  They also deal with iterative
+algorithms and provide a search strategy specific to matrix compilation, a
+problem that we discuss in \ref{sec:search}.
 
 Automation has long been used in general purpose programming to facilitate the creation of efficient low-level code by those not sufficiently expert to create it by hand.  When we elevate this idea to higher levels of abstraction it is well poised to assist with the training disparity in scientific computing.
 
