@@ -20,8 +20,10 @@ Instead of searching a parameter space the BLAS can be optimized by hand.  Kazus
 
 #### Formal Linear Algebra Methodology Environment (FLAME)
 
-The FLAME project provides a language for the idiomatic expression of blocked matrix computations.  FLAME\cite{Geijn2008} lowers barriers to designing novel matrix algorithms and provides some automated reasoning capabilities.  Using these methods FLAME is able to search the space of possible algorithms when creating a BLAS/LAPACK library.
-
+The FLAME project provides a language for the high-level description of block matrix
+algorithms.  From these descriptions it generates low-level code.  Through this
+approach it strives to lower entry barriers.  Additionally this project ships a
+competitive BLAS/LAPACK library generated using their methods.
 
 #### Math Kernel Library (MKL)
 

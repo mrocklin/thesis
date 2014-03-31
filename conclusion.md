@@ -4,7 +4,7 @@ Conclusion
 
 \label{sec:conclusion}
 
-This dissertation promotes the value of modularity in scientific computing, primarily through the construction of a modular system for the generation of mathematically informed numerical linear algebra codes.  We have highlighted cases where modularity is particularly relevant in scientific computing due to the abnormally high demands and opportunities from deep expertise.  We hope that this work motivates the use of modularity even in tightly coupled domains.  Additionally, software components included in this work are useful in general applications and are published online with liberal licenses. 
+This dissertation promotes the value of modularity in scientific computing, primarily through the construction of a modular system for the generation of mathematically informed numerical linear algebra codes.  We have highlighted cases where modularity is particularly relevant in scientific computing due to the abnormally high demands and opportunities from deep expertise.  We hope that this work motivates the use of modularity even in tightly coupled domains.  Additionally, software components included in this work are useful in general applications and are published online with liberal licenses.
 
 
 Challenges to Modularity
@@ -30,7 +30,7 @@ Analytics
 
 This dissertation argues for the value of modularity.  Though it is difficult to quantitatively measure this value, it may be that such a quantitative measure would help to raise the issue among non-enthusiast programmer communities.
 
-To this end I suggest the quantitative study of the scientific software ecosystem.  Pervasive use of version control (e.g. `git`) and the recent popularity of online source control communities (e.g. `github`) provide a rich dataset by which we can quantify relationships among code and developers.  Relationships between projects (which projects use what others) can be found from dependency managers (e.g. PyPI, Clojars). Relationships within code (which functions use which others) can be found by parsing the source.  Relationships between developers and code (who built what and how much work did it take) can be found from commit logs.  Relationships between developers (who talks to whom) can be found from online communities (e.g. `github`).  
+To this end I suggest the quantitative study of the scientific software ecosystem.  Pervasive use of version control (e.g. `git`) and the recent popularity of online source control communities (e.g. `github`) provide a rich dataset by which we can quantify relationships among code and developers.  Relationships between projects (which projects use what others) can be found from dependency managers (e.g. PyPI, Clojars). Relationships within code (which functions use which others) can be found by parsing the source.  Relationships between developers and code (who built what and how much work did it take) can be found from commit logs.  Relationships between developers (who talks to whom) can be found from online communities (e.g. `github`).
 
 These relationships describe a large complex graph.  The code elements of this graph can be analyzed for modularity as defined in a complex networks sense\cite{Clauset2004}.  The commit logs can be analyzed to attribute cost to various elements of code.
 
@@ -45,7 +45,7 @@ Understanding and expertise precede optimization.
 Achievements
 ------------
 
-We summarize key achievements contained in this work.  These contributions are either concrete software contributions or general demonstrations of principles. 
+We summarize key achievements contained in this work.  These contributions are either concrete software contributions or general demonstrations of principles.
 
 ### Software
 
@@ -53,7 +53,7 @@ Concrete software contributions include the following:
 
 #### SymPy Matrix Expressions
 
-An extension of a computer algebra system to matrix algebra including both a general language and a robust inference system.  This system is the first to pose and answer questions about abstractly defined matrices.  It serves as repository for commonly used theory of the style found in the popular Matrix Cookbook.  We demonstrated the value of this theory in the creation of numerical computations.
+An extension of a computer algebra system to matrix algebra including both a general language and a robust inference system.  It serves as repository for commonly used theory of the style found in the popular Matrix Cookbook.  We demonstrated the value of this theory in the creation of numerical computations.
 
 #### Computations
 
@@ -76,8 +76,8 @@ We provide a high-level interface and two isolated implementations of static sch
 An extension of SymPy enables the expression of uncertainty in mathematical models.  The abstraction of random variables allows the concepts of uncertainty to compose cleanly with other elements of the computer algebra system.  This module is the first such system within a general computer algebra system.  By relying on and translating to other well used interfaces (like integral expressions) it is able to be broadly accessible while tightening its development scope enabling single-field statisticians to have broad impact in a range of applications.
 
 
-### Principles 
+### Principles
 
-This dissertation demonstrates the value of small composable software modules that align themselves with existing specialist communities.  Experiments in this dissertation focused on the ease with which systems to select and implement sophisticated methods could be developed once the software system was properly separated.  We showed how experts in linear algebra, numerical libraries, and statistics could each provide improvements that significantly impacted numerical performance.  Each of these improvements was trivial for someone within that field and did not depend on simultaneous expertise in other fields.  
+This dissertation demonstrates the value of small composable software modules that align themselves with existing specialist communities.  Experiments in this dissertation focused on the ease with which systems to select and implement sophisticated methods could be developed once the software system was properly separated.  We showed how experts in linear algebra, numerical libraries, and statistics could each provide improvements that significantly impacted numerical performance.  Each of these improvements was trivial for someone within that field and did not depend on simultaneous expertise in other fields.
 
 As the scope of computational science continues to expand we believe that adaptation to developer demographics will increase in importance.
