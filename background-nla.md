@@ -6,7 +6,7 @@ BLAS/LAPACK
 
 ### Design
 
-Computational science often relies on computationally intensive dense linear algebra operations.  This reliance is so pervasive that numerical linear algebra (NLA) libraries are among the most heavily optimized and studied algorithms in the field.  
+Computational science often relies on computationally intensive dense linear algebra operations.  This reliance is so pervasive that numerical linear algebra (NLA) libraries are among the most heavily optimized and studied algorithms in the field.
 
 An early pair of software packages, BLAS and LAPACK\cite{LAPACK}, were sufficiently pervasive to establish a long-standing standard interface between users and developers of dense numerical linear algebra libraries (DLA).  This particular set of algorithms has seen constant development over the last few decades due both to the importance of this problem and to the standard interface.
 
@@ -15,3 +15,5 @@ To optimize these operations fully the software solutions must be tightly couple
 include [BLAS/LAPACK](blas-lapack.md)
 
 include [Parallel solutions](blas-lapack-implementations.md)
+
+include [Array Programming](background-array-programming.md)
