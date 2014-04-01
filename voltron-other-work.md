@@ -6,9 +6,9 @@ Relation to Other Work
 Fabregat-Traver and Bientinesi approached this same problem with similar
 methods\cite{CLAK-VECPAR12, CLAK-IJHPCA}.  They too transform matrix terms
 into BLAS/LAPACK call graphs by searching through a graph of possible
-transformations.  They take this work further by providing heuristics to guide
-and and to constrain the search space, and also by providing support for
-iterative algorithms.
+transformations.  They take this work further by providing matrix-specific
+heuristics to guide and to constrain the search space, and also by providing
+support for iterative algorithms.
 
 While we were aware of their preliminary work early in the development of this
 project, we developed our work independently.  Their work has since delved more

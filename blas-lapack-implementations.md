@@ -45,11 +45,11 @@ is the original widespread implementation of LAPACK for distributed memory archi
 
 #### Elemental
 
-Elemental\cite{Poulson2010} breaks the tie between algorithm and
-distribution block size, often using element-sized distribution blocks
-($1 \times 1$).  This enables load balancing at the cost of novel
-communication patterns.  It also follows more modern software engineering
-practices than older ScaLAPACK style systems.
+Elemental\cite{Poulson2010} breaks the tie between algorithm and distribution
+block size, using element-sized distribution blocks ($1 \times 1$).  This
+improves load balancing at the cost of novel communication patterns.  It also
+follows more modern software engineering practices than older ScaLAPACK style
+systems.
 
 #### Parallel Linear Algebra for Scalable Multi-core Architectures (PLASMA)
 
