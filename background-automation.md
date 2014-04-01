@@ -16,11 +16,12 @@ The Tensor Contraction Engine\cite{Hirata2003} accelerates quantum chemistry pro
 
 Built-to-Order BLAS\cite{BTO:ComposedLinAlgKernels} enables the fusion of high-level operations within the BLAS family, reducing the number of requisite passes over memory.
 
-Work by Bientinesi and Fabregat\cite{CLAK-VECPAR12, CLAK-IJHPCA} translates
-matrix expressions into a sequence of appropriate BLAS and LAPACK calls,
-selecting calls based on mathematical inference provided by rules encoded into
-Mathematica.  This work is similar to the work we present in Sections
-\ref{sec:computations},\ref{sec:voltron}.  They also deal with iterative
+Work by Bientinesi and Fabregat-Traver\cite{CLAK-VECPAR12, CLAK-IJHPCA}
+automatically translates high level matrix expressions into a sequence of
+appropriate BLAS and LAPACK calls, selecting appropriate routines based on
+mathematical inference provided by rules encoded into Mathematica.  This work
+is similar to the work we present in Sections
+\ref{sec:computations}, \ref{sec:voltron}.  They also deal with iterative
 algorithms and provide a search strategy specific to matrix compilation, a
 problem that we discuss in \ref{sec:search}.
 
@@ -30,4 +31,4 @@ In each of the cases above, the automated system was built more-or-less from scr
 
 Just as these projects listed above strive to automate a particular domain there exists various metaprogramming projects which strive to automate the automation of domains.  We discuss these efforts further in Section \ref{sec:trs-background}.
 
-Much of the work that follows investigates the process of constructing domain specific automation, particularly in a linear algebra compiler to that of Bientinesi and Fabregat.  We strive to separate this process into pieces that can be reused in other domains (see Section \ref{sec:extensibility} and can be developed in isolation by single-domain experts.
+Much of the work that follows investigates the process of constructing domain specific automation, particularly in a linear algebra compiler similar to that of Bientinesi and Fabregat-Traver.  We strive to separate this process into pieces that can be reused in other domains (see Section \ref{sec:extensibility}) and can be developed in isolation by single-domain experts.

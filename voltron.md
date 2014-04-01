@@ -16,6 +16,8 @@ We then compose these components to create a larger system to produce numeric co
 
 include [Compilation](matrix-compilation.md)
 
+include [Relation to Other Work](voltron-other-work.md)
+
 include [Linear Regression](linear-regression.md)
 
 include [SYRK](syrk.md)
