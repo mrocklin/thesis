@@ -10,7 +10,14 @@ A standard implementation of BLAS remains available in both Fortran and C.  It i
 
 #### Automatically Tuned Linear Algebra Software (ATLAS)
 
-The ATLAS system benchmarks several possible implementations with different block-size parameters on an architecture before installation.  ATLAS \cite{ATLAS} is able to intelligently select block sizes to fit the memory hierarchy and even selects between different available execution paths with LAPACK.  ATLAS was the first successful use of automated methods in this domain and remains in widespread use.  It is the commonly installed software solution on standard Linux distributions.
+The ATLAS\cite{ATLAS} system produces a BLAS/LAPACK implementation specialized
+to a particular hardware architecture.  It does this by empirically
+benchmarking BLAS/LAPACK directly against that target architecture.  It tunes
+various parameters like block-size to fit the memory hierarchy and selects
+between various valid execution paths within LAPACK.  ATLAS was the first
+successful use of automated methods in this domain and remains in widespread
+use today.  It is the commonly installed software solution on standard Linux
+distributions.
 
 
 #### GOTO BLAS
