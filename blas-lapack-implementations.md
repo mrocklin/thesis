@@ -27,10 +27,11 @@ Instead of searching a parameter space the BLAS can be optimized by hand.  Kazus
 
 #### Formal Linear Algebra Methodology Environment (FLAME)
 
-The FLAME project provides a language for the high-level description of block matrix
-algorithms.  From these descriptions it generates low-level code.  Through this
-approach it strives to lower entry barriers.  Additionally this project ships a
-competitive BLAS/LAPACK library generated using their methods.
+The FLAME project\cite{Bientinesi2005,libflame_ref,TSoPMC} provides a language for the high-level description of block
+matrix algorithms.  From these descriptions it generates low-level code.
+Through this approach it strives to lower entry barriers.  Additionally this
+project ships a competitive BLAS/LAPACK library generated using their methods.
+
 
 #### Math Kernel Library (MKL)
 
@@ -50,6 +51,7 @@ Occasionally communication is handled by a separate abstraction.
 
 is the original widespread implementation of LAPACK for distributed memory architecture.  ScaLAPACK\cite{ScaLAPACK} depends on BLACS\cite{Dongarra1997}, a library for the communication of blocks of memory, to coordinate computation of linear algebra routines across a parallel architecture.  ScaLAPACK was the first major parallel implementation
 
+
 #### Elemental
 
 Elemental\cite{Poulson2010} breaks the tie between algorithm and distribution
@@ -57,6 +59,7 @@ block size, using element-sized distribution blocks ($1 \times 1$).  This
 improves load balancing at the cost of novel communication patterns.  It also
 follows more modern software engineering practices than older ScaLAPACK style
 systems.
+
 
 #### Parallel Linear Algebra for Scalable Multi-core Architectures (PLASMA)
 
